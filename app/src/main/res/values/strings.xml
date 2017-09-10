@@ -1,0 +1,258 @@
+<resources>
+    <string name="facebook_app_id">526548751023182</string>
+    <string name="fb_login_protocol_scheme">fb526548751023182</string>
+    <string name="application_name">THRIVE FANTASY</string>
+    <string name="title_activity_dashboard">Dashboard</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="wallet_balance">Wallet Balance</string>
+
+    <string name="nav_item_add_funds">Add Funds to Wallet</string>
+    <string name="nav_item_withdraw">Withdraw My Earnings</string>
+    <string name="nav_item_history">History Transaction</string>
+    <string name="nav_item_settings">Settings</string>
+    <string name="nav_item_change_password">Change Password</string>
+    <string name="nav_item_terms_condi">Terms &amp; Conditions</string>
+    <string name="nav_item_privacys">Privacy Policy</string>
+    <string name="nav_item_notification">Notification</string>
+    <string name="nav_item_logout">Logout</string>
+    <string name="nav_item_notify_prop_message">Notify me every time a prop picked by me wins</string>
+    <string name="nav_item_notify_match">Notify me 15 minutes before contest starts</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_skip">SKIP</string>
+    <string name="font_dinpro_medium">fonts/DINPro-Medium.ttf</string>
+    <string name="font_dinpro_regular">fonts/DINPro-Regular.ttf</string>
+    <string name="font_dinpro_bold">fonts/DINPro-Bold.ttf</string>
+    <string name="font_dinpro_black">fonts/DINPro-Black.ttf</string>
+
+
+    <string name="connect_with_facebook">CONNECT WITH FACEBOOK</string>
+    <string name="or">OR</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="register">REGISTER</string>
+    <string name="to_be_linked">Easiest way to\nbe linked</string>
+    <string name="ranking">Ranking</string>
+    <string name="rank">Rank</string>
+    <string name="guaranteed_prize">Guaranteed Prize</string>
+    <string name="first_position">1st Position:</string>
+    <string name="last_win_position">Last Win Position:</string>
+    <string name="m">M</string>
+    <string name="entries">Entries:</string>
+    <string name="text_sec">SEC</string>
+    <string name="text_hr">HR</string>
+    <string name="text_min">MIN</string>
+    <string name="traditional">TRADITIONAL</string>
+    <string name="versus">VERSUS</string>
+    <string name="all">ALL</string>
+    <string name="NBA">NBA</string>
+    <string name="MLB">MLB</string>
+    <string name="NFL">NFL</string>
+    <string name="contest_details">Contest Details</string>
+    <string name="wallet_card_balance">Wallet Card &amp; Balance</string>
+
+    <string name="sports">Sport</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="live">Live</string>
+    <string name="history">History</string>
+    <string name="text_tnc"><![CDATA[Terms & Conditions]]></string>
+    <string name="text_privacy_policy">Privacy Policy</string>
+    <string name="unable_to_fetch_n_from_facebook">Unable to fetch\nfrom Facebook</string>
+    <string name="enter_username_to_sign_up">Enter username to Sign Up using\nFacebook</string>
+    <string name="username">Username</string>
+    <string name="email_id">Email ID</string>
+    <string name="email_id_small">email ID</string>
+    <string name="view_onboarding">View Onboarding</string>
+    <string name="how_to_play">How To Play</string>
+    <string name="text_accept_terms_conditions"><![CDATA[By signing up, I agree to the\nPrivacy Policy & the Terms and Conditions.]]></string>
+    <string name="text_please_enter">Please enter %s</string>
+    <string name="text_please_enter_valid">Please enter valid %s</string>
+    <string name="agree_to_tnc"><![CDATA[Please agree to Thrive Fantasy\'s Terms & Conditions and Privacy Policy]]></string>
+    <string name="are_you_sure_logout">Are you sure you want to logout?</string>
+    <string name="title_activity_tab_dummy">TabDummy</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="get_started">GET STARTED</string>
+    <string name="no_internet">Please check your network connection.</string>
+    <string name="server_error">There was an error. Please try again later.</string>
+    <string name="no_contest">No Contest found.\n Please try after some time</string>
+    <string name="no_available_contest">No contest is available to apply.\n Please try after some time</string>
+    <string name="url_privacy">admin/privacy</string>
+    <string name="url_terms">admin/terms</string>
+    <string name="no_props">No Props found.\n Please try after some time</string>
+    <string name="coming_soon">Coming Soon..</string>
+    <string-array name="contest_details">
+        <item>ABOUT</item>
+        <item>ENTRANTS</item>
+        <item>PICKS</item>
+    </string-array>
+    <string-array name="player_details">
+        <item>LAST 5 GAMES</item>
+        <item>SEASON</item>
+    </string-array>
+    <string-array name="sort_filters">
+        <item>Default- Entry Fee</item>
+        <item>Alphabetically</item>
+        <item>Contest ending soonest</item>
+        <item>Points away from first position</item>
+        <item>Points away from last paid position</item>
+        <item>Current winnings descending order</item>
+        <item>Current winnings ascending order</item>
+    </string-array>
+
+    <string-array name="sort_filters_history">
+        <item>Default- Contest Ended Last</item>
+        <item>Alphabetically</item>
+    </string-array>
+
+    <string name="title_activity_contest_details">ContestDetailsActivity</string>
+
+    <string name="date">Date:</string>
+    <string name="time">Time:</string>
+    <string name="multiple_entries_limit">Multiple Entries Limit:</string>
+    <string name="payout_place">Payout Place:</string>
+    <string name="general_information">GENERAL INFORMATION:</string>
+    <string name="summary">SUMMARY:</string>
+    <string name="prize_payout">PRIZE PAYOUT:</string>
+    <string name="view_all">View All</string>
+    <string name="edit_picks">EDIT PICKS</string>
+    <string name="apply_similar">APPLY SIMILAR</string>
+    <string name="re_enter">RE-ENTER</string>
+    <string name="enter">ENTER CONTEST</string>
+    <string name="invite_friends">INVITE FRIENDS</string>
+    <string name="invite_friend">INVITE FRIEND</string>
+    <string name="players">PLAYERS</string>
+    <string name="points">POINTS</string>
+    <string name="my_picks">MY PICKS</string>
+    <string name="points_small">Points</string>
+    <string name="propes">PROPS</string>
+    <string name="picks">PICKS</string>
+    <string name="live_n_points">LIVE\nPOINTS</string>
+    <string name="player_2">PLAYER 2</string>
+    <string name="player_1">PLAYER 1</string>
+    <string name="enter_per_tickets">Entry Per Ticket:</string>
+    <string name="enter_no_entries">No. of Entries:</string>
+    <string name="enter_contest">ENTER CONTEST</string>
+    <string name="re_enter_contest">RE-ENTER CONTEST</string>
+    <string name="text_under">Under = %s PTS</string>
+    <string name="text_over">Over = %s PTS</string>
+    <string name="points_only">%s PTS</string>
+    <string name="points_pts">PTS</string>
+    <string name="total_payments">Total Payment</string>
+    <string name="pay_now">ADD NOW</string>
+    <string name="game_info">%1$s-%2$s </string>
+    <string name="team_info">%1$s @ %2$s </string>
+    <string name="no_entrants_available">No entrants available.</string>
+    <string name="no_other_entrants_available">No other entrants available.</string>
+    <string name="text_following">FOLLOWING</string>
+    <string name="text_follow">FOLLOW</string>
+    <string name="text_game">GAME</string>
+    <string name="max_props">You have selected maximum props for this contest. </string>
+    <string name="ice_props">Please select 2 ICE props. </string>
+    <string name="props_select">Please select %d props. </string>
+    <string name="select_props">Please select %s more props. </string>
+    <string name="select_props_ice">Please select %s more ice picks. </string>
+    <string name="entered_contest">You have successfully entered into the contest. </string>
+    <string name="create_your_naccount">Create Your Account</string>
+    <string name="password">Password</string>
+    <string name="vs">VS</string>
+    <string name="under">UNDER</string>
+    <string name="over">OVER</string>
+    <string name="save">UPDATE CONTEST</string>
+    <string name="featured">Featured</string>
+    <string name="sort">Sort</string>
+    <string name="under_over_points">%1$s\n%2$d\nPTS</string>
+    <string name="text_owned">Owned\n%1$s</string>
+    <string name="text_points_needed">%1$d Points Needed</string>
+    <string name="text_total_with_newline">Total\n(%1$s)</string>
+    <string name="text_total">Total (%1$s)</string>
+    <string name="message_props_available">Selections made till now shall be lost.</string>
+    <string name="hello_there_n_welcome_back">Hello there!\nWelcome Back</string>
+    <string name="don_t_have_an_account">Don’t have an account?</string>
+    <string name="text_register">Register</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="password_reset_instructions">Enter your email below to receive your password\nreset instructions.</string>
+    <string name="send_password">SEND PASSWORD</string>
+    <string name="no_of_prize_paid">No. of Prize Paid:</string>
+    <string name="winner_points">Winner Points:</string>
+    <string name="total_price">Total Prize</string>
+    <string name="prize_earn">Prize Earned:</string>
+    <string name="live_points">Live Points</string>
+    <string name="text_stats">STATS</string>
+    <string name="clear">CLEAR</string>
+    <string name="alert">Alert</string>
+    <string name="password_must_contain">Password must contain one lowercase letter, one\nnumber, and be at least 6 characters long.</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="no_contest_found">No Contest Found </string>
+    <string name="password_should_match">New Password and Confirm Password should match.</string>
+    <string name="authentication_req">Authentication Required , Please login again.</string>
+    <string name="please_provide_1_entry">Please provide at least 1 entry.</string>
+    <string name="no_notifications_are_available_at_this_moment">No notifications are available\nat this moment.</string>
+    <string name="entering_in_contest">ENTERING IN CONTEST: 1st Time</string>
+    <string name="withdraw_contest">Withdraw Contest</string>
+    <string name="text_withdraw">Withdraw</string>
+    <string name="sure_to_withdraw">Are you sure to withdraw from this contest?</string>
+
+    <string name="sec">sec ago</string>
+    <string name="min">min ago</string>
+    <string name="hrs">hrs ago</string>
+    <string name="hr">hr ago</string>
+    <string name="done">DONE</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="_1st_prize_payout">1st prize payout: </string>
+    <string name="import_title">Import Picks</string>
+    <string name="apply_similar_title">Apply Similar</string>
+    <string name="blank_data">-</string>
+    <string name="submit">SUBMIT</string>
+    <string name="import_picks">IMPORT PICKS</string>
+    <string name="multiple_entries_not_allowed">Multiple entries are not allowed.</string>
+    <string name="pts">PTS</string>
+    <string name="position_filled">Position Filled: %1$s/%2$s</string>
+    <string name="ice_picks">ICE Pick: %s</string>
+    <string name="wallet_dollar">$ %d</string>
+    <string name="select_picks_apply">Please select atleast one contest.</string>
+    <string name="owned_points">Earned Points:</string>
+    <string name="password_security_message">Password length must be from 6-100 characters long and must not contain spaces.</string>
+    <string name="head_to_head">HEAD TO HEAD - </string>
+    <string name="players_n_props"><![CDATA[PLAYERS & PROPS]]></string>
+    <string name="opponents_picks">OPPONENT’S  PICKS</string>
+    <string name="player_vs_player">PLAYER 1 VS PLAYER 2</string>
+    <string name="live_contest">Live Contest</string>
+    <string name="available_to_spend">Available to spend</string>
+    <string name="add_fund_to_wallet">Add Funds to Wallet</string>
+    <string name="amount">Amount($)</string>
+    <string name="enter_amount">Please enter amount to add.</string>
+    <string name="enter_valid_amount">Please enter valid amount.</string>
+    <string name="added_to_your">Added to your Wallet balance</string>
+    <string name="payment_succesfull">Payment \nSuccessful</string>
+    <string name="text_okay">OKAY</string>
+    <string name="player_points">Live Points: %1$s</string>
+    <string name="digit_password">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@_.0123456789!#$%*?-+=&amp;&lt;&gt;\'\":;/~|,%</string>
+    <string name="digit_username">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz @_.0123456789!#$%*?-+=&amp;&lt;&gt;\'\":;/~|,%</string>
+    <string name="your_account_has_been_de_activated_from_p2f_kindly_contact_your_administrator">Your account has been de-activated from P2F. Kindly Contact your Administrator.</string>
+    <string name="text_picks_separator">Cool, you have picked your %1$d %2$s. Just pick your 2 ICE (In case of emergency) props from below list.</string>
+    <string name="ice_primary">ICE Pick 1</string>
+    <string name="ice_secondary">ICE Pick 2</string>
+    <string name="last_games_played">Games Played :  %1$d</string>
+    <string name="innings_suffix">%1$s | %2$s %3$s - %4$s %5$s</string>
+    <string name="innings_suffix_history">Final | %1$s %2$s - %3$s %4$s</string>
+    <string name="qtr_suffix">%1$s QTR | %2$s %3$s - %4$s %5$s</string>
+    <string name="game_info_suffix">%1$s %2$s - %3$s %4$s</string>
+    <string name="innings_only_suffix">%1$s INN</string>
+    <string name="qtr_only_suffix">%1$s QTR</string>
+    <string name="status_end">Final</string>
+    <string name="loading_percent">Loading: %s</string>
+    <string name="accept_new_tnc">Terms and Conditions have been updated. Please accept new terms and conditions to continue.</string>
+    <string name="accept">ACCEPT</string>
+    <string name="max_points_cannot_be_zero">Maximum points cannot be zero for selected props.</string>
+    <string name="text_final">Final</string>
+    <string name="this_prop_has_been_disabled">This prop has been disabled.</string>
+    <string name="cannot_edit_due_to_disabled_props">You cannot edit props when atleast one prop got disabled.</string>
+    <string name="contest_filled">CONTEST FILLED</string>
+</resources>

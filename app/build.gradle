@@ -1,0 +1,216 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+    maven { url 'https://jitpack.io' }
+}
+
+apply plugin: 'realm-android'
+
+// Create a variable called keystorePropertiesFile, and initialize it to your
+// keystore.properties file, in the rootProject folder.
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+
+// Initialize a new Properties() object called keystoreProperties.
+def keystoreProperties = new Properties()
+
+// Load your keystore.properties file into the keystoreProperties object.
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
+// Application Name
+def appName = "Revolution Buy"
+
+// Application Id
+def final yourApplicationId = 'com.revauc.revolutionbuy'
+
+//version name
+def fullVersion = RELEASE_VER_NAME + DOT + RELEASE_VER_BUILD
+
+
+android {
+
+    signingConfigs {
+        config {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+    dataBinding {
+        enabled true
+    }
+
+
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "com.revauc.revolutionbuy"
+        minSdkVersion 21
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled = true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            lintOptions {
+                disable 'MissingTranslation'
+                abortOnError false
+            }
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            versionNameSuffix '-Release'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            minifyEnabled false
+            versionNameSuffix '-Debug'
+        }
+    }
+
+
+
+    packagingOptions {
+        pickFirst 'META-INF/rxjava.properties'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                //def fileName = (outputFile.name.replace('.apk', "-${versionName}.apk")).replace('app',appName)
+                output.outputFile = new File(outputFile.parent, "${appName}-${versionName}.apk")
+            }
+        }
+    }
+
+    flavorDimensions "environment"
+    productFlavors {
+        QA {
+            dimension "environment"
+            applicationId yourApplicationId + DOT + RELEASE_FLAV_QA
+//            buildConfigField "String", "BASE_URL", "\"http://P2F-QA-ELB-1420757754.us-east-1.elb.amazonaws.com/props2Fantasy/\""
+            buildConfigField "String", "BASE_URL", "\"https://qa.revolutionbuy.com/api/\""
+//              buildConfigField "String", "BASE_URL", "\"http://192.168.2.101:8080/props2Fantasy/\""
+
+            resValue("string", "app_name", appName + RELEASE_FLAV_QA)
+            versionName fullVersion + RELEASE_FLAV_QA as String
+        }
+        Dev {
+            dimension "environment"
+            applicationId yourApplicationId + DOT + RELEASE_FLAV_DEV
+            buildConfigField "String", "BASE_URL", "\"https://dev.revolutionbuy.com/api/\""
+            resValue("string", "app_name", appName)
+            versionName fullVersion + RELEASE_FLAV_DEV as String
+
+        }
+        Production {
+            dimension "environment"
+            applicationId yourApplicationId
+            resValue("string", "app_name", appName)
+            buildConfigField "String", "BASE_URL", "\"https://api.revolutionbuy.com/api/\""
+            versionName fullVersion as String
+        }
+        Staging {
+            dimension "environment"
+            applicationId yourApplicationId + DOT + RELEASE_FLAV_Staging
+            resValue("string", "app_name", appName)
+            buildConfigField "String", "BASE_URL", "\"https://staging.revolutionbuy.com/api/\""
+//            buildConfigField "String", "BASE_URL", "\"https://thrive-fantasy-staging.herokuapp.com/\""
+            versionName fullVersion + "-" + RELEASE_FLAV_Staging as String
+        }
+    }
+
+    dexOptions {
+        jumboMode true
+    }
+}
+
+ext {
+    //supportLibrary Version
+    supportLibrary = '25.3.1'
+
+    //Play services Version
+    playServiceVersion = '10.2.4'
+
+    //fireBase Version
+    fireBaseLibrary = '10.2.4'
+
+    //leakCanary Version
+    leakCanaryLibrary = '1.5'
+
+    //Retrofit Version
+    retrofitVersion = '2.1.0'
+
+    //React Version
+    reactVersion = '2.0.1'
+
+
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    //Third party libs
+    //square up
+    compile "com.google.android.gms:play-services-location:${playServiceVersion}"
+    compile "io.reactivex.rxjava2:rxandroid:$reactVersion"
+    compile "io.reactivex.rxjava2:rxjava:$reactVersion"
+    compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    compile "com.squareup.retrofit2:converter-jackson:$retrofitVersion"
+    //android
+    compile "com.android.support:design:${supportLibrary}"
+    compile "com.android.support:customtabs:${supportLibrary}"
+    compile "com.android.support:recyclerview-v7:${supportLibrary}"
+    compile "com.android.support:cardview-v7:${supportLibrary}"
+    compile "com.android.support:appcompat-v7:${supportLibrary}"
+    compile "com.android.support:support-annotations:${supportLibrary}"
+    debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanaryLibrary"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryLibrary"
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryLibrary"
+    compile "com.google.firebase:firebase-crash:$fireBaseLibrary"
+    compile "com.google.firebase:firebase-messaging:$fireBaseLibrary"
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'cat.ereza:customactivityoncrash:1.5.0'
+    compile 'com.orhanobut:hawk:2.0.1'
+    compile 'com.facebook.android:facebook-android-sdk:4.22.0'
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'jp.wasabeef:recyclerview-animators:2.2.6'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.androidadvance:topsnackbar:1.1.1'
+    compile 'com.facebook.rebound:rebound:0.3.8'
+    compile 'io.realm:android-adapters:2.0.0'
+    compile 'com.paypal.sdk:paypal-android-sdk:2.15.3'
+    compile 'com.github.aerdy:Android-Viger_View_Pager_PDF_OpenSource:-SNAPSHOT'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true;
+    }
+}
+
+apply plugin: 'com.google.gms.google-services'

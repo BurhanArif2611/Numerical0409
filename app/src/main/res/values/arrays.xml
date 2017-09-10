@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer-array name="walkthrough_imgs">
+        <item>@drawable/ic_walkthrough1</item>
+        <item>@drawable/ic_walkthrough2</item>
+        <item>@drawable/ic_walkthrough3</item>
+    </integer-array>
+
+</resources>

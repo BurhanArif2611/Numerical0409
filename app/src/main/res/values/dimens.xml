@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!--Animation Duration-->
+    <integer name="duration">400</integer>
+    <integer name="textview_animation_duration">300</integer>
+    <integer name="read_more_text_max_lines">3</integer>
+    <integer name="slide_animation_duration">300</integer>
+    <integer name="snackbar_message_max_lines">300</integer>
+
+
+
+</resources>

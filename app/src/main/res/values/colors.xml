@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#00708e</color>
+    <color name="colorPrimaryDark">#00647f</color>
+    <color name="colorPrimaryDark80">#8000647f</color>
+    <color name="colorAccent">#00c8ff</color>
+    <color name="colorAccent_10">#1A00c8ff</color>
+    <color name="colorRed">#fd5774</color>
+    <color name="splash_bg">#002028</color>
+    <color name="white">#ffffff</color>
+    <color name="ice_blue">#f4fffe</color>
+    <color name="tab_text_selected">#0f4459</color>
+    <color name="turquoise_blue">#00afdf</color>
+    <color name="ice_blue_two">#f4ffff</color>
+    <color name="teal_blue_10">#1A007c9d</color>
+    <color name="teal_blue">#007c9d</color>
+    <color name="teal_blue_40">#66007c9d</color>
+    <color name="teal_blue_dark">#00323f</color>
+    <color name="black_87">#dd000000</color>
+    <color name="black_55">#8C000000</color>
+    <color name="black">#000000</color>
+    <color name="black_70">#b3000000</color>
+    <color name="dark_teal_two">#00323f</color>
+    <color name="twilight_blue">#0c5d7b</color>
+    <color name="colorTextFacebookLogin">#FEFEFE</color>
+    <color name="colorFacebookButton">#3b5998</color>
+    <color name="colorTealBlue">#007c9d</color>
+    <color name="colorMLabelBg">#004d62</color>
+    <color name="color_edit_text">#f2f2f2</color>
+    <color name="colorEditTextTint">#3300c8ff</color>
+    <color name="yellow_orange">#ffb300</color>
+    <color name="color_scrollbar">#ffb300</color>
+    <color name="white_50">#80ffffff</color>
+    <color name="white_85">#D9ffffff</color>
+    <color name="nice_blue">#1189b9</color>
+    <color name="color_rank_blue_85">#D939b4fa</color>
+    <color name="white_70">#B3ffffff</color>
+
+    <color name="color_ranking_black">#191919</color>
+    <color name="color_skyblue_button">#00b6e8</color>
+    <color name="pale_blue">#dbf9fe</color>
+    <color name="color_hyperlink">#17bbff</color>
+    <color name="color_blue_screen_bg">#33337081</color>
+    <color name="color_blue_separator_bg">#1A337081</color>
+    <color name="color_ice_blue">#f4ffff</color>
+    <color name="navy">#00232c</color>
+    <color name="navy_two">#001921</color>
+    <color name="navy_two_50">#80001921</color>
+    <color name="warm_grey">#979797</color>
+    <color name="navy_two_alpha">#B3001921</color>
+    <color name="bright_sky_blue_two">#3300c7fe</color>
+    <color name="color_green">#008e75</color>
+    <color name="color_red">#8e0000</color>
+    <color name="ugly_blue">#337081</color>
+    <color name="ugly_blue_10">#26337081</color>
+    <color name="gray">#D3D3D3</color>
+
+
+
+
+
+
+</resources>
+
+
+    <!--100% — FF--><!--95% — F2--><!--90% — E6--><!--85% — D9--><!--80% — CC--><!--75% — BF--><!--70% — B3--><!--65% — A6--><!--60% — 99--><!--55% — 8C--><!--50% — 80--><!--45% — 73--><!--40% — 66--><!--35% — 59--><!--30% — 4D--><!--25% — 40--><!--20% — 33--><!--15% — 26--><!--10% — 1A--><!--5% — 0D--><!--0% — 00-->

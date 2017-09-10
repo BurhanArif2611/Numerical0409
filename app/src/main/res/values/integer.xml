@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="tab_icon_size">26</integer>
+    <integer name="password_min_length">6</integer>
+</resources>
