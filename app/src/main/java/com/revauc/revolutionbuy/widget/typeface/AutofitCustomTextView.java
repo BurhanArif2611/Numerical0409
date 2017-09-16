@@ -41,7 +41,7 @@ public class AutofitCustomTextView extends AutofitTextView {
         if (a.hasValue(R.styleable.CustomTextView_customFont))
             customFont = a.getString(R.styleable.CustomTextView_customFont);
         else
-            customFont = ctx.getString(R.string.font_dinpro_regular);
+            customFont = ctx.getString(R.string.font_avenir_regular);
         setCustomFont(ctx, customFont);
         a.recycle();
     }

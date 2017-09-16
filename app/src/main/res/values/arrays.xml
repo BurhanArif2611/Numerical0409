@@ -2,9 +2,30 @@
 <resources>
 
     <integer-array name="walkthrough_imgs">
-        <item>@drawable/ic_walkthrough1</item>
-        <item>@drawable/ic_walkthrough2</item>
-        <item>@drawable/ic_walkthrough3</item>
+        <item>@drawable/ic_onboarding1</item>
+        <item>@drawable/ic_onboarding2</item>
+        <item>@drawable/ic_onboarding3</item>
+        <item>@drawable/ic_onboarding4</item>
     </integer-array>
+
+    <integer-array name="categories_imgs">
+        <item>@drawable/ic_antique_active</item>
+        <item>@drawable/ic_automotive_active</item>
+        <item>@drawable/ic_baby_active</item>
+        <item>@drawable/ic_clothing_active</item>
+        <item>@drawable/ic_collectibles_active</item>
+        <item>@drawable/ic_electronics_active</item>
+        <item>@drawable/ic_health_active</item>
+        <item>@drawable/ic_home_active</item>
+        <item>@drawable/ic_jewellery_active</item>
+        <item>@drawable/ic_musical_active</item>
+        <item>@drawable/ic_shoes_active</item>
+        <item>@drawable/ic_sporting_active</item>
+        <item>@drawable/ic_tools_active</item>
+        <item>@drawable/ic_toys_active</item>
+        <item>@drawable/ic_video_active</item>
+        <item>@drawable/ic_everyting_active</item>
+    </integer-array>
+
 
 </resources>

@@ -17,10 +17,10 @@ import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.RevBuyApp;
 import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.RequestController;
-import com.revauc.revolutionbuy.network.request.auth.FBLoginRequest;
-import com.revauc.revolutionbuy.network.response.auth.LoginResponse;
-import com.revauc.revolutionbuy.network.response.auth.LogoutResponse;
-import com.revauc.revolutionbuy.network.response.auth.UserDto;
+//import com.revauc.revolutionbuy.network.request.auth.FBLoginRequest;
+//import com.revauc.revolutionbuy.network.response.auth.LoginResponse;
+//import com.revauc.revolutionbuy.network.response.auth.LogoutResponse;
+//import com.revauc.revolutionbuy.network.response.auth.UserDto;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.util.Alert;
@@ -323,82 +323,82 @@ public abstract class BaseActivity extends AppCompatActivity {
 //    }
 
 
-    public void loginSignUpWithFacebook(final String email, String username, final String facebookToken, String latLong) {
-        showProgressBar();
-        AuthWebServices apiService = RequestController.createRetrofitRequest(true);
-        final FBLoginRequest request = new FBLoginRequest();
-        request.setEmail(email);
-        request.setAccessToken(facebookToken);
-        request.setDevicetype(Constants.DEVICE_TYPE_ANDROID);
-        request.setDeviceID(UUID.randomUUID().toString());
-        request.setDeviceToken(PreferenceUtil.getFCMToken());
-        request.setLatLongStr(latLong);
-        request.setUsername(username);
-        apiService.loginUsingFacebook(request).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<LoginResponse>(this) {
-
-            @Override
-            public void onResponse(LoginResponse response) {
-                hideProgressBar();
-                if (response.isSuccess()) {
-                    PreferenceUtil.setLoggedIn(true);
-                    PreferenceUtil.setFbLogin(true);
-                    UserDto userData = response.getResponse().getUserDto();
-                    PreferenceUtil.setUserProfile(userData);
-                    PreferenceUtil.setInviteToJoin(response.getResponse().getInviteToJoin());
-                    PreferenceUtil.setAuthToken(response.getResponse().getAccessToken());
-//                    Intent intent = new Intent(BaseActivity.this, DashboardActivity.class);
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    startActivity(intent);
-                }
-            }
-
-            @Override
-            public void onError(Throwable call, BaseResponse baseResponse) {
-                hideProgressBar();
-                if (baseResponse != null) {
-                    String errorMessage = baseResponse.getMessage();
-                    int errorCode = baseResponse.getStatusCode();
-                    if (errorCode == Constants.ERRORCODE_EMAIL_REQUIRED || errorCode == Constants.ERRORCODE_USERNAME_REQUIRED) {
-//                        Intent intent = new Intent(BaseActivity.this, FacebookAccountActivity.class);
-//                        intent.putExtra(Constants.EXTRA_FACEBOOK_EMAIL, email);
-//                        intent.putExtra(Constants.EXTRA_ERROR_MESSAGE, errorMessage);
-//                        intent.putExtra(Constants.EXTRA_FACEBOOK_TOKEN, facebookToken);
-//                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                    } else {
-                        showSnakBarFromTop(errorMessage,true);
-                    }
-                }
-            }
-        });
-    }
-
-    public void logoutUserApi() {
-        showProgressBar();
-        AuthWebServices apiService = RequestController.createRetrofitRequest(false);
-        apiService.logout().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<LogoutResponse>(this) {
-
-            @Override
-            public void onResponse(LogoutResponse response) {
-                hideProgressBar();
+//    public void loginSignUpWithFacebook(final String email, String username, final String facebookToken, String latLong) {
+//        showProgressBar();
+//        AuthWebServices apiService = RequestController.createRetrofitRequest(true);
+//        final FBLoginRequest request = new FBLoginRequest();
+//        request.setEmail(email);
+//        request.setAccessToken(facebookToken);
+//        request.setDevicetype(Constants.DEVICE_TYPE_ANDROID);
+//        request.setDeviceID(UUID.randomUUID().toString());
+//        request.setDeviceToken(PreferenceUtil.getFCMToken());
+//        request.setLatLongStr(latLong);
+//        request.setUsername(username);
+//        apiService.loginUsingFacebook(request).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<LoginResponse>(this) {
+//
+//            @Override
+//            public void onResponse(LoginResponse response) {
+//                hideProgressBar();
 //                if (response.isSuccess()) {
-//                logoutUser();
+//                    PreferenceUtil.setLoggedIn(true);
+//                    PreferenceUtil.setFbLogin(true);
+//                    UserDto userData = response.getResponse().getUserDto();
+//                    PreferenceUtil.setUserProfile(userData);
+//                    PreferenceUtil.setInviteToJoin(response.getResponse().getInviteToJoin());
+//                    PreferenceUtil.setAuthToken(response.getResponse().getAccessToken());
+////                    Intent intent = new Intent(BaseActivity.this, DashboardActivity.class);
+////                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+////                    startActivity(intent);
 //                }
-            }
-
-            @Override
-            public void onError(Throwable call, BaseResponse baseResponse) {
-                hideProgressBar();
-                if (baseResponse != null) {
-                    String errorMessage = baseResponse.getMessage();
-                    int errorCode = baseResponse.getStatusCode();
-                    if (errorMessage != null) {
-                        showSnakBarFromTop(errorMessage,true);
-                    }
-                }
-            }
-        });
-    }
+//            }
+//
+//            @Override
+//            public void onError(Throwable call, BaseResponse baseResponse) {
+//                hideProgressBar();
+//                if (baseResponse != null) {
+//                    String errorMessage = baseResponse.getMessage();
+//                    int errorCode = baseResponse.getStatusCode();
+//                    if (errorCode == Constants.ERRORCODE_EMAIL_REQUIRED || errorCode == Constants.ERRORCODE_USERNAME_REQUIRED) {
+////                        Intent intent = new Intent(BaseActivity.this, FacebookAccountActivity.class);
+////                        intent.putExtra(Constants.EXTRA_FACEBOOK_EMAIL, email);
+////                        intent.putExtra(Constants.EXTRA_ERROR_MESSAGE, errorMessage);
+////                        intent.putExtra(Constants.EXTRA_FACEBOOK_TOKEN, facebookToken);
+////                        startActivity(intent);
+//                        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+//                    } else {
+//                        showSnakBarFromTop(errorMessage,true);
+//                    }
+//                }
+//            }
+//        });
+//    }
+//
+//    public void logoutUserApi() {
+//        showProgressBar();
+//        AuthWebServices apiService = RequestController.createRetrofitRequest(false);
+//        apiService.logout().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<LogoutResponse>(this) {
+//
+//            @Override
+//            public void onResponse(LogoutResponse response) {
+//                hideProgressBar();
+////                if (response.isSuccess()) {
+////                logoutUser();
+////                }
+//            }
+//
+//            @Override
+//            public void onError(Throwable call, BaseResponse baseResponse) {
+//                hideProgressBar();
+//                if (baseResponse != null) {
+//                    String errorMessage = baseResponse.getMessage();
+//                    int errorCode = baseResponse.getStatusCode();
+//                    if (errorMessage != null) {
+//                        showSnakBarFromTop(errorMessage,true);
+//                    }
+//                }
+//            }
+//        });
+//    }
 
 
 }

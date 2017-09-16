@@ -24,17 +24,19 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="text_skip">SKIP</string>
-    <string name="font_dinpro_medium">fonts/DINPro-Medium.ttf</string>
-    <string name="font_dinpro_regular">fonts/DINPro-Regular.ttf</string>
-    <string name="font_dinpro_bold">fonts/DINPro-Bold.ttf</string>
-    <string name="font_dinpro_black">fonts/DINPro-Black.ttf</string>
+    <string name="text_skip">Skip</string>
+    <string name="text_next">Next</string>
+    <string name="font_avenir_medium">fonts/AvenirNext-Medium.ttf</string>
+    <string name="font_avenir_regular">fonts/avenir-next-regular.ttf</string>
+    <string name="font_avenir_bold">fonts/avenir-next-bold.ttf</string>
+    <string name="font_avenir_demibold">fonts/AvenirNext-DemiBold.ttf</string>
+
 
 
     <string name="connect_with_facebook">CONNECT WITH FACEBOOK</string>
     <string name="or">OR</string>
     <string name="sign_in">SIGN IN</string>
-    <string name="sign_up">SIGN UP</string>
+    <string name="sign_up">Sign up</string>
     <string name="register">REGISTER</string>
     <string name="to_be_linked">Easiest way to\nbe linked</string>
     <string name="ranking">Ranking</string>
@@ -76,7 +78,7 @@
     <string name="are_you_sure_logout">Are you sure you want to logout?</string>
     <string name="title_activity_tab_dummy">TabDummy</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="get_started">GET STARTED</string>
+    <string name="get_started">Get Started</string>
     <string name="no_internet">Please check your network connection.</string>
     <string name="server_error">There was an error. Please try again later.</string>
     <string name="no_contest">No Contest found.\n Please try after some time</string>
@@ -107,6 +109,39 @@
     <string-array name="sort_filters_history">
         <item>Default- Contest Ended Last</item>
         <item>Alphabetically</item>
+    </string-array>
+
+    <string-array name="walkthrough_labels">
+        <item>Everything is in reverse</item>
+        <item>Less time searching</item>
+        <item>Want to sell an item?</item>
+        <item>No listing fees</item>
+    </string-array>
+
+    <string-array name="walkthrough_descs">
+        <item>Buyers place items and sellers make the offers.</item>
+        <item>Post items you want to buy then sit back and wait for sellers to respond.</item>
+        <item>View a list of interested buyers then make an offer.</item>
+        <item>Items can be placed for free with no time limit.</item>
+    </string-array>
+
+    <string-array name="categories_labels">
+        <item>Antiques</item>
+        <item>Automotive</item>
+        <item>Baby</item>
+        <item>Clothing &amp; Accessories</item>
+        <item>Collectibles</item>
+        <item>Electronics</item>
+        <item>Health &amp; Beauty</item>
+        <item>Home &amp; Garden</item>
+        <item>Jewellery &amp; Watches</item>
+        <item>Musical Instruments &amp; Equipment</item>
+        <item>Shoes</item>
+        <item>Sporting Goods</item>
+        <item>Tools &amp; Trades</item>
+        <item>Toys</item>
+        <item>Video Games &amp; Accessories</item>
+        <item>Everything Else</item>
     </string-array>
 
     <string name="title_activity_contest_details">ContestDetailsActivity</string>
@@ -255,4 +290,19 @@
     <string name="this_prop_has_been_disabled">This prop has been disabled.</string>
     <string name="cannot_edit_due_to_disabled_props">You cannot edit props when atleast one prop got disabled.</string>
     <string name="contest_filled">CONTEST FILLED</string>
+    <string name="back">Back</string>
+    <string name="login">Login</string>
+    <string name="skip_for_now">Skip for now</string>
+    <string name="signup_with_facebook">Sign up with Facebook</string>
+    <string name="label_or">Or</string>
+    <string name="browse_through_categories">Browse through categories to start selling</string>
+    <string name="profile">Profile</string>
+    <string name="about">About</string>
+    <string name="logout">Logout</string>
+    <string name="contact_admin">Contact Admin</string>
+    <string name="terms_of_use">Terms of Use</string>
+    <string name="stripe_account">Stripe Account</string>
+    <string name="change_mobile_number">Change Mobile Number</string>
+    <string name="your_profile">Your Profile</string>
+    <string name="settings">Settings</string>
 </resources>

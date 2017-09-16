@@ -54,10 +54,6 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:dropDownHorizontalOffset">-16dp</item>
-        <item name="android:dropDownAnchor">@drawable/spinner_drawable</item>
-    </style>
 
     <style name="TextViewNavigationStyle">
         <item name="android:layout_width">match_parent</item>
@@ -93,7 +89,7 @@
         <item name="android:colorForeground">@color/white_50
         </item>
 
-        <item name="trackTint">@color/colorPrimaryDark80</item>
+        <item name="trackTint">@color/colorPrimaryDark</item>
     </style>
 
     <style name="switchThemeHeader" parent="Theme.AppCompat.Light">
@@ -101,19 +97,6 @@
         <item name="colorControlActivated">@color/white</item>
     </style>
 
-
-    <style name="WalletTextView">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_alignParentEnd">true</item>
-        <item name="android:layout_centerVertical">true</item>
-        <item name="android:drawableEnd">@drawable/ic_wallet_white</item>
-        <item name="android:drawablePadding">@dimen/margin_4</item>
-        <item name="android:gravity">bottom</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">@dimen/textsize_14</item>
-
-    </style>
 
 
     <style name="TextSize12">
@@ -133,7 +116,7 @@
     </style>
 
     <style name="TypefaceView">
-        <item name="customTypeface">@string/font_dinpro_medium</item>
+        <item name="customTypeface">@string/font_avenir_regular</item>
     </style>
 
     <style name="customAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">

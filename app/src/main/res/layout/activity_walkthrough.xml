@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager_walkthrough"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+
+        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+            android:id="@+id/textview_skip_walkthrough"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/margin_30"
+            android:layout_marginBottom="@dimen/margin_22"
+            android:text="@string/text_skip"
+            android:padding="@dimen/margin_10"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/textsize_16"
+            app:customFont="@string/font_avenir_regular" />
+
+        <com.revauc.revolutionbuy.widget.CircleIndicator
+            android:id="@+id/indicator_walkthrough"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/margin_16"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/margin_32"
+            app:ci_height="@dimen/margin_5"
+            app:ci_width="@dimen/margin_5" />
+
+        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+            android:id="@+id/textview_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/margin_30"
+            android:layout_marginBottom="@dimen/margin_22"
+            android:text="@string/text_next"
+            android:padding="@dimen/margin_10"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/textsize_16"
+            app:customFont="@string/font_avenir_regular" />
+    </RelativeLayout>
+</layout>

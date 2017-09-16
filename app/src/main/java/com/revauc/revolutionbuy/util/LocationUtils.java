@@ -15,8 +15,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.revauc.revolutionbuy.listeners.LocationUpdateListener;
-import com.revauc.revolutionbuy.ui.BaseActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -28,6 +26,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.revauc.revolutionbuy.ui.BaseActivity;
 
 /**
  *
@@ -47,7 +46,7 @@ public class LocationUtils extends Fragment implements GoogleApiClient.Connectio
     protected LocationSettingsRequest locationSettingsRequest;
     protected Location currentLocation;
     protected Boolean requestingLocationUpdates;
-    private LocationUpdateListener mLocationUpdateListener;
+//    private LocationUpdateListener mLocationUpdateListener;
 
     public static void addFragment(AppCompatActivity activity) {
         FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
@@ -317,7 +316,7 @@ public class LocationUtils extends Fragment implements GoogleApiClient.Connectio
     public void onLocationChanged(Location location) {
         currentLocation = location;
         if (location != null) {
-            mLocationUpdateListener.onLocationUpdate(location);
+//            mLocationUpdateListener.onLocationUpdate(location);
         }
 //        ((BaseActivity) getActivity()).hideProgressBar();
 //        LogUtils.LOGD("Location", "Lat : " + location.getLatitude() + ", " + "Long : " + location.getLongitude());
@@ -335,7 +334,7 @@ public class LocationUtils extends Fragment implements GoogleApiClient.Connectio
         LogUtils.LOGI(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
     }
 
-    public void addLocationUpdateListener(LocationUpdateListener locationUpdateListener) {
-        mLocationUpdateListener = locationUpdateListener;
-    }
+//    public void addLocationUpdateListener(LocationUpdateListener locationUpdateListener) {
+//        mLocationUpdateListener = locationUpdateListener;
+//    }
 }

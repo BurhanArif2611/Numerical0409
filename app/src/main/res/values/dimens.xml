@@ -10,5 +10,5 @@
     <integer name="snackbar_message_max_lines">300</integer>
 
 
-
+    <dimen name="textsize_15">15sp</dimen>
 </resources>

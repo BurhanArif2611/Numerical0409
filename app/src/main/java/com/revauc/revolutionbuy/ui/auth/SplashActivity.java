@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.ui.BaseActivity;
+import com.revauc.revolutionbuy.ui.walkthrough.WalkThroughActivity;
 import com.revauc.revolutionbuy.util.LogUtils;
 import com.revauc.revolutionbuy.util.PreferenceUtil;
 import com.revauc.revolutionbuy.widget.GifImageView;
@@ -40,9 +41,9 @@ public class SplashActivity extends BaseActivity {
 //                } else if (PreferenceUtil.shouldShowEnterApp()) {
 //                    startActivity(new Intent(SplashActivity.this, EnterAppActivity.class));
 //                } else {
-//                    startActivity(new Intent(SplashActivity.this, WalkThroughActivity.class));
+                    startActivity(new Intent(SplashActivity.this, WalkThroughActivity.class));
 //                }
-//                finish();
+                finish();
             }
         }
     };
@@ -55,19 +56,19 @@ public class SplashActivity extends BaseActivity {
 //        GifImageView gifImageView = (GifImageView) findViewById(R.id.image_splash);
 //        gifImageView.setGifImageResource(R.drawable.splash_gif);
 
-        String token = FirebaseInstanceId.getInstance().getToken();
-        String fcmToken = PreferenceUtil.getFCMToken();
-        LogUtils.LOGD("FCM instance token ", token);
-        LogUtils.LOGD("FCM token", token);
-        if (TextUtils.isEmpty(token) && TextUtils.isEmpty(fcmToken)) {
-            LocalBroadcastManager.getInstance(this).registerReceiver(tokenReciever, new IntentFilter(BROAD_FCM_TOKEN));
-            showProgressBar();
-            return;
-        } else if (!TextUtils.isEmpty(fcmToken) && !fcmToken.equalsIgnoreCase(token)) {
-            //TODO Refresh Token
-        }else if(!TextUtils.isEmpty(token)){
-            PreferenceUtil.setFCMToken(token);
-        }
+//        String token = FirebaseInstanceId.getInstance().getToken();
+//        String fcmToken = PreferenceUtil.getFCMToken();
+//        LogUtils.LOGD("FCM instance token ", token);
+//        LogUtils.LOGD("FCM token", token);
+//        if (TextUtils.isEmpty(token) && TextUtils.isEmpty(fcmToken)) {
+//            LocalBroadcastManager.getInstance(this).registerReceiver(tokenReciever, new IntentFilter(BROAD_FCM_TOKEN));
+//            showProgressBar();
+//            return;
+//        } else if (!TextUtils.isEmpty(fcmToken) && !fcmToken.equalsIgnoreCase(token)) {
+//            //TODO Refresh Token
+//        }else if(!TextUtils.isEmpty(token)){
+//            PreferenceUtil.setFCMToken(token);
+//        }
         initializeSplashHandler();
 
     }
@@ -95,7 +96,7 @@ public class SplashActivity extends BaseActivity {
      * Runs handler for few seconds.
      */
     private void initializeSplashHandler() {
-        int SPLASH_DISPLAY_LENGTH = 3000;
+        int SPLASH_DISPLAY_LENGTH = 2000;
         new Handler().postDelayed(mRunnable, SPLASH_DISPLAY_LENGTH);
     }
     @Override

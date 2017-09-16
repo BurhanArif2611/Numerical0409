@@ -11,18 +11,14 @@ import com.revauc.revolutionbuy.R;
 
 
 public class ComingSoonFragment extends Fragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     public ComingSoonFragment() {
         // Required empty public constructor
     }
 
-    public static ComingSoonFragment newInstance(String param1, String param2) {
+    public static ComingSoonFragment newInstance() {
         ComingSoonFragment fragment = new ComingSoonFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }

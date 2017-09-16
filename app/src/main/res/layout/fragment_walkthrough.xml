@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/view_center_anchor"
+            android:layout_width="@dimen/margin_50"
+            android:layout_height="@dimen/margin_50"
+            android:layout_centerInParent="true"
+            />
+
+        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+            android:id="@+id/text_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_center_anchor"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/textsize_20"
+            app:customFont="@string/font_avenir_medium"/>
+
+
+        <ImageView
+            android:id="@+id/image_walkthrough"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/text_label"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/margin_48"
+            android:src="@drawable/ic_onboarding1"
+            android:scaleType="centerCrop" />
+
+        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+            android:id="@+id/text_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_label"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_16"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/textsize_16"
+            app:customFont="@string/font_avenir_regular"/>
+
+
+
+    </RelativeLayout>
+</layout>

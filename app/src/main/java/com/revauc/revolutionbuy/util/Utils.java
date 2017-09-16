@@ -573,7 +573,7 @@ public class Utils {
             textView.setTextColor(Color.WHITE);
 
             Typeface tf = Typeface.createFromAsset(textView.getContext()
-                    .getAssets(), ctx.getString(R.string.font_dinpro_medium));
+                    .getAssets(), ctx.getString(R.string.font_avenir_regular));
 
             textView.setTypeface(tf);
             textView.setGravity(Gravity.START);
@@ -600,7 +600,7 @@ public class Utils {
     }
 
     public static void changeTabsFont(Context mContext, TabLayout view) {
-        Typeface mTypeface = Typeface.createFromAsset(mContext.getAssets(), mContext.getString(R.string.font_dinpro_medium));
+        Typeface mTypeface = Typeface.createFromAsset(mContext.getAssets(), mContext.getString(R.string.font_avenir_regular));
         ViewGroup vg = (ViewGroup) view.getChildAt(0);
         int tabsCount = vg.getChildCount();
         for (int j = 0; j < tabsCount; j++) {
@@ -662,9 +662,9 @@ public class Utils {
         };
 
         int[] colors = new int[]{
-                ContextCompat.getColor(context, R.color.color_skyblue_button),
-                ContextCompat.getColor(context, R.color.tab_text_selected),
-                ContextCompat.getColor(context, R.color.color_skyblue_button)
+                ContextCompat.getColor(context, R.color.colorPrimary),
+                ContextCompat.getColor(context, R.color.color_tab_inactive),
+                ContextCompat.getColor(context, R.color.colorPrimary)
         };
         ColorStateList myList = new ColorStateList(states, colors);
         return myList;

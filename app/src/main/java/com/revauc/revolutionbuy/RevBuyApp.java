@@ -3,13 +3,7 @@ package com.revauc.revolutionbuy;
 import android.app.Application;
 import android.content.Context;
 
-import com.revauc.revolutionbuy.database.RealmManager;
-import com.revauc.revolutionbuy.network.response.contest.Contest;
 import com.orhanobut.hawk.Hawk;
-
-import java.util.ArrayList;
-
-import io.realm.Realm;
 
 
 public class RevBuyApp extends Application {
@@ -43,18 +37,6 @@ public class RevBuyApp extends Application {
     public void setRefreshNeededType(String refreshNeededType) {
         this.refreshNeededType = refreshNeededType;
     }
-
-    private ArrayList<Contest> mContestTraditionalList = new ArrayList<>();
-
-    public ArrayList<Contest> getmContestVersusList() {
-        return mContestVersusList;
-    }
-
-    public void setmContestVersusList(ArrayList<Contest> mContestVersusList) {
-        this.mContestVersusList = mContestVersusList;
-    }
-
-    private ArrayList<Contest> mContestVersusList = new ArrayList<>();
 
     public static boolean isActivityVisible() {
         return activityVisible;
@@ -121,15 +103,15 @@ public class RevBuyApp extends Application {
     }
 
 
-    private void initRealm() {
-        try {
-            Realm.init(this);
-            RealmManager.initializeRealmConfig(this);
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+//    private void initRealm() {
+//        try {
+//            Realm.init(this);
+//            RealmManager.initializeRealmConfig(this);
+//
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//    }
 
 
 }

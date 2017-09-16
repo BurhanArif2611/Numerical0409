@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:contentInsetStart="0dp">
+
+        <RelativeLayout
+            android:id="@+id/container_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+                android:id="@+id/tv_toolbar_general_left"
+                android:visibility="invisible"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_alignParentStart="true"
+                android:textColor="@color/textColorDark"
+                 app:customFont="@string/font_avenir_regular"/>
+
+            <ImageView
+                android:id="@+id/iv_tool_bar_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingBottom="@dimen/margin_10"
+                android:paddingEnd="@dimen/margin_10"
+                android:paddingStart="@dimen/margin_16"
+                android:paddingTop="@dimen/margin_10"
+                android:visibility="visible" />
+
+            <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+                android:id="@+id/txv_toolbar_general_center"
+                android:textSize="@dimen/textsize_18"
+                android:layout_marginStart="@dimen/margin_90"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/textColorDark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:customFont="@string/font_avenir_regular"/>
+
+            <ImageView
+                android:id="@+id/iv_tool_bar_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:paddingTop="@dimen/margin_10"
+                android:paddingBottom="@dimen/margin_10"
+                android:paddingStart="@dimen/margin_10"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tv_toolbar_general_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:gravity="end"
+                android:textColor="@color/textColorDark"
+                android:visibility="gone"
+                 />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+</layout>

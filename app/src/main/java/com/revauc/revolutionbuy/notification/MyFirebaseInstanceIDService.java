@@ -21,17 +21,9 @@ import android.support.v4.content.LocalBroadcastManager;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
-import com.revauc.revolutionbuy.network.BaseResponse;
-import com.revauc.revolutionbuy.network.RequestController;
-import com.revauc.revolutionbuy.network.request.UpdateDeviceTokenRequest;
-import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.ui.auth.SplashActivity;
 import com.revauc.revolutionbuy.util.LogUtils;
 import com.revauc.revolutionbuy.util.PreferenceUtil;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.observers.DefaultObserver;
-import io.reactivex.schedulers.Schedulers;
 
 
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
@@ -52,7 +44,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
         if(PreferenceUtil.isLoggedIn()){
             PreferenceUtil.setFCMToken(refreshedToken);
-            sendUpdatedTokenToServer();
+//            sendUpdatedTokenToServer();
         }else {
             PreferenceUtil.setFCMToken(refreshedToken);
             LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(SplashActivity.BROAD_FCM_TOKEN));
@@ -63,28 +55,28 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     // [END refresh_token]
 
 
-    private void sendUpdatedTokenToServer() {
-
-        AuthWebServices apiService = RequestController.createRetrofitRequest(false);
-        UpdateDeviceTokenRequest request = new UpdateDeviceTokenRequest(FirebaseInstanceId.getInstance().getToken());
-        apiService.updateToken(request).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultObserver<BaseResponse>() {
-
-            @Override
-            public void onNext(BaseResponse value) {
-                LogUtils.LOGD("FCM idservice"," updated");
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
-    }
+//    private void sendUpdatedTokenToServer() {
+//
+//        AuthWebServices apiService = RequestController.createRetrofitRequest(false);
+//        UpdateDeviceTokenRequest request = new UpdateDeviceTokenRequest(FirebaseInstanceId.getInstance().getToken());
+//        apiService.updateToken(request).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultObserver<BaseResponse>() {
+//
+//            @Override
+//            public void onNext(BaseResponse value) {
+//                LogUtils.LOGD("FCM idservice"," updated");
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//
+//            }
+//        });
+//    }
 
 
 

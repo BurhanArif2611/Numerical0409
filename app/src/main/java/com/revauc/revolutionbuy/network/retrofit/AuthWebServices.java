@@ -2,60 +2,6 @@ package com.revauc.revolutionbuy.network.retrofit;
 
 
 import com.revauc.revolutionbuy.BuildConfig;
-import com.revauc.revolutionbuy.network.BaseResponse;
-import com.revauc.revolutionbuy.network.request.UpdateDeviceTokenRequest;
-import com.revauc.revolutionbuy.network.request.UpdateTermsVersionRequest;
-import com.revauc.revolutionbuy.network.request.auth.ChangePasswordRequest;
-import com.revauc.revolutionbuy.network.request.auth.EntrantsFollowRequest;
-import com.revauc.revolutionbuy.network.request.auth.EntrantsRequest;
-import com.revauc.revolutionbuy.network.request.auth.FBLoginRequest;
-import com.revauc.revolutionbuy.network.request.auth.ForgotPasswordRequest;
-import com.revauc.revolutionbuy.network.request.auth.LoginRequest;
-import com.revauc.revolutionbuy.network.request.auth.PicksImportRequest;
-import com.revauc.revolutionbuy.network.request.auth.PicksRequest;
-import com.revauc.revolutionbuy.network.request.auth.SignUpRequest;
-import com.revauc.revolutionbuy.network.request.contest.ApplySilmilarRequest;
-import com.revauc.revolutionbuy.network.request.contest.ContestDetailRequest;
-import com.revauc.revolutionbuy.network.request.contest.ContestRequest;
-import com.revauc.revolutionbuy.network.request.contest.EnterContest;
-import com.revauc.revolutionbuy.network.request.contest.InviteFriendRequest;
-import com.revauc.revolutionbuy.network.request.contest.LiveContestRequest;
-import com.revauc.revolutionbuy.network.request.contest.WithdrawRequest;
-import com.revauc.revolutionbuy.network.request.notification.NotificationRequest;
-import com.revauc.revolutionbuy.network.request.notification.NotificationSettingRequest;
-import com.revauc.revolutionbuy.network.request.notification.ReadNotificationRequest;
-import com.revauc.revolutionbuy.network.request.player.PlayerStatsRequest;
-import com.revauc.revolutionbuy.network.response.auth.ICEDescResponse;
-import com.revauc.revolutionbuy.network.response.auth.LoginResponse;
-import com.revauc.revolutionbuy.network.response.auth.LogoutResponse;
-import com.revauc.revolutionbuy.network.response.auth.TermsResponse;
-import com.revauc.revolutionbuy.network.response.auth.TermsVersionResponse;
-import com.revauc.revolutionbuy.network.response.contest.ContestDetailResponse;
-import com.revauc.revolutionbuy.network.response.contest.ContestHistoryResponse;
-import com.revauc.revolutionbuy.network.response.contest.ContestImportResponse;
-import com.revauc.revolutionbuy.network.response.contest.ContestLiveResponse;
-import com.revauc.revolutionbuy.network.response.contest.ContestResponse;
-import com.revauc.revolutionbuy.network.response.contest.EntrantsResponse;
-import com.revauc.revolutionbuy.network.response.contest.HeadToHeadResponse;
-import com.revauc.revolutionbuy.network.response.contest.HistoryContestDetailResponse;
-import com.revauc.revolutionbuy.network.response.contest.LiveContestDetailResponse;
-import com.revauc.revolutionbuy.network.response.contest.LiveEntrantsResponse;
-import com.revauc.revolutionbuy.network.response.contest.LivePropsResponse;
-import com.revauc.revolutionbuy.network.response.contest.PropsDeltaResponse;
-import com.revauc.revolutionbuy.network.response.notification.NotificationResponse;
-import com.revauc.revolutionbuy.network.response.player.PlayerMatchesResponse;
-import com.revauc.revolutionbuy.network.response.player.PlayerSeasonResponse;
-import com.revauc.revolutionbuy.network.response.props.ContestEnteredResponse;
-import com.revauc.revolutionbuy.network.response.props.PropsResponse;
-
-import io.reactivex.Observable;
-import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.DELETE;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 
 /**
@@ -129,124 +75,124 @@ public interface AuthWebServices {
 
 
 
-    @POST(FB_LOGIN)
-    Observable<LoginResponse> loginUsingFacebook(@Body FBLoginRequest params);
-
-    @POST(REGISTER)
-    Observable<LoginResponse> registerUser(@Body SignUpRequest params);
-
-    @POST(LOGIN)
-    Observable<LoginResponse> loginUser(@Body LoginRequest params);
-
-    @POST(FORGOT_PASSWORD)
-    Observable<BaseResponse> forgotPassword(@Body ForgotPasswordRequest params);
-
-    @POST(CHANGE_PASSWORD)
-    Observable<BaseResponse> changePassword(@Body ChangePasswordRequest params);
-
-    @DELETE(LOGOUT)
-    Observable<LogoutResponse> logout();
-
-    @POST(CONTEST_DETAILS)
-    Observable<ContestDetailResponse> getContestDetails(@Body ContestDetailRequest contestDetailRequest);
-
-    @POST(CONTEST_DETAILS)
-    Observable<LiveContestDetailResponse> getLiveContestDetails(@Body ContestDetailRequest contestDetailRequest);
-
-    @POST(CONTEST_DETAILS)
-    Observable<HistoryContestDetailResponse> getHistoryContestDetails(@Body ContestDetailRequest contestDetailRequest);
-
-    @POST(CONTEST_LISTING)
-    Observable<ContestResponse> getcontestListing(@Body ContestRequest params);
-
-    @POST(CONTEST_HISTORY_LISTING)
-    Observable<ContestHistoryResponse> getcontestHistoryListing(@Body LiveContestRequest params);
-
-    @POST(CONTEST_LIVE_LISTING)
-    Observable<ContestLiveResponse> getcontestLiveListing(@Body LiveContestRequest params);
-
-    @POST(CONTEST_UPCOMING_LISTING)
-    Observable<ContestResponse> getcontestUpcomingListing(@Body ContestRequest params);
-
-    @POST(AVAILABLE_PROPS)
-    Observable<PropsResponse> getcontestProps(@Body PicksRequest params);
-
-    @POST(USER_IMPORTED_CONTACTS)
-    Observable<PropsResponse> getImportedcontestProps(@Body PicksImportRequest params);
-
-    @POST(SELECTED_PROPS)
-    Observable<PropsResponse> getSelectedProps(@Body PicksRequest params);
-
-    @POST(ENTER_CONTEST)
-    Observable<ContestEnteredResponse> enterContest(@Path("enterType") Integer value , @Body EnterContest params);
-
-    @POST(ENTRANTS_LIST)
-    Observable<EntrantsResponse> getEntrantsListing(@Body EntrantsRequest params);
-
-    @POST(LIVE_ENTRANTS_LIST)
-    Observable<LiveEntrantsResponse> getLiveEntrantsListing(@Body EntrantsRequest params);
-
-
-    @POST(FOLLOW_USER)
-    Observable<BaseResponse> followEntrant(@Body EntrantsFollowRequest params);
-
-    @POST(WITHDRAW_CONTEST)
-    Observable<BaseResponse> withdrawFromContest(@Body WithdrawRequest params);
-
-    @POST(PLAYER_SEASON_STATS)
-    Observable<PlayerSeasonResponse> getPlayerSeasonStats(@Body PlayerStatsRequest params);
-
-    @POST(PLAYER_MATCH_STATS)
-    Observable<PlayerMatchesResponse> getPlayerMatchStats(@Body PlayerStatsRequest params);
-
-    @POST(INVITE_FRIENDS)
-    Observable<BaseResponse> inviteFriends(@Body InviteFriendRequest params);
-
-    @POST(NOTIFICATION_LIST)
-    Observable<NotificationResponse> getNotificationListing(@Body NotificationRequest params);
-
-    @POST(READ_NOTIFICATION)
-    Observable<BaseResponse> readNotification(@Body ReadNotificationRequest params);
-
-    @POST(NOTIFICATION_SETTINGS)
-    Observable<BaseResponse> updateNotificationSettings(@Body NotificationSettingRequest params);
-
-    @POST(IMPORT_PICKS)
-    Observable<ContestImportResponse> importPicks(@Body ContestDetailRequest params);
-
-    @POST(APPLY_SIMILAR)
-    Observable<BaseResponse> applySimilar(@Body ApplySilmilarRequest params);
-
-    @POST(UPDATE_DEVICE_TOKEN)
-    Observable<BaseResponse> updateToken(@Body UpdateDeviceTokenRequest params);
-
-    @GET(GET_ICE_DESCRIPTION)
-    Observable<ICEDescResponse> getICEDescription();
-
-    @GET(GET_TERMS_URL)
-    Observable<TermsResponse> getTermsUrl();
-
-    @GET(GET_PRIVACY_URL)
-    Observable<TermsResponse> getPrivacyUrl();
-
-    @GET(GET_HOW_TO_PLAY)
-    Observable<TermsResponse> getHowToPlay();
-
-    @POST(UPDATE_TERMS_URL)
-    Observable<BaseResponse> updateTermsVersion(@Body UpdateTermsVersionRequest version);
-
-    @GET(EXPORT_CSV)
-    Observable<BaseResponse> exportCsv(@Query("contestid") Integer contestId);
-
-    @GET(GET_TERMS_VERSION_URL)
-    Observable<TermsVersionResponse> getTermsVersion();
-
-    @GET(CONTEST_PICK_LIVE)
-    Observable<LivePropsResponse> pickLive(@Query("contestid") Integer contestId,@Query("userContestId") Integer userContestId);
-
-    @GET(HEAD_TO_HEAD_LIVE)
-    Observable<HeadToHeadResponse> headToHeadLive(@Query("contestid") Integer contestId,@Query("userContestId") Integer userContestId, @Query("opponentid") Integer opponentId, @Query("opponentUserContestId") Integer opponentUserContestId);
-
-    @GET(HEAD_TO_HEAD_PROPS)
-    Observable<PropsDeltaResponse> headToHeadProps(@Query("contestid") Integer contestId,@Query("userContestId") Integer userContestId, @Query("opponentid") Integer opponentId, @Query("opponentUserContestId") Integer opponentUserContestId);
+//    @POST(FB_LOGIN)
+//    Observable<LoginResponse> loginUsingFacebook(@Body FBLoginRequest params);
+//
+//    @POST(REGISTER)
+//    Observable<LoginResponse> registerUser(@Body SignUpRequest params);
+//
+//    @POST(LOGIN)
+//    Observable<LoginResponse> loginUser(@Body LoginRequest params);
+//
+//    @POST(FORGOT_PASSWORD)
+//    Observable<BaseResponse> forgotPassword(@Body ForgotPasswordRequest params);
+//
+//    @POST(CHANGE_PASSWORD)
+//    Observable<BaseResponse> changePassword(@Body ChangePasswordRequest params);
+//
+//    @DELETE(LOGOUT)
+//    Observable<LogoutResponse> logout();
+//
+//    @POST(CONTEST_DETAILS)
+//    Observable<ContestDetailResponse> getContestDetails(@Body ContestDetailRequest contestDetailRequest);
+//
+//    @POST(CONTEST_DETAILS)
+//    Observable<LiveContestDetailResponse> getLiveContestDetails(@Body ContestDetailRequest contestDetailRequest);
+//
+//    @POST(CONTEST_DETAILS)
+//    Observable<HistoryContestDetailResponse> getHistoryContestDetails(@Body ContestDetailRequest contestDetailRequest);
+//
+//    @POST(CONTEST_LISTING)
+//    Observable<ContestResponse> getcontestListing(@Body ContestRequest params);
+//
+//    @POST(CONTEST_HISTORY_LISTING)
+//    Observable<ContestHistoryResponse> getcontestHistoryListing(@Body LiveContestRequest params);
+//
+//    @POST(CONTEST_LIVE_LISTING)
+//    Observable<ContestLiveResponse> getcontestLiveListing(@Body LiveContestRequest params);
+//
+//    @POST(CONTEST_UPCOMING_LISTING)
+//    Observable<ContestResponse> getcontestUpcomingListing(@Body ContestRequest params);
+//
+//    @POST(AVAILABLE_PROPS)
+//    Observable<PropsResponse> getcontestProps(@Body PicksRequest params);
+//
+//    @POST(USER_IMPORTED_CONTACTS)
+//    Observable<PropsResponse> getImportedcontestProps(@Body PicksImportRequest params);
+//
+//    @POST(SELECTED_PROPS)
+//    Observable<PropsResponse> getSelectedProps(@Body PicksRequest params);
+//
+//    @POST(ENTER_CONTEST)
+//    Observable<ContestEnteredResponse> enterContest(@Path("enterType") Integer value , @Body EnterContest params);
+//
+//    @POST(ENTRANTS_LIST)
+//    Observable<EntrantsResponse> getEntrantsListing(@Body EntrantsRequest params);
+//
+//    @POST(LIVE_ENTRANTS_LIST)
+//    Observable<LiveEntrantsResponse> getLiveEntrantsListing(@Body EntrantsRequest params);
+//
+//
+//    @POST(FOLLOW_USER)
+//    Observable<BaseResponse> followEntrant(@Body EntrantsFollowRequest params);
+//
+//    @POST(WITHDRAW_CONTEST)
+//    Observable<BaseResponse> withdrawFromContest(@Body WithdrawRequest params);
+//
+//    @POST(PLAYER_SEASON_STATS)
+//    Observable<PlayerSeasonResponse> getPlayerSeasonStats(@Body PlayerStatsRequest params);
+//
+//    @POST(PLAYER_MATCH_STATS)
+//    Observable<PlayerMatchesResponse> getPlayerMatchStats(@Body PlayerStatsRequest params);
+//
+//    @POST(INVITE_FRIENDS)
+//    Observable<BaseResponse> inviteFriends(@Body InviteFriendRequest params);
+//
+//    @POST(NOTIFICATION_LIST)
+//    Observable<NotificationResponse> getNotificationListing(@Body NotificationRequest params);
+//
+//    @POST(READ_NOTIFICATION)
+//    Observable<BaseResponse> readNotification(@Body ReadNotificationRequest params);
+//
+//    @POST(NOTIFICATION_SETTINGS)
+//    Observable<BaseResponse> updateNotificationSettings(@Body NotificationSettingRequest params);
+//
+//    @POST(IMPORT_PICKS)
+//    Observable<ContestImportResponse> importPicks(@Body ContestDetailRequest params);
+//
+//    @POST(APPLY_SIMILAR)
+//    Observable<BaseResponse> applySimilar(@Body ApplySilmilarRequest params);
+//
+//    @POST(UPDATE_DEVICE_TOKEN)
+//    Observable<BaseResponse> updateToken(@Body UpdateDeviceTokenRequest params);
+//
+//    @GET(GET_ICE_DESCRIPTION)
+//    Observable<ICEDescResponse> getICEDescription();
+//
+//    @GET(GET_TERMS_URL)
+//    Observable<TermsResponse> getTermsUrl();
+//
+//    @GET(GET_PRIVACY_URL)
+//    Observable<TermsResponse> getPrivacyUrl();
+//
+//    @GET(GET_HOW_TO_PLAY)
+//    Observable<TermsResponse> getHowToPlay();
+//
+//    @POST(UPDATE_TERMS_URL)
+//    Observable<BaseResponse> updateTermsVersion(@Body UpdateTermsVersionRequest version);
+//
+//    @GET(EXPORT_CSV)
+//    Observable<BaseResponse> exportCsv(@Query("contestid") Integer contestId);
+//
+//    @GET(GET_TERMS_VERSION_URL)
+//    Observable<TermsVersionResponse> getTermsVersion();
+//
+//    @GET(CONTEST_PICK_LIVE)
+//    Observable<LivePropsResponse> pickLive(@Query("contestid") Integer contestId,@Query("userContestId") Integer userContestId);
+//
+//    @GET(HEAD_TO_HEAD_LIVE)
+//    Observable<HeadToHeadResponse> headToHeadLive(@Query("contestid") Integer contestId,@Query("userContestId") Integer userContestId, @Query("opponentid") Integer opponentId, @Query("opponentUserContestId") Integer opponentUserContestId);
+//
+//    @GET(HEAD_TO_HEAD_PROPS)
+//    Observable<PropsDeltaResponse> headToHeadProps(@Query("contestid") Integer contestId,@Query("userContestId") Integer userContestId, @Query("opponentid") Integer opponentId, @Query("opponentUserContestId") Integer opponentUserContestId);
 }

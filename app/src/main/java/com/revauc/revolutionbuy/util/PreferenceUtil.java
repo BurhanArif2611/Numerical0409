@@ -2,7 +2,6 @@ package com.revauc.revolutionbuy.util;
 
 import android.location.Location;
 
-import com.revauc.revolutionbuy.network.response.auth.UserDto;
 import com.orhanobut.hawk.Hawk;
 
 /**
@@ -76,13 +75,13 @@ public final class PreferenceUtil {
         setShowEnterApp(true);
     }
 
-    public static void setUserProfile(UserDto userData) {
-        Hawk.put(KEY_USER_DATA, userData);
-    }
-
-    public static UserDto getUserProfile() {
-        return Hawk.get(KEY_USER_DATA);
-    }
+//    public static void setUserProfile(UserDto userData) {
+//        Hawk.put(KEY_USER_DATA, userData);
+//    }
+//
+//    public static UserDto getUserProfile() {
+//        return Hawk.get(KEY_USER_DATA);
+//    }
 
     public static void setAuthToken(String accessToken) {
         Hawk.put(KEY_AUTH_TOKEN, accessToken);

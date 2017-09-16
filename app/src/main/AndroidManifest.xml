@@ -57,6 +57,24 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Fullscreen" />
 
+        <activity
+            android:name=".ui.auth.EnterAppActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Fullscreen" />
+
+        <activity
+            android:name=".ui.auth.SignUpActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Fullscreen" />
+
+        <activity
+            android:name=".ui.dashboard.DashboardActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />

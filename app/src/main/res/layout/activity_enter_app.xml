@@ -1,0 +1,101 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/screen_bg"
+        tools:context="com.revauc.revolutionbuy.ui.ComingSoonFragment">
+
+        <ImageView
+            android:id="@+id/image_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_125"
+            android:src="@drawable/revolution_logo" />
+
+        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+            android:id="@+id/text_revolution_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image_logo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_20"
+            android:text="@string/app_name"
+            android:textColor="@color/textColorDark"
+            android:textSize="@dimen/textsize_26"
+            app:customFont="@string/font_avenir_demibold" />
+
+        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+            android:id="@+id/text_sign_up"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_revolution_buy"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_80"
+            android:background="@drawable/ic_button_blue"
+            android:gravity="center"
+            android:padding="@dimen/margin_16"
+            android:text="@string/sign_up"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textsize_16"
+            app:customFont="@string/font_avenir_medium" />
+
+        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+            android:id="@+id/text_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_sign_up"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_16"
+            android:background="@drawable/ic_button_blue_border"
+            android:gravity="center"
+            android:padding="@dimen/margin_16"
+            android:text="@string/login"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/textsize_16"
+            app:customFont="@string/font_avenir_medium" />
+
+        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+            android:id="@+id/text_skip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_login"
+            android:layout_marginTop="@dimen/margin_24"
+            android:gravity="center"
+            android:text="@string/skip_for_now"
+            android:textColor="@color/textColorDark"
+            android:textSize="@dimen/textsize_12"
+            app:customFont="@string/font_avenir_regular" />
+
+        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+            android:id="@+id/text_patent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_skip"
+            android:layout_marginTop="@dimen/margin_46"
+            android:background="@drawable/ic_circle_button_white"
+            android:paddingTop="@dimen/margin_10"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="@dimen/margin_10"
+            android:paddingStart="@dimen/margin_19"
+            android:paddingEnd="@dimen/margin_19"
+            android:gravity="center"
+            android:text="Australian Patent Application No. 2017902057"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/textsize_12"
+            app:customFont="@string/font_avenir_regular" />
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bottom_images" />
+
+    </RelativeLayout>
+</layout>

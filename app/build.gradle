@@ -15,7 +15,6 @@ repositories {
     maven { url 'https://jitpack.io' }
 }
 
-apply plugin: 'realm-android'
 
 // Create a variable called keystorePropertiesFile, and initialize it to your
 // keystore.properties file, in the rootProject folder.
@@ -203,8 +202,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.androidadvance:topsnackbar:1.1.1'
     compile 'com.facebook.rebound:rebound:0.3.8'
-    compile 'io.realm:android-adapters:2.0.0'
-    compile 'com.paypal.sdk:paypal-android-sdk:2.15.3'
     compile 'com.github.aerdy:Android-Viger_View_Pager_PDF_OpenSource:-SNAPSHOT'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
