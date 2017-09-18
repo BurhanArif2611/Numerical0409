@@ -70,7 +70,37 @@
             android:theme="@style/AppTheme.Fullscreen" />
 
         <activity
+            android:name=".ui.auth.SignInActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Fullscreen" />
+
+        <activity
             android:name=".ui.dashboard.DashboardActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.auth.TermsConditionsActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.auth.AgeConfirmationActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.auth.AgeAlertActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.auth.PrivacyActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait" />

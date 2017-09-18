@@ -140,6 +140,7 @@ public class DashboardActivity extends BaseActivity implements View.OnClickListe
         mBinder.navigation.setTypeface(Typeface.createFromAsset(
                 getAssets(),
                 getString(R.string.font_avenir_regular)));
+        mBinder.navigation.setTextSize(10);
         mBinder.navigation.setItemTextColor(Utils.getTabTextColors(this));
         mBinder.navigation.setItemIconTintList(Utils.getTabTextColors(this));
 
@@ -156,8 +157,4 @@ public class DashboardActivity extends BaseActivity implements View.OnClickListe
 
     }
 
-    @Override
-    public String getActivityName() {
-        return null;
-    }
 }

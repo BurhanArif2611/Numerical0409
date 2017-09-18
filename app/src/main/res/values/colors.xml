@@ -8,6 +8,10 @@
     <color name="textcolor_hint">#8095ac</color>
     <color name="color_tab_inactive">#b0b0b0</color>
     <color name="color_header_bg">#f4f6fe</color>
+    <color name="color_label">#999999</color>
+    <color name="color_red_border">#d0021b</color>
+    <color name="color_snackbar_error_bg">#fbefee</color>
+
 
 
 

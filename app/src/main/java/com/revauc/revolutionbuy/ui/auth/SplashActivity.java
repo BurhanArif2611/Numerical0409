@@ -106,8 +106,4 @@ public class SplashActivity extends BaseActivity {
 
     }
 
-    @Override
-    public String getActivityName() {
-        return null;
-    }
 }

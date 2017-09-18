@@ -294,6 +294,7 @@
     <string name="login">Login</string>
     <string name="skip_for_now">Skip for now</string>
     <string name="signup_with_facebook">Sign up with Facebook</string>
+    <string name="signin_with_facebook">Login with Facebook</string>
     <string name="label_or">Or</string>
     <string name="browse_through_categories">Browse through categories to start selling</string>
     <string name="profile">Profile</string>
@@ -305,4 +306,14 @@
     <string name="change_mobile_number">Change Mobile Number</string>
     <string name="your_profile">Your Profile</string>
     <string name="settings">Settings</string>
+    <string name="agree_to_terms_and_privacy">By signing up you agree to Revolution Buy’s Terms of Use and Privacy Policy.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="over_18_label">Are you over 18? This is legally required to use the app.</string>
+    <string name="label_negation">Sorry, you must be over 18 to use this app.</string>
+
+    <!--LOGIN & SIGNUP-->
+    <string name="error_valid_email">Please enter a valid email address</string>
+    <string name="error_pass_min_fail">Password cannot be less than 6 characters</string>
+    <string name="error_pass_max_fail">Password cannot be greater than 16 characters</string>
 </resources>

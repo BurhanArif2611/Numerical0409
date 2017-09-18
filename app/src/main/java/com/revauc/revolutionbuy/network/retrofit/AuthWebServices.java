@@ -2,6 +2,15 @@ package com.revauc.revolutionbuy.network.retrofit;
 
 
 import com.revauc.revolutionbuy.BuildConfig;
+import com.revauc.revolutionbuy.network.BaseResponse;
+import com.revauc.revolutionbuy.network.request.auth.SignUpRequest;
+import com.revauc.revolutionbuy.network.response.LoginResponse;
+
+import io.reactivex.Observable;
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 
 /**
@@ -30,59 +39,20 @@ public interface AuthWebServices {
     String QUERY_CURRENT_PAGE = "currentPage";
     String QUERY_CURRENT_SIZE = "currentSize";
 
-    String FB_LOGIN = BuildConfig.BASE_URL + "fb/register";
-    String REGISTER = BuildConfig.BASE_URL + "signup";
-    String LOGIN = BuildConfig.BASE_URL + "login";
-    String FORGOT_PASSWORD = BuildConfig.BASE_URL + "send-reset-password-link";
-    String CHANGE_PASSWORD = BuildConfig.BASE_URL + "/admin/change-password";
-
-    String LOGOUT = BuildConfig.BASE_URL + "logout";
-    String CONTEST_LISTING = BuildConfig.BASE_URL + "contests/showContests";
-    String CONTEST_HISTORY_LISTING = BuildConfig.BASE_URL + "contests/get-my-contest-history";
-    String CONTEST_LIVE_LISTING = BuildConfig.BASE_URL + "contests/live";
-    String CONTEST_UPCOMING_LISTING = BuildConfig.BASE_URL + "contests/upcoming";
-
-    String CONTEST_DETAILS = BuildConfig.BASE_URL + "contests/contestDetails";
-    String AVAILABLE_PROPS = BuildConfig.BASE_URL + "contests/availableProps";
-    String ENTER_CONTEST = BuildConfig.BASE_URL + "contests/enter/{enterType}";
-    String WITHDRAW_CONTEST = BuildConfig.BASE_URL + "contests/withdraw-contest";
-    String ENTRANTS_LIST = BuildConfig.BASE_URL + "userContests/entrantsListByContest";
-    String LIVE_ENTRANTS_LIST = BuildConfig.BASE_URL + "userContests/entrantsListByLiveContest";
-    String SELECTED_PROPS = BuildConfig.BASE_URL + "userContests/selectedProps";
-    String FOLLOW_USER = BuildConfig.BASE_URL + "userContests/userFollowsOtherUser";
-    String PLAYER_SEASON_STATS = BuildConfig.BASE_URL + "userContests/playerSeasonStats";
-    String PLAYER_MATCH_STATS = BuildConfig.BASE_URL + "userContests/playerEventsStats";
-
-    String NOTIFICATION_LIST = BuildConfig.BASE_URL + "notification/notification-listing";
-    String READ_NOTIFICATION = BuildConfig.BASE_URL + "notification/read-notification";
-    String NOTIFICATION_SETTINGS = BuildConfig.BASE_URL + "notification/notification-setting";
-    String INVITE_FRIENDS = BuildConfig.BASE_URL + "invitee/user-invitee";
-    String IMPORT_PICKS = BuildConfig.BASE_URL + "prop/importPicks";
-    String APPLY_SIMILAR = BuildConfig.BASE_URL + "userContests/apply-user-picks-to-similar-contests";
-    String CONTEST_PICK_LIVE = BuildConfig.BASE_URL + "contests/get-user-picks-live-contest";
-    String HEAD_TO_HEAD_LIVE = BuildConfig.BASE_URL + "contests/get-head-to-head-view-user-picks";
-    String HEAD_TO_HEAD_PROPS = BuildConfig.BASE_URL + "contests/get-live-props-data";
-    String USER_IMPORTED_CONTACTS = BuildConfig.BASE_URL + "userContests/userImportedContests";
-    String UPDATE_DEVICE_TOKEN = BuildConfig.BASE_URL + "updateDeviceToken";
-    String GET_ICE_DESCRIPTION = BuildConfig.BASE_URL + "adminContest/get-ice-prop-description";
-    String GET_TERMS_URL = BuildConfig.BASE_URL + "adminContest/get-terms-and-condition";
-    String GET_PRIVACY_URL = BuildConfig.BASE_URL + "adminContest/get-privacy-policy";
-    String GET_HOW_TO_PLAY = BuildConfig.BASE_URL + "adminContest/get-how-to-play";
-
-    String GET_TERMS_VERSION_URL = BuildConfig.BASE_URL + "users/get-terms-condition-current-version";
-    String UPDATE_TERMS_URL = BuildConfig.BASE_URL + "users/update-terms-condition-version";
-    String EXPORT_CSV = BuildConfig.BASE_URL + "contests/get-csv-by-contest";
-
-
+    String FB_LOGIN = BuildConfig.BASE_URL + "users/fb-sign-up";
+    String REGISTER = BuildConfig.BASE_URL + "users/sign-up";
+    String LOGIN = BuildConfig.BASE_URL + "users/sign-in";
+    String TERMS = BuildConfig.BASE_URL + "terms-conditions";
+    String PRIVACY = BuildConfig.BASE_URL + "privacy-policies";
 
 //    @POST(FB_LOGIN)
 //    Observable<LoginResponse> loginUsingFacebook(@Body FBLoginRequest params);
 //
-//    @POST(REGISTER)
-//    Observable<LoginResponse> registerUser(@Body SignUpRequest params);
-//
-//    @POST(LOGIN)
-//    Observable<LoginResponse> loginUser(@Body LoginRequest params);
+    @POST(REGISTER)
+    Observable<LoginResponse> registerUser(@Body SignUpRequest params);
+
+    @POST(LOGIN)
+    Observable<LoginResponse> loginUser(@Body SignUpRequest params);
 //
 //    @POST(FORGOT_PASSWORD)
 //    Observable<BaseResponse> forgotPassword(@Body ForgotPasswordRequest params);
@@ -168,9 +138,6 @@ public interface AuthWebServices {
 //
 //    @GET(GET_ICE_DESCRIPTION)
 //    Observable<ICEDescResponse> getICEDescription();
-//
-//    @GET(GET_TERMS_URL)
-//    Observable<TermsResponse> getTermsUrl();
 //
 //    @GET(GET_PRIVACY_URL)
 //    Observable<TermsResponse> getPrivacyUrl();

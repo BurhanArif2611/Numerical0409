@@ -61,10 +61,12 @@
 
         <com.revauc.revolutionbuy.widget.typeface.CustomTextView
             android:id="@+id/text_skip"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_login"
-            android:layout_marginTop="@dimen/margin_24"
+            android:layout_marginTop="@dimen/margin_12"
+            android:padding="@dimen/margin_12"
             android:gravity="center"
             android:text="@string/skip_for_now"
             android:textColor="@color/textColorDark"

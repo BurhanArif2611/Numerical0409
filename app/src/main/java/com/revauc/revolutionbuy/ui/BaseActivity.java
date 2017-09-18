@@ -66,8 +66,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 //        getKeyhash();
     }
 
-    abstract public String getActivityName();
-
     public void showSnackBar(String message) {
         Alert.showSnackBar(findViewById(android.R.id.content), message);
     }

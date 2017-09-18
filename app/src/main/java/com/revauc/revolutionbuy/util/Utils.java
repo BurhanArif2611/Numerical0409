@@ -14,14 +14,21 @@ import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
+import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.LeadingMarginSpan;
+import android.text.style.StyleSpan;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
@@ -32,6 +39,7 @@ import android.widget.TextView;
 
 import com.androidadvance.topsnackbar.TSnackbar;
 import com.revauc.revolutionbuy.R;
+import com.revauc.revolutionbuy.util.typeface.CustomFontTypeface;
 
 import java.lang.reflect.Field;
 import java.text.DecimalFormat;
@@ -43,6 +51,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Utils for app
@@ -57,6 +67,39 @@ public class Utils {
 
         //noinspection deprecation
         return context.getResources().getDrawable(drawableId);
+    }
+
+    public static void setSpannTypeface(SpannableString spanTypeface, int start, int end, int type) {
+        spanTypeface.setSpan(new StyleSpan(type), start, end, 0);
+
+    }
+
+    public static void setSpannColor(SpannableString spanColor, int start, int end, int colorCode) {
+        spanColor.setSpan(new ForegroundColorSpan(colorCode), start, end, 0);
+//        spanColor.setSpan(new BackgroundColorSpan(Color.WHITE), start, end, 0);
+    }
+
+    public static void setSpanFont(SpannableString span, int start, int end, Typeface typeface) {
+        span.setSpan(new CustomFontTypeface("", typeface), start, end, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+    }
+
+
+    public static void setSpannCommanProperty(TextView txv, SpannableString spanString) {
+        txv.setMovementMethod(LinkMovementMethod.getInstance());
+        txv.setText(spanString, TextView.BufferType.SPANNABLE);
+        txv.setSelected(true);
+    }
+
+    /**
+     * set click event on spannable string
+     *
+     * @param spanClick
+     * @param start
+     * @param end
+     * @param clickableSpan
+     */
+    public static void setSpannClickEvent(SpannableString spanClick, int start, int end, ClickableSpan clickableSpan) {
+        spanClick.setSpan(clickableSpan, start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
     }
 
 
@@ -94,6 +137,13 @@ public class Utils {
 
 
         return "$" + formated;
+    }
+
+    public static boolean isEmailValid(String email) {
+        Pattern pattern1 = Pattern.compile("[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");
+        Matcher matcher1 = pattern1.matcher(email);
+
+        return matcher1.matches();
     }
 
     public static String getEnteries(int total, int entered) {
@@ -559,18 +609,23 @@ public class Utils {
             SpannableString spanStr = createIndentedText("" + msg, 0, 0);
             builder.append(spanStr);
 
+//            Snackbar snackbar = Snackbar.make(v, builder, TSnackbar.LENGTH_LONG);
             TSnackbar snackbar = TSnackbar
                     .make(v, builder, TSnackbar.LENGTH_LONG);
             snackbar.setActionTextColor(Color.WHITE);
 
             View snackbarView = snackbar.getView();
-            if (isError) {
-                snackbarView.setBackgroundColor(ContextCompat.getColor(ctx, R.color.colorRed));
-            } else {
-                snackbarView.setBackgroundColor(ContextCompat.getColor(ctx, R.color.colorAccent));
-            }
             TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
-            textView.setTextColor(Color.WHITE);
+            textView.setGravity(Gravity.CENTER);
+            if (isError) {
+                snackbarView.setBackgroundColor(ContextCompat.getColor(ctx, R.color.color_snackbar_error_bg));
+                textView.setTextColor(ContextCompat.getColor(ctx,R.color.color_red_border));
+            } else {
+                snackbarView.setBackgroundColor(ContextCompat.getColor(ctx, R.color.colorPrimaryDark));
+                textView.setTextColor(Color.WHITE);
+            }
+
+
 
             Typeface tf = Typeface.createFromAsset(textView.getContext()
                     .getAssets(), ctx.getString(R.string.font_avenir_regular));

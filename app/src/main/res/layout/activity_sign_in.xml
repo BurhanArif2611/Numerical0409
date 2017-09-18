@@ -31,10 +31,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:drawableStart="@drawable/ic_facebook"
-                android:gravity="center"
                 android:drawablePadding="@dimen/margin_12"
+                android:gravity="center"
                 android:padding="@dimen/margin_16"
-                android:text="@string/signup_with_facebook"
+                android:text="@string/signin_with_facebook"
                 android:textColor="@color/white"
                 android:textSize="@dimen/textsize_16"
                 app:customFont="@string/font_avenir_medium" />
@@ -162,7 +162,7 @@
         </RelativeLayout>
 
         <com.revauc.revolutionbuy.widget.typeface.CustomTextView
-            android:id="@+id/text_sign_up"
+            android:id="@+id/text_sign_in"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/container_password"
@@ -172,10 +172,24 @@
             android:background="@drawable/ic_button_blue"
             android:gravity="center"
             android:padding="@dimen/margin_16"
-            android:text="@string/sign_up"
+            android:text="@string/login"
             android:textColor="@color/white"
             android:textSize="@dimen/textsize_16"
             app:customFont="@string/font_avenir_medium" />
+
+        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+            android:id="@+id/text_forgot_password"
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_sign_in"
+            android:padding="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_12"
+            android:gravity="center"
+            android:text="@string/forgot_password"
+            android:textColor="@color/textColorDark"
+            android:textSize="@dimen/textsize_12"
+            app:customFont="@string/font_avenir_regular" />
 
         <com.revauc.revolutionbuy.widget.typeface.CustomTextView
             android:id="@+id/text_terms"

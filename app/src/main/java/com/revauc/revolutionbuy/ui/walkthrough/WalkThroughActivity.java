@@ -113,10 +113,6 @@ public class WalkThroughActivity extends BaseActivity implements View.OnClickLis
         imgsArray.recycle();
     }
 
-    @Override
-    public String getActivityName() {
-        return null;
-    }
 
     @Override
     public void onClick(View v) {

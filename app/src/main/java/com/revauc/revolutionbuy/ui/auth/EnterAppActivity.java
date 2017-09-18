@@ -12,6 +12,7 @@ import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.ActivityEnterAppBinding;
 import com.revauc.revolutionbuy.databinding.ActivityWalkthroughBinding;
 import com.revauc.revolutionbuy.ui.BaseActivity;
+import com.revauc.revolutionbuy.ui.dashboard.DashboardActivity;
 import com.revauc.revolutionbuy.util.Constants;
 
 
@@ -31,21 +32,30 @@ public class EnterAppActivity extends BaseActivity implements View.OnClickListen
         }
 
         activityEnterAppBinding.textSignUp.setOnClickListener(this);
+        activityEnterAppBinding.textLogin.setOnClickListener(this);
+        activityEnterAppBinding.textSkip.setOnClickListener(this);
 
     }
 
-    @Override
-    public String getActivityName() {
-        return null;
-    }
 
     @Override
     public void onClick(View view) {
         switch (view.getId())
         {
             case R.id.text_sign_up:
-                startActivity(new Intent(this, SignUpActivity.class));
+                startActivity(new Intent(this, AgeConfirmationActivity.class));
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                break;
+            case R.id.text_login:
+                startActivity(new Intent(this, SignInActivity.class));
+                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                break;
+            case R.id.text_skip:
+                Intent intent = new Intent(EnterAppActivity.this, DashboardActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                finish();
                 break;
         }
     }
