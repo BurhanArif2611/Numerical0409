@@ -316,4 +316,6 @@
     <string name="error_valid_email">Please enter a valid email address</string>
     <string name="error_pass_min_fail">Password cannot be less than 6 characters</string>
     <string name="error_pass_max_fail">Password cannot be greater than 16 characters</string>
+    <string name="login_with_email">Login with email</string>
+    <string name="request_recieved">Request received</string>
 </resources>

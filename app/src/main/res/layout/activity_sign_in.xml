@@ -30,8 +30,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:drawableStart="@drawable/ic_facebook"
                 android:drawablePadding="@dimen/margin_12"
+                android:drawableStart="@drawable/ic_facebook"
                 android:gravity="center"
                 android:padding="@dimen/margin_16"
                 android:text="@string/signin_with_facebook"
@@ -85,9 +85,9 @@
             android:id="@+id/container_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/lay_or_view_holder"
             android:layout_marginEnd="@dimen/margin_16"
             android:layout_marginStart="@dimen/margin_16"
-            android:layout_below="@id/lay_or_view_holder"
             android:layout_marginTop="@dimen/margin_32"
             android:background="@drawable/et_edittext_border">
 
@@ -95,29 +95,40 @@
                 android:id="@+id/image_email"
                 android:layout_width="@dimen/margin_52"
                 android:layout_height="@dimen/margin_52"
-                android:scaleType="center"
                 android:layout_margin="@dimen/margin_1"
                 android:background="@drawable/ic_edit_icon_bg"
+                android:scaleType="center"
                 android:src="@drawable/ic_email" />
 
-            <com.revauc.revolutionbuy.widget.typeface.CustomEditText
-                android:id="@+id/edit_email"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_input_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/image_email"
-                android:background="@null"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/textsize_16"
-                android:maxLines="1"
-                android:inputType="textEmailAddress"
-                android:ellipsize="end"
-                android:paddingEnd="@dimen/margin_16"
-                android:paddingStart="@dimen/margin_16"
-                android:hint="Email address"
-                android:textColor="@color/textColorDark"
-                android:textColorHint="@color/textcolor_hint"
                 android:layout_alignParentEnd="true"
-                app:customFont="@string/font_avenir_regular"/>
+                android:layout_centerVertical="true"
+                android:hint="Email address"
+                android:paddingTop="@dimen/margin_10"
+                android:paddingBottom="@dimen/margin_10"
+                android:textColorHint="@color/textcolor_hint"
+                android:layout_toRightOf="@id/image_email"
+                app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Grey">
+
+                <com.revauc.revolutionbuy.widget.typeface.CustomEditText
+                    android:id="@+id/edit_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:ellipsize="end"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:paddingTop="@dimen/margin_2"
+                    android:paddingEnd="@dimen/margin_16"
+                    android:paddingStart="@dimen/margin_16"
+                    android:textColor="@color/textColorDark"
+                    android:textSize="@dimen/textsize_15"
+                    app:customFont="@string/font_avenir_regular" />
+
+            </android.support.design.widget.TextInputLayout>
 
         </RelativeLayout>
 
@@ -125,9 +136,9 @@
             android:id="@+id/container_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/container_email"
             android:layout_marginEnd="@dimen/margin_16"
             android:layout_marginStart="@dimen/margin_16"
-            android:layout_below="@id/container_email"
             android:layout_marginTop="@dimen/margin_16"
             android:background="@drawable/et_edittext_border">
 
@@ -135,29 +146,40 @@
                 android:id="@+id/image_password"
                 android:layout_width="@dimen/margin_52"
                 android:layout_height="@dimen/margin_52"
-                android:scaleType="center"
                 android:layout_margin="@dimen/margin_1"
                 android:background="@drawable/ic_edit_icon_bg"
+                android:scaleType="center"
                 android:src="@drawable/ic_password" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_input_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:hint="Password"
+                android:paddingTop="@dimen/margin_10"
+                android:paddingBottom="@dimen/margin_10"
+                android:textColorHint="@color/textcolor_hint"
+                android:layout_toRightOf="@id/image_password"
+                app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Grey">
 
             <com.revauc.revolutionbuy.widget.typeface.CustomEditText
                 android:id="@+id/edit_password"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/image_password"
                 android:background="@null"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/textsize_16"
-                android:paddingStart="@dimen/margin_16"
-                android:paddingEnd="@dimen/margin_16"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:textColor="@color/textColorDark"
-                android:maxLines="1"
                 android:ellipsize="end"
-                android:textColorHint="@color/textcolor_hint"
-                android:layout_alignParentEnd="true"
-                app:customFont="@string/font_avenir_regular"/>
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingTop="@dimen/margin_2"
+                android:paddingEnd="@dimen/margin_16"
+                android:paddingStart="@dimen/margin_16"
+                android:textColor="@color/textColorDark"
+                android:textSize="@dimen/textsize_16"
+                app:customFont="@string/font_avenir_regular" />
+
+            </android.support.design.widget.TextInputLayout>
 
         </RelativeLayout>
 
@@ -180,12 +202,12 @@
         <com.revauc.revolutionbuy.widget.typeface.CustomTextView
             android:id="@+id/text_forgot_password"
             android:layout_width="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_sign_in"
-            android:padding="@dimen/margin_12"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/margin_12"
             android:gravity="center"
+            android:padding="@dimen/margin_12"
             android:text="@string/forgot_password"
             android:textColor="@color/textColorDark"
             android:textSize="@dimen/textsize_12"

@@ -73,8 +73,8 @@
     </style>
 
     <style name="TextAppearence.TextInputLayout.Grey" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@color/black_55</item>
-        <item name="android:textSize">@dimen/textsize_16</item>
+        <item name="android:textColor">@color/textcolor_hint</item>
+        <item name="android:textSize">@dimen/textsize_10</item>
     </style>
 
     <style name="switchTheme" parent="Theme.AppCompat.Light">
