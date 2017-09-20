@@ -76,6 +76,18 @@
             android:theme="@style/AppTheme.Fullscreen" />
 
         <activity
+            android:name=".ui.auth.ForgotPasswordActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Fullscreen" />
+
+        <activity
+            android:name=".ui.auth.ForgotPasswordConfirmActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Fullscreen" />
+
+        <activity
             android:name=".ui.dashboard.DashboardActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"

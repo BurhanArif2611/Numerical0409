@@ -3,6 +3,7 @@ package com.revauc.revolutionbuy.network.retrofit;
 
 import com.revauc.revolutionbuy.BuildConfig;
 import com.revauc.revolutionbuy.network.BaseResponse;
+import com.revauc.revolutionbuy.network.request.auth.ForgotPasswordRequest;
 import com.revauc.revolutionbuy.network.request.auth.SignUpRequest;
 import com.revauc.revolutionbuy.network.response.LoginResponse;
 
@@ -12,28 +13,6 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
-
-/**
- * This interface has collection of apis used in Project . Retrofit turns your HTTP API into a Java interface.
- * <p>
- * A request URL can be updated dynamically using replacement blocks and parameters on the method. A replacement block is an alphanumeric string surrounded by { and }. A corresponding parameter must be annotated with @Path using the same string.
- *
- * @GET("group/{id}/users") Call<List<User>> groupList(@Path("id") int groupId);
- * <p>
- * <p>
- * Query parameters can also be added.
- * @GET("group/{id}/users") Call<List<User>> groupList(@Path("id") int groupId, @Query("sort") String sort);
- * <p>
- * For complex query parameter combinations a Map can be used.
- * @GET("group/{id}/users") Call<List<User>> groupList(@Path("id") int groupId, @QueryMap Map<String, String> options);
- * <p>
- * <p>
- * REQUEST BODY
- * An object can be specified for use as an HTTP request body with the @Body annotation.
- * @POST("users/new") Call<User> createUser(@Body User user);
- * The object will also be converted using a converter specified on the Retrofit instance. If no converter is added, only RequestBody can be used.
- */
-
 public interface AuthWebServices {
 
     String QUERY_CURRENT_PAGE = "currentPage";
@@ -42,8 +21,7 @@ public interface AuthWebServices {
     String FB_LOGIN = BuildConfig.BASE_URL + "users/fb-sign-up";
     String REGISTER = BuildConfig.BASE_URL + "users/sign-up";
     String LOGIN = BuildConfig.BASE_URL + "users/sign-in";
-    String TERMS = BuildConfig.BASE_URL + "terms-conditions";
-    String PRIVACY = BuildConfig.BASE_URL + "privacy-policies";
+    String FORGOT_PASSWORD = BuildConfig.BASE_URL + "users/forget-password";
 
 //    @POST(FB_LOGIN)
 //    Observable<LoginResponse> loginUsingFacebook(@Body FBLoginRequest params);
@@ -53,9 +31,9 @@ public interface AuthWebServices {
 
     @POST(LOGIN)
     Observable<LoginResponse> loginUser(@Body SignUpRequest params);
-//
-//    @POST(FORGOT_PASSWORD)
-//    Observable<BaseResponse> forgotPassword(@Body ForgotPasswordRequest params);
+
+    @POST(FORGOT_PASSWORD)
+    Observable<BaseResponse> forgotPassword(@Body ForgotPasswordRequest params);
 //
 //    @POST(CHANGE_PASSWORD)
 //    Observable<BaseResponse> changePassword(@Body ChangePasswordRequest params);
