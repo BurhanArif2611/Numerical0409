@@ -238,6 +238,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         Utils.showSnackbar(getApplicationContext(), getWindow().getDecorView().getRootView(), msg, isError);
     }
 
+    public void showSnackBarFromBottom(String msg,View view,boolean isError) {
+        Utils.showSnackbar(getApplicationContext(), view, msg, isError);
+    }
+
     Fragment pushFragment(Constants.FRAGMENTS fragmentId, Bundle args, int containerViewId, boolean addToBackStack, boolean shouldAdd, ANIMATION_TYPE animationType) {
         try {
             BaseFragment fragment = getFragment(fragmentId);
