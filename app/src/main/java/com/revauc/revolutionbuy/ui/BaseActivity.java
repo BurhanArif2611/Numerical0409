@@ -1,7 +1,9 @@
 package com.revauc.revolutionbuy.ui;
 
 import android.app.Dialog;
+import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.LayoutRes;
@@ -23,6 +25,7 @@ import com.revauc.revolutionbuy.network.RequestController;
 //import com.revauc.revolutionbuy.network.response.auth.UserDto;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
+import com.revauc.revolutionbuy.ui.auth.EnterAppActivity;
 import com.revauc.revolutionbuy.util.Alert;
 import com.revauc.revolutionbuy.util.Constants;
 import com.revauc.revolutionbuy.util.LogUtils;
@@ -73,6 +76,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void showSnackBar(String message, String buttonText, View.OnClickListener listener) {
         Alert.showSnackBar(findViewById(android.R.id.content), message, buttonText, listener);
     }
+
+
 
     public void showDualActionSnackBar(String title, String text, String positiveText, String negativeText, View.OnClickListener positiveListener, View.OnClickListener negativeListener) {
 //        LocationSnackBar customSnackbar = LocationSnackBar.make((ViewGroup) findViewById(android.R.id.content));
@@ -225,8 +230,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public void showSnakBarFromTop(String msg, boolean isError) {
-        Utils.showSnakbarFromTop(getApplicationContext(), getWindow().getDecorView().getRootView(), msg, isError);
+//    public void showSnakBarFromTop(String msg, boolean isError) {
+//        Utils.showSnakbarFromTop(getApplicationContext(), getWindow().getDecorView().getRootView(), msg, isError);
+//    }
+
+    public void showSnackBarFromBottom(String msg,boolean isError) {
+        Utils.showSnackbar(getApplicationContext(), getWindow().getDecorView().getRootView(), msg, isError);
+    }
+
+    public void showSnackBarFromBottom(String msg,View view,boolean isError) {
+        Utils.showSnackbar(getApplicationContext(), view, msg, isError);
     }
 
     Fragment pushFragment(Constants.FRAGMENTS fragmentId, Bundle args, int containerViewId, boolean addToBackStack, boolean shouldAdd, ANIMATION_TYPE animationType) {
@@ -309,16 +322,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         SLIDE, FADE, DEFAULT, NONE, SLIDE_LEFT
     }
 
-//    public void logoutUser() {
-//        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//        notificationManager.cancelAll();
-//        PreferenceUtil.reset();
-//        Intent intent = new Intent(this, EnterAppActivity.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//        startActivity(intent);
-//        finish();
-//        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
-//    }
+    public void logoutUser() {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.cancelAll();
+        PreferenceUtil.reset();
+        Intent intent = new Intent(this, EnterAppActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+    }
 
 
 //    public void loginSignUpWithFacebook(final String email, String username, final String facebookToken, String latLong) {
@@ -370,33 +383,33 @@ public abstract class BaseActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
-//
-//    public void logoutUserApi() {
-//        showProgressBar();
-//        AuthWebServices apiService = RequestController.createRetrofitRequest(false);
-//        apiService.logout().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<LogoutResponse>(this) {
-//
-//            @Override
-//            public void onResponse(LogoutResponse response) {
-//                hideProgressBar();
-////                if (response.isSuccess()) {
-////                logoutUser();
-////                }
-//            }
-//
-//            @Override
-//            public void onError(Throwable call, BaseResponse baseResponse) {
-//                hideProgressBar();
-//                if (baseResponse != null) {
-//                    String errorMessage = baseResponse.getMessage();
-//                    int errorCode = baseResponse.getStatusCode();
-//                    if (errorMessage != null) {
-//                        showSnakBarFromTop(errorMessage,true);
-//                    }
-//                }
-//            }
-//        });
-//    }
+
+    public void logoutUserApi() {
+        showProgressBar();
+        AuthWebServices apiService = RequestController.createRetrofitRequest(false);
+        apiService.logout().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<BaseResponse>(this) {
+
+            @Override
+            public void onResponse(BaseResponse response) {
+                hideProgressBar();
+                if (response.isSuccess()) {
+                logoutUser();
+                }
+            }
+
+            @Override
+            public void onError(Throwable call, BaseResponse baseResponse) {
+                hideProgressBar();
+                if (baseResponse != null) {
+                    String errorMessage = baseResponse.getMessage();
+                    int errorCode = baseResponse.getStatusCode();
+                    if (errorMessage != null) {
+                        showSnackBarFromBottom(errorMessage,true);
+                    }
+                }
+            }
+        });
+    }
 
 
 }

@@ -19,6 +19,8 @@ import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.BaseActivity;
 import com.revauc.revolutionbuy.ui.dashboard.DashboardActivity;
+import com.revauc.revolutionbuy.util.PreferenceUtil;
+import com.revauc.revolutionbuy.util.StringUtils;
 import com.revauc.revolutionbuy.util.Utils;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -120,15 +122,15 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         String password = mBinding.editPassword.getText().toString().trim();
 
         if(!Utils.isEmailValid(email)){
-            showSnakBarFromTop(getString(R.string.error_valid_email), true);
+            showSnackBarFromBottom(getString(R.string.error_valid_email),mBinding.mainContainer, true);
             mBinding.containerEmail.setBackgroundResource(R.drawable.ic_button_red_border);
 
         }else if(password.length() < getResources().getInteger(R.integer.password_min_length)){
-            showSnakBarFromTop(getString(R.string.team_info), true);
+            showSnackBarFromBottom(getString(R.string.error_pass_min_fail),mBinding.mainContainer, true);
             mBinding.containerPassword.setBackgroundResource(R.drawable.ic_button_red_border);
 
         }else if(password.length() > getResources().getInteger(R.integer.password_max_length)){
-            showSnakBarFromTop(getString(R.string.error_pass_max_fail), true);
+            showSnackBarFromBottom(getString(R.string.error_pass_max_fail),mBinding.mainContainer, true);
             mBinding.containerPassword.setBackgroundResource(R.drawable.ic_button_red_border);
 
         }else{
@@ -158,15 +160,35 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
             public void onResponse(LoginResponse response) {
                 hideProgressBar();
                 if (response.isSuccess()) {
-//                    Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
-//                    startActivity(intent);
-//                    overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-//                    finish();
+                    if(response.getResult()!=null)
+                    {
+                        PreferenceUtil.setAuthToken(response.getResult().getToken());
+//                        if(response.getResult().getUser().getIsProfileComplete()==0)
+//                        {
+//                            startActivity(new Intent(SignInActivity.this,CreateProfileActivity.class));
+//                            finish();
+//                        }
+                        if(StringUtils.isNullOrEmpty(response.getResult().getUser().getName())||response.getResult().getUser().getName().equalsIgnoreCase("amp"))
+                        {
+                            startActivity(new Intent(SignInActivity.this,CreateProfileActivity.class));
+                            finish();
+                        }
+                        else
+                        {
+                            PreferenceUtil.setUserProfile(response.getResult().getUser());
+                            PreferenceUtil.setLoggedIn(true);
+                            Intent intent = new Intent(SignInActivity.this, DashboardActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                            finish();
+                        }
+                    }
                     showToast(response.getMessage());
                 }
                 else
                 {
-                    showSnakBarFromTop(response.getMessage(), true);
+                    showSnackBarFromBottom(response.getMessage(),mBinding.mainContainer, true);
                 }
 
             }
@@ -176,7 +198,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 hideProgressBar();
                 if (baseResponse != null) {
                     String errorMessage = baseResponse.getMessage();
-                    showSnakBarFromTop(errorMessage, true);
+                    showSnackBarFromBottom(errorMessage,mBinding.mainContainer, true);
                 }
             }
         });

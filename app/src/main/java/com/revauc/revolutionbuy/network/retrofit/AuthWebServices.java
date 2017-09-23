@@ -4,14 +4,26 @@ package com.revauc.revolutionbuy.network.retrofit;
 import com.revauc.revolutionbuy.BuildConfig;
 import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.request.auth.ForgotPasswordRequest;
+import com.revauc.revolutionbuy.network.request.auth.MobilePinRequest;
 import com.revauc.revolutionbuy.network.request.auth.SignUpRequest;
+import com.revauc.revolutionbuy.network.response.profile.CityResponse;
+import com.revauc.revolutionbuy.network.response.profile.CountryResponse;
 import com.revauc.revolutionbuy.network.response.LoginResponse;
+import com.revauc.revolutionbuy.network.response.profile.StateResponse;
+
+import java.util.Map;
 
 import io.reactivex.Observable;
-import retrofit2.Call;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
+import retrofit2.http.Query;
+
 
 public interface AuthWebServices {
 
@@ -22,6 +34,13 @@ public interface AuthWebServices {
     String REGISTER = BuildConfig.BASE_URL + "users/sign-up";
     String LOGIN = BuildConfig.BASE_URL + "users/sign-in";
     String FORGOT_PASSWORD = BuildConfig.BASE_URL + "users/forget-password";
+    String GET_COUNTRIES = BuildConfig.BASE_URL + "countries";
+    String GET_STATES = BuildConfig.BASE_URL + "states";
+    String GET_CITIES = BuildConfig.BASE_URL + "cities";
+    String MOBILE_PIN = BuildConfig.BASE_URL + "users/mobile-pin";
+    String ADD_PROFILE = BuildConfig.BASE_URL + "users/add-profile";
+    String EDIT_PROFILE = BuildConfig.BASE_URL + "users/edit-profile";
+    String LOGOUT = BuildConfig.BASE_URL + "users/logout";
 
 //    @POST(FB_LOGIN)
 //    Observable<LoginResponse> loginUsingFacebook(@Body FBLoginRequest params);
@@ -34,12 +53,36 @@ public interface AuthWebServices {
 
     @POST(FORGOT_PASSWORD)
     Observable<BaseResponse> forgotPassword(@Body ForgotPasswordRequest params);
+
+    @POST(MOBILE_PIN)
+    Observable<BaseResponse> generateMobilePin(@Body MobilePinRequest params);
+
+    @GET(GET_COUNTRIES)
+    Observable<CountryResponse> getCountries();
+
+    @GET(GET_STATES)
+    Observable<StateResponse> getStates(@Query("countryId") Integer countryId);
+
+    @GET(GET_CITIES)
+    Observable<CityResponse> getCities(@Query("countryId") Integer countryId, @Query("stateId") Integer stateId);
+
+    @Multipart
+    @POST(ADD_PROFILE)
+    Observable<LoginResponse> uploadFormData(@PartMap() Map<String, RequestBody> partMap);
+
+    @Multipart
+    @POST(EDIT_PROFILE)
+    Observable<LoginResponse> editProfile(@PartMap() Map<String, RequestBody> partMap,@Part MultipartBody.Part file);
+
+    @Multipart
+    @POST(EDIT_PROFILE)
+    Observable<LoginResponse> editProfile(@PartMap() Map<String, RequestBody> partMap);
 //
 //    @POST(CHANGE_PASSWORD)
 //    Observable<BaseResponse> changePassword(@Body ChangePasswordRequest params);
 //
-//    @DELETE(LOGOUT)
-//    Observable<LogoutResponse> logout();
+    @GET(LOGOUT)
+    Observable<BaseResponse> logout();
 //
 //    @POST(CONTEST_DETAILS)
 //    Observable<ContestDetailResponse> getContestDetails(@Body ContestDetailRequest contestDetailRequest);

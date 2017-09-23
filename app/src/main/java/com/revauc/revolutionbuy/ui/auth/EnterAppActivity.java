@@ -51,7 +51,7 @@ public class EnterAppActivity extends BaseActivity implements View.OnClickListen
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                 break;
             case R.id.text_skip:
-                Intent intent = new Intent(EnterAppActivity.this, DashboardActivity.class);
+                Intent intent = new Intent(EnterAppActivity.this, CreateProfileActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);

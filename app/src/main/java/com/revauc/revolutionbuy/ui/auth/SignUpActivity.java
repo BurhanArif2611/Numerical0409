@@ -123,15 +123,15 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
         String password = activitySignUpBinding.editPassword.getText().toString().trim();
 
         if(!Utils.isEmailValid(email)){
-            showSnakBarFromTop(getString(R.string.error_valid_email), true);
+            showSnackBarFromBottom(getString(R.string.error_valid_email),activitySignUpBinding.mainContainer, true);
             activitySignUpBinding.containerEmail.setBackgroundResource(R.drawable.ic_button_red_border);
 
         }else if(password.length() < getResources().getInteger(R.integer.password_min_length)){
-            showSnakBarFromTop(getString(R.string.team_info), true);
+            showSnackBarFromBottom(getString(R.string.team_info),activitySignUpBinding.mainContainer, true);
             activitySignUpBinding.containerPassword.setBackgroundResource(R.drawable.ic_button_red_border);
 
         }else if(password.length() > getResources().getInteger(R.integer.password_max_length)){
-            showSnakBarFromTop(getString(R.string.error_pass_max_fail), true);
+            showSnackBarFromBottom(getString(R.string.error_pass_max_fail),activitySignUpBinding.mainContainer, true);
             activitySignUpBinding.containerPassword.setBackgroundResource(R.drawable.ic_button_red_border);
 
         }else{
@@ -169,7 +169,7 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
                 }
                 else
                 {
-                    showSnakBarFromTop(response.getMessage(), true);
+                    showSnackBarFromBottom(response.getMessage(),activitySignUpBinding.mainContainer, true);
                 }
 
             }
@@ -179,7 +179,7 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
                 hideProgressBar();
                 if (baseResponse != null) {
                     String errorMessage = baseResponse.getMessage();
-                    showSnakBarFromTop(errorMessage, true);
+                    showSnackBarFromBottom(errorMessage,activitySignUpBinding.mainContainer, true);
                 }
             }
         });

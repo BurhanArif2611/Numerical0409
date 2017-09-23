@@ -131,6 +131,11 @@ public class DashboardActivity extends BaseActivity implements View.OnClickListe
 
     private void prepareViews() {
 
+//        if(getIntent().getBooleanExtra(Constants.EXTRA_IS_FROM_PROFILE,false))
+//        {
+            showSnackBarFromBottom(getString(R.string.profile_has_been_setup),false);
+//        }
+
         mBinder.navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         mBinder.navigation.enableShiftingMode(false);
         mBinder.navigation.enableItemShiftingMode(false);

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/margin_64"
+    android:background="@color/white">
+
+    <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+        android:id="@+id/text_step_one"
+        android:layout_width="@dimen/margin_32"
+        android:layout_height="@dimen/margin_32"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/margin_16"
+        android:background="@drawable/bg_step_item"
+        android:enabled="true"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="@drawable/selector_step_item" />
+
+    <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+        android:id="@+id/text_step_two"
+        android:layout_width="@dimen/margin_32"
+        android:layout_height="@dimen/margin_32"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:background="@drawable/bg_step_item"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="2"
+        android:textColor="@drawable/selector_step_item" />
+
+</RelativeLayout>

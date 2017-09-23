@@ -1,6 +1,7 @@
 package com.revauc.revolutionbuy.ui.settings;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -13,10 +14,13 @@ import android.view.ViewGroup;
 
 import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.FragmentSettingsBinding;
+import com.revauc.revolutionbuy.ui.BaseActivity;
+import com.revauc.revolutionbuy.ui.auth.CreateProfileActivity;
 import com.revauc.revolutionbuy.ui.sell.SellOptionsGridAdapter;
+import com.revauc.revolutionbuy.util.Constants;
 
 
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends Fragment implements View.OnClickListener {
 
     private FragmentSettingsBinding mBinder;
 
@@ -52,6 +56,8 @@ public class SettingsFragment extends Fragment {
 
     private void setupViews() {
         mBinder.toolbarSettings.txvToolbarGeneralCenter.setText(R.string.settings);
+        mBinder.textYourProfile.setOnClickListener(this);
+        mBinder.textLogout.setOnClickListener(this);
     }
 
     @Override
@@ -59,4 +65,19 @@ public class SettingsFragment extends Fragment {
         super.onAttach(context);
     }
 
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId())
+        {
+            case R.id.text_your_profile:
+                Intent intent = new Intent(getActivity(), CreateProfileActivity.class);
+                intent.putExtra(Constants.EXTRA_FROM_SETTINGS,true);
+                startActivity(intent);
+                    break;
+            case R.id.text_logout:
+                ((BaseActivity)getActivity()).logoutUserApi();
+                break;
+        }
+    }
 }

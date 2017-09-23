@@ -78,9 +78,9 @@ public abstract class BaseFragment extends Fragment {
         getBaseActivity().showSnackBar(message);
     }
 
-    public void showSnackBarTop(String message , boolean error) {
-        getBaseActivity().showSnakBarFromTop(message , error);
-    }
+//    public void showSnackBarTop(String message , boolean error) {
+//        getBaseActivity().showSnakBarFromTop(message , error);
+//    }
 
 
     public void showSnackBar(String message, String buttonText, View.OnClickListener listener) {

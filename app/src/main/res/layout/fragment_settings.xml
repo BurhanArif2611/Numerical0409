@@ -34,7 +34,7 @@
             android:background="@color/color_line_divider" />
 
         <com.revauc.revolutionbuy.widget.typeface.CustomTextView
-            android:id="@+id/your_profile"
+            android:id="@+id/text_your_profile"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_43"
             android:background="@color/white"

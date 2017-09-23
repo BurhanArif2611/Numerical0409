@@ -1,0 +1,113 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/main_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/screen_bg"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar_profile"
+            layout="@layout/toolbar_general"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+            android:id="@+id/text_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_16"
+            android:text="Providing your mobile number allows you to contact other buyers and sellers."
+            android:textColor="@color/textColorDark"
+            android:textSize="@dimen/textsize_15"
+            app:customFont="@string/font_avenir_regular" />
+
+        <RelativeLayout
+            android:id="@+id/container_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_24"
+            android:background="@drawable/et_edittext_border">
+
+            <ImageView
+                android:id="@+id/image_mobile"
+                android:layout_width="@dimen/margin_52"
+                android:layout_height="@dimen/margin_52"
+                android:layout_margin="@dimen/margin_1"
+                android:background="@drawable/ic_edit_icon_bg"
+                android:scaleType="center"
+                android:src="@drawable/ic_mobile" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_input_mobile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/image_mobile"
+                android:hint="Mobile number"
+                android:paddingBottom="@dimen/margin_10"
+                android:paddingTop="@dimen/margin_10"
+                android:textColorHint="@color/textcolor_hint"
+                app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Grey">
+
+                <com.revauc.revolutionbuy.widget.typeface.CustomEditText
+                    android:id="@+id/edit_mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:ellipsize="end"
+                    android:inputType="phone"
+                    android:maxLines="1"
+                    android:paddingEnd="@dimen/margin_16"
+                    android:paddingStart="@dimen/margin_16"
+                    android:paddingTop="@dimen/margin_2"
+                    android:textColor="@color/textColorDark"
+                    android:textSize="@dimen/textsize_15"
+                    app:customFont="@string/font_avenir_regular" />
+
+            </android.support.design.widget.TextInputLayout>
+
+        </RelativeLayout>
+
+        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+            android:id="@+id/text_generate_pin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_16"
+            android:background="@drawable/ic_button_blue"
+            android:gravity="center"
+            android:padding="@dimen/margin_16"
+            android:text="Generate PIN"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textsize_16"
+            app:customFont="@string/font_avenir_medium" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <include
+            layout="@layout/layout_profile_footer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_64" />
+
+    </LinearLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

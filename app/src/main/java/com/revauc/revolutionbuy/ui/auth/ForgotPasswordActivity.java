@@ -91,7 +91,7 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
         String email = mBinding.editEmail.getText().toString().trim();
 
         if(!Utils.isEmailValid(email)){
-            showSnakBarFromTop(getString(R.string.error_valid_email), true);
+            showSnackBarFromBottom(getString(R.string.error_valid_email),mBinding.mainContainer, true);
             mBinding.containerEmail.setBackgroundResource(R.drawable.ic_button_red_border);
 
         }else{
@@ -121,7 +121,7 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
                 }
                 else
                 {
-                    showSnakBarFromTop(response.getMessage(), true);
+                    showSnackBarFromBottom(response.getMessage(),mBinding.mainContainer, true);
                 }
 
             }
@@ -131,7 +131,7 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
                 hideProgressBar();
                 if (baseResponse != null) {
                     String errorMessage = baseResponse.getMessage();
-                    showSnakBarFromTop(errorMessage, true);
+                    showSnackBarFromBottom(errorMessage,mBinding.mainContainer, true);
                 }
             }
         });

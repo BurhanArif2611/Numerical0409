@@ -1,0 +1,312 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/main_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/screen_bg"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar_profile"
+            layout="@layout/toolbar_general"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.0"
+            android:background="@drawable/screen_bg">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_profile"
+                    android:layout_width="@dimen/margin_90"
+                    android:layout_height="@dimen/margin_90"
+                    android:layout_marginTop="@dimen/margin_24"
+                    android:src="@drawable/ic_avatar_profile" />
+
+                <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+                    android:id="@+id/text_add_photo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_12"
+                    android:text="@string/add_photo"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/textsize_15"
+                    app:customFont="@string/font_avenir_regular" />
+
+                <RelativeLayout
+                    android:id="@+id/container_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_16"
+                    android:layout_marginStart="@dimen/margin_16"
+                    android:layout_marginTop="@dimen/margin_24"
+                    android:background="@drawable/et_edittext_border">
+
+                    <ImageView
+                        android:id="@+id/image_name"
+                        android:layout_width="@dimen/margin_52"
+                        android:layout_height="@dimen/margin_52"
+                        android:layout_margin="@dimen/margin_1"
+                        android:background="@drawable/ic_edit_icon_bg"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_name" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/text_input_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/image_name"
+                        android:hint="Full Name"
+                        android:paddingBottom="@dimen/margin_10"
+                        android:paddingTop="@dimen/margin_10"
+                        android:textColorHint="@color/textcolor_hint"
+                        app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Grey">
+
+                        <com.revauc.revolutionbuy.widget.typeface.CustomEditText
+                            android:id="@+id/edit_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:paddingEnd="@dimen/margin_16"
+                            android:paddingStart="@dimen/margin_16"
+                            android:paddingTop="@dimen/margin_2"
+                            android:textColor="@color/textColorDark"
+                            android:textSize="@dimen/textsize_15"
+                            app:customFont="@string/font_avenir_regular" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/container_age"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_16"
+                    android:layout_marginStart="@dimen/margin_16"
+                    android:layout_marginTop="@dimen/margin_16"
+                    android:background="@drawable/et_edittext_border">
+
+                    <ImageView
+                        android:id="@+id/image_age"
+                        android:layout_width="@dimen/margin_52"
+                        android:layout_height="@dimen/margin_52"
+                        android:layout_margin="@dimen/margin_1"
+                        android:background="@drawable/ic_edit_icon_bg"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_birthday" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/text_input_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/image_age"
+                        android:hint="Age"
+                        android:paddingBottom="@dimen/margin_10"
+                        android:paddingTop="@dimen/margin_10"
+                        android:textColorHint="@color/textcolor_hint"
+                        app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Grey">
+
+                        <com.revauc.revolutionbuy.widget.typeface.CustomEditText
+                            android:id="@+id/edit_age"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:inputType="number"
+                            android:paddingEnd="@dimen/margin_16"
+                            android:paddingStart="@dimen/margin_16"
+                            android:paddingTop="@dimen/margin_2"
+                            android:textColor="@color/textColorDark"
+                            android:textSize="@dimen/textsize_15"
+                            app:customFont="@string/font_avenir_regular" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/container_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_16"
+                    android:layout_marginStart="@dimen/margin_16"
+                    android:layout_marginTop="@dimen/margin_16"
+                    android:background="@drawable/et_edittext_border">
+
+                    <ImageView
+                        android:id="@+id/image_country"
+                        android:layout_width="@dimen/margin_52"
+                        android:layout_height="@dimen/margin_52"
+                        android:layout_margin="@dimen/margin_1"
+                        android:background="@drawable/ic_edit_icon_bg"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_country" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/text_input_country"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/image_country"
+                        android:hint="Country"
+                        android:paddingBottom="@dimen/margin_10"
+                        android:paddingTop="@dimen/margin_10"
+                        android:textColorHint="@color/textcolor_hint"
+                        app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Grey">
+
+                        <com.revauc.revolutionbuy.widget.typeface.AutoCompleteCustomTextView
+                            android:id="@+id/edit_country"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:drawableEnd="@drawable/ic_dropdown"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:paddingEnd="@dimen/margin_16"
+                            android:paddingStart="@dimen/margin_16"
+                            android:paddingTop="@dimen/margin_2"
+                            android:textColor="@color/textColorDark"
+                            android:textSize="@dimen/textsize_15"
+                            app:customFont="@string/font_avenir_regular"/>
+
+                    </android.support.design.widget.TextInputLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/container_state"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_16"
+                    android:layout_marginStart="@dimen/margin_16"
+                    android:layout_marginTop="@dimen/margin_16"
+                    android:background="@drawable/et_edittext_border">
+
+                    <ImageView
+                        android:id="@+id/image_state"
+                        android:layout_width="@dimen/margin_52"
+                        android:layout_height="@dimen/margin_52"
+                        android:layout_margin="@dimen/margin_1"
+                        android:background="@drawable/ic_edit_icon_bg"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_state" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/text_input_state"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/image_state"
+                        android:hint="State"
+                        android:paddingBottom="@dimen/margin_10"
+                        android:paddingTop="@dimen/margin_10"
+                        android:textColorHint="@color/textcolor_hint"
+                        app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Grey">
+
+                        <com.revauc.revolutionbuy.widget.typeface.AutoCompleteCustomTextView
+                            android:id="@+id/edit_state"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:drawableEnd="@drawable/ic_dropdown"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:paddingEnd="@dimen/margin_16"
+                            android:paddingStart="@dimen/margin_16"
+                            android:paddingTop="@dimen/margin_2"
+                            android:textColor="@color/textColorDark"
+                            android:textSize="@dimen/textsize_15"
+                            app:customFont="@string/font_avenir_regular" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/container_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_16"
+                    android:layout_marginStart="@dimen/margin_16"
+                    android:layout_marginTop="@dimen/margin_16"
+                    android:background="@drawable/et_edittext_border">
+
+                    <ImageView
+                        android:id="@+id/image_city"
+                        android:layout_width="@dimen/margin_52"
+                        android:layout_height="@dimen/margin_52"
+                        android:layout_margin="@dimen/margin_1"
+                        android:background="@drawable/ic_edit_icon_bg"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_city" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/text_input_city"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/image_city"
+                        android:hint="City"
+                        android:paddingBottom="@dimen/margin_10"
+                        android:paddingTop="@dimen/margin_10"
+                        android:textColorHint="@color/textcolor_hint"
+                        app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Grey">
+
+                        <com.revauc.revolutionbuy.widget.typeface.AutoCompleteCustomTextView
+                            android:id="@+id/edit_city"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:drawableEnd="@drawable/ic_dropdown"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:paddingEnd="@dimen/margin_16"
+                            android:paddingStart="@dimen/margin_16"
+                            android:paddingTop="@dimen/margin_2"
+                            android:textColor="@color/textColorDark"
+                            android:textSize="@dimen/textsize_15"
+                            app:customFont="@string/font_avenir_regular" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </RelativeLayout>
+
+
+            </LinearLayout>
+        </ScrollView>
+
+        <include
+            android:id="@+id/profile_footer"
+            layout="@layout/layout_profile_footer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_64" />
+
+    </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

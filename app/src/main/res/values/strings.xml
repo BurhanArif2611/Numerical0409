@@ -73,6 +73,7 @@
     <string name="how_to_play">How To Play</string>
     <string name="text_accept_terms_conditions"><![CDATA[By signing up, I agree to the\nPrivacy Policy & the Terms and Conditions.]]></string>
     <string name="text_please_enter">Please enter %s</string>
+    <string name="text_please_select">Please select a %s</string>
     <string name="text_please_enter_valid">Please enter valid %s</string>
     <string name="agree_to_tnc"><![CDATA[Please agree to Thrive Fantasy\'s Terms & Conditions and Privacy Policy]]></string>
     <string name="are_you_sure_logout">Are you sure you want to logout?</string>
@@ -238,7 +239,7 @@
     <string name="min">min ago</string>
     <string name="hrs">hrs ago</string>
     <string name="hr">hr ago</string>
-    <string name="done">DONE</string>
+    <string name="done">Done</string>
     <string name="yesterday">Yesterday</string>
     <string name="_1st_prize_payout">1st prize payout: </string>
     <string name="import_title">Import Picks</string>
@@ -318,4 +319,16 @@
     <string name="error_pass_max_fail">Password cannot be greater than 16 characters</string>
     <string name="login_with_email">Login with email</string>
     <string name="request_recieved">Request received</string>
+    <string name="add_photo">Add photo</string>
+    <string name="create_profile">Create profile</string>
+    <string name="cancel">Cancel</string>
+    <string name="next">Next</string>
+    <string name="profile_age_error">You must be 18 years or older to use this app</string>
+    <string name="verify_mobile_number">Verify mobile number</string>
+    <string name="resend_pin">Resend PIN</string>
+    <string name="mobile_verification">Mobile verification</string>
+    <string name="mobile_number">Mobile number</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="change_photo">Change photo</string>
+    <string name="profile_has_been_setup">Your profile has been set up</string>
 </resources>

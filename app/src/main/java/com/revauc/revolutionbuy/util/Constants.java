@@ -30,13 +30,17 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  */
 public class Constants {
 
-
+    public static final String ERROR_UNSUPPORTED_SIZE = "UNSUPPORTED MEDIA SIZE";
+    public static final String ERROR_CANNOT_UPLOAD = "Image size cannot exceeds 10 MB";
     public static final String EXTRA_FACEBOOK_TOKEN = "FACEBOOK_TOKEN";
     public static final String EXTRA_LEAGUE_TYPE = "LEAGUE_TYPE";
     public static final int ITEM_TYPE_SEPARATOR = 2;
     public static final String EXTRA_POLLING_REQUIRED = "POLLING_REQUIRED";
     public static final String EXTRA_SHOULD_ACCEPT = "SHOULD_ACCEPT";
     public static final String INTENT_ACTION_PLAYER_DISABLED = "com.revauc.revolutionbuy.playerdisable";
+    public static final String EXTRA_CITY_ID = "CITY_ID";
+    public static final String EXTRA_AGE = "AGE";
+    public static final String EXTRA_MOBILE = "MOBILE";
 
 
     public static String BROAD_PICKS_ENTER_COMPLETE = "BROAD_PICKS_ENTER_COMPLETE";
@@ -59,7 +63,7 @@ public class Constants {
     public static final String EXTRA_CONTEST_ID = "EXTRA_CONTEST_ID";
     public static final String EXTRA_USER_CONTEST_ID = "EXTRA_USER_CONTEST_ID";
     public static final String EXTRA_OPPONENT_USER_CONTEST_ID = "EXTRA_OPPONENT_USER_CONTEST_ID";
-    public static final String EXTRA_IS_FROM_FEED = "EXTRA_IS_FROM_FEED";
+    public static final String EXTRA_IS_FROM_PROFILE = "EXTRA_IS_FROM_PROFILE";
     public static final String EXTRA_CONTEST_TYPE = "EXTRA_CONTEST_TYPE";
     public static final String EXTRA_CONTEST_NAME = "EXTRA_CONTEST_NAME";
     public static final String EXTRA_CONTEST = "EXTRA_CONTEST";

@@ -647,6 +647,55 @@ public class Utils {
         }
     }
 
+    public static void showSnackbar(Context ctx, View v, String msg, boolean isError) {
+
+        if (!StringUtils.isNullOrEmpty(msg)) {
+            SpannableStringBuilder builder = new SpannableStringBuilder();
+            builder.append("");
+
+
+            SpannableString spanStr = createIndentedText("" + msg, 0, 0);
+            builder.append(spanStr);
+
+            Snackbar snackbar = Snackbar
+                    .make(v, builder, TSnackbar.LENGTH_LONG);
+            snackbar.setActionTextColor(Color.WHITE);
+
+            View snackbarView = snackbar.getView();
+            TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+            if (isError) {
+                snackbarView.setBackgroundColor(ContextCompat.getColor(ctx, R.color.color_snackbar_error_bg));
+                textView.setTextColor(ContextCompat.getColor(ctx, R.color.color_red_border));
+            } else {
+                snackbarView.setBackgroundColor(ContextCompat.getColor(ctx, R.color.colorPrimaryDark));
+                textView.setTextColor(Color.WHITE);
+            }
+
+
+
+            Typeface tf = Typeface.createFromAsset(textView.getContext()
+                    .getAssets(), ctx.getString(R.string.font_avenir_medium));
+
+            textView.setTypeface(tf);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+                textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            else
+                textView.setGravity(Gravity.CENTER_HORIZONTAL);
+            textView.setCompoundDrawablePadding(20);
+
+            textView.setLineSpacing(1, 1.2f);
+//            if (isError) {
+//                textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_warning_mini, 0, 0, 0);
+//            } else {
+//                textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_tick_white, 0, 0, 0);
+//            }
+            //textView.setHeight(Utils.dpToPx(ctx,70));
+            // snackbarView.setPadding(5, 25, 10, 5);
+            snackbarView.setPadding(16, 32, 16, 16);
+            snackbar.show();
+        }
+    }
+
 
     static SpannableString createIndentedText(String text, int marginFirstLine, int marginNextLines) {
         SpannableString result = new SpannableString(text);

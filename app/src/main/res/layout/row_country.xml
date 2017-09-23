@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+
+    <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+        android:id="@+id/text_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_17"
+        android:layout_marginBottom="@dimen/margin_17"
+        android:layout_marginRight="@dimen/margin_26"
+        android:textSize="@dimen/textsize_15"
+        android:textColor="@color/textcolor_hint"
+        app:customFont="@string/font_avenir_regular"/>
+
+</LinearLayout>

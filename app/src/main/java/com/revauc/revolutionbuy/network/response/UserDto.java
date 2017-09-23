@@ -6,6 +6,8 @@ import android.os.Parcelable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.gson.annotations.SerializedName;
+import com.revauc.revolutionbuy.network.response.profile.CityDto;
+import com.revauc.revolutionbuy.network.response.profile.LocationDto;
 
 /**
  *
@@ -62,7 +64,7 @@ public class UserDto implements Parcelable {
     private int loginType;
 
     @SerializedName("city")
-    private String dob;
+    private LocationDto city;
 
     @SerializedName("imageName")
     private String imageName;
@@ -195,12 +197,12 @@ public class UserDto implements Parcelable {
         this.loginType = loginType;
     }
 
-    public String getDob() {
-        return dob;
+    public LocationDto getCity() {
+        return city;
     }
 
-    public void setDob(String dob) {
-        this.dob = dob;
+    public void setCity(LocationDto city) {
+        this.city = city;
     }
 
     public String getImageName() {
@@ -235,7 +237,7 @@ public class UserDto implements Parcelable {
         dest.writeInt(this.isProfileComplete);
         dest.writeInt(this.status);
         dest.writeInt(this.loginType);
-        dest.writeString(this.dob);
+        dest.writeParcelable(this.city, flags);
         dest.writeString(this.imageName);
     }
 
@@ -259,7 +261,7 @@ public class UserDto implements Parcelable {
         this.isProfileComplete = in.readInt();
         this.status = in.readInt();
         this.loginType = in.readInt();
-        this.dob = in.readString();
+        this.city = in.readParcelable(LocationDto.class.getClassLoader());
         this.imageName = in.readString();
     }
 

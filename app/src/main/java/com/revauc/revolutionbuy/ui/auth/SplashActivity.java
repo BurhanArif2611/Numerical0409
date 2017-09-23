@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.ui.BaseActivity;
+import com.revauc.revolutionbuy.ui.dashboard.DashboardActivity;
 import com.revauc.revolutionbuy.ui.walkthrough.WalkThroughActivity;
 import com.revauc.revolutionbuy.util.LogUtils;
 import com.revauc.revolutionbuy.util.PreferenceUtil;
@@ -36,13 +37,11 @@ public class SplashActivity extends BaseActivity {
         @Override
         public void run() {
             if (isSplashScreenVisible) {
-//                if (PreferenceUtil.isLoggedIn()) {
-//                    startActivity(new Intent(SplashActivity.this, DashboardActivity.class));
-//                } else if (PreferenceUtil.shouldShowEnterApp()) {
-//                    startActivity(new Intent(SplashActivity.this, EnterAppActivity.class));
-//                } else {
+                if (PreferenceUtil.isLoggedIn()) {
+                    startActivity(new Intent(SplashActivity.this, DashboardActivity.class));
+                }else {
                     startActivity(new Intent(SplashActivity.this, WalkThroughActivity.class));
-//                }
+                }
                 finish();
             }
         }
