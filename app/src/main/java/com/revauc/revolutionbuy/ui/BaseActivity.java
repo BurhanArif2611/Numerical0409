@@ -230,16 +230,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-//    public void showSnakBarFromTop(String msg, boolean isError) {
-//        Utils.showSnakbarFromTop(getApplicationContext(), getWindow().getDecorView().getRootView(), msg, isError);
-//    }
+    public void showSnakBarFromTop(String msg, boolean isError) {
+        Utils.showSnakbarFromTop(getApplicationContext(), getWindow().getDecorView().getRootView(), msg, isError);
+    }
 
     public void showSnackBarFromBottom(String msg,boolean isError) {
         Utils.showSnackbar(getApplicationContext(), getWindow().getDecorView().getRootView(), msg, isError);
-    }
-
-    public void showSnackBarFromBottom(String msg,View view,boolean isError) {
-        Utils.showSnackbar(getApplicationContext(), view, msg, isError);
     }
 
     Fragment pushFragment(Constants.FRAGMENTS fragmentId, Bundle args, int containerViewId, boolean addToBackStack, boolean shouldAdd, ANIMATION_TYPE animationType) {
@@ -404,7 +400,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     String errorMessage = baseResponse.getMessage();
                     int errorCode = baseResponse.getStatusCode();
                     if (errorMessage != null) {
-                        showSnackBarFromBottom(errorMessage,true);
+                        showSnakBarFromTop(errorMessage,true);
                     }
                 }
             }
