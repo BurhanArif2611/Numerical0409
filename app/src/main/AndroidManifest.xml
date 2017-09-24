@@ -101,6 +101,12 @@
             android:theme="@style/AppTheme.Fullscreen" />
 
         <activity
+            android:name=".ui.profile.ProfileActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Fullscreen" />
+
+        <activity
             android:name=".ui.auth.CreateProfileActivity"
             android:exported="false"
             android:screenOrientation="portrait"

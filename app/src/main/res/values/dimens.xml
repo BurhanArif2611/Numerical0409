@@ -13,4 +13,9 @@
     <dimen name="textsize_15">15sp</dimen>
     <dimen name="textsize_17">17sp</dimen>
     <dimen name="textsize_24">24sp</dimen>
+    <dimen name="margin_146">146dp</dimen>
+    <dimen name="textsize_21">21sp</dimen>
+    <dimen name="margin_65">65dp</dimen>
+    <dimen name="margin_44">44dp</dimen>
+    <dimen name="margin_49">49dp</dimen>
 </resources>

@@ -16,7 +16,9 @@ import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.FragmentSettingsBinding;
 import com.revauc.revolutionbuy.ui.BaseActivity;
 import com.revauc.revolutionbuy.ui.auth.CreateProfileActivity;
+import com.revauc.revolutionbuy.ui.profile.ProfileActivity;
 import com.revauc.revolutionbuy.ui.sell.SellOptionsGridAdapter;
+import com.revauc.revolutionbuy.ui.walkthrough.WalkThroughActivity;
 import com.revauc.revolutionbuy.util.Constants;
 
 
@@ -57,6 +59,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     private void setupViews() {
         mBinder.toolbarSettings.txvToolbarGeneralCenter.setText(R.string.settings);
         mBinder.textYourProfile.setOnClickListener(this);
+        mBinder.textOnboarding.setOnClickListener(this);
         mBinder.textLogout.setOnClickListener(this);
     }
 
@@ -71,12 +74,17 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         switch (view.getId())
         {
             case R.id.text_your_profile:
-                Intent intent = new Intent(getActivity(), CreateProfileActivity.class);
+                Intent intent = new Intent(getActivity(), ProfileActivity.class);
                 intent.putExtra(Constants.EXTRA_FROM_SETTINGS,true);
                 startActivity(intent);
                     break;
             case R.id.text_logout:
                 ((BaseActivity)getActivity()).logoutUserApi();
+                break;
+            case R.id.text_onboarding:
+                Intent walkthroughIntent = new Intent(getActivity(), WalkThroughActivity.class);
+                walkthroughIntent.putExtra(Constants.EXTRA_FROM_SETTINGS,true);
+                startActivity(walkthroughIntent);
                 break;
         }
     }

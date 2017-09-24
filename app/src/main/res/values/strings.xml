@@ -331,4 +331,7 @@
     <string name="edit_profile">Edit profile</string>
     <string name="change_photo">Change photo</string>
     <string name="profile_has_been_setup">Your profile has been set up</string>
+    <string name="edit">Edit</string>
+    <string name="item_sold">Items sold</string>
+    <string name="item_purchased">Items purchased</string>
 </resources>
