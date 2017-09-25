@@ -307,7 +307,7 @@
     <string name="change_mobile_number">Change Mobile Number</string>
     <string name="your_profile">Your Profile</string>
     <string name="settings">Settings</string>
-    <string name="agree_to_terms_and_privacy">By signing up you agree to Revolution Buy’s Terms of Use and Privacy Policy.</string>
+    <string name="agree_to_terms_and_privacy">By signing up you agree to Revolution Buy’s\nTerms of Use and Privacy Policy.</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="over_18_label">Are you over 18? This is legally required to use the app.</string>
@@ -334,4 +334,9 @@
     <string name="edit">Edit</string>
     <string name="item_sold">Items sold</string>
     <string name="item_purchased">Items purchased</string>
+    <string name="sure_to_logout">Are you sure you want to logout?</string>
+    <string name="sure_to_continue_as_guest">Are you sure you want to continue as a guest\nuser?</string>
+    <string name="continue_as_guest">Continue As Guest</string>
+    <string name="signing_in">Signing in</string>
+    <string name="generating_password">Generating password</string>
 </resources>

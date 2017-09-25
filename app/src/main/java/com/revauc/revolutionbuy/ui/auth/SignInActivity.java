@@ -3,10 +3,15 @@ package com.revauc.revolutionbuy.ui.auth;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.databinding.DataBindingUtil;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
+import android.text.SpannableString;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.style.ClickableSpan;
 import android.view.View;
 
 import com.revauc.revolutionbuy.R;
@@ -40,6 +45,8 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         mBinding.imageBack.setOnClickListener(this);
         mBinding.textSignIn.setOnClickListener(this);
         mBinding.textForgotPassword.setOnClickListener(this);
+
+        setSpanString();
 
         mBinding.editEmail.addTextChangedListener(new TextWatcher() {
             @Override
@@ -145,7 +152,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
      * @param password
      */
     private void attemptSignIn(String email,String password) {
-        showProgressBar();
+        showProgressBar(getString(R.string.signing_in));
         AuthWebServices apiService = RequestController.createRetrofitRequest(true);
         final SignUpRequest request = new SignUpRequest();
         request.setEmail(email);
@@ -202,6 +209,63 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 }
             }
         });
+    }
+
+    /**
+     * Makes a String for Login Spannable
+     */
+    private void setSpanString() {
+        SpannableString spanString = new SpannableString(
+                getString(R.string.agree_to_terms_and_privacy));
+
+        ClickableSpan terms = new ClickableSpan() {
+            @Override
+            public void onClick(View textView) {
+                startActivity(new Intent(SignInActivity.this, TermsConditionsActivity.class));
+                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                finish();
+            }
+
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setUnderlineText(false);
+            }
+        };
+
+        ClickableSpan privacy = new ClickableSpan() {
+            @Override
+            public void onClick(View textView) {
+                startActivity(new Intent(SignInActivity.this, PrivacyActivity.class));
+                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                finish();
+            }
+
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setUnderlineText(false);
+            }
+        };
+
+        int termsStart = getString(R.string.agree_to_terms_and_privacy).indexOf("Terms of Use");
+        int termsEnd = getString(R.string.agree_to_terms_and_privacy).indexOf(" and");
+
+        int privacyStart = getString(R.string.agree_to_terms_and_privacy).indexOf("Privacy Policy");
+        int privacyEnd = getString(R.string.agree_to_terms_and_privacy).indexOf(".");
+
+        Typeface font = Typeface.createFromAsset(getAssets(), getString(R.string.font_avenir_bold));
+        Utils.setSpanFont(spanString, termsStart, termsEnd, font);
+        Utils.setSpannClickEvent(spanString, termsStart, termsEnd, terms);
+        Utils.setSpannColor(spanString, termsStart, termsEnd, ContextCompat.getColor(this, R.color.textColorDark));
+
+        Utils.setSpanFont(spanString, privacyStart, privacyEnd, font);
+        Utils.setSpannClickEvent(spanString, privacyStart, privacyEnd, privacy);
+        Utils.setSpannColor(spanString, privacyStart, privacyEnd, ContextCompat.getColor(this, R.color.textColorDark));
+
+
+        Utils.setSpannCommanProperty(mBinding.textTerms, spanString);
+
     }
 
 }

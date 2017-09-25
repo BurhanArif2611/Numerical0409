@@ -105,7 +105,7 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
      * @param email
      */
     private void sendResetPasswordLink(String email) {
-        showProgressBar();
+        showProgressBar(getString(R.string.generating_password));
         AuthWebServices apiService = RequestController.createRetrofitRequest(true);
 
         apiService.forgotPassword(new ForgotPasswordRequest(email)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<BaseResponse>(this) {

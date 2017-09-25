@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.revauc.revolutionbuy.R;
@@ -143,6 +144,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         showProgressBar(null, null, null, 0);
     }
 
+    public void showProgressBar(String message) {
+        showProgressBar(null, message, null, 0);
+    }
+
     public void hideProgressBar() {
         try {
             if (mLoadingDialog != null && mLoadingDialog.isShowing())
@@ -179,6 +184,10 @@ public abstract class BaseActivity extends AppCompatActivity {
             if (mLoadingDialog == null) {
                 mLoadingDialog = new Dialog(this, R.style.TransDialog);
                 mLoadingDialog.setContentView(R.layout.view_progress_dialog);
+                if(msg!=null)
+                {
+                    ((TextView)mLoadingDialog.findViewById(R.id.text_loading_message)).setText(msg);
+                }
             }
             mLoadingDialog.setCancelable(false);
             mLoadingDialog.show();

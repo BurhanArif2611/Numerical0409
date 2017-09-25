@@ -73,13 +73,13 @@ public class WalkThroughActivity extends BaseActivity implements View.OnClickLis
                 @Override
                 public void onPageSelected(int position) {
                     if (position == 3) {
-                        walkThroughActivityBinding.textviewNext.setVisibility(View.INVISIBLE);
-                        walkThroughActivityBinding.textviewSkipWalkthrough.setText(R.string.get_started);
+                        walkThroughActivityBinding.textviewSkipWalkthrough.setVisibility(View.INVISIBLE);
+                        walkThroughActivityBinding.textviewNext.setText(R.string.get_started);
                     }
                     else if(position ==2)
                     {
-                        walkThroughActivityBinding.textviewNext.setVisibility(View.VISIBLE);
-                        walkThroughActivityBinding.textviewSkipWalkthrough.setText(R.string.text_skip);
+                        walkThroughActivityBinding.textviewSkipWalkthrough.setVisibility(View.VISIBLE);
+                        walkThroughActivityBinding.textviewNext.setText(R.string.next);
                     }
                 }
 
@@ -88,9 +88,10 @@ public class WalkThroughActivity extends BaseActivity implements View.OnClickLis
 
                 }
             });
-            walkThroughActivityBinding.textviewSkipWalkthrough.setOnClickListener(this);
-            walkThroughActivityBinding.textviewNext.setOnClickListener(this);
         }
+
+        walkThroughActivityBinding.textviewSkipWalkthrough.setOnClickListener(this);
+        walkThroughActivityBinding.textviewNext.setOnClickListener(this);
 
     }
 
@@ -125,6 +126,10 @@ public class WalkThroughActivity extends BaseActivity implements View.OnClickLis
             if(currentItem<3)
             {
                 walkThroughActivityBinding.viewpagerWalkthrough.setCurrentItem(currentItem+1,true);
+            }
+            else
+            {
+                skipTutorial();
             }
         }
     }

@@ -112,7 +112,7 @@ public class ImagePickerUtils extends Fragment {
                     File file = new File(mediaPath);
                     Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 //                    File file = new File(Environment.getExternalStorageDirectory() + File.separator + "image.jpg");
-                    String AUTHORITY = "com.appster.blockpartee.provider";
+                    String AUTHORITY = "com.revauc.revolutionbuy.provider";
                     Uri photoUri = FileProvider.getUriForFile(getActivity(), AUTHORITY, file);
                     cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
                     startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);

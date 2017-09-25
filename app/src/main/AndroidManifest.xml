@@ -17,6 +17,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.revauc.revolutionbuy.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
+
         <activity
             android:name=".ui.auth.SplashActivity"
             android:screenOrientation="portrait"
@@ -110,7 +122,8 @@
             android:name=".ui.auth.CreateProfileActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Fullscreen" />
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            />
 
         <activity
             android:name=".ui.dashboard.DashboardActivity"

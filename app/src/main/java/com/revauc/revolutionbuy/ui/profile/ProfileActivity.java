@@ -48,11 +48,16 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
         mBinding.imageBack.setOnClickListener(this);
         mBinding.textEdit.setOnClickListener(this);
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         UserDto userDto = PreferenceUtil.getUserProfile();
         //setting values
         mBinding.textName.setText(userDto.getName());
         mBinding.textAge.setText(userDto.getAge()+" Years Old");
-        mBinding.textLocation.setText(userDto.getCity().getName()+", "+userDto.getCity().getState().getName()+", "+userDto.getCity().getName());
+        mBinding.textLocation.setText(userDto.getCity().getName()+", "+userDto.getCity().getState().getName()+", "+userDto.getCity().getState().getCountry().getName());
 
         if(!StringUtils.isNullOrEmpty(userDto.getImageName()))
         {
@@ -72,11 +77,7 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                     });
 
         }
-
     }
-
-
-
 
     @Override
     public void onBackPressed() {

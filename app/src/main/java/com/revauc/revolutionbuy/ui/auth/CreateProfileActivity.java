@@ -82,7 +82,7 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
 
         @Override
         public void fail(String message) {
-            showSnackBarFromBottom(message,mBinding.mainContainer, true);
+            showSnackBarFromBottom(message, mBinding.mainContainer, true);
             mFilePath = "";
             isImageRemoved = false;
         }
@@ -102,11 +102,10 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_create_profile);
 
-        isFromSettings = getIntent().getBooleanExtra(Constants.EXTRA_FROM_SETTINGS,false);
+        isFromSettings = getIntent().getBooleanExtra(Constants.EXTRA_FROM_SETTINGS, false);
 
 
-        if(isFromSettings)
-        {
+        if (isFromSettings) {
             UserDto userDto = PreferenceUtil.getUserProfile();
             mBinding.toolbarProfile.txvToolbarGeneralCenter.setText(R.string.edit_profile);
             mBinding.toolbarProfile.tvToolbarGeneralLeft.setText(R.string.cancel);
@@ -115,15 +114,14 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
             mBinding.toolbarProfile.tvToolbarGeneralRight.setText(R.string.done);
             //setting values
             mBinding.editName.setText(userDto.getName());
-            mBinding.editAge.setText(userDto.getAge()+"");
+            mBinding.editAge.setText(userDto.getAge() + "");
             mBinding.editCountry.setText(userDto.getCity().getState().getCountry().getName());
             mBinding.editState.setText(userDto.getCity().getState().getName());
             mBinding.editCity.setText(userDto.getCity().getName());
             selectedCountryId = userDto.getCity().getState().getCountry().getId();
             selectedStateId = userDto.getCity().getState().getId();
             selectedCityId = userDto.getCity().getId();
-            if(!StringUtils.isNullOrEmpty(userDto.getImageName()))
-            {
+            if (!StringUtils.isNullOrEmpty(userDto.getImageName())) {
                 showProgressBar();
                 Picasso.with(CreateProfileActivity.this).load(userDto.getImageName()).into(mBinding.imageProfile,
                         new Callback() {
@@ -143,9 +141,7 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
                 mBinding.textAddPhoto.setText(R.string.change_photo);
             }
             loadLocations();
-        }
-        else
-        {
+        } else {
             mBinding.toolbarProfile.txvToolbarGeneralCenter.setText(R.string.create_profile);
             mBinding.toolbarProfile.tvToolbarGeneralLeft.setText(R.string.cancel);
             mBinding.toolbarProfile.tvToolbarGeneralLeft.setVisibility(View.VISIBLE);
@@ -292,22 +288,22 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
         String name = mBinding.editName.getText().toString();
         String age = mBinding.editAge.getText().toString();
         if (StringUtils.isNullOrEmpty(name)) {
-            showSnackBarFromBottom(getString(R.string.text_please_enter, "Name"),mBinding.mainContainer, true);
+            showSnackBarFromBottom(getString(R.string.text_please_enter, "Name"), mBinding.mainContainer, true);
             mBinding.containerName.setBackgroundResource(R.drawable.ic_button_red_border);
         } else if (StringUtils.isNullOrEmpty(age)) {
-            showSnackBarFromBottom(getString(R.string.text_please_enter, "Age"),mBinding.mainContainer, true);
+            showSnackBarFromBottom(getString(R.string.text_please_enter, "Age"), mBinding.mainContainer, true);
             mBinding.containerAge.setBackgroundResource(R.drawable.ic_button_red_border);
         } else if (Integer.parseInt(age) < 18) {
-            showSnackBarFromBottom(getString(R.string.profile_age_error),mBinding.mainContainer, true);
+            showSnackBarFromBottom(getString(R.string.profile_age_error), mBinding.mainContainer, true);
             mBinding.containerAge.setBackgroundResource(R.drawable.ic_button_red_border);
         } else if (selectedCountryId == 0) {
-            showSnackBarFromBottom(getString(R.string.text_please_select, "country"),mBinding.mainContainer, true);
+            showSnackBarFromBottom(getString(R.string.text_please_select, "country"), mBinding.mainContainer, true);
             mBinding.containerCountry.setBackgroundResource(R.drawable.ic_button_red_border);
         } else if (selectedStateId == 0) {
-            showSnackBarFromBottom(getString(R.string.text_please_select, "state"),mBinding.mainContainer, true);
+            showSnackBarFromBottom(getString(R.string.text_please_select, "state"), mBinding.mainContainer, true);
             mBinding.containerState.setBackgroundResource(R.drawable.ic_button_red_border);
         } else if (selectedCityId == 0) {
-            showSnackBarFromBottom(getString(R.string.text_please_select, "city"),mBinding.mainContainer, true);
+            showSnackBarFromBottom(getString(R.string.text_please_select, "city"), mBinding.mainContainer, true);
             mBinding.containerCity.setBackgroundResource(R.drawable.ic_button_red_border);
         } else {
             editProfile(name, age, selectedCityId + "");
@@ -338,7 +334,7 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
                 if (response != null && response.isSuccess()) {
                     setupCountries(response.getResult().getCountry());
                 } else {
-                    showSnackBarFromBottom(response.getMessage(),mBinding.mainContainer, true);
+                    showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
                 }
 
             }
@@ -348,7 +344,7 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
                 hideProgressBar();
                 if (baseResponse != null) {
                     String errorMessage = baseResponse.getMessage();
-                    showSnackBarFromBottom(errorMessage,mBinding.mainContainer, true);
+                    showSnackBarFromBottom(errorMessage, mBinding.mainContainer, true);
                 }
             }
         });
@@ -381,7 +377,7 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
                 if (response != null && response.isSuccess()) {
                     setupStates(response.getResult().getState());
                 } else {
-                    showSnackBarFromBottom(response.getMessage(),mBinding.mainContainer, true);
+                    showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
                 }
 
             }
@@ -390,7 +386,7 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
             public void onError(Throwable call, BaseResponse baseResponse) {
                 if (baseResponse != null) {
                     String errorMessage = baseResponse.getMessage();
-                    showSnackBarFromBottom(errorMessage,mBinding.mainContainer, true);
+                    showSnackBarFromBottom(errorMessage, mBinding.mainContainer, true);
                 }
             }
         });
@@ -422,7 +418,7 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
                 if (response != null && response.isSuccess()) {
                     setupCities(response.getResult().getCity());
                 } else {
-                    showSnackBarFromBottom(response.getMessage(),mBinding.mainContainer, true);
+                    showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
                 }
 
             }
@@ -431,7 +427,7 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
             public void onError(Throwable call, BaseResponse baseResponse) {
                 if (baseResponse != null) {
                     String errorMessage = baseResponse.getMessage();
-                    showSnackBarFromBottom(errorMessage,mBinding.mainContainer, true);
+                    showSnackBarFromBottom(errorMessage, mBinding.mainContainer, true);
                 }
             }
         });
@@ -453,7 +449,11 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
         showProgressBar();
 
         //File creating from selected URL
-        File file = new File(mFilePath);
+        File file = null;
+        if (mFilePath != null) {
+            file = new File(mFilePath);
+        }
+
 
         //Creating Profile Details
         RequestBody nameBody = RequestBody.create(MediaType.parse("text/plain"), name);
@@ -464,16 +464,20 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
         map.put("name", nameBody);
         map.put("age", ageBody);
         map.put("cityId", cityBody);
-        // create RequestBody instance from file
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
-        // MultipartBody.Part is used to send also the actual file name
-        MultipartBody.Part body =
-                MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+        MultipartBody.Part body = null;
+        if (file != null) {
+            // create RequestBody instance from file
+            RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+            // MultipartBody.Part is used to send also the actual file name
+            body = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+        }
+
 
         AuthWebServices apiService = RequestController.createRetrofitRequest(false);
 
-        apiService.editProfile(map,body).subscribeOn(Schedulers.io())
+        apiService.editProfile(map, body).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DefaultApiObserver<LoginResponse>(this) {
 
@@ -482,15 +486,12 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
                         hideProgressBar();
                         if (response.isSuccess()) {
                             PreferenceUtil.setUserProfile(response.getResult().getUser());
-                            if(isFromSettings)
-                            {
+                            if (isFromSettings) {
                                 onBackPressed();
-                            }
-                            else
-                            {
+                            } else {
                                 PreferenceUtil.setLoggedIn(true);
                                 Intent intent = new Intent(CreateProfileActivity.this, DashboardActivity.class);
-                                intent.putExtra(Constants.EXTRA_IS_FROM_PROFILE,true);
+                                intent.putExtra(Constants.EXTRA_IS_FROM_PROFILE, true);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
@@ -507,17 +508,16 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
                         hideProgressBar();
                         if (baseResponse != null) {
                             String errorMessage = baseResponse.getMessage();
-                            showSnackBarFromBottom(errorMessage,mBinding.mainContainer, true);
+                            showSnackBarFromBottom(errorMessage, mBinding.mainContainer, true);
                         }
                     }
                 });
     }
 
-    private void loadLocations()
-    {
+    private void loadLocations() {
         fetchCountries();
         fetchStates(selectedCountryId);
-        fetchCities(selectedCountryId,selectedStateId);
+        fetchCities(selectedCountryId, selectedStateId);
     }
 
 

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -10,4 +11,17 @@
         android:layout_height="wrap_content"
         android:indeterminate="true"
         android:visibility="visible" />
+
+    <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+        android:id="@+id/text_loading_message"
+        android:text="Loading.."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:textSize="@dimen/textsize_15"
+        android:textColor="@color/white"
+        android:layout_marginTop="@dimen/margin_10"
+        android:gravity="center"
+        app:customFont="@string/font_avenir_medium"/>
 </LinearLayout>

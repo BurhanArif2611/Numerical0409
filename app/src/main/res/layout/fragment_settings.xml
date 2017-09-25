@@ -1,235 +1,241 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app="htp://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/color_header_bg"
         android:orientation="vertical">
 
-        <include
-            android:id="@+id/toolbar_settings"
-            layout="@layout/toolbar_general"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
-        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_40"
-            android:gravity="bottom"
-            android:paddingBottom="@dimen/margin_5"
-            android:paddingEnd="@dimen/margin_16"
-            android:paddingStart="@dimen/margin_16"
-            android:text="@string/profile"
-            android:background="@color/color_header_bg"
-            android:textColor="@color/color_tab_inactive"
-            android:textSize="@dimen/textsize_12"
-            app:customFont="@string/font_avenir_regular" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_1"
-            android:background="@color/color_line_divider" />
-
-        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
-            android:id="@+id/text_your_profile"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_43"
-            android:background="@color/white"
-            android:drawableEnd="@drawable/right_arrow"
-            android:gravity="center_vertical"
-            android:paddingEnd="@dimen/margin_16"
-            android:paddingStart="@dimen/margin_16"
-            android:text="@string/your_profile"
-            android:textColor="@color/textColorDark"
-            android:textSize="@dimen/textsize_15"
-            app:customFont="@string/font_avenir_regular" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_1"
-            android:layout_marginStart="@dimen/margin_16"
-            android:background="@color/color_line_divider" />
-
-        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
-            android:id="@+id/text_change_mobile"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_43"
-            android:background="@color/white"
-            android:drawableEnd="@drawable/right_arrow"
-            android:gravity="center_vertical"
-            android:paddingEnd="@dimen/margin_16"
-            android:paddingStart="@dimen/margin_16"
-            android:text="@string/change_mobile_number"
-            android:textColor="@color/textColorDark"
-            android:textSize="@dimen/textsize_15"
-            app:customFont="@string/font_avenir_regular" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_1"
-            android:layout_marginStart="@dimen/margin_16"
-            android:background="@color/color_line_divider" />
-
-        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
-            android:id="@+id/text_change_password"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_43"
-            android:background="@color/white"
-            android:drawableEnd="@drawable/right_arrow"
-            android:gravity="center_vertical"
-            android:paddingEnd="@dimen/margin_16"
-            android:paddingStart="@dimen/margin_16"
-            android:text="@string/nav_item_change_password"
-            android:textColor="@color/textColorDark"
-            android:textSize="@dimen/textsize_15"
-            app:customFont="@string/font_avenir_regular" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_1"
-            android:layout_marginStart="@dimen/margin_16"
-            android:background="@color/color_line_divider" />
-
-        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
-            android:id="@+id/text_stripe_account"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_43"
-            android:background="@color/white"
-            android:drawableEnd="@drawable/right_arrow"
-            android:gravity="center_vertical"
-            android:paddingEnd="@dimen/margin_16"
-            android:paddingStart="@dimen/margin_16"
-            android:text="@string/stripe_account"
-            android:textColor="@color/textColorDark"
-            android:textSize="@dimen/textsize_15"
-            app:customFont="@string/font_avenir_regular" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_1"
-            android:background="@color/color_line_divider" />
-
-        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_40"
-            android:gravity="bottom"
-            android:paddingBottom="@dimen/margin_5"
-            android:paddingEnd="@dimen/margin_16"
-            android:paddingStart="@dimen/margin_16"
-            android:text="@string/about"
-            android:background="@color/color_header_bg"
-            android:textColor="@color/color_tab_inactive"
-            android:textSize="@dimen/textsize_12"
-            app:customFont="@string/font_avenir_regular" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_1"
-            android:background="@color/color_line_divider" />
-
-        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
-            android:id="@+id/text_terms_of_use"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_43"
-            android:background="@color/white"
-            android:drawableEnd="@drawable/right_arrow"
-            android:gravity="center_vertical"
-            android:paddingEnd="@dimen/margin_16"
-            android:paddingStart="@dimen/margin_16"
-            android:text="@string/terms_of_use"
-            android:textColor="@color/textColorDark"
-            android:textSize="@dimen/textsize_15"
-            app:customFont="@string/font_avenir_regular" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_1"
-            android:layout_marginStart="@dimen/margin_16"
-            android:background="@color/color_line_divider" />
-
-        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
-            android:id="@+id/text_privacy"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_43"
-            android:background="@color/white"
-            android:drawableEnd="@drawable/right_arrow"
-            android:gravity="center_vertical"
-            android:paddingEnd="@dimen/margin_16"
-            android:paddingStart="@dimen/margin_16"
-            android:text="@string/text_privacy_policy"
-            android:textColor="@color/textColorDark"
-            android:textSize="@dimen/textsize_15"
-            app:customFont="@string/font_avenir_regular" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_1"
-            android:layout_marginStart="@dimen/margin_16"
-            android:background="@color/color_line_divider" />
-
-        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
-            android:id="@+id/text_onboarding"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_43"
-            android:background="@color/white"
-            android:drawableEnd="@drawable/right_arrow"
-            android:gravity="center_vertical"
-            android:paddingEnd="@dimen/margin_16"
-            android:paddingStart="@dimen/margin_16"
-            android:text="@string/view_onboarding"
-            android:textColor="@color/textColorDark"
-            android:textSize="@dimen/textsize_15"
-            app:customFont="@string/font_avenir_regular" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_1"
-            android:layout_marginStart="@dimen/margin_16"
-            android:background="@color/color_line_divider" />
-
-        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
-            android:id="@+id/text_contact_admin"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_43"
-            android:background="@color/white"
-            android:drawableEnd="@drawable/right_arrow"
-            android:gravity="center_vertical"
-            android:paddingEnd="@dimen/margin_16"
-            android:paddingStart="@dimen/margin_16"
-            android:text="@string/contact_admin"
-            android:textColor="@color/textColorDark"
-            android:textSize="@dimen/textsize_15"
-            app:customFont="@string/font_avenir_regular" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_1"
-            android:background="@color/color_line_divider" />
-
-        <RelativeLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/color_header_bg">
+            android:layout_weight="1.0">
 
-        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
-            android:id="@+id/text_logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/color_header_bg"
-            android:paddingEnd="@dimen/margin_16"
-            android:paddingStart="@dimen/margin_16"
-            android:text="@string/logout"
-            android:drawablePadding="@dimen/margin_9"
-            android:drawableStart="@drawable/ic_logout"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/margin_24"
-            android:textColor="@color/textColorDark"
-            android:textSize="@dimen/textsize_15"
-            app:customFont="@string/font_avenir_medium" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
 
-        </RelativeLayout>
+                <include
+                    android:id="@+id/toolbar_settings"
+                    layout="@layout/toolbar_general"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_40"
+                    android:background="@color/color_header_bg"
+                    android:gravity="bottom"
+                    android:paddingBottom="@dimen/margin_5"
+                    android:paddingEnd="@dimen/margin_16"
+                    android:paddingStart="@dimen/margin_16"
+                    android:text="@string/profile"
+                    android:textColor="@color/color_tab_inactive"
+                    android:textSize="@dimen/textsize_12"
+                    app:customFont="@string/font_avenir_regular" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_1"
+                    android:background="@color/color_line_divider" />
+
+                <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+                    android:id="@+id/text_your_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_43"
+                    android:background="@color/white"
+                    android:drawableEnd="@drawable/right_arrow"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="@dimen/margin_16"
+                    android:paddingStart="@dimen/margin_16"
+                    android:text="@string/your_profile"
+                    android:textColor="@color/textColorDark"
+                    android:textSize="@dimen/textsize_15"
+                    app:customFont="@string/font_avenir_regular" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_1"
+                    android:layout_marginStart="@dimen/margin_16"
+                    android:background="@color/color_line_divider" />
+
+                <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+                    android:id="@+id/text_change_mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_43"
+                    android:background="@color/white"
+                    android:drawableEnd="@drawable/right_arrow"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="@dimen/margin_16"
+                    android:paddingStart="@dimen/margin_16"
+                    android:text="@string/change_mobile_number"
+                    android:textColor="@color/textColorDark"
+                    android:textSize="@dimen/textsize_15"
+                    app:customFont="@string/font_avenir_regular" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_1"
+                    android:layout_marginStart="@dimen/margin_16"
+                    android:background="@color/color_line_divider" />
+
+                <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+                    android:id="@+id/text_change_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_43"
+                    android:background="@color/white"
+                    android:drawableEnd="@drawable/right_arrow"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="@dimen/margin_16"
+                    android:paddingStart="@dimen/margin_16"
+                    android:text="@string/nav_item_change_password"
+                    android:textColor="@color/textColorDark"
+                    android:textSize="@dimen/textsize_15"
+                    app:customFont="@string/font_avenir_regular" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_1"
+                    android:layout_marginStart="@dimen/margin_16"
+                    android:background="@color/color_line_divider" />
+
+                <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+                    android:id="@+id/text_stripe_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_43"
+                    android:background="@color/white"
+                    android:drawableEnd="@drawable/right_arrow"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="@dimen/margin_16"
+                    android:paddingStart="@dimen/margin_16"
+                    android:text="@string/stripe_account"
+                    android:textColor="@color/textColorDark"
+                    android:textSize="@dimen/textsize_15"
+                    app:customFont="@string/font_avenir_regular" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_1"
+                    android:background="@color/color_line_divider" />
+
+                <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_40"
+                    android:background="@color/color_header_bg"
+                    android:gravity="bottom"
+                    android:paddingBottom="@dimen/margin_5"
+                    android:paddingEnd="@dimen/margin_16"
+                    android:paddingStart="@dimen/margin_16"
+                    android:text="@string/about"
+                    android:textColor="@color/color_tab_inactive"
+                    android:textSize="@dimen/textsize_12"
+                    app:customFont="@string/font_avenir_regular" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_1"
+                    android:background="@color/color_line_divider" />
+
+                <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+                    android:id="@+id/text_terms_of_use"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_43"
+                    android:background="@color/white"
+                    android:drawableEnd="@drawable/right_arrow"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="@dimen/margin_16"
+                    android:paddingStart="@dimen/margin_16"
+                    android:text="@string/terms_of_use"
+                    android:textColor="@color/textColorDark"
+                    android:textSize="@dimen/textsize_15"
+                    app:customFont="@string/font_avenir_regular" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_1"
+                    android:layout_marginStart="@dimen/margin_16"
+                    android:background="@color/color_line_divider" />
+
+                <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+                    android:id="@+id/text_privacy"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_43"
+                    android:background="@color/white"
+                    android:drawableEnd="@drawable/right_arrow"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="@dimen/margin_16"
+                    android:paddingStart="@dimen/margin_16"
+                    android:text="@string/text_privacy_policy"
+                    android:textColor="@color/textColorDark"
+                    android:textSize="@dimen/textsize_15"
+                    app:customFont="@string/font_avenir_regular" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_1"
+                    android:layout_marginStart="@dimen/margin_16"
+                    android:background="@color/color_line_divider" />
+
+                <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+                    android:id="@+id/text_onboarding"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_43"
+                    android:background="@color/white"
+                    android:drawableEnd="@drawable/right_arrow"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="@dimen/margin_16"
+                    android:paddingStart="@dimen/margin_16"
+                    android:text="@string/view_onboarding"
+                    android:textColor="@color/textColorDark"
+                    android:textSize="@dimen/textsize_15"
+                    app:customFont="@string/font_avenir_regular" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_1"
+                    android:layout_marginStart="@dimen/margin_16"
+                    android:background="@color/color_line_divider" />
+
+                <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+                    android:id="@+id/text_contact_admin"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_43"
+                    android:background="@color/white"
+                    android:drawableEnd="@drawable/right_arrow"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="@dimen/margin_16"
+                    android:paddingStart="@dimen/margin_16"
+                    android:text="@string/contact_admin"
+                    android:textColor="@color/textColorDark"
+                    android:textSize="@dimen/textsize_15"
+                    app:customFont="@string/font_avenir_regular" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_1"
+                    android:background="@color/color_line_divider" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+            <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+                android:id="@+id/text_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_8"
+                android:padding="@dimen/margin_16"
+                android:background="@color/color_header_bg"
+                android:drawablePadding="@dimen/margin_9"
+                android:drawableStart="@drawable/ic_logout"
+                android:text="@string/logout"
+                android:textColor="@color/textColorDark"
+                android:textSize="@dimen/textsize_15"
+                app:customFont="@string/font_avenir_medium" />
 
     </LinearLayout>
 </layout>

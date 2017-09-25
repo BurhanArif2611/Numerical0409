@@ -1,19 +1,21 @@
 package com.revauc.revolutionbuy.ui.auth;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.ActivityEnterAppBinding;
-import com.revauc.revolutionbuy.databinding.ActivityWalkthroughBinding;
+import com.revauc.revolutionbuy.eventbusmodel.OnButtonClicked;
 import com.revauc.revolutionbuy.ui.BaseActivity;
 import com.revauc.revolutionbuy.ui.dashboard.DashboardActivity;
 import com.revauc.revolutionbuy.util.Constants;
+import com.revauc.revolutionbuy.widget.BottomSheetAlertInverse;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 
 public class EnterAppActivity extends BaseActivity implements View.OnClickListener{
@@ -35,8 +37,17 @@ public class EnterAppActivity extends BaseActivity implements View.OnClickListen
         activityEnterAppBinding.textLogin.setOnClickListener(this);
         activityEnterAppBinding.textSkip.setOnClickListener(this);
 
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+
     }
 
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
 
     @Override
     public void onClick(View view) {
@@ -51,12 +62,21 @@ public class EnterAppActivity extends BaseActivity implements View.OnClickListen
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                 break;
             case R.id.text_skip:
-                Intent intent = new Intent(EnterAppActivity.this, CreateProfileActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                finish();
+                BottomSheetAlertInverse.getInstance(EnterAppActivity.this,getString(R.string.sure_to_continue_as_guest),getString(R.string.continue_as_guest),getString(R.string.cancel)).show();
                 break;
         }
     }
+
+    @Subscribe
+    public void onSkip(OnButtonClicked onPositiveClicked)
+    {
+        Intent intent = new Intent(EnterAppActivity.this, DashboardActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+        finish();
+    }
+
+
+
 }
