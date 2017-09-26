@@ -73,6 +73,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         mBinder.textOnboarding.setOnClickListener(this);
         mBinder.textTermsOfUse.setOnClickListener(this);
         mBinder.textPrivacy.setOnClickListener(this);
+        mBinder.textChangePassword.setOnClickListener(this);
         mBinder.textContactAdmin.setOnClickListener(this);
         mBinder.textLogout.setOnClickListener(this);
     }
@@ -125,6 +126,11 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 Intent adminIntent = new Intent(getActivity(), ContactAdminActivity.class);
                 adminIntent.putExtra(Constants.EXTRA_FROM_SETTINGS,true);
                 startActivity(adminIntent);
+                break;
+            case R.id.text_change_password:
+                Intent passwordIntent = new Intent(getActivity(), ChangePasswordActivity.class);
+                passwordIntent.putExtra(Constants.EXTRA_FROM_SETTINGS,true);
+                startActivity(passwordIntent);
                 break;
         }
     }

@@ -222,9 +222,6 @@
     <string name="clear">CLEAR</string>
     <string name="alert">Alert</string>
     <string name="password_must_contain">Password must contain one lowercase letter, one\nnumber, and be at least 6 characters long.</string>
-    <string name="old_password">Old Password</string>
-    <string name="new_password">New Password</string>
-    <string name="confirm_password">Confirm Password</string>
     <string name="no_contest_found">No Contest Found </string>
     <string name="password_should_match">New Password and Confirm Password should match.</string>
     <string name="authentication_req">Authentication Required , Please login again.</string>
@@ -341,4 +338,7 @@
     <string name="generating_password">Generating password</string>
     <string name="admin_mobile_number">03 9067 5884</string>
     <string name="admin_email_id">revolutionbuy@gmail.com</string>
+    <string name="current_password">Current password</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_password">Confirm password</string>
 </resources>
