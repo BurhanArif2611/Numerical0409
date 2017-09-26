@@ -339,4 +339,6 @@
     <string name="continue_as_guest">Continue As Guest</string>
     <string name="signing_in">Signing in</string>
     <string name="generating_password">Generating password</string>
+    <string name="admin_mobile_number">03 9067 5884</string>
+    <string name="admin_email_id">revolutionbuy@gmail.com</string>
 </resources>

@@ -1,0 +1,73 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/main_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/screen_bg"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/toolbar_admin"
+                layout="@layout/toolbar_general"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <RelativeLayout
+                android:id="@+id/text_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_16"
+                android:background="@drawable/ic_button_blue_border">
+
+                <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawablePadding="@dimen/margin_10"
+                    android:drawableStart="@drawable/ic_email_blue"
+                    android:gravity="center"
+                    android:padding="@dimen/margin_16"
+                    android:text="@string/admin_email_id"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/textsize_16"
+                    app:customFont="@string/font_avenir_medium" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/text_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_16"
+                android:background="@drawable/ic_button_blue_border">
+
+                <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawablePadding="@dimen/margin_10"
+                    android:drawableStart="@drawable/ic_phone_blue"
+                    android:gravity="center"
+                    android:padding="@dimen/margin_16"
+                    android:text="@string/admin_mobile_number"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/textsize_16"
+                    app:customFont="@string/font_avenir_medium" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

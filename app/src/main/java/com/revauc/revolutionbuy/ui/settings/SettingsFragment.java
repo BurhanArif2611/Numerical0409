@@ -16,6 +16,7 @@ import com.revauc.revolutionbuy.eventbusmodel.OnButtonClicked;
 import com.revauc.revolutionbuy.ui.BaseActivity;
 import com.revauc.revolutionbuy.ui.auth.PrivacyActivity;
 import com.revauc.revolutionbuy.ui.auth.TermsConditionsActivity;
+import com.revauc.revolutionbuy.ui.auth.adapters.ContactAdminActivity;
 import com.revauc.revolutionbuy.ui.profile.ProfileActivity;
 import com.revauc.revolutionbuy.ui.walkthrough.WalkThroughActivity;
 import com.revauc.revolutionbuy.util.Constants;
@@ -72,6 +73,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         mBinder.textOnboarding.setOnClickListener(this);
         mBinder.textTermsOfUse.setOnClickListener(this);
         mBinder.textPrivacy.setOnClickListener(this);
+        mBinder.textContactAdmin.setOnClickListener(this);
         mBinder.textLogout.setOnClickListener(this);
     }
 
@@ -118,6 +120,11 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 Intent privacyIntent = new Intent(getActivity(), PrivacyActivity.class);
                 privacyIntent.putExtra(Constants.EXTRA_FROM_SETTINGS,true);
                 startActivity(privacyIntent);
+                break;
+            case R.id.text_contact_admin:
+                Intent adminIntent = new Intent(getActivity(), ContactAdminActivity.class);
+                adminIntent.putExtra(Constants.EXTRA_FROM_SETTINGS,true);
+                startActivity(adminIntent);
                 break;
         }
     }
