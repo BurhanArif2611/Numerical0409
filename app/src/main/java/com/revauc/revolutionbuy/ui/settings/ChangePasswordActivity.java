@@ -18,6 +18,8 @@ import com.revauc.revolutionbuy.databinding.ActivityChangePasswordBinding;
 import com.revauc.revolutionbuy.databinding.ActivityCreateProfileBinding;
 import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.RequestController;
+import com.revauc.revolutionbuy.network.request.auth.ChangePasswordRequest;
+import com.revauc.revolutionbuy.network.request.auth.SignUpRequest;
 import com.revauc.revolutionbuy.network.response.LoginResponse;
 import com.revauc.revolutionbuy.network.response.UserDto;
 import com.revauc.revolutionbuy.network.response.profile.CityDto;
@@ -29,6 +31,8 @@ import com.revauc.revolutionbuy.network.response.profile.StateResponse;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.BaseActivity;
+import com.revauc.revolutionbuy.ui.auth.CreateProfileActivity;
+import com.revauc.revolutionbuy.ui.auth.SignInActivity;
 import com.revauc.revolutionbuy.ui.auth.adapters.AutoCompleteCityAdapter;
 import com.revauc.revolutionbuy.ui.auth.adapters.AutoCompleteCountryAdapter;
 import com.revauc.revolutionbuy.ui.auth.adapters.AutoCompleteStateAdapter;
@@ -63,12 +67,11 @@ public class ChangePasswordActivity extends BaseActivity implements View.OnClick
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_change_password);
 
 
-
-            mBinding.toolbarProfile.txvToolbarGeneralCenter.setText(R.string.nav_item_change_password);
-            mBinding.toolbarProfile.tvToolbarGeneralLeft.setText(R.string.cancel);
-            mBinding.toolbarProfile.tvToolbarGeneralLeft.setVisibility(View.VISIBLE);
-            mBinding.toolbarProfile.tvToolbarGeneralLeft.setOnClickListener(this);
-            mBinding.toolbarProfile.tvToolbarGeneralRight.setText(R.string.save);
+        mBinding.toolbarProfile.txvToolbarGeneralCenter.setText(R.string.nav_item_change_password);
+        mBinding.toolbarProfile.tvToolbarGeneralLeft.setText(R.string.cancel);
+        mBinding.toolbarProfile.tvToolbarGeneralLeft.setVisibility(View.VISIBLE);
+        mBinding.toolbarProfile.tvToolbarGeneralLeft.setOnClickListener(this);
+        mBinding.toolbarProfile.tvToolbarGeneralRight.setText(R.string.save);
         mBinding.toolbarProfile.tvToolbarGeneralRight.setVisibility(View.VISIBLE);
         mBinding.toolbarProfile.tvToolbarGeneralRight.setOnClickListener(this);
 
@@ -159,24 +162,41 @@ public class ChangePasswordActivity extends BaseActivity implements View.OnClick
         if (StringUtils.isNullOrEmpty(currentPassword)) {
             showSnackBarFromBottom(getString(R.string.text_please_enter, getString(R.string.current_password)), mBinding.mainContainer, true);
             mBinding.containerCurrentPassword.setBackgroundResource(R.drawable.ic_button_red_border);
+        } else if (currentPassword.length() < getResources().getInteger(R.integer.password_min_length)) {
+            showSnackBarFromBottom(getString(R.string.error_pass_min_fail), mBinding.mainContainer, true);
+            mBinding.containerCurrentPassword.setBackgroundResource(R.drawable.ic_button_red_border);
+
+        } else if (currentPassword.length() > getResources().getInteger(R.integer.password_max_length)) {
+            showSnackBarFromBottom(getString(R.string.error_pass_max_fail), mBinding.mainContainer, true);
+            mBinding.containerCurrentPassword.setBackgroundResource(R.drawable.ic_button_red_border);
+
         } else if (StringUtils.isNullOrEmpty(newPassword)) {
             showSnackBarFromBottom(getString(R.string.text_please_enter, getString(R.string.new_password)), mBinding.mainContainer, true);
             mBinding.containerNewPassword.setBackgroundResource(R.drawable.ic_button_red_border);
-        }
-        else if (StringUtils.isNullOrEmpty(confirmPassword)) {
+        } else if (newPassword.length() < getResources().getInteger(R.integer.password_min_length)) {
+            showSnackBarFromBottom(getString(R.string.error_pass_min_fail), mBinding.mainContainer, true);
+            mBinding.containerNewPassword.setBackgroundResource(R.drawable.ic_button_red_border);
+
+        } else if (newPassword.length() > getResources().getInteger(R.integer.password_max_length)) {
+            showSnackBarFromBottom(getString(R.string.error_pass_max_fail), mBinding.mainContainer, true);
+            mBinding.containerNewPassword.setBackgroundResource(R.drawable.ic_button_red_border);
+
+        } else if (StringUtils.isNullOrEmpty(confirmPassword)) {
             showSnackBarFromBottom(getString(R.string.text_please_enter, getString(R.string.confirm_password)), mBinding.mainContainer, true);
             mBinding.containerConfirmPassword.setBackgroundResource(R.drawable.ic_button_red_border);
-        }
-         else if (!confirmPassword.equals(newPassword)) {
+        } else if (confirmPassword.length() < getResources().getInteger(R.integer.password_min_length)) {
+            showSnackBarFromBottom(getString(R.string.error_pass_min_fail), mBinding.mainContainer, true);
+            mBinding.containerConfirmPassword.setBackgroundResource(R.drawable.ic_button_red_border);
+
+        } else if (confirmPassword.length() > getResources().getInteger(R.integer.password_max_length)) {
+            showSnackBarFromBottom(getString(R.string.error_pass_max_fail), mBinding.mainContainer, true);
+            mBinding.containerConfirmPassword.setBackgroundResource(R.drawable.ic_button_red_border);
+
+        } else if (!confirmPassword.equals(newPassword)) {
             showSnackBarFromBottom(getString(R.string.password_should_match), mBinding.mainContainer, true);
             mBinding.containerConfirmPassword.setBackgroundResource(R.drawable.ic_button_red_border);
         } else {
-//            showToast("Navigate to Next Screen");
-//            Intent intent = new Intent(CreateProfileActivity.this,MobileVerificationActivity.class);
-//            intent.putExtra(Constants.EXTRA_USER_NAME,name);
-//            intent.putExtra(Constants.EXTRA_AGE,Integer.parseInt(age));
-//            intent.putExtra(Constants.EXTRA_CITY_ID,selectedCity.getId());
-//            startActivity(intent);
+            changePassword(currentPassword, newPassword, confirmPassword);
         }
     }
 
@@ -185,5 +205,34 @@ public class ChangePasswordActivity extends BaseActivity implements View.OnClick
         super.onBackPressed();
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
     }
+
+    private void changePassword(String oldPassword, String newPassword, String confirmPassword) {
+        showProgressBar();
+        AuthWebServices apiService = RequestController.createRetrofitRequest(true);
+        apiService.changePassword(new ChangePasswordRequest(oldPassword,newPassword,confirmPassword)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<BaseResponse>(this) {
+
+            @Override
+            public void onResponse(BaseResponse response) {
+                hideProgressBar();
+                if (response.isSuccess()) {
+                    showToast(response.getMessage());
+                    onBackPressed();
+                } else {
+                    showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable call, BaseResponse baseResponse) {
+                hideProgressBar();
+                if (baseResponse != null) {
+                    String errorMessage = baseResponse.getMessage();
+                    showSnackBarFromBottom(errorMessage, mBinding.mainContainer, true);
+                }
+            }
+        });
+    }
+
 
 }

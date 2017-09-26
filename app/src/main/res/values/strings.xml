@@ -198,7 +198,7 @@
     <string name="vs">VS</string>
     <string name="under">UNDER</string>
     <string name="over">OVER</string>
-    <string name="save">UPDATE CONTEST</string>
+    <string name="save"><Save>`</Save></string>
     <string name="featured">Featured</string>
     <string name="sort">Sort</string>
     <string name="under_over_points">%1$s\n%2$d\nPTS</string>

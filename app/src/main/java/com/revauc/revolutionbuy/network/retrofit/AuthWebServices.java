@@ -3,6 +3,7 @@ package com.revauc.revolutionbuy.network.retrofit;
 
 import com.revauc.revolutionbuy.BuildConfig;
 import com.revauc.revolutionbuy.network.BaseResponse;
+import com.revauc.revolutionbuy.network.request.auth.ChangePasswordRequest;
 import com.revauc.revolutionbuy.network.request.auth.ForgotPasswordRequest;
 import com.revauc.revolutionbuy.network.request.auth.MobilePinRequest;
 import com.revauc.revolutionbuy.network.request.auth.SignUpRequest;
@@ -41,6 +42,8 @@ public interface AuthWebServices {
     String ADD_PROFILE = BuildConfig.BASE_URL + "users/add-profile";
     String EDIT_PROFILE = BuildConfig.BASE_URL + "users/edit-profile";
     String LOGOUT = BuildConfig.BASE_URL + "users/logout";
+    String CHANGE_PASSWORD = BuildConfig.BASE_URL + "users/change-password";
+
 
 //    @POST(FB_LOGIN)
 //    Observable<LoginResponse> loginUsingFacebook(@Body FBLoginRequest params);
@@ -50,6 +53,9 @@ public interface AuthWebServices {
 
     @POST(LOGIN)
     Observable<LoginResponse> loginUser(@Body SignUpRequest params);
+
+    @POST(CHANGE_PASSWORD)
+    Observable<BaseResponse> changePassword(@Body ChangePasswordRequest params);
 
     @POST(FORGOT_PASSWORD)
     Observable<BaseResponse> forgotPassword(@Body ForgotPasswordRequest params);
