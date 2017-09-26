@@ -208,7 +208,7 @@ public class ChangePasswordActivity extends BaseActivity implements View.OnClick
 
     private void changePassword(String oldPassword, String newPassword, String confirmPassword) {
         showProgressBar();
-        AuthWebServices apiService = RequestController.createRetrofitRequest(true);
+        AuthWebServices apiService = RequestController.createRetrofitRequest(false);
         apiService.changePassword(new ChangePasswordRequest(oldPassword,newPassword,confirmPassword)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<BaseResponse>(this) {
 
             @Override
