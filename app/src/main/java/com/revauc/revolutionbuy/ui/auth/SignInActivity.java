@@ -27,6 +27,12 @@ import com.revauc.revolutionbuy.ui.dashboard.DashboardActivity;
 import com.revauc.revolutionbuy.util.PreferenceUtil;
 import com.revauc.revolutionbuy.util.StringUtils;
 import com.revauc.revolutionbuy.util.Utils;
+import com.revauc.revolutionbuy.util.socialhelper.SocialAuthError;
+import com.revauc.revolutionbuy.util.socialhelper.SocialAuthListener;
+import com.revauc.revolutionbuy.util.socialhelper.SocialFacebookHelper;
+import com.revauc.revolutionbuy.util.socialhelper.SocialMediaHelper;
+import com.revauc.revolutionbuy.util.socialhelper.SocialProfile;
+import com.revauc.revolutionbuy.util.socialhelper.SocialType;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -36,6 +42,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
 
     private ActivitySignInBinding mBinding;
+    private SocialMediaHelper socialMediaHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +52,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         mBinding.imageBack.setOnClickListener(this);
         mBinding.textSignIn.setOnClickListener(this);
         mBinding.textForgotPassword.setOnClickListener(this);
+        mBinding.textFacebook.setOnClickListener(this);
 
         setSpanString();
 
@@ -91,9 +99,6 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         });
     }
 
-
-
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -115,6 +120,9 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
             case R.id.text_forgot_password:
                 startActivity(new Intent(SignInActivity.this,ForgotPasswordActivity.class));
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                break;
+            case R.id.text_facebook:
+                loginWithFacebook();
                 break;
         }
 
@@ -266,6 +274,44 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
         Utils.setSpannCommanProperty(mBinding.textTerms, spanString);
 
+    }
+
+    private void loginWithFacebook() {
+        socialMediaHelper = new SocialMediaHelper(this, new SocialAuthListener() {
+            @Override
+            public void onExecute(SocialType provider, Object o) {
+                SocialProfile socialProfile = (SocialProfile) o;
+                if(socialProfile.getAge()>18)
+                {
+                    loginSignUpWithFacebook(true, socialProfile.getEmail(), socialProfile.getDisplayName(), socialProfile.getProviderId());
+                }
+                else
+                {
+                    showSnackBarFromBottom(getString(R.string.label_negation),mBinding.mainContainer,true);
+                }
+
+            }
+
+            @Override
+            public void onError(SocialAuthError e) {
+                showSnackBarFromBottom("" + getString(R.string.no_internet), mBinding.mainContainer, true);
+            }
+        });
+        socialMediaHelper.setSocialType(SocialType.FACEBOOK);
+        socialMediaHelper.initProcess();
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        socialMediaHelper.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SocialFacebookHelper.logout();
     }
 
 }

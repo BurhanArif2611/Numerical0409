@@ -1,7 +1,7 @@
 <resources>
-    <string name="facebook_app_id">526548751023182</string>
-    <string name="fb_login_protocol_scheme">fb526548751023182</string>
-    <string name="application_name">THRIVE FANTASY</string>
+    <string name="facebook_app_id">1051478504985433</string>
+    <string name="fb_login_protocol_scheme">fb1051478504985433</string>
+    <string name="application_name">REVOLUTION BUY</string>
     <string name="title_activity_dashboard">Dashboard</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -341,4 +341,5 @@
     <string name="current_password">Current password</string>
     <string name="new_password">New password</string>
     <string name="confirm_password">Confirm password</string>
+    <string name="need_to_be_a_member">You need to be a member to do this.</string>
 </resources>

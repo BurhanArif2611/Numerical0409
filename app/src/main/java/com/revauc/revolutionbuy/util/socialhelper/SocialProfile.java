@@ -44,6 +44,8 @@ public class SocialProfile implements Serializable {
     private String sourceType;
     private String gender;
 
+    private int age;
+
     /**
      * Retrieves the first name
      *
@@ -154,6 +156,14 @@ public class SocialProfile implements Serializable {
             if (names.length > 1)
                 lastName = names[1];
         }
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public String getGender() {

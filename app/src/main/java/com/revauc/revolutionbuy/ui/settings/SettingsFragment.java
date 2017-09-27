@@ -13,14 +13,17 @@ import android.view.ViewGroup;
 import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.FragmentSettingsBinding;
 import com.revauc.revolutionbuy.eventbusmodel.OnButtonClicked;
+import com.revauc.revolutionbuy.eventbusmodel.OnSignUpClicked;
 import com.revauc.revolutionbuy.ui.BaseActivity;
 import com.revauc.revolutionbuy.ui.auth.PrivacyActivity;
+import com.revauc.revolutionbuy.ui.auth.SignUpActivity;
 import com.revauc.revolutionbuy.ui.auth.TermsConditionsActivity;
 import com.revauc.revolutionbuy.ui.auth.adapters.ContactAdminActivity;
 import com.revauc.revolutionbuy.ui.profile.ProfileActivity;
 import com.revauc.revolutionbuy.ui.walkthrough.WalkThroughActivity;
 import com.revauc.revolutionbuy.util.Constants;
 import com.revauc.revolutionbuy.util.PreferenceUtil;
+import com.revauc.revolutionbuy.widget.BottomMemberAlert;
 import com.revauc.revolutionbuy.widget.BottomSheetAlert;
 
 import org.greenrobot.eventbus.EventBus;
@@ -101,7 +104,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 }
                 else
                 {
-
+                    BottomMemberAlert.getInstance(getActivity(),getString(R.string.need_to_be_a_member),getString(R.string.sign_up),getString(R.string.cancel)).show();
                 }
                     break;
             case R.id.text_logout:
@@ -128,9 +131,16 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 startActivity(adminIntent);
                 break;
             case R.id.text_change_password:
+                if(PreferenceUtil.isLoggedIn())
+                {
                 Intent passwordIntent = new Intent(getActivity(), ChangePasswordActivity.class);
                 passwordIntent.putExtra(Constants.EXTRA_FROM_SETTINGS,true);
                 startActivity(passwordIntent);
+                }
+                else
+                {
+                    BottomMemberAlert.getInstance(getActivity(),getString(R.string.need_to_be_a_member),getString(R.string.sign_up),getString(R.string.cancel)).show();
+                }
                 break;
         }
     }
@@ -146,6 +156,14 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         {
             ((BaseActivity)getActivity()).logoutUser();
         }
+
+    }
+
+    @Subscribe
+    public void onSignUp(OnSignUpClicked onSignUpClicked)
+    {
+        getActivity().startActivity(new Intent(getActivity(), SignUpActivity.class));
+        getActivity().finish();
 
     }
 }

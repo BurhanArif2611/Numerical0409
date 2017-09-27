@@ -7,6 +7,7 @@ import com.revauc.revolutionbuy.network.request.auth.ChangePasswordRequest;
 import com.revauc.revolutionbuy.network.request.auth.ForgotPasswordRequest;
 import com.revauc.revolutionbuy.network.request.auth.MobilePinRequest;
 import com.revauc.revolutionbuy.network.request.auth.SignUpRequest;
+import com.revauc.revolutionbuy.network.request.auth.SocialSignUpRequest;
 import com.revauc.revolutionbuy.network.response.profile.CityResponse;
 import com.revauc.revolutionbuy.network.response.profile.CountryResponse;
 import com.revauc.revolutionbuy.network.response.LoginResponse;
@@ -45,8 +46,8 @@ public interface AuthWebServices {
     String CHANGE_PASSWORD = BuildConfig.BASE_URL + "users/change-password";
 
 
-//    @POST(FB_LOGIN)
-//    Observable<LoginResponse> loginUsingFacebook(@Body FBLoginRequest params);
+    @POST(FB_LOGIN)
+    Observable<LoginResponse> loginUsingFacebook(@Body SocialSignUpRequest params);
 //
     @POST(REGISTER)
     Observable<LoginResponse> registerUser(@Body SignUpRequest params);

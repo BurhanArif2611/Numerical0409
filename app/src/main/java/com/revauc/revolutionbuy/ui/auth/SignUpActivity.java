@@ -26,6 +26,12 @@ import com.revauc.revolutionbuy.ui.BaseActivity;
 import com.revauc.revolutionbuy.ui.dashboard.DashboardActivity;
 import com.revauc.revolutionbuy.util.Constants;
 import com.revauc.revolutionbuy.util.Utils;
+import com.revauc.revolutionbuy.util.socialhelper.SocialAuthError;
+import com.revauc.revolutionbuy.util.socialhelper.SocialAuthListener;
+import com.revauc.revolutionbuy.util.socialhelper.SocialFacebookHelper;
+import com.revauc.revolutionbuy.util.socialhelper.SocialMediaHelper;
+import com.revauc.revolutionbuy.util.socialhelper.SocialProfile;
+import com.revauc.revolutionbuy.util.socialhelper.SocialType;
 
 import java.util.UUID;
 
@@ -39,6 +45,7 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
     private ActivitySignUpBinding activitySignUpBinding;
     private boolean isFromSettings;
     private TypedArray imgsArray;
+    private SocialMediaHelper socialMediaHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +54,7 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
 
         activitySignUpBinding.imageBack.setOnClickListener(this);
         activitySignUpBinding.textSignUp.setOnClickListener(this);
+        activitySignUpBinding.textFacebook.setOnClickListener(this);
 
         setSpanString();
 
@@ -106,10 +114,12 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
         {
             case R.id.image_back:
                 onBackPressed();
-
                 break;
             case R.id.text_sign_up:
                 validateDetails();
+                break;
+            case R.id.text_facebook:
+                loginWithFacebook();
                 break;
         }
     }
@@ -240,5 +250,42 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
 
         Utils.setSpannCommanProperty(activitySignUpBinding.textTerms, spanString);
 
+    }
+
+    private void loginWithFacebook() {
+        socialMediaHelper = new SocialMediaHelper(this, new SocialAuthListener() {
+            @Override
+            public void onExecute(SocialType provider, Object o) {
+                SocialProfile socialProfile = (SocialProfile) o;
+                if(socialProfile.getAge()>18)
+                {
+                    loginSignUpWithFacebook(true, socialProfile.getEmail(), socialProfile.getDisplayName(), socialProfile.getProviderId());
+                }
+                else
+                {
+                    showSnackBarFromBottom(getString(R.string.label_negation),activitySignUpBinding.mainContainer,true);
+                }
+            }
+
+            @Override
+            public void onError(SocialAuthError e) {
+                showSnackBarFromBottom("" + getString(R.string.no_internet), activitySignUpBinding.mainContainer, true);
+            }
+        });
+        socialMediaHelper.setSocialType(SocialType.FACEBOOK);
+        socialMediaHelper.initProcess();
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        socialMediaHelper.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SocialFacebookHelper.logout();
     }
 }

@@ -11,27 +11,28 @@ import android.view.WindowManager;
 import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.BottomAlertLayoutBinding;
 import com.revauc.revolutionbuy.eventbusmodel.OnButtonClicked;
+import com.revauc.revolutionbuy.eventbusmodel.OnSignUpClicked;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Calendar;
 
 
-public class BottomSheetAlert implements View.OnClickListener {
+public class BottomMemberAlert implements View.OnClickListener {
     private static final int SPINNER_COUNT = 3;
 
     private BottomAlertLayoutBinding mBinding;
     private BottomSheetDialog mBottomSheetDialog;
     private Context mContext;
     private Calendar mCalendar = Calendar.getInstance();
-    private static BottomSheetAlert ourInstance;
+    private static BottomMemberAlert ourInstance;
 
 
-    public static BottomSheetAlert getInstance(final Context context, String message, String positiveText, String negativeText) {
+    public static BottomMemberAlert getInstance(final Context context, String message, String positiveText, String negativeText) {
         if (ourInstance == null) {
-            synchronized (BottomSheetAlert.class) {
+            synchronized (BottomMemberAlert.class) {
                 if (ourInstance == null) {
-                    ourInstance = new BottomSheetAlert(context, message, positiveText, negativeText);
+                    ourInstance = new BottomMemberAlert(context, message, positiveText, negativeText);
                 }
             }
         }
@@ -46,7 +47,7 @@ public class BottomSheetAlert implements View.OnClickListener {
     }
 
 
-    private BottomSheetAlert(final Context context, String message, String positiveText, String negativeText) {
+    private BottomMemberAlert(final Context context, String message, String positiveText, String negativeText) {
         mContext = context;
         mBottomSheetDialog = new BottomSheetDialog(mContext);
         mBottomSheetDialog.setCancelable(false);
@@ -83,7 +84,7 @@ public class BottomSheetAlert implements View.OnClickListener {
                 break;
 
             case R.id.text_positive:
-                EventBus.getDefault().post(new OnButtonClicked(true));
+                EventBus.getDefault().post(new OnSignUpClicked(true));
                 clearInstance();
                 break;
 

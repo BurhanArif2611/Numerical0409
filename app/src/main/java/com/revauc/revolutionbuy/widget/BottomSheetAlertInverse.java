@@ -78,7 +78,6 @@ public class BottomSheetAlertInverse implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.text_negative:
                 if (mBottomSheetDialog != null) {
-                    EventBus.getDefault().post(new OnButtonClicked(false));
                     clearInstance();
                 }
                 break;

@@ -122,6 +122,7 @@
             android:name=".ui.auth.CreateProfileActivity"
             android:exported="false"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustPan"
             />
 
@@ -129,6 +130,7 @@
             android:name=".ui.auth.adapters.ContactAdminActivity"
             android:exported="false"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustPan"
             />
 
@@ -136,6 +138,7 @@
             android:name=".ui.settings.ChangePasswordActivity"
             android:exported="false"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustPan"
             />
 
@@ -173,9 +176,6 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="486879a6d596a8228e641cf8cbe5084facc22742" />
 
     </application>
 

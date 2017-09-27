@@ -107,6 +107,16 @@ public class SocialFacebookHelper {
                                         if (object.has("gender"))
                                             profile.setGender(object.optString("gender", null));
 
+                                        if (object.has("age_range"))
+                                        {
+                                            JSONObject ageRangeObj = object.optJSONObject("age_range");
+                                            if(ageRangeObj!=null)
+                                            {
+                                                profile.setAge(ageRangeObj.getInt("min"));
+                                            }
+                                        }
+
+
                                         profile.setProfileImageURL(String.format(PROFILE_IMAGE_URL,
                                                 object.getString("id")));
 
