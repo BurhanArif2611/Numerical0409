@@ -357,6 +357,7 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
         mBinding.editCountry.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                hideKeyboard();
                 selectedCountryId = mCountriesAdapter.getItem(position).getId();
                 mBinding.editState.setText("");
                 mBinding.editCity.setText("");
@@ -399,6 +400,7 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
         mBinding.editState.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                hideKeyboard();
                 selectedStateId = mStatesAdapter.getItem(position).getId();
                 mBinding.editCity.setText("");
                 selectedCityId = 0;
@@ -440,6 +442,7 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
         mBinding.editCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                hideKeyboard();
                 selectedCityId = mCitiesAdapter.getItem(position).getId();
             }
         });

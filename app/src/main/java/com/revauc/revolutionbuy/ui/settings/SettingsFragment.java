@@ -25,6 +25,7 @@ import com.revauc.revolutionbuy.util.Constants;
 import com.revauc.revolutionbuy.util.PreferenceUtil;
 import com.revauc.revolutionbuy.widget.BottomMemberAlert;
 import com.revauc.revolutionbuy.widget.BottomSheetAlert;
+import com.revauc.revolutionbuy.widget.BottomSheetAlertInverse;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -108,7 +109,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 }
                     break;
             case R.id.text_logout:
-                BottomSheetAlert.getInstance(getActivity(),getString(R.string.sure_to_logout),getString(R.string.logout),getString(R.string.cancel)).show();
+                BottomSheetAlertInverse.getInstance(getActivity(),getString(R.string.sure_to_logout),getString(R.string.logout),getString(R.string.cancel)).show();
                 break;
             case R.id.text_onboarding:
                 Intent walkthroughIntent = new Intent(getActivity(), WalkThroughActivity.class);

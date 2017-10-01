@@ -10,6 +10,7 @@ import android.view.WindowManager;
 
 import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.BottomAlertLayoutBinding;
+import com.revauc.revolutionbuy.databinding.BottomInverseAlertLayoutBinding;
 import com.revauc.revolutionbuy.eventbusmodel.OnButtonClicked;
 import com.revauc.revolutionbuy.eventbusmodel.OnSignUpClicked;
 
@@ -21,7 +22,7 @@ import java.util.Calendar;
 public class BottomMemberAlert implements View.OnClickListener {
     private static final int SPINNER_COUNT = 3;
 
-    private BottomAlertLayoutBinding mBinding;
+    private BottomInverseAlertLayoutBinding mBinding;
     private BottomSheetDialog mBottomSheetDialog;
     private Context mContext;
     private Calendar mCalendar = Calendar.getInstance();
@@ -51,12 +52,12 @@ public class BottomMemberAlert implements View.OnClickListener {
         mContext = context;
         mBottomSheetDialog = new BottomSheetDialog(mContext);
         mBottomSheetDialog.setCancelable(false);
-        mBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.bottom_alert_layout, null, false);
+        mBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.bottom_inverse_alert_layout, null, false);
 
         //Setting Values
         mBinding.textMessage.setText(message);
-        mBinding.textPositive.setText(positiveText);
         mBinding.textNegative.setText(negativeText);
+        mBinding.textPositive.setText(positiveText);
 
         mBottomSheetDialog.setContentView(mBinding.getRoot());
         mBottomSheetDialog.getWindow()
