@@ -2,8 +2,6 @@ package com.revauc.revolutionbuy.ui.buy.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +11,11 @@ import android.widget.TextView;
 
 import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.ItemCategoriesBinding;
+import com.revauc.revolutionbuy.listeners.OnCategorySelectListener;
 import com.revauc.revolutionbuy.network.response.buyer.CategoryDto;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-
-import de.hdodenhof.circleimageview.CircleImageView;
+import java.util.List;
 
 /*
 Copyright © 2017 Block Partee. All rights reserved.
@@ -27,7 +24,8 @@ Developed by Appster.
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.MyViewHolder> {
 
-    private ArrayList<CategoryDto> model;
+    private final OnCategorySelectListener mListener;
+    private List<CategoryDto> model;
     private Context mContext;
     private ItemCategoriesBinding mBinding;
 
@@ -42,9 +40,10 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
         }
     }
 
-    public CategoriesAdapter(Context mContext, ArrayList<CategoryDto> model) {
+    public CategoriesAdapter(Context mContext, List<CategoryDto> model, OnCategorySelectListener listener) {
         this.model = model;
         this.mContext = mContext;
+        this.mListener = listener;
     }
 
     @Override
@@ -55,14 +54,18 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, int position) {
 
         holder.tvCategory.setText(model.get(position).getName());
 
         holder.ivSelect.setImageResource(model.get(position).isSelected()?R.drawable.ic_select:R.drawable.ic_unselect);
 
-
-
+        holder.ivSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onCategorySelected(holder.getAdapterPosition());
+            }
+        });
 
     }
 

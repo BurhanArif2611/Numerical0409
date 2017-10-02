@@ -6,6 +6,7 @@
 package com.revauc.revolutionbuy.ui.buy;
 
 
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -23,7 +24,7 @@ import com.revauc.revolutionbuy.ui.sell.SellOptionsGridAdapter;
 import com.revauc.revolutionbuy.widget.typeface.CustomTextView;
 
 
-public class BuyFragment extends BaseFragment implements TabLayout.OnTabSelectedListener {
+public class BuyFragment extends BaseFragment implements TabLayout.OnTabSelectedListener, View.OnClickListener {
     private static final String TAG = "SellFragment";
     private FragmentBuyBinding mBinder;
 
@@ -74,10 +75,12 @@ public class BuyFragment extends BaseFragment implements TabLayout.OnTabSelected
         if(tab.getPosition()==0)
         {
             mBinder.floatingActionButton.setVisibility(View.VISIBLE);
+            mBinder.floatingActionButton.setOnClickListener(this);
         }
         else
         {
             mBinder.floatingActionButton.setVisibility(View.INVISIBLE);
+            mBinder.floatingActionButton.setOnClickListener(null);
         }
     }
 
@@ -89,5 +92,15 @@ public class BuyFragment extends BaseFragment implements TabLayout.OnTabSelected
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId())
+        {
+            case R.id.floating_action_button:
+                startActivity(new Intent(getActivity(),SelectCategoriesActivity.class));
+                break;
+        }
     }
 }

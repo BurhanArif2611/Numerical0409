@@ -350,4 +350,7 @@
     <string name="buy">Buy</string>
     <string name="tap_to_buy">Tap ‘+’ below to list an item you want to buy.</string>
     <string name="select_categories">Select categories</string>
+    <string name="got_it">Got It</string>
+    <string name="select_at_least_one_category">You need to select at least one category.</string>
+    <string name="five_at_max">You can select 5 categories at max.</string>
 </resources>
