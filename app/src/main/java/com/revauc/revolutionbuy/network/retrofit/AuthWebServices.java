@@ -8,6 +8,7 @@ import com.revauc.revolutionbuy.network.request.auth.ForgotPasswordRequest;
 import com.revauc.revolutionbuy.network.request.auth.MobilePinRequest;
 import com.revauc.revolutionbuy.network.request.auth.SignUpRequest;
 import com.revauc.revolutionbuy.network.request.auth.SocialSignUpRequest;
+import com.revauc.revolutionbuy.network.response.buyer.CategoriesResponse;
 import com.revauc.revolutionbuy.network.response.profile.CityResponse;
 import com.revauc.revolutionbuy.network.response.profile.CountryResponse;
 import com.revauc.revolutionbuy.network.response.LoginResponse;
@@ -44,6 +45,7 @@ public interface AuthWebServices {
     String EDIT_PROFILE = BuildConfig.BASE_URL + "users/edit-profile";
     String LOGOUT = BuildConfig.BASE_URL + "users/logout";
     String CHANGE_PASSWORD = BuildConfig.BASE_URL + "users/change-password";
+    String GET_CATEGORIES = BuildConfig.BASE_URL + "categories";
 
 
     @POST(FB_LOGIN)
@@ -66,6 +68,9 @@ public interface AuthWebServices {
 
     @GET(GET_COUNTRIES)
     Observable<CountryResponse> getCountries();
+
+    @GET(GET_CATEGORIES)
+    Observable<CategoriesResponse> getCategories();
 
     @GET(GET_STATES)
     Observable<StateResponse> getStates(@Query("countryId") Integer countryId);

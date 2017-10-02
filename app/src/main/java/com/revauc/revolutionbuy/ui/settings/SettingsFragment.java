@@ -18,13 +18,12 @@ import com.revauc.revolutionbuy.ui.BaseActivity;
 import com.revauc.revolutionbuy.ui.auth.PrivacyActivity;
 import com.revauc.revolutionbuy.ui.auth.SignUpActivity;
 import com.revauc.revolutionbuy.ui.auth.TermsConditionsActivity;
-import com.revauc.revolutionbuy.ui.auth.adapters.ContactAdminActivity;
+import com.revauc.revolutionbuy.ui.auth.ContactAdminActivity;
 import com.revauc.revolutionbuy.ui.profile.ProfileActivity;
 import com.revauc.revolutionbuy.ui.walkthrough.WalkThroughActivity;
 import com.revauc.revolutionbuy.util.Constants;
 import com.revauc.revolutionbuy.util.PreferenceUtil;
 import com.revauc.revolutionbuy.widget.BottomMemberAlert;
-import com.revauc.revolutionbuy.widget.BottomSheetAlert;
 import com.revauc.revolutionbuy.widget.BottomSheetAlertInverse;
 
 import org.greenrobot.eventbus.EventBus;

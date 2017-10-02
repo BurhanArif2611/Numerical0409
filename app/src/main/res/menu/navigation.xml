@@ -9,7 +9,7 @@
     <item
         android:id="@+id/navigation_buy"
         android:icon="@drawable/ic_tab_buy_inactive"
-        android:title="Buy" />
+        android:title="@string/buy" />
 
     <item
         android:id="@+id/navigation_notifications"

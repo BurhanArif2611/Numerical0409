@@ -1,0 +1,29 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_wishlist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/screen_bg" />
+
+        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+            android:id="@+id/text_no_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/color_label"
+            android:textSize="@dimen/textsize_17"
+            android:text="@string/tap_to_buy"
+            android:gravity="center"
+            android:drawableTop="@drawable/ic_buy_empty"
+            android:drawablePadding="@dimen/margin_24"
+            app:customFont="@string/font_avenir_regular"/>
+
+    </RelativeLayout>
+
+</layout>

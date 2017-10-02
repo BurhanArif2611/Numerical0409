@@ -1,4 +1,4 @@
-package com.revauc.revolutionbuy.ui.auth.adapters;
+package com.revauc.revolutionbuy.ui.auth;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;

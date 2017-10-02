@@ -27,6 +27,7 @@ import com.revauc.revolutionbuy.databinding.ActivityDashboardBinding;
 import com.revauc.revolutionbuy.databinding.ActivitySignUpBinding;
 import com.revauc.revolutionbuy.ui.BaseActivity;
 import com.revauc.revolutionbuy.ui.ComingSoonFragment;
+import com.revauc.revolutionbuy.ui.buy.BuyFragment;
 import com.revauc.revolutionbuy.ui.sell.SellFragment;
 import com.revauc.revolutionbuy.ui.settings.SettingsFragment;
 import com.revauc.revolutionbuy.util.Constants;
@@ -75,7 +76,7 @@ public class DashboardActivity extends BaseActivity implements View.OnClickListe
 //                        setNavigationMode(NAVIGATION_UPCOMING);
 //                    }
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.content, ComingSoonFragment.newInstance())
+                            .replace(R.id.content, BuyFragment.newInstance())
                             .commit();
                     break;
 

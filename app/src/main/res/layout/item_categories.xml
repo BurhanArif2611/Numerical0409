@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_64"
+        android:background="@color/white">
+
+        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+            android:id="@+id/text_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/margin_16"
+            android:text="1etegggv"
+            android:textColor="@color/textColorDark"
+            android:textSize="@dimen/textsize_15"
+            app:customFont="@string/font_avenir_regular" />
+
+        <ImageView
+            android:id="@+id/image_selected"
+            android:layout_width="@dimen/margin_40"
+            android:layout_height="@dimen/margin_40"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:enabled="false"
+            android:gravity="center"
+            android:padding="@dimen/margin_10"
+            android:src="@drawable/ic_unselect"
+            android:textColor="@drawable/selector_step_item" />
+
+    </RelativeLayout>
+</layout>

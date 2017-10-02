@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.revauc.revolutionbuy.widget.typeface.CustomTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@android:id/text1"
+    android:layout_width="match_parent"
+    android:textSize="@dimen/textsize_15"
+    android:textColor="@drawable/tab_text_color_selector"
+    android:gravity="center"
+    android:layout_height="match_parent"
+    app:customFont="@string/font_avenir_regular" />

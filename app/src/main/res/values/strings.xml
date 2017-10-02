@@ -112,6 +112,11 @@
         <item>Alphabetically</item>
     </string-array>
 
+    <string-array name="buy_tabs">
+        <item>Wishlist</item>
+        <item>Purchased</item>
+    </string-array>
+
     <string-array name="walkthrough_labels">
         <item>Everything is in reverse</item>
         <item>Less time searching</item>
@@ -342,4 +347,7 @@
     <string name="new_password">New password</string>
     <string name="confirm_password">Confirm password</string>
     <string name="need_to_be_a_member">You need to be a member to do this.</string>
+    <string name="buy">Buy</string>
+    <string name="tap_to_buy">Tap ‘+’ below to list an item you want to buy.</string>
+    <string name="select_categories">Select categories</string>
 </resources>
