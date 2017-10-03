@@ -353,4 +353,14 @@
     <string name="got_it">Got It</string>
     <string name="select_at_least_one_category">You need to select at least one category.</string>
     <string name="five_at_max">You can select 5 categories at max.</string>
+    <string name="add_title">Add title</string>
+    <string name="title">Title</string>
+    <string name="skip_next_text">Skip/Next</string>
+    <string name="skip_done_text">Skip/Done</string>
+    <string name="add_description">Add description</string>
+    <string name="description">Description</string>
+    <string name="primary_photo">Primary Photo</string>
+    <string name="upload_photos">Upload photos</string>
+    <string name="item_listed">Item Listed</string>
+    <string name="we_ll_notify_you_if_a_seller_is_interested">We’ll notify you if a seller is interested.</string>
 </resources>

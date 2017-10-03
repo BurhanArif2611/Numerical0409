@@ -27,6 +27,7 @@
 
 
         <include
+            android:id="@+id/layout_buyer_footer"
             layout="@layout/layout_buyer_footer"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_64" />

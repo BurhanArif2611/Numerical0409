@@ -161,6 +161,30 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".ui.buy.AddTitleActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.buy.AddDescriptionActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.buy.AddPhotosActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.buy.adapter.ItemListedActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".ui.auth.AgeAlertActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"

@@ -68,6 +68,7 @@ public class BuyFragment extends BaseFragment implements TabLayout.OnTabSelected
             mBinder.toolbarBuy.buyTabs.getTabAt(i).setCustomView(tv);
         }
         mBinder.toolbarBuy.buyTabs.addOnTabSelectedListener(this);
+        mBinder.floatingActionButton.setOnClickListener(this);
     }
 
     @Override
@@ -100,6 +101,7 @@ public class BuyFragment extends BaseFragment implements TabLayout.OnTabSelected
         {
             case R.id.floating_action_button:
                 startActivity(new Intent(getActivity(),SelectCategoriesActivity.class));
+                getActivity().overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                 break;
         }
     }

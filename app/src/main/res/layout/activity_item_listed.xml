@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <View
+        android:id="@+id/view_center_anchor"
+        android:layout_width="@dimen/margin_4"
+        android:layout_height="@dimen/margin_4"
+        android:layout_centerInParent="true" />
+
+    <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+        android:id="@+id/text_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view_center_anchor"
+        android:layout_centerHorizontal="true"
+        android:text="@string/item_listed"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textsize_24"
+        app:customFont="@string/font_avenir_medium" />
+
+    <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+        android:id="@+id/text_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_8"
+        android:text="@string/we_ll_notify_you_if_a_seller_is_interested"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textsize_15"
+        app:customFont="@string/font_avenir_regular" />
+
+
+    <ImageView
+        android:id="@+id/image_listed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/view_center_anchor"
+        android:layout_marginBottom="@dimen/margin_40"
+        android:src="@drawable/ic_item_listed"/>
+
+    <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+        android:id="@+id/button_done"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="@dimen/margin_16"
+        android:gravity="center"
+        android:elevation="@dimen/margin_8"
+        android:layout_margin="@dimen/margin_16"
+        android:text="@string/done"
+        android:background="@drawable/ic_button_white"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/textsize_16"
+        app:customFont="@string/font_avenir_medium" />
+
+
+</RelativeLayout>
+</layout>

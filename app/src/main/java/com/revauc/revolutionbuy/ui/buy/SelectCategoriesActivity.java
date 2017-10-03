@@ -57,6 +57,7 @@ public class SelectCategoriesActivity extends BaseActivity implements View.OnCli
         mBinding.toolbarBuyer.tvToolbarGeneralRight.setText(R.string.next);
         mBinding.toolbarBuyer.tvToolbarGeneralRight.setVisibility(View.VISIBLE);
         mBinding.toolbarBuyer.tvToolbarGeneralRight.setOnClickListener(this);
+        mBinding.layoutBuyerFooter.textStepOne.setEnabled(true);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -116,9 +117,9 @@ public class SelectCategoriesActivity extends BaseActivity implements View.OnCli
             case R.id.tv_toolbar_general_right:
                 if(getSelectedCount()>0)
                 {
-                    Intent intent = new Intent(SelectCategoriesActivity.this, CreateProfileActivity.class);
-                    intent.putExtra(Constants.EXTRA_FROM_SETTINGS, true);
+                    Intent intent = new Intent(SelectCategoriesActivity.this, AddTitleActivity.class);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                 }
                 else
                 {
