@@ -1,8 +1,12 @@
 package com.revauc.revolutionbuy.ui.buy;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -12,6 +16,7 @@ import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.ActivityAddDescriptionBinding;
 import com.revauc.revolutionbuy.databinding.ActivityAddTitleBinding;
 import com.revauc.revolutionbuy.ui.BaseActivity;
+import com.revauc.revolutionbuy.ui.buy.adapter.ItemListedActivity;
 import com.revauc.revolutionbuy.util.StringUtils;
 
 
@@ -19,6 +24,12 @@ public class AddDescriptionActivity extends BaseActivity implements View.OnClick
 
 
     private ActivityAddDescriptionBinding mBinding;
+    private final BroadcastReceiver mReciever = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            finish();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +65,14 @@ public class AddDescriptionActivity extends BaseActivity implements View.OnClick
             }
         });
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReciever, new IntentFilter(ItemListedActivity.BROAD_BUY_LISTED_COMPLETE));
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mReciever);
     }
 
 

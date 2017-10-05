@@ -11,6 +11,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/screen_bg"
             android:gravity="center_horizontal"
+            android:clipToPadding="false"
             android:orientation="vertical">
 
             <include
@@ -45,49 +46,50 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/add_image_icon"/>
+                    android:src="@drawable/add_image_icon" />
 
-                <ImageView
+                <com.revauc.revolutionbuy.widget.roundedimageview.RoundedImageView
                     android:id="@+id/image_one"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-                
+                    android:layout_height="match_parent"
+                    app:riv_corner_radius="@dimen/margin_4"
+                    android:scaleType="centerCrop" />
+
                 <ImageView
                     android:id="@+id/image_remove_one"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:visibility="invisible"
                     android:layout_alignParentBottom="true"
-                    android:src="@drawable/ic_remove_image"/>
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_remove_image"
+                    android:visibility="invisible" />
 
                 <com.revauc.revolutionbuy.widget.typeface.CustomTextView
                     android:id="@+id/text_primary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/margin_7"
-                    android:textColor="@color/white"
-                    android:gravity="center"
-                    android:visibility="invisible"
-                    android:textSize="@dimen/textsize_12"
                     android:background="@drawable/bg_primary_blue"
+                    android:gravity="center"
+                    android:padding="@dimen/margin_7"
+                    android:text="@string/primary_photo"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/textsize_12"
 
-                    android:text="@string/primary_photo"/>
+                    android:visibility="invisible" />
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/margin_16"
                 android:layout_height="@dimen/margin_127"
-                android:orientation="horizontal"
-                >
+                android:layout_marginTop="@dimen/margin_16"
+                android:orientation="horizontal">
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.0"
                     android:layout_marginEnd="@dimen/margin_16"
                     android:layout_marginStart="@dimen/margin_16"
+                    android:layout_weight="1.0"
                     android:background="@drawable/et_edittext_border">
 
                     <ImageView
@@ -95,28 +97,30 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:src="@drawable/add_image_icon"/>
+                        android:src="@drawable/add_image_icon" />
 
-                    <ImageView
+                    <com.revauc.revolutionbuy.widget.roundedimageview.RoundedImageView
                         android:id="@+id/image_two"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        app:riv_corner_radius="@dimen/margin_4"
+                        android:scaleType="centerCrop" />
 
                     <ImageView
                         android:id="@+id/image_remove_two"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:visibility="invisible"
                         android:layout_alignParentBottom="true"
-                        android:src="@drawable/ic_remove_image"/>
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/ic_remove_image"
+                        android:visibility="invisible" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.0"
                     android:layout_marginEnd="@dimen/margin_16"
+                    android:layout_weight="1.0"
                     android:background="@drawable/et_edittext_border">
 
                     <ImageView
@@ -124,21 +128,23 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:src="@drawable/add_image_icon"/>
+                        android:src="@drawable/add_image_icon" />
 
-                    <ImageView
+                    <com.revauc.revolutionbuy.widget.roundedimageview.RoundedImageView
                         android:id="@+id/image_three"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        app:riv_corner_radius="@dimen/margin_4"
+                        android:scaleType="centerCrop" />
 
                     <ImageView
                         android:id="@+id/image_remove_three"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
                         android:layout_alignParentBottom="true"
-                        android:visibility="invisible"
-                        android:src="@drawable/ic_remove_image"/>
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/ic_remove_image"
+                        android:visibility="invisible" />
                 </RelativeLayout>
 
             </LinearLayout>

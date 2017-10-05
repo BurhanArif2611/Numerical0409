@@ -130,6 +130,7 @@ public class ImagePickerUtils extends Fragment {
                 }
             }
         });
+        builder.setCancelable(false);
         builder.show();
     }
 

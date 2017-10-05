@@ -1,9 +1,13 @@
 package com.revauc.revolutionbuy.ui.buy;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -23,6 +27,7 @@ import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.BaseActivity;
 import com.revauc.revolutionbuy.ui.auth.CreateProfileActivity;
 import com.revauc.revolutionbuy.ui.buy.adapter.CategoriesAdapter;
+import com.revauc.revolutionbuy.ui.buy.adapter.ItemListedActivity;
 import com.revauc.revolutionbuy.util.Constants;
 import com.revauc.revolutionbuy.util.PreferenceUtil;
 import com.revauc.revolutionbuy.util.StringUtils;
@@ -45,6 +50,13 @@ public class SelectCategoriesActivity extends BaseActivity implements View.OnCli
     private ActivitySelectCategoriesBinding mBinding;
     private List<CategoryDto> mCategories;
     private CategoriesAdapter mAdapter;
+    private final BroadcastReceiver mReciever = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            finish();
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +78,15 @@ public class SelectCategoriesActivity extends BaseActivity implements View.OnCli
             }
         }, 250);
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReciever, new IntentFilter(ItemListedActivity.BROAD_BUY_LISTED_COMPLETE));
 
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mReciever);
     }
 
     private void fetchCategories() {
