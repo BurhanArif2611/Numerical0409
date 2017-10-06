@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_235"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
+        app:cardCornerRadius="@dimen/margin_4"
+        app:cardElevation="@dimen/margin_8"
+
+        android:layout_marginBottom="@dimen/margin_8"
+        android:background="@color/white">
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+
+           <com.revauc.revolutionbuy.widget.roundedimageview.RoundedImageView
+               android:id="@+id/image_product"
+               android:layout_width="match_parent"
+               android:layout_height="@dimen/margin_177"
+               app:riv_corner_radius="@dimen/margin_4"
+                android:src="@drawable/ic_placeholder_purchase"
+               android:scaleType="centerCrop"/>
+
+           <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+               android:id="@+id/text_title"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textSize="@dimen/textsize_15"
+               android:textColor="@color/textColorDark"
+               android:layout_marginTop="@dimen/margin_8"
+               android:layout_below="@id/image_product"
+               android:layout_marginStart="@dimen/margin_16"
+               android:layout_marginEnd="@dimen/margin_16"
+               android:text="Skechers Shoes"
+               app:customFont="@string/font_avenir_medium"/>
+
+           <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+               android:id="@+id/text_categories"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textSize="@dimen/textsize_12"
+               android:textColor="@color/color_label"
+               android:layout_below="@id/text_title"
+               android:gravity="center_vertical"
+               android:layout_marginTop="@dimen/margin_4"
+               android:text="Antiques, Collectibles"
+               android:drawablePadding="@dimen/margin_5"
+               android:drawableStart="@drawable/ic_tag_list"
+               android:layout_marginStart="@dimen/margin_16"
+               android:layout_marginEnd="@dimen/margin_16"
+               app:customFont="@string/font_avenir_regular"/>
+
+
+       </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+</layout>

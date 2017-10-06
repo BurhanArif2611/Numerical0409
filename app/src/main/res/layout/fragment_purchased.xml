@@ -19,6 +19,7 @@
             android:textColor="@color/color_label"
             android:textSize="@dimen/textsize_17"
             android:gravity="center"
+            android:visibility="invisible"
             android:text="You haven’t purchased anything yet. Try adding something to your wishlist."
             android:drawableTop="@drawable/ic_buy_empty"
             android:drawablePadding="@dimen/margin_24"

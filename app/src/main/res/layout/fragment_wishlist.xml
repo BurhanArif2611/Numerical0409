@@ -20,6 +20,7 @@
             android:textSize="@dimen/textsize_17"
             android:text="@string/tap_to_buy"
             android:gravity="center"
+            android:visibility="invisible"
             android:drawableTop="@drawable/ic_buy_empty"
             android:drawablePadding="@dimen/margin_24"
             app:customFont="@string/font_avenir_regular"/>
