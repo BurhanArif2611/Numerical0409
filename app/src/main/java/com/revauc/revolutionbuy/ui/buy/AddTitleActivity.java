@@ -50,6 +50,7 @@ public class AddTitleActivity extends BaseActivity implements View.OnClickListen
             finish();
         }
     };
+    private String mCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +86,8 @@ public class AddTitleActivity extends BaseActivity implements View.OnClickListen
             }
         });
         LocalBroadcastManager.getInstance(this).registerReceiver(mReciever, new IntentFilter(ItemListedActivity.BROAD_BUY_LISTED_COMPLETE));
+
+        mCategory = getIntent().getStringExtra(Constants.EXTRA_CATEGORY);
 
     }
 
@@ -122,7 +125,11 @@ public class AddTitleActivity extends BaseActivity implements View.OnClickListen
             mBinding.containerNumber.setBackgroundResource(R.drawable.ic_button_red_border);
 
         }else{
-            startActivity(new Intent(AddTitleActivity.this,AddDescriptionActivity.class));
+            Intent intent = new Intent(AddTitleActivity.this,AddDescriptionActivity.class);
+            intent.putExtra(Constants.EXTRA_TITLE,title);
+            intent.putExtra(Constants.EXTRA_CATEGORY,mCategory);
+            startActivity(intent);
+
             overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
         }
     }

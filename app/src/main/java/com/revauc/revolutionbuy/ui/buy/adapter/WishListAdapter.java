@@ -13,6 +13,7 @@ import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.ItemCategoriesBinding;
 import com.revauc.revolutionbuy.databinding.ItemProductListBinding;
 import com.revauc.revolutionbuy.listeners.OnCategorySelectListener;
+import com.revauc.revolutionbuy.network.response.buyer.BuyerProductDto;
 import com.revauc.revolutionbuy.network.response.buyer.CategoryDto;
 import com.revauc.revolutionbuy.widget.roundedimageview.RoundedImageView;
 
@@ -25,6 +26,7 @@ Developed by Appster.
 
 public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.MyViewHolder> {
 
+    private final List<BuyerProductDto> mBuyerProducts;
     private Context mContext;
     private ItemProductListBinding mBinding;
 
@@ -41,8 +43,9 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.MyView
         }
     }
 
-    public WishListAdapter(Context mContext) {
+    public WishListAdapter(Context mContext, List<BuyerProductDto> mBuyerProducts) {
         this.mContext = mContext;
+        this.mBuyerProducts = mBuyerProducts;
     }
 
     @Override
@@ -54,13 +57,14 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.MyView
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-
-        holder.imageProduct.setImageResource(R.drawable.ic_skechers);
+        BuyerProductDto buyerProductDto = mBuyerProducts.get(position);
+        holder.tvtitle.setText(buyerProductDto.getTitle());
+        holder.tvCategories.setText(buyerProductDto.getBuyerProductCategoriesString()+"");
     }
 
     @Override
     public int getItemCount() {
-        return 20;
+        return mBuyerProducts.size();
     }
 
 

@@ -17,6 +17,7 @@ import com.revauc.revolutionbuy.databinding.ActivityAddDescriptionBinding;
 import com.revauc.revolutionbuy.databinding.ActivityAddTitleBinding;
 import com.revauc.revolutionbuy.ui.BaseActivity;
 import com.revauc.revolutionbuy.ui.buy.adapter.ItemListedActivity;
+import com.revauc.revolutionbuy.util.Constants;
 import com.revauc.revolutionbuy.util.StringUtils;
 
 
@@ -30,6 +31,8 @@ public class AddDescriptionActivity extends BaseActivity implements View.OnClick
             finish();
         }
     };
+    private String mTitle;
+    private String mCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,9 @@ public class AddDescriptionActivity extends BaseActivity implements View.OnClick
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mReciever, new IntentFilter(ItemListedActivity.BROAD_BUY_LISTED_COMPLETE));
 
+        mTitle = getIntent().getStringExtra(Constants.EXTRA_TITLE);
+        mCategory = getIntent().getStringExtra(Constants.EXTRA_CATEGORY);
+
     }
 
     @Override
@@ -97,12 +103,15 @@ public class AddDescriptionActivity extends BaseActivity implements View.OnClick
     }
 
     private void validateDetails() {
-        String title = mBinding.editTitle.getText().toString();
-        if(StringUtils.isNullOrEmpty(title)){
+        String description = mBinding.editTitle.getText().toString();
+        if(StringUtils.isNullOrEmpty(description)){
             showSnackBarFromBottom(getString(R.string.text_please_enter,getString(R.string.description)),mBinding.mainContainer, true);
             mBinding.containerDesc.setBackgroundResource(R.drawable.ic_button_red_border);
         }else{
             Intent intent = new Intent(AddDescriptionActivity.this, AddPhotosActivity.class);
+            intent.putExtra(Constants.EXTRA_TITLE,mTitle);
+            intent.putExtra(Constants.EXTRA_CATEGORY,mCategory);
+            intent.putExtra(Constants.EXTRA_DESCRIPTION,description);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
         }

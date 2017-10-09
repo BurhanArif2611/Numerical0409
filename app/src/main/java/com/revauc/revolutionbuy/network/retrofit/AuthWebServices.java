@@ -9,6 +9,7 @@ import com.revauc.revolutionbuy.network.request.auth.MobilePinRequest;
 import com.revauc.revolutionbuy.network.request.auth.SignUpRequest;
 import com.revauc.revolutionbuy.network.request.auth.SocialSignUpRequest;
 import com.revauc.revolutionbuy.network.response.buyer.CategoriesResponse;
+import com.revauc.revolutionbuy.network.response.buyer.WishlistResponse;
 import com.revauc.revolutionbuy.network.response.profile.CityResponse;
 import com.revauc.revolutionbuy.network.response.profile.CountryResponse;
 import com.revauc.revolutionbuy.network.response.LoginResponse;
@@ -46,6 +47,10 @@ public interface AuthWebServices {
     String LOGOUT = BuildConfig.BASE_URL + "users/logout";
     String CHANGE_PASSWORD = BuildConfig.BASE_URL + "users/change-password";
     String GET_CATEGORIES = BuildConfig.BASE_URL + "categories";
+    String GET_BUYER_WISHLIST = BuildConfig.BASE_URL + "buyer-wishlist-products";
+    String ADD_BUYER_PRODUCT = BuildConfig.BASE_URL + "products/buyer-products";
+
+
 
 
     @POST(FB_LOGIN)
@@ -75,8 +80,8 @@ public interface AuthWebServices {
     @GET(GET_STATES)
     Observable<StateResponse> getStates(@Query("countryId") Integer countryId);
 
-    @GET(GET_CITIES)
-    Observable<CityResponse> getCities(@Query("countryId") Integer countryId, @Query("stateId") Integer stateId);
+    @GET(GET_BUYER_WISHLIST)
+    Observable<WishlistResponse> getBuyerWishlist(@Query("offset") Integer offset, @Query("limit") Integer limit);
 
     @Multipart
     @POST(ADD_PROFILE)
@@ -89,7 +94,26 @@ public interface AuthWebServices {
     @Multipart
     @POST(EDIT_PROFILE)
     Observable<LoginResponse> editProfile(@PartMap() Map<String, RequestBody> partMap);
-//
+
+    @Multipart
+    @POST(ADD_BUYER_PRODUCT)
+    Observable<BaseResponse> addBuyerProduct(@PartMap() Map<String, RequestBody> partMap);
+
+    @Multipart
+    @POST(ADD_BUYER_PRODUCT)
+    Observable<BaseResponse> addBuyerProduct(@PartMap() Map<String, RequestBody> partMap,@Part MultipartBody.Part primary);
+
+    @Multipart
+    @POST(ADD_BUYER_PRODUCT)
+    Observable<BaseResponse> addBuyerProduct(@PartMap() Map<String, RequestBody> partMap,@Part MultipartBody.Part primary,@Part MultipartBody.Part one);
+
+    @Multipart
+    @POST(ADD_BUYER_PRODUCT)
+    Observable<BaseResponse> addBuyerProduct(@PartMap() Map<String, RequestBody> partMap,@Part MultipartBody.Part primary,@Part MultipartBody.Part one,@Part MultipartBody.Part two);
+
+    @GET(GET_CITIES)
+    Observable<CityResponse> getCities(@Query("countryId") Integer countryId, @Query("stateId") Integer stateId);
+
 //    @POST(CHANGE_PASSWORD)
 //    Observable<BaseResponse> changePassword(@Body ChangePasswordRequest params);
 //

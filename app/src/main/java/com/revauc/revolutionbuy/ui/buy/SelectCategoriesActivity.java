@@ -56,6 +56,7 @@ public class SelectCategoriesActivity extends BaseActivity implements View.OnCli
             finish();
         }
     };
+    private int mSelectedCategory;
 
 
     @Override
@@ -138,6 +139,7 @@ public class SelectCategoriesActivity extends BaseActivity implements View.OnCli
                 if(getSelectedCount()>0)
                 {
                     Intent intent = new Intent(SelectCategoriesActivity.this, AddTitleActivity.class);
+                    intent.putExtra(Constants.EXTRA_CATEGORY,mSelectedCategory+"");
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                 }
@@ -171,6 +173,7 @@ public class SelectCategoriesActivity extends BaseActivity implements View.OnCli
         int selectedCount = 0;
         for (CategoryDto categoryDto : mCategories) {
             if (categoryDto.isSelected()) {
+                mSelectedCategory = categoryDto.getId();
                 selectedCount++;
             }
         }
