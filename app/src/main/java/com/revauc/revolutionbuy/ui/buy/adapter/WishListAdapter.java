@@ -13,9 +13,11 @@ import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.ItemCategoriesBinding;
 import com.revauc.revolutionbuy.databinding.ItemProductListBinding;
 import com.revauc.revolutionbuy.listeners.OnCategorySelectListener;
+import com.revauc.revolutionbuy.listeners.OnWishlistClickListener;
 import com.revauc.revolutionbuy.network.response.buyer.BuyerProductDto;
 import com.revauc.revolutionbuy.network.response.buyer.CategoryDto;
 import com.revauc.revolutionbuy.widget.roundedimageview.RoundedImageView;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -27,6 +29,7 @@ Developed by Appster.
 public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.MyViewHolder> {
 
     private final List<BuyerProductDto> mBuyerProducts;
+    private final OnWishlistClickListener onWishlistClickListener;
     private Context mContext;
     private ItemProductListBinding mBinding;
 
@@ -35,6 +38,7 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.MyView
         RoundedImageView imageProduct;
         TextView tvtitle;
         TextView tvCategories;
+
         public MyViewHolder(View view) {
             super(view);
             imageProduct = mBinding.imageProduct;
@@ -43,7 +47,8 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.MyView
         }
     }
 
-    public WishListAdapter(Context mContext, List<BuyerProductDto> mBuyerProducts) {
+    public WishListAdapter(Context mContext, List<BuyerProductDto> mBuyerProducts, OnWishlistClickListener onWishlistClickListener) {
+        this.onWishlistClickListener = onWishlistClickListener;
         this.mContext = mContext;
         this.mBuyerProducts = mBuyerProducts;
     }
@@ -57,9 +62,23 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.MyView
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        BuyerProductDto buyerProductDto = mBuyerProducts.get(position);
+        final BuyerProductDto buyerProductDto = mBuyerProducts.get(position);
         holder.tvtitle.setText(buyerProductDto.getTitle());
-        holder.tvCategories.setText(buyerProductDto.getBuyerProductCategoriesString()+"");
+        holder.tvCategories.setText(buyerProductDto.getBuyerProductCategoriesString() + "");
+
+        if (buyerProductDto.getBuyerProductImages() != null && !buyerProductDto.getBuyerProductImages().isEmpty()) {
+            Picasso.with(mContext).load(buyerProductDto.getBuyerProductImages().get(0)
+                    .getImageName()).placeholder(R.drawable.ic_placeholder_purchase).into(holder.imageProduct);
+        } else {
+            holder.imageProduct.setImageResource(R.drawable.ic_placeholder_purchase);
+        }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onWishlistClickListener.onWishlistItemClicked(buyerProductDto);
+            }
+        });
     }
 
     @Override

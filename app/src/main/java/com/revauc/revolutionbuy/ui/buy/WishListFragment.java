@@ -6,7 +6,7 @@
 package com.revauc.revolutionbuy.ui.buy;
 
 
-import android.content.res.TypedArray;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,20 +17,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.revauc.revolutionbuy.R;
-import com.revauc.revolutionbuy.databinding.FragmentSellBinding;
 import com.revauc.revolutionbuy.databinding.FragmentWishlistBinding;
+import com.revauc.revolutionbuy.listeners.OnWishlistClickListener;
 import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.RequestController;
 import com.revauc.revolutionbuy.network.response.buyer.BuyerProductDto;
 import com.revauc.revolutionbuy.network.response.buyer.WishlistResponse;
-import com.revauc.revolutionbuy.network.response.profile.CityResponse;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.BaseFragment;
-import com.revauc.revolutionbuy.ui.buy.adapter.CategoriesAdapter;
 import com.revauc.revolutionbuy.ui.buy.adapter.WishListAdapter;
-import com.revauc.revolutionbuy.ui.sell.SellOptionsGridAdapter;
-import com.revauc.revolutionbuy.util.Utils;
+import com.revauc.revolutionbuy.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +36,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class WishListFragment extends BaseFragment{
+public class WishListFragment extends BaseFragment implements OnWishlistClickListener{
     private static final String TAG = "WishListFragment";
     private static final String PARAM_TITLE = "ParamTitle";
     private FragmentWishlistBinding mBinder;
@@ -78,7 +75,7 @@ public class WishListFragment extends BaseFragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mAdapter = new WishListAdapter(getActivity(),mBuyerProducts);
+        mAdapter = new WishListAdapter(getActivity(),mBuyerProducts,this);
         RecyclerView.LayoutManager lay = new LinearLayoutManager(getActivity());
         mBinder.recyclerViewWishlist.setLayoutManager(lay);
         mBinder.recyclerViewWishlist.setAdapter(mAdapter);
@@ -127,4 +124,10 @@ public class WishListFragment extends BaseFragment{
     }
 
 
+    @Override
+    public void onWishlistItemClicked(BuyerProductDto buyerProduct) {
+        Intent intent = new Intent(getActivity(),BuyerProductDetailActivity.class);
+        intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,buyerProduct);
+        startActivity(intent);
+    }
 }
