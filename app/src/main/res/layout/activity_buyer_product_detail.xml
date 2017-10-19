@@ -22,21 +22,68 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
-            <com.revauc.revolutionbuy.widget.CircleIndicator
-                android:id="@+id/indicator_images"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/margin_16"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="@dimen/margin_32"
-                app:ci_height="@dimen/margin_5"
-                app:ci_width="@dimen/margin_5" />
 
             <ImageView
                 android:id="@+id/image_product"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"/>
+            
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_97"
+                android:background="@drawable/bg_gradiant"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_54"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/bg_gradiant_bottom"/>
+
+            <com.revauc.revolutionbuy.widget.CircleIndicator
+                android:id="@+id/indicator_images"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/margin_16"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/margin_14"
+                app:ci_height="@dimen/margin_5"
+                app:ci_width="@dimen/margin_5" />
+
+            <ImageView
+                android:id="@+id/image_back"
+                android:layout_width="@dimen/margin_18"
+                android:layout_height="@dimen/margin_18"
+                android:src="@drawable/ic_back_white"
+                android:layout_marginTop="@dimen/margin_37"
+                android:layout_marginStart="@dimen/margin_16"/>
+
+            <ImageView
+                android:id="@+id/image_delete"
+                android:layout_width="@dimen/margin_18"
+                android:layout_height="@dimen/margin_18"
+                android:src="@drawable/ic_delete_white"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/margin_37"
+                android:layout_marginEnd="@dimen/margin_16"/>
+
+            <ImageView
+                android:id="@+id/image_edit"
+                android:layout_width="@dimen/margin_18"
+                android:layout_height="@dimen/margin_18"
+                android:src="@drawable/ic_edit_white"
+                android:layout_toStartOf="@id/image_delete"
+                android:layout_marginTop="@dimen/margin_37"
+                android:layout_marginEnd="@dimen/margin_20"/>
+
+            <ImageView
+                android:id="@+id/image_share"
+                android:layout_width="@dimen/margin_18"
+                android:layout_height="@dimen/margin_18"
+                android:src="@drawable/ic_share_white"
+                android:layout_toStartOf="@id/image_edit"
+                android:layout_marginTop="@dimen/margin_37"
+                android:layout_marginEnd="@dimen/margin_20"/>
 
         </RelativeLayout>
 

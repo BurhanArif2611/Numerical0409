@@ -80,10 +80,13 @@ public class WishListFragment extends BaseFragment implements OnWishlistClickLis
         mBinder.recyclerViewWishlist.setLayoutManager(lay);
         mBinder.recyclerViewWishlist.setAdapter(mAdapter);
 
-        fetchBuyerWishlist(offset,limit);
-
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        fetchBuyerWishlist(offset,limit);
+    }
 
     private void fetchBuyerWishlist(final int offset, int limit) {
         showProgressBar();

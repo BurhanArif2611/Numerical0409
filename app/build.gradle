@@ -116,8 +116,8 @@ android {
         Dev {
             dimension "environment"
             applicationId yourApplicationId + DOT + RELEASE_FLAV_DEV
-//            buildConfigField "String", "BASE_URL", "\"https://dev.revolutionbuy.com/api/\""
-            buildConfigField "String", "BASE_URL", "\"http://revolutionbuy.com/dev/public/api/\"";
+            buildConfigField "String", "BASE_URL", "\"https://dev.revolutionbuy.com/api/\""
+//            buildConfigField "String", "BASE_URL", "\"http://revolutionbuy.com/dev/public/api/\"";
             resValue("string", "app_name", appName)
             versionName fullVersion + RELEASE_FLAV_DEV as String
 

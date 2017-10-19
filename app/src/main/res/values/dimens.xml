@@ -22,4 +22,5 @@
     <dimen name="margin_127">127dp</dimen>
     <dimen name="margin_235">235dp</dimen>
     <dimen name="margin_177">177dp</dimen>
+    <dimen name="margin_54">54dp</dimen>
 </resources>

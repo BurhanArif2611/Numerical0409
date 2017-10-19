@@ -21,11 +21,13 @@ import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 
@@ -49,6 +51,8 @@ public interface AuthWebServices {
     String GET_CATEGORIES = BuildConfig.BASE_URL + "categories";
     String GET_BUYER_WISHLIST = BuildConfig.BASE_URL + "buyer-wishlist-products";
     String ADD_BUYER_PRODUCT = BuildConfig.BASE_URL + "products/buyer-products";
+    String DELETE_BUYER_PRODUCT = BuildConfig.BASE_URL + "products/";
+
 
 
 
@@ -79,6 +83,9 @@ public interface AuthWebServices {
 
     @GET(GET_STATES)
     Observable<StateResponse> getStates(@Query("countryId") Integer countryId);
+
+    @DELETE(DELETE_BUYER_PRODUCT+"{id}")
+    Observable<BaseResponse> deleteBuyerProduct(@Path("id") int productId);
 
     @GET(GET_BUYER_WISHLIST)
     Observable<WishlistResponse> getBuyerWishlist(@Query("offset") Integer offset, @Query("limit") Integer limit);
