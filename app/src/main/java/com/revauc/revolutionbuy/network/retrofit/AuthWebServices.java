@@ -6,6 +6,7 @@ import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.request.auth.ChangePasswordRequest;
 import com.revauc.revolutionbuy.network.request.auth.ForgotPasswordRequest;
 import com.revauc.revolutionbuy.network.request.auth.MobilePinRequest;
+import com.revauc.revolutionbuy.network.request.auth.MobileVerifyRequest;
 import com.revauc.revolutionbuy.network.request.auth.SignUpRequest;
 import com.revauc.revolutionbuy.network.request.auth.SocialSignUpRequest;
 import com.revauc.revolutionbuy.network.response.buyer.CategoriesResponse;
@@ -52,6 +53,7 @@ public interface AuthWebServices {
     String GET_BUYER_WISHLIST = BuildConfig.BASE_URL + "buyer-wishlist-products";
     String ADD_BUYER_PRODUCT = BuildConfig.BASE_URL + "products/buyer-products";
     String DELETE_BUYER_PRODUCT = BuildConfig.BASE_URL + "products/";
+    String VERIFY_MOBILE_NUMBER = BuildConfig.BASE_URL + "users/verify-mobile";
 
 
 
@@ -75,6 +77,9 @@ public interface AuthWebServices {
     @POST(MOBILE_PIN)
     Observable<BaseResponse> generateMobilePin(@Body MobilePinRequest params);
 
+    @POST(VERIFY_MOBILE_NUMBER)
+    Observable<BaseResponse> verifyMobileChangePin(@Body MobileVerifyRequest params);
+
     @GET(GET_COUNTRIES)
     Observable<CountryResponse> getCountries();
 
@@ -93,6 +98,10 @@ public interface AuthWebServices {
     @Multipart
     @POST(ADD_PROFILE)
     Observable<LoginResponse> uploadFormData(@PartMap() Map<String, RequestBody> partMap);
+
+    @Multipart
+    @POST(ADD_PROFILE)
+    Observable<LoginResponse> uploadFormData(@PartMap() Map<String, RequestBody> partMap,@Part MultipartBody.Part file);
 
     @Multipart
     @POST(EDIT_PROFILE)

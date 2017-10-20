@@ -23,4 +23,9 @@
     <dimen name="margin_235">235dp</dimen>
     <dimen name="margin_177">177dp</dimen>
     <dimen name="margin_54">54dp</dimen>
+
+    <dimen name="pv_pin_view_item_size">48dp</dimen>
+    <dimen name="pv_pin_view_item_radius">5dp</dimen>
+    <dimen name="pv_pin_view_item_spacing">5dp</dimen>
+    <dimen name="pv_pin_view_item_line_width">2dp</dimen>
 </resources>

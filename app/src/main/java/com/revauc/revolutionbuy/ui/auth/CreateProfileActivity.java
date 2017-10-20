@@ -306,13 +306,21 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
             showSnackBarFromBottom(getString(R.string.text_please_select, "city"), mBinding.mainContainer, true);
             mBinding.containerCity.setBackgroundResource(R.drawable.ic_button_red_border);
         } else {
-            editProfile(name, age, selectedCityId + "");
-//            showToast("Navigate to Next Screen");
-//            Intent intent = new Intent(CreateProfileActivity.this,MobileVerificationActivity.class);
-//            intent.putExtra(Constants.EXTRA_USER_NAME,name);
-//            intent.putExtra(Constants.EXTRA_AGE,Integer.parseInt(age));
-//            intent.putExtra(Constants.EXTRA_CITY_ID,selectedCity.getId());
-//            startActivity(intent);
+            if (isFromSettings)
+            {
+                editProfile(name, age, selectedCityId + "");
+            }
+            else
+            {
+                Intent intent = new Intent(CreateProfileActivity.this,MobileVerificationActivity.class);
+                intent.putExtra(Constants.EXTRA_USER_NAME,name);
+                intent.putExtra(Constants.EXTRA_AGE,Integer.parseInt(age));
+                intent.putExtra(Constants.EXTRA_CITY_ID,selectedCityId);
+                intent.putExtra(Constants.EXTRA_PROFILE_IMAGE,mFilePath);
+                startActivity(intent);
+            }
+
+
         }
     }
 

@@ -129,4 +129,12 @@
         <item name="android:scrollbarThumbVertical">@color/yellow_orange</item>
         <item name="android:scrollbarSize">8dp</item>
     </style>
+
+    <style name="PinWidget" />
+
+    <style name="PinWidget.PinView" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@null</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:maxLines">1</item>
+    </style>
 </resources>

@@ -30,6 +30,8 @@ public class MobileVerificationActivity extends BaseActivity implements View.OnC
     private String name;
     private int age;
     private int cityId;
+    private String mFilePath;
+    private boolean isFromSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +40,17 @@ public class MobileVerificationActivity extends BaseActivity implements View.OnC
 
         if(getIntent()!=null)
         {
+            isFromSettings = getIntent().getBooleanExtra(Constants.EXTRA_FROM_SETTINGS,false);
             name = getIntent().getStringExtra(Constants.EXTRA_USER_NAME);
             age = getIntent().getIntExtra(Constants.EXTRA_AGE,0);
             cityId = getIntent().getIntExtra(Constants.EXTRA_CITY_ID,0);
+            mFilePath = getIntent().getStringExtra(Constants.EXTRA_PROFILE_IMAGE);
         }
 
         mBinding.toolbarProfile.tvToolbarGeneralLeft.setText(R.string.back);
         mBinding.toolbarProfile.tvToolbarGeneralLeft.setVisibility(View.VISIBLE);
         mBinding.toolbarProfile.tvToolbarGeneralLeft.setOnClickListener(this);
-        mBinding.toolbarProfile.txvToolbarGeneralCenter.setText(R.string.mobile_verification);
+        mBinding.toolbarProfile.txvToolbarGeneralCenter.setText(isFromSettings?R.string.change_mobile_number:R.string.mobile_verification);
         mBinding.toolbarProfile.tvToolbarGeneralLeft.setOnClickListener(this);
         mBinding.textGeneratePin.setOnClickListener(this);
 
@@ -127,8 +131,14 @@ public class MobileVerificationActivity extends BaseActivity implements View.OnC
                     intent.putExtra(Constants.EXTRA_MOBILE,mobile);
                     intent.putExtra(Constants.EXTRA_AGE,age);
                     intent.putExtra(Constants.EXTRA_CITY_ID,cityId);
+                    intent.putExtra(Constants.EXTRA_PROFILE_IMAGE,mFilePath);
+                    intent.putExtra(Constants.EXTRA_FROM_SETTINGS,isFromSettings);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                    if(isFromSettings)
+                    {
+                        finish();
+                    }
                 }
                 else
                 {

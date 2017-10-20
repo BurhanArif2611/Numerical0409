@@ -15,6 +15,8 @@ import com.revauc.revolutionbuy.databinding.FragmentSettingsBinding;
 import com.revauc.revolutionbuy.eventbusmodel.OnButtonClicked;
 import com.revauc.revolutionbuy.eventbusmodel.OnSignUpClicked;
 import com.revauc.revolutionbuy.ui.BaseActivity;
+import com.revauc.revolutionbuy.ui.auth.MobilePinVerificationActivity;
+import com.revauc.revolutionbuy.ui.auth.MobileVerificationActivity;
 import com.revauc.revolutionbuy.ui.auth.PrivacyActivity;
 import com.revauc.revolutionbuy.ui.auth.SignUpActivity;
 import com.revauc.revolutionbuy.ui.auth.TermsConditionsActivity;
@@ -77,6 +79,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         mBinder.textTermsOfUse.setOnClickListener(this);
         mBinder.textPrivacy.setOnClickListener(this);
         mBinder.textChangePassword.setOnClickListener(this);
+        mBinder.textChangeMobile.setOnClickListener(this);
         mBinder.textContactAdmin.setOnClickListener(this);
         mBinder.textLogout.setOnClickListener(this);
     }
@@ -129,6 +132,11 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 Intent adminIntent = new Intent(getActivity(), ContactAdminActivity.class);
                 adminIntent.putExtra(Constants.EXTRA_FROM_SETTINGS,true);
                 startActivity(adminIntent);
+                break;
+            case R.id.text_change_mobile:
+                Intent mobileIntent = new Intent(getActivity(), MobileVerificationActivity.class);
+                mobileIntent.putExtra(Constants.EXTRA_FROM_SETTINGS,true);
+                startActivity(mobileIntent);
                 break;
             case R.id.text_change_password:
                 if(PreferenceUtil.isLoggedIn())

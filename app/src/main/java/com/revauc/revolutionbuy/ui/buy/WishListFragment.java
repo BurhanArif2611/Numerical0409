@@ -111,7 +111,7 @@ public class WishListFragment extends BaseFragment implements OnWishlistClickLis
                     showToast(response.getMessage());
 //                    showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
                 }
-
+                    doPostLoadingTask();
             }
 
             @Override
@@ -124,6 +124,18 @@ public class WishListFragment extends BaseFragment implements OnWishlistClickLis
                 }
             }
         });
+    }
+
+    private void doPostLoadingTask() {
+        if(mBuyerProducts!=null && !mBuyerProducts.isEmpty())
+        {
+         mBinder.textNoData.setVisibility(View.GONE);
+
+        }
+        else
+        {
+            mBinder.textNoData.setVisibility(View.VISIBLE);
+        }
     }
 
 

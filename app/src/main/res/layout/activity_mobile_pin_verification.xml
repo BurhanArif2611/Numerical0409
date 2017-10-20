@@ -50,55 +50,27 @@
             android:textSize="@dimen/textsize_12"
             app:customFont="@string/font_avenir_regular" />
 
-        <RelativeLayout
-            android:id="@+id/container_pin"
-            android:layout_width="match_parent"
+
+        <com.revauc.revolutionbuy.widget.PinView
+            android:id="@+id/edit_pin"
+            style="@style/PinWidget.PinView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:inputType="number"
             android:layout_marginEnd="@dimen/margin_16"
             android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_24"
-            android:background="@drawable/et_edittext_border">
-
-            <ImageView
-                android:id="@+id/image_mobile"
-                android:layout_width="@dimen/margin_52"
-                android:layout_height="@dimen/margin_52"
-                android:layout_margin="@dimen/margin_1"
-                android:background="@drawable/ic_edit_icon_bg"
-                android:scaleType="center"
-                android:src="@drawable/ic_mobile" />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/text_input_pin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/image_mobile"
-                android:hint="Mobile number"
-                android:paddingBottom="@dimen/margin_10"
-                android:paddingTop="@dimen/margin_10"
-                android:textColorHint="@color/textcolor_hint"
-                app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Grey">
-
-                <com.revauc.revolutionbuy.widget.typeface.CustomEditText
-                    android:id="@+id/edit_pin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:ellipsize="end"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:paddingEnd="@dimen/margin_16"
-                    android:paddingStart="@dimen/margin_16"
-                    android:paddingTop="@dimen/margin_2"
-                    android:textColor="@color/textColorDark"
-                    android:textSize="@dimen/textsize_15"
-                    app:customFont="@string/font_avenir_regular" />
-
-            </android.support.design.widget.TextInputLayout>
-
-        </RelativeLayout>
+            android:layout_marginTop="@dimen/margin_16"
+            android:padding="@dimen/margin_10"
+            android:textColor="@color/textColorDark"
+            android:textSize="@dimen/textsize_24"
+            app:itemCount="4"
+            app:itemHeight="@dimen/margin_54"
+            app:itemRadius="@dimen/margin_4"
+            app:itemSpacing="@dimen/margin_10"
+            app:itemWidth="@dimen/margin_44"
+            app:lineColor="@color/colorPrimary"
+            app:lineWidth="@dimen/margin_1"
+            app:viewType="rectangle" />
 
         <com.revauc.revolutionbuy.widget.typeface.CustomTextView
             android:id="@+id/text_verify_pin"

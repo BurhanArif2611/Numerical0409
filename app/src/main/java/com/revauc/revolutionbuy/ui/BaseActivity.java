@@ -373,12 +373,13 @@ public abstract class BaseActivity extends AppCompatActivity {
                 if (response.isSuccess()) {
                     if (response.getResult() != null) {
                         PreferenceUtil.setAuthToken(response.getResult().getToken());
-//                        if(response.getResult().getUser().getIsProfileComplete()==0)
-//                        {
-//                            startActivity(new Intent(SignInActivity.this,CreateProfileActivity.class));
-//                            finish();
-//                        }
-                        if (StringUtils.isNullOrEmpty(response.getResult().getUser().getName())) {
+                        if(response.getResult().getUser().getIsProfileComplete()==0)
+                        {
+                            startActivity(new Intent(BaseActivity.this,CreateProfileActivity.class));
+                            finish();
+                        }
+
+                        else if (StringUtils.isNullOrEmpty(response.getResult().getUser().getName())) {
                             startActivity(new Intent(BaseActivity.this, CreateProfileActivity.class));
                             finish();
                         } else {

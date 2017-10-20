@@ -178,12 +178,12 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                     if(response.getResult()!=null)
                     {
                         PreferenceUtil.setAuthToken(response.getResult().getToken());
-//                        if(response.getResult().getUser().getIsProfileComplete()==0)
-//                        {
-//                            startActivity(new Intent(SignInActivity.this,CreateProfileActivity.class));
-//                            finish();
-//                        }
-                        if(StringUtils.isNullOrEmpty(response.getResult().getUser().getName())||response.getResult().getUser().getName().equalsIgnoreCase("amp"))
+                        if(response.getResult().getUser().getIsProfileComplete()==0)
+                        {
+                            startActivity(new Intent(SignInActivity.this,CreateProfileActivity.class));
+                            finish();
+                        }
+                        else if(StringUtils.isNullOrEmpty(response.getResult().getUser().getName()))
                         {
                             startActivity(new Intent(SignInActivity.this,CreateProfileActivity.class));
                             finish();

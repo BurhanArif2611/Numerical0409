@@ -44,6 +44,7 @@ public class Constants {
     public static final String EXTRA_CATEGORY = "EXTRA_CATEGORY";
     public static final String EXTRA_DESCRIPTION = "EXTRA_DESCRIPTION";
     public static final String EXTRA_PRODUCT_DETAIL = "EXTRA_PRODUCT_DETAIL";
+    public static final String EXTRA_PROFILE_IMAGE = "EXTRA_PROFILE_IMAGE";
 
 
     public static String BROAD_PICKS_ENTER_COMPLETE = "BROAD_PICKS_ENTER_COMPLETE";
