@@ -129,6 +129,7 @@
     </string-array>
 
     <string-array name="currency_names">
+        <item>Select Currency</item>
         <item>AED  United Arab Emirates Dirham (AED)</item>
         <item>AFN  Afghan Afghani (AFN)</item>
         <item>ALL  Albanian Lek (ALL)</item>
@@ -331,20 +332,20 @@
         <item>CAD</item>
         <item>CDF</item>
         <item>CHF</item>
-        <item>CLF  Chilean Unit of Account (CLF)</item>
-        <item>CLP  Chilean Peso (CLP)</item>
-        <item>CNH  CNH (CNH)</item>
-        <item>CNY  Chinese Yuan (CN¥)</item>
-        <item>COP  Colombian Peso (COP)</item>
-        <item>CRC  Costa Rican Colón (CRC)</item>
-        <item>CUP  Cuban Peso (CUP)</item>
-        <item>CVE  Cape Verdean Escudo (CVE)</item>
-        <item>CZK  Czech Koruna (CZK)</item>
-        <item>DEM  German Mark (DEM)</item>
-        <item>DJF  Djiboutian Franc (DJF)</item>
-        <item>DKK  Danish Krone (DKK)</item>
-        <item>DOP  Dominican Peso (DOP)</item>
-        <item>DZD  Algerian Dinar (DZD)</item>
+        <item>CLF</item>
+        <item>CLP</item>
+        <item>CNH</item>
+        <item>CNY</item>
+        <item>COP</item>
+        <item>CRC</item>
+        <item>CUP</item>
+        <item>CVE</item>
+        <item>CZK</item>
+        <item>DEM</item>
+        <item>DJF</item>
+        <item>DKK</item>
+        <item>DOP</item>
+        <item>DZD</item>
         <item>EGP  Egyptian Pound (EGP)</item>
         <item>ERN  Eritrean Nakfa (ERN)</item>
         <item>ETB  Ethiopian Birr (ETB)</item>
@@ -695,4 +696,15 @@
     <string name="report_this_item">Report This Item</string>
     <string name="view_seller_s_offers">View seller\'s offers</string>
     <string name="sell_now">Sell now</string>
+    <string name="send_offer_to_buyer">Send offer to buyer</string>
+    <string name="describe_your_item_here">Describe your item here</string>
+    <string name="offer_has_been_sent">Your offer has been sent! Sit back and the buyer will get back to you soon.</string>
+    <string name="offer_sent">Offer Sent</string>
+    <string name="view_items_you_re_selling">View items you\'re selling</string>
+    <string name="back_to_categories">Back to categories</string>
+    <string name="report_item">Report item</string>
+    <string name="reason_for_reporting">Reason for reporting…</string>
+    <string name="reporting_item">Reporting Item</string>
+    <string name="submit_report">Submit report</string>
+    <string name="report_sent">Report sent</string>
 </resources>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
+
+        <View
+            android:id="@+id/view_center_anchor"
+            android:layout_width="@dimen/margin_4"
+            android:layout_height="@dimen/margin_4"
+            android:layout_centerInParent="true" />
+
+        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_center_anchor"
+            android:layout_centerHorizontal="true"
+            android:text="@string/offer_sent"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textsize_24"
+            app:customFont="@string/font_avenir_medium" />
+
+        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+            android:id="@+id/text_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:gravity="center"
+            android:text="@string/offer_has_been_sent"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textsize_15"
+            app:customFont="@string/font_avenir_regular" />
+
+
+        <ImageView
+            android:id="@+id/image_listed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/view_center_anchor"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/margin_40"
+            android:src="@drawable/ic_offer_sent" />
+
+
+        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+            android:id="@+id/button_back_to_categories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/margin_16"
+            android:background="@drawable/ic_color_white_border"
+            android:elevation="@dimen/margin_8"
+            android:gravity="center"
+            android:padding="@dimen/margin_16"
+            android:text="@string/back_to_categories"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textsize_16"
+            app:customFont="@string/font_avenir_medium" />
+
+        <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+            android:id="@+id/button_view_items"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/button_back_to_categories"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:layout_marginStart="@dimen/margin_16"
+            android:background="@drawable/ic_button_white"
+            android:elevation="@dimen/margin_8"
+            android:gravity="center"
+            android:padding="@dimen/margin_16"
+            android:text="@string/view_items_you_re_selling"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/textsize_16"
+            app:customFont="@string/font_avenir_medium" />
+
+
+    </RelativeLayout>
+</layout>

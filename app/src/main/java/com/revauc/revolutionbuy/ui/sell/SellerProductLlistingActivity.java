@@ -55,6 +55,12 @@ public class SellerProductLlistingActivity extends BaseActivity implements View.
     private LinearLayoutManager mLayoutManager;
     private int mTotalCount;
     private boolean isFetching = false;
+    private final BroadcastReceiver mReciever = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            finish();
+        }
+    };
 
     private RecyclerView.OnScrollListener mRecyclerListner = new RecyclerView.OnScrollListener() {
 
@@ -110,6 +116,8 @@ public class SellerProductLlistingActivity extends BaseActivity implements View.
         mBinding.swipeRefreshLayout.setOnRefreshListener(this);
 
         fetchSellersProductListing(page,limit,true);
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReciever, new IntentFilter(OfferSentActivity.BROAD_OFFER_SENT_COMPLETE));
     }
 
 
@@ -213,6 +221,12 @@ public class SellerProductLlistingActivity extends BaseActivity implements View.
         Intent intent = new Intent(this,SellerProductDetailActivity.class);
         intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,buyerProduct);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mReciever);
     }
 }
 

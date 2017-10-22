@@ -1,8 +1,13 @@
 package com.revauc.revolutionbuy.ui.sell;
 
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 
 import com.revauc.revolutionbuy.R;
@@ -32,6 +37,13 @@ public class SellerProductDetailActivity extends BaseActivity implements View.On
 
     private ActivitySellerProductDetailBinding mBinding;
     private BuyerProductDto mProductDetail;
+    private static final int REQUEST_REPORT_ITEM=223;
+    private final BroadcastReceiver mReciever = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            finish();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,14 +79,18 @@ public class SellerProductDetailActivity extends BaseActivity implements View.On
             mBinding.textItemPurchased.setText(""+mProductDetail.getUser().getPurchasedCount());
         }
 
-        mBinding.imageDelete.setOnClickListener(this);
         mBinding.imageBack.setOnClickListener(this);
-        mBinding.imageShare.setOnClickListener(this);
+        mBinding.imageCart.setOnClickListener(this);
+        mBinding.textSellNow.setOnClickListener(this);
+        mBinding.textReportItem.setOnClickListener(this);
 
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReciever, new IntentFilter(OfferSentActivity.BROAD_OFFER_SENT_COMPLETE));
     }
+
 
 
     @Override
@@ -82,18 +98,37 @@ public class SellerProductDetailActivity extends BaseActivity implements View.On
 
         switch (view.getId())
         {
-            case R.id.image_delete:
-                BottomSheetAlertInverse.getInstance(this,getString(R.string.sure_to_delete),getString(R.string.text_delete),getString(R.string.cancel)).show();
 
-            break;
             case R.id.image_back:
                 onBackPressed();
                 break;
-            case R.id.image_share:
-                shareThisProduct();
+            case R.id.image_cart:
                 break;
+            case R.id.text_sell_now:
+                Intent intent = new Intent(this,SellNowActivity.class);
+                intent.putExtra(Constants.EXTRA_CATEGORY,""+mProductDetail.getId());
+                startActivity(intent);
+                break;
+            case R.id.text_report_item:
+                Intent reoprtintent = new Intent(this,ReportItemActivity.class);
+                reoprtintent.putExtra(Constants.EXTRA_PRODUCT_ID,mProductDetail.getId());
+                startActivityForResult(reoprtintent,REQUEST_REPORT_ITEM);
+                break;
+
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REQUEST_REPORT_ITEM)
+        {
+            if(resultCode==Activity.RESULT_OK)
+            {
+                showSnackBarFromBottom(getString(R.string.report_sent),mBinding.mainContainer,false);
+            }
+        }
     }
 
     @Subscribe

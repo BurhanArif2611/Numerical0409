@@ -68,9 +68,9 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.MyView
 
         if (buyerProductDto.getBuyerProductImages() != null && !buyerProductDto.getBuyerProductImages().isEmpty()) {
             Picasso.with(mContext).load(buyerProductDto.getBuyerProductImages().get(0)
-                    .getImageName()).placeholder(R.drawable.ic_placeholder_purchase).into(holder.imageProduct);
+                    .getImageName()).placeholder(R.drawable.ic_placeholder_purchase_detail).into(holder.imageProduct);
         } else {
-            holder.imageProduct.setImageResource(R.drawable.ic_placeholder_purchase);
+            holder.imageProduct.setImageResource(R.drawable.ic_placeholder_purchase_detail);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

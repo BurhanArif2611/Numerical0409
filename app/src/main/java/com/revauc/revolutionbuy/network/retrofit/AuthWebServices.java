@@ -8,6 +8,7 @@ import com.revauc.revolutionbuy.network.request.auth.ForgotPasswordRequest;
 import com.revauc.revolutionbuy.network.request.auth.MobilePinRequest;
 import com.revauc.revolutionbuy.network.request.auth.MobileVerifyRequest;
 import com.revauc.revolutionbuy.network.request.auth.ProductSearchRequest;
+import com.revauc.revolutionbuy.network.request.auth.ReportItemRequest;
 import com.revauc.revolutionbuy.network.request.auth.SignUpRequest;
 import com.revauc.revolutionbuy.network.request.auth.SocialSignUpRequest;
 import com.revauc.revolutionbuy.network.response.buyer.CategoriesResponse;
@@ -55,6 +56,8 @@ public interface AuthWebServices {
     String GET_BUYER_WISHLIST = BuildConfig.BASE_URL + "buyer-wishlist-products";
     String PRODUCTS_LIST = BuildConfig.BASE_URL + "products/search";
     String ADD_BUYER_PRODUCT = BuildConfig.BASE_URL + "products/buyer-products";
+    String SEND_OFFER_TO_BUYER = BuildConfig.BASE_URL + "products/seller-products";
+    String REPORT_BUYER_PRODUCT = BuildConfig.BASE_URL + "products/seller-reports";
     String DELETE_BUYER_PRODUCT = BuildConfig.BASE_URL + "products/";
     String VERIFY_MOBILE_NUMBER = BuildConfig.BASE_URL + "users/verify-mobile";
 
@@ -132,6 +135,17 @@ public interface AuthWebServices {
     @Multipart
     @POST(ADD_BUYER_PRODUCT)
     Observable<BaseResponse> addBuyerProduct(@PartMap() Map<String, RequestBody> partMap,@Part MultipartBody.Part primary,@Part MultipartBody.Part one,@Part MultipartBody.Part two);
+
+    @Multipart
+    @POST(SEND_OFFER_TO_BUYER)
+    Observable<BaseResponse> sendOfferToBuyer(@PartMap() Map<String, RequestBody> partMap);
+
+    @Multipart
+    @POST(SEND_OFFER_TO_BUYER)
+    Observable<BaseResponse> sendOfferToBuyer(@PartMap() Map<String, RequestBody> partMap,@Part MultipartBody.Part primary,@Part MultipartBody.Part one,@Part MultipartBody.Part two);
+
+    @POST(REPORT_BUYER_PRODUCT)
+    Observable<BaseResponse> reportBuyerItem(@Body ReportItemRequest params);
 
     @GET(GET_CITIES)
     Observable<CityResponse> getCities(@Query("countryId") Integer countryId, @Query("stateId") Integer stateId);

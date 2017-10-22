@@ -209,6 +209,12 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".ui.sell.SellNowActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".ui.buy.BuyerProductDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait"
@@ -219,6 +225,18 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Fullscreen" />
+
+        <activity
+            android:name=".ui.sell.OfferSentActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.sell.ReportItemActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

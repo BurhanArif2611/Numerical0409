@@ -42,6 +42,7 @@ public class Constants {
     public static final String EXTRA_AGE = "AGE";
     public static final String EXTRA_MOBILE = "MOBILE";
     public static final String EXTRA_CATEGORY = "EXTRA_CATEGORY";
+    public static final String EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID";
     public static final String EXTRA_DESCRIPTION = "EXTRA_DESCRIPTION";
     public static final String EXTRA_PRODUCT_DETAIL = "EXTRA_PRODUCT_DETAIL";
     public static final String EXTRA_PROFILE_IMAGE = "EXTRA_PROFILE_IMAGE";

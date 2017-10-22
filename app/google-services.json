@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "14293451455",
-    "firebase_url": "https://revolutionbuy-decaa.firebaseio.com",
-    "project_id": "revolutionbuy-decaa",
-    "storage_bucket": "revolutionbuy-decaa.appspot.com"
+    "project_number": "426087298528",
+    "firebase_url": "https://revolutionbuy-android.firebaseio.com",
+    "project_id": "revolutionbuy-android",
+    "storage_bucket": "revolutionbuy-android.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:14293451455:android:e634cf4d186a7931",
+        "mobilesdk_app_id": "1:426087298528:android:e634cf4d186a7931",
         "android_client_info": {
           "package_name": "com.revauc.revolutionbuy"
         }
       },
       "oauth_client": [
         {
-          "client_id": "14293451455-k1m2l21ckepiut5rmvbes523a3h457o8.apps.googleusercontent.com",
+          "client_id": "426087298528-plcek5i7iqgnmb03kbcg0fk6iekuhg0e.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBVTaTsdW4-bPDWlJoO6wHinthgV1jtZlc"
+          "current_key": "AIzaSyDFYgcRCBqkwxmdTw50KxqyOEJRoGjxNJY"
         }
       ],
       "services": {
@@ -39,20 +39,20 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:14293451455:android:0ec41a21e09843ff",
+        "mobilesdk_app_id": "1:426087298528:android:0ec41a21e09843ff",
         "android_client_info": {
           "package_name": "com.revauc.revolutionbuy.dev"
         }
       },
       "oauth_client": [
         {
-          "client_id": "14293451455-k1m2l21ckepiut5rmvbes523a3h457o8.apps.googleusercontent.com",
+          "client_id": "426087298528-plcek5i7iqgnmb03kbcg0fk6iekuhg0e.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBVTaTsdW4-bPDWlJoO6wHinthgV1jtZlc"
+          "current_key": "AIzaSyDFYgcRCBqkwxmdTw50KxqyOEJRoGjxNJY"
         }
       ],
       "services": {
@@ -70,20 +70,20 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:14293451455:android:e920533d990bc7e2",
+        "mobilesdk_app_id": "1:426087298528:android:e920533d990bc7e2",
         "android_client_info": {
           "package_name": "com.revauc.revolutionbuy.qa"
         }
       },
       "oauth_client": [
         {
-          "client_id": "14293451455-k1m2l21ckepiut5rmvbes523a3h457o8.apps.googleusercontent.com",
+          "client_id": "426087298528-plcek5i7iqgnmb03kbcg0fk6iekuhg0e.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBVTaTsdW4-bPDWlJoO6wHinthgV1jtZlc"
+          "current_key": "AIzaSyDFYgcRCBqkwxmdTw50KxqyOEJRoGjxNJY"
         }
       ],
       "services": {
@@ -101,20 +101,20 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:14293451455:android:c7460603eae94214",
+        "mobilesdk_app_id": "1:426087298528:android:c7460603eae94214",
         "android_client_info": {
           "package_name": "com.revauc.revolutionbuy.stag"
         }
       },
       "oauth_client": [
         {
-          "client_id": "14293451455-k1m2l21ckepiut5rmvbes523a3h457o8.apps.googleusercontent.com",
+          "client_id": "426087298528-plcek5i7iqgnmb03kbcg0fk6iekuhg0e.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBVTaTsdW4-bPDWlJoO6wHinthgV1jtZlc"
+          "current_key": "AIzaSyDFYgcRCBqkwxmdTw50KxqyOEJRoGjxNJY"
         }
       ],
       "services": {
