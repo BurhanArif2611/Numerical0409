@@ -56,7 +56,7 @@ public class SelectCategoriesActivity extends BaseActivity implements View.OnCli
             finish();
         }
     };
-    private int mSelectedCategory;
+    private String mSelectedCategory="";
 
 
     @Override
@@ -139,7 +139,7 @@ public class SelectCategoriesActivity extends BaseActivity implements View.OnCli
                 if(getSelectedCount()>0)
                 {
                     Intent intent = new Intent(SelectCategoriesActivity.this, AddTitleActivity.class);
-                    intent.putExtra(Constants.EXTRA_CATEGORY,mSelectedCategory+"");
+                    intent.putExtra(Constants.EXTRA_CATEGORY,mSelectedCategory.substring(0,mSelectedCategory.length()-1));
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                 }
@@ -171,9 +171,10 @@ public class SelectCategoriesActivity extends BaseActivity implements View.OnCli
 
     private int getSelectedCount() {
         int selectedCount = 0;
+        mSelectedCategory = "";
         for (CategoryDto categoryDto : mCategories) {
             if (categoryDto.isSelected()) {
-                mSelectedCategory = categoryDto.getId();
+                mSelectedCategory = mSelectedCategory + categoryDto.getId()+",";
                 selectedCount++;
             }
         }

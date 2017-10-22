@@ -13,8 +13,13 @@ import java.util.List;
 public class WishlistResults {
 
     private List<BuyerProductDto> buyerProduct;
+    private int totalCount;
 
     public List<BuyerProductDto> getBuyerProduct() {
         return buyerProduct;
+    }
+
+    public int getTotalCount() {
+        return totalCount;
     }
 }
