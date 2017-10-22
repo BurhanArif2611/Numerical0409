@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.revauc.revolutionbuy.network.response.UserDto;
 import com.revauc.revolutionbuy.util.StringUtils;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class BuyerProductDto implements Parcelable {
     private String description;
     private List<BuyerProductCategoryDto> buyerProductCategories;
     private List<BuyerProductImageDto> buyerProductImages;
+    private UserDto user;
 
     public int getId() {
         return id;
@@ -41,6 +43,10 @@ public class BuyerProductDto implements Parcelable {
 
     public List<BuyerProductImageDto> getBuyerProductImages() {
         return buyerProductImages;
+    }
+
+    public UserDto getUser() {
+        return user;
     }
 
     public String getBuyerProductCategoriesString()
@@ -68,8 +74,9 @@ public class BuyerProductDto implements Parcelable {
         dest.writeInt(this.id);
         dest.writeString(this.title);
         dest.writeString(this.description);
-        dest.writeList(this.buyerProductCategories);
-        dest.writeList(this.buyerProductImages);
+        dest.writeTypedList(this.buyerProductCategories);
+        dest.writeTypedList(this.buyerProductImages);
+        dest.writeParcelable(this.user, flags);
     }
 
     public BuyerProductDto() {
@@ -79,10 +86,9 @@ public class BuyerProductDto implements Parcelable {
         this.id = in.readInt();
         this.title = in.readString();
         this.description = in.readString();
-        this.buyerProductCategories = new ArrayList<BuyerProductCategoryDto>();
-        in.readList(this.buyerProductCategories, BuyerProductCategoryDto.class.getClassLoader());
-        this.buyerProductImages = new ArrayList<BuyerProductImageDto>();
-        in.readList(this.buyerProductImages, BuyerProductImageDto.class.getClassLoader());
+        this.buyerProductCategories = in.createTypedArrayList(BuyerProductCategoryDto.CREATOR);
+        this.buyerProductImages = in.createTypedArrayList(BuyerProductImageDto.CREATOR);
+        this.user = in.readParcelable(UserDto.class.getClassLoader());
     }
 
     public static final Parcelable.Creator<BuyerProductDto> CREATOR = new Parcelable.Creator<BuyerProductDto>() {

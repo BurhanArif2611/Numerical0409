@@ -88,29 +88,7 @@
     <string name="url_terms">admin/terms</string>
     <string name="no_props">No Props found.\n Please try after some time</string>
     <string name="coming_soon">Coming Soon..</string>
-    <string-array name="contest_details">
-        <item>ABOUT</item>
-        <item>ENTRANTS</item>
-        <item>PICKS</item>
-    </string-array>
-    <string-array name="player_details">
-        <item>LAST 5 GAMES</item>
-        <item>SEASON</item>
-    </string-array>
-    <string-array name="sort_filters">
-        <item>Default- Entry Fee</item>
-        <item>Alphabetically</item>
-        <item>Contest ending soonest</item>
-        <item>Points away from first position</item>
-        <item>Points away from last paid position</item>
-        <item>Current winnings descending order</item>
-        <item>Current winnings ascending order</item>
-    </string-array>
 
-    <string-array name="sort_filters_history">
-        <item>Default- Contest Ended Last</item>
-        <item>Alphabetically</item>
-    </string-array>
 
     <string-array name="buy_tabs">
         <item>Wishlist</item>
@@ -148,6 +126,352 @@
         <item>Toys</item>
         <item>Video Games &amp; Accessories</item>
         <item>Everything Else</item>
+    </string-array>
+
+    <string-array name="currency_names">
+        <item>AED  United Arab Emirates Dirham (AED)</item>
+        <item>AFN  Afghan Afghani (AFN)</item>
+        <item>ALL  Albanian Lek (ALL)</item>
+        <item>AMD  Armenian Dram (AMD)</item>
+        <item>ANG  Netherlands Antillean Guilder (ANG)</item>
+        <item>AOA  Angolan Kwanza (AOA)</item>
+        <item>ARS  Argentine Peso (ARS)</item>
+        <item>AUD  Australian Dollar (A$)</item>
+        <item>AWG  Aruban Florin (AWG)</item>
+        <item>AZN  Azerbaijani Manat (AZN)</item>
+        <item>BAM  Bosnia-Herzegovina Convertible Mark (BAM)</item>
+        <item>BBD  Barbadian Dollar (BBD)</item>
+        <item>BDT  Bangladeshi Taka (BDT)</item>
+        <item>BGN  Bulgarian Lev (BGN)</item>
+        <item>BHD  Bahraini Dinar (BHD)</item>
+        <item>BIF  Burundian Franc (BIF)</item>
+        <item>BMD  Bermudan Dollar (BMD)</item>
+        <item>BND  Brunei Dollar (BND)</item>
+        <item>BOB  Bolivian Boliviano (BOB)</item>
+        <item>BRL  Brazilian Real (R$)</item>
+        <item>BSD  Bahamian Dollar (BSD)</item>
+        <item>BTN  Bhutanese Ngultrum (BTN)</item>
+        <item>BWP  Botswanan Pula (BWP)</item>
+        <item>BYN  Belarusian Ruble (BYN)</item>
+        <item>BYR  Belarusian Ruble (BYR)</item>
+        <item>BZD  Belize Dollar (BZD)</item>
+        <item>CAD  Canadian Dollar (CA$)</item>
+        <item>CDF  Congolese Franc (CDF)</item>
+        <item>CHF  Swiss Franc (CHF)</item>
+        <item>CLF  Chilean Unit of Account (CLF)</item>
+        <item>CLP  Chilean Peso (CLP)</item>
+        <item>CNH  CNH (CNH)</item>
+        <item>CNY  Chinese Yuan (CN¥)</item>
+        <item>COP  Colombian Peso (COP)</item>
+        <item>CRC  Costa Rican Colón (CRC)</item>
+        <item>CUP  Cuban Peso (CUP)</item>
+        <item>CVE  Cape Verdean Escudo (CVE)</item>
+        <item>CZK  Czech Koruna (CZK)</item>
+        <item>DEM  German Mark (DEM)</item>
+        <item>DJF  Djiboutian Franc (DJF)</item>
+        <item>DKK  Danish Krone (DKK)</item>
+        <item>DOP  Dominican Peso (DOP)</item>
+        <item>DZD  Algerian Dinar (DZD)</item>
+        <item>EGP  Egyptian Pound (EGP)</item>
+        <item>ERN  Eritrean Nakfa (ERN)</item>
+        <item>ETB  Ethiopian Birr (ETB)</item>
+        <item>EUR  Euro (€)</item>
+        <item>FIM  Finnish Markka (FIM)</item>
+        <item>FJD  Fijian Dollar (FJD)</item>
+        <item>FKP  Falkland Islands Pound (FKP)</item>
+        <item>FRF  French Franc (FRF)</item>
+        <item>GBP  British Pound (£)</item>
+        <item>GEL  Georgian Lari (GEL)</item>
+        <item>GHS  Ghanaian Cedi (GHS)</item>
+        <item>GIP  Gibraltar Pound (GIP)</item>
+        <item>GMD  Gambian Dalasi (GMD)</item>
+        <item>GNF  Guinean Franc (GNF)</item>
+        <item>GTQ  Guatemalan Quetzal (GTQ)</item>
+        <item>GYD  Guyanaese Dollar (GYD)</item>
+        <item>HKD  Hong Kong Dollar (HK$)</item>
+        <item>HNL  Honduran Lempira (HNL)</item>
+        <item>HRK  Croatian Kuna (HRK)</item>
+        <item>HTG  Haitian Gourde (HTG)</item>
+        <item>HUF  Hungarian Forint (HUF)</item>
+        <item>IDR  Indonesian Rupiah (IDR)</item>
+        <item>IEP  Irish Pound (IEP)</item>
+        <item>ILS  Israeli New Shekel (₪)</item>
+        <item>INR  Indian Rupee (₹)</item>
+        <item>IQD  Iraqi Dinar (IQD)</item>
+        <item>IRR  Iranian Rial (IRR)</item>
+        <item>ISK  Icelandic Króna (ISK)</item>
+        <item>ITL  Italian Lira (ITL)</item>
+        <item>JMD  Jamaican Dollar (JMD)</item>
+        <item>JOD  Jordanian Dinar (JOD)</item>
+        <item>JPY  Japanese Yen (¥)</item>
+        <item>KES  Kenyan Shilling (KES)</item>
+        <item>KGS  Kyrgystani Som (KGS)</item>
+        <item>KHR  Cambodian Riel (KHR)</item>
+        <item>KMF  Comorian Franc (KMF)</item>
+        <item>KPW  North Korean Won (KPW)</item>
+        <item>KRW  South Korean Won (₩)</item>
+        <item>KWD  Kuwaiti Dinar (KWD)</item>
+        <item>KYD  Cayman Islands Dollar (KYD)</item>
+        <item>KZT  Kazakhstani Tenge (KZT)</item>
+        <item>LAK  Laotian Kip (LAK)</item>
+        <item>LBP  Lebanese Pound (LBP)</item>
+        <item>LKR  Sri Lankan Rupee (LKR)</item>
+        <item>LRD  Liberian Dollar (LRD)</item>
+        <item>LSL  Lesotho Loti (LSL)</item>
+        <item>LTL  Lithuanian Litas (LTL)</item>
+        <item>LVL  Latvian Lats (LVL)</item>
+        <item>LYD  Libyan Dinar (LYD)</item>
+        <item>MAD  Moroccan Dirham (MAD)</item>
+        <item>MDL  Moldovan Leu (MDL)</item>
+        <item>MGA  Malagasy Ariary (MGA)</item>
+        <item>MKD  Macedonian Denar (MKD)</item>
+        <item>MMK  Myanmar Kyat (MMK)</item>
+        <item>MNT  Mongolian Tugrik (MNT)</item>
+        <item>MOP  Macanese Pataca (MOP)</item>
+        <item>MRO  Mauritanian Ouguiya (MRO)</item>
+        <item>MUR  Mauritian Rupee (MUR)</item>
+        <item>MVR  Maldivian Rufiyaa (MVR)</item>
+        <item>MWK  Malawian Kwacha (MWK)</item>
+        <item>MXN  Mexican Peso (MX$)</item>
+        <item>MYR  Malaysian Ringgit (MYR)</item>
+        <item>MZN  Mozambican Metical (MZN)</item>
+        <item>NAD  Namibian Dollar (NAD)</item>
+        <item>NGN  Nigerian Naira (NGN)</item>
+        <item>NIO  Nicaraguan Córdoba (NIO)</item>
+        <item>NOK  Norwegian Krone (NOK)</item>
+        <item>NPR  Nepalese Rupee (NPR)</item>
+        <item>NZD  New Zealand Dollar (NZ$)</item>
+        <item>OMR  Omani Rial (OMR)</item>
+        <item>PAB  Panamanian Balboa (PAB)</item>
+        <item>PEN  Peruvian Sol (PEN)</item>
+        <item>PGK  Papua New Guinean Kina (PGK)</item>
+        <item>PHP  Philippine Peso (PHP)</item>
+        <item>PKG  PKG (PKG)</item>
+        <item>PKR  Pakistani Rupee (PKR)</item>
+        <item>PLN  Polish Zloty (PLN)</item>
+        <item>PYG  Paraguayan Guarani (PYG)</item>
+        <item>QAR  Qatari Rial (QAR)</item>
+        <item>RON  Romanian Leu (RON)</item>
+        <item>RSD  Serbian Dinar (RSD)</item>
+        <item>RUB  Russian Ruble (RUB)</item>
+        <item>RWF  Rwandan Franc (RWF)</item>
+        <item>SAR  Saudi Riyal (SAR)</item>
+        <item>SBD  Solomon Islands Dollar (SBD)</item>
+        <item>SCR  Seychellois Rupee (SCR)</item>
+        <item>SDG  Sudanese Pound (SDG)</item>
+        <item>SEK  Swedish Krona (SEK)</item>
+        <item>SGD  Singapore Dollar (SGD)</item>
+        <item>SHP  St. Helena Pound (SHP)</item>
+        <item>SKK  Slovak Koruna (SKK)</item>
+        <item>SLL  Sierra Leonean Leone (SLL)</item>
+        <item>SOS  Somali Shilling (SOS)</item>
+        <item>SRD  Surinamese Dollar (SRD)</item>
+        <item>STD  São Tomé Príncipe Dobra (STD)</item>
+        <item>SVC  Salvadoran Colón (SVC)</item>
+        <item>SYP  Syrian Pound (SYP)</item>
+        <item>SZL  Swazi Lilangeni (SZL)</item>
+        <item>THB  Thai Baht (THB)</item>
+        <item>TJS  Tajikistani Somoni (TJS)</item>
+        <item>TMT  Turkmenistani Manat (TMT)</item>
+        <item>TND  Tunisian Dinar (TND)</item>
+        <item>TOP  Tongan Paʻanga (TOP)</item>
+        <item>TRY  Turkish Lira (TRY)</item>
+        <item>TTD  Trinidad Tobago Dollar (TTD)</item>
+        <item>TWD  New Taiwan Dollar (NT$)</item>
+        <item>TZS  Tanzanian Shilling (TZS)</item>
+        <item>UAH  Ukrainian Hryvnia (UAH)</item>
+        <item>UGX  Ugandan Shilling (UGX)</item>
+        <item>USD  US Dollar ($)</item>
+        <item>UYU  Uruguayan Peso (UYU)</item>
+        <item>UZS  Uzbekistani Som (UZS)</item>
+        <item>VEF  Venezuelan Bolívar (VEF)</item>
+        <item>VND  Vietnamese Dong (₫)</item>
+        <item>VUV  Vanuatu Vatu (VUV)</item>
+        <item>WST  Samoan Tala (WST)</item>
+        <item>XAF  Central African CFA Franc (FCFA)</item>
+        <item>XCD  East Caribbean Dollar (EC$)</item>
+        <item>XDR  Special Drawing Rights (XDR)</item>
+        <item>XOF  West African CFA Franc (CFA)</item>
+        <item>XPF  CFP Franc (CFPF)</item>
+        <item>YER  Yemeni Rial (YER)</item>
+        <item>ZAR  South African Rand (ZAR)</item>
+        <item>ZMK  Zambian Kwacha (ZMK)</item>
+        <item>ZMW  Zambian Kwacha (ZMW)</item>
+        <item>ZWL  Zimbabwean Dollar (ZWL)</item>
+
+    </string-array>
+
+    <string-array name="currency_codes">
+        <item>AED</item>
+        <item>AFN</item>
+        <item>ALL</item>
+        <item>AMD</item>
+        <item>ANG</item>
+        <item>AOA</item>
+        <item>ARS</item>
+        <item>AUD</item>
+        <item>AWG</item>
+        <item>AZN</item>
+        <item>BAM</item>
+        <item>BBD</item>
+        <item>BDT</item>
+        <item>BGN</item>
+        <item>BHD</item>
+        <item>BIF</item>
+        <item>BMD</item>
+        <item>BND</item>
+        <item>BOB</item>
+        <item>BRL</item>
+        <item>BSD</item>
+        <item>BTN</item>
+        <item>BWP</item>
+        <item>BYN</item>
+        <item>BYR</item>
+        <item>BZD</item>
+        <item>CAD</item>
+        <item>CDF</item>
+        <item>CHF</item>
+        <item>CLF  Chilean Unit of Account (CLF)</item>
+        <item>CLP  Chilean Peso (CLP)</item>
+        <item>CNH  CNH (CNH)</item>
+        <item>CNY  Chinese Yuan (CN¥)</item>
+        <item>COP  Colombian Peso (COP)</item>
+        <item>CRC  Costa Rican Colón (CRC)</item>
+        <item>CUP  Cuban Peso (CUP)</item>
+        <item>CVE  Cape Verdean Escudo (CVE)</item>
+        <item>CZK  Czech Koruna (CZK)</item>
+        <item>DEM  German Mark (DEM)</item>
+        <item>DJF  Djiboutian Franc (DJF)</item>
+        <item>DKK  Danish Krone (DKK)</item>
+        <item>DOP  Dominican Peso (DOP)</item>
+        <item>DZD  Algerian Dinar (DZD)</item>
+        <item>EGP  Egyptian Pound (EGP)</item>
+        <item>ERN  Eritrean Nakfa (ERN)</item>
+        <item>ETB  Ethiopian Birr (ETB)</item>
+        <item>EUR  Euro (€)</item>
+        <item>FIM  Finnish Markka (FIM)</item>
+        <item>FJD  Fijian Dollar (FJD)</item>
+        <item>FKP  Falkland Islands Pound (FKP)</item>
+        <item>FRF  French Franc (FRF)</item>
+        <item>GBP  British Pound (£)</item>
+        <item>GEL  Georgian Lari (GEL)</item>
+        <item>GHS  Ghanaian Cedi (GHS)</item>
+        <item>GIP  Gibraltar Pound (GIP)</item>
+        <item>GMD  Gambian Dalasi (GMD)</item>
+        <item>GNF  Guinean Franc (GNF)</item>
+        <item>GTQ  Guatemalan Quetzal (GTQ)</item>
+        <item>GYD  Guyanaese Dollar (GYD)</item>
+        <item>HKD  Hong Kong Dollar (HK$)</item>
+        <item>HNL  Honduran Lempira (HNL)</item>
+        <item>HRK  Croatian Kuna (HRK)</item>
+        <item>HTG  Haitian Gourde (HTG)</item>
+        <item>HUF  Hungarian Forint (HUF)</item>
+        <item>IDR  Indonesian Rupiah (IDR)</item>
+        <item>IEP  Irish Pound (IEP)</item>
+        <item>ILS  Israeli New Shekel (₪)</item>
+        <item>INR  Indian Rupee (₹)</item>
+        <item>IQD  Iraqi Dinar (IQD)</item>
+        <item>IRR  Iranian Rial (IRR)</item>
+        <item>ISK  Icelandic Króna (ISK)</item>
+        <item>ITL  Italian Lira (ITL)</item>
+        <item>JMD  Jamaican Dollar (JMD)</item>
+        <item>JOD  Jordanian Dinar (JOD)</item>
+        <item>JPY  Japanese Yen (¥)</item>
+        <item>KES  Kenyan Shilling (KES)</item>
+        <item>KGS  Kyrgystani Som (KGS)</item>
+        <item>KHR  Cambodian Riel (KHR)</item>
+        <item>KMF  Comorian Franc (KMF)</item>
+        <item>KPW  North Korean Won (KPW)</item>
+        <item>KRW  South Korean Won (₩)</item>
+        <item>KWD  Kuwaiti Dinar (KWD)</item>
+        <item>KYD  Cayman Islands Dollar (KYD)</item>
+        <item>KZT  Kazakhstani Tenge (KZT)</item>
+        <item>LAK  Laotian Kip (LAK)</item>
+        <item>LBP  Lebanese Pound (LBP)</item>
+        <item>LKR  Sri Lankan Rupee (LKR)</item>
+        <item>LRD  Liberian Dollar (LRD)</item>
+        <item>LSL  Lesotho Loti (LSL)</item>
+        <item>LTL  Lithuanian Litas (LTL)</item>
+        <item>LVL  Latvian Lats (LVL)</item>
+        <item>LYD  Libyan Dinar (LYD)</item>
+        <item>MAD  Moroccan Dirham (MAD)</item>
+        <item>MDL  Moldovan Leu (MDL)</item>
+        <item>MGA  Malagasy Ariary (MGA)</item>
+        <item>MKD  Macedonian Denar (MKD)</item>
+        <item>MMK  Myanmar Kyat (MMK)</item>
+        <item>MNT  Mongolian Tugrik (MNT)</item>
+        <item>MOP  Macanese Pataca (MOP)</item>
+        <item>MRO  Mauritanian Ouguiya (MRO)</item>
+        <item>MUR  Mauritian Rupee (MUR)</item>
+        <item>MVR  Maldivian Rufiyaa (MVR)</item>
+        <item>MWK  Malawian Kwacha (MWK)</item>
+        <item>MXN  Mexican Peso (MX$)</item>
+        <item>MYR  Malaysian Ringgit (MYR)</item>
+        <item>MZN  Mozambican Metical (MZN)</item>
+        <item>NAD  Namibian Dollar (NAD)</item>
+        <item>NGN  Nigerian Naira (NGN)</item>
+        <item>NIO  Nicaraguan Córdoba (NIO)</item>
+        <item>NOK  Norwegian Krone (NOK)</item>
+        <item>NPR  Nepalese Rupee (NPR)</item>
+        <item>NZD  New Zealand Dollar (NZ$)</item>
+        <item>OMR  Omani Rial (OMR)</item>
+        <item>PAB  Panamanian Balboa (PAB)</item>
+        <item>PEN  Peruvian Sol (PEN)</item>
+        <item>PGK  Papua New Guinean Kina (PGK)</item>
+        <item>PHP  Philippine Peso (PHP)</item>
+        <item>PKG  PKG (PKG)</item>
+        <item>PKR  Pakistani Rupee (PKR)</item>
+        <item>PLN  Polish Zloty (PLN)</item>
+        <item>PYG  Paraguayan Guarani (PYG)</item>
+        <item>QAR  Qatari Rial (QAR)</item>
+        <item>RON  Romanian Leu (RON)</item>
+        <item>RSD  Serbian Dinar (RSD)</item>
+        <item>RUB  Russian Ruble (RUB)</item>
+        <item>RWF  Rwandan Franc (RWF)</item>
+        <item>SAR  Saudi Riyal (SAR)</item>
+        <item>SBD  Solomon Islands Dollar (SBD)</item>
+        <item>SCR  Seychellois Rupee (SCR)</item>
+        <item>SDG  Sudanese Pound (SDG)</item>
+        <item>SEK  Swedish Krona (SEK)</item>
+        <item>SGD  Singapore Dollar (SGD)</item>
+        <item>SHP  St. Helena Pound (SHP)</item>
+        <item>SKK  Slovak Koruna (SKK)</item>
+        <item>SLL  Sierra Leonean Leone (SLL)</item>
+        <item>SOS  Somali Shilling (SOS)</item>
+        <item>SRD  Surinamese Dollar (SRD)</item>
+        <item>STD  São Tomé Príncipe Dobra (STD)</item>
+        <item>SVC  Salvadoran Colón (SVC)</item>
+        <item>SYP  Syrian Pound (SYP)</item>
+        <item>SZL  Swazi Lilangeni (SZL)</item>
+        <item>THB  Thai Baht (THB)</item>
+        <item>TJS  Tajikistani Somoni (TJS)</item>
+        <item>TMT  Turkmenistani Manat (TMT)</item>
+        <item>TND  Tunisian Dinar (TND)</item>
+        <item>TOP  Tongan Paʻanga (TOP)</item>
+        <item>TRY  Turkish Lira (TRY)</item>
+        <item>TTD  Trinidad Tobago Dollar (TTD)</item>
+        <item>TWD  New Taiwan Dollar (NT$)</item>
+        <item>TZS  Tanzanian Shilling (TZS)</item>
+        <item>UAH  Ukrainian Hryvnia (UAH)</item>
+        <item>UGX  Ugandan Shilling (UGX)</item>
+        <item>USD  US Dollar ($)</item>
+        <item>UYU  Uruguayan Peso (UYU)</item>
+        <item>UZS  Uzbekistani Som (UZS)</item>
+        <item>VEF  Venezuelan Bolívar (VEF)</item>
+        <item>VND  Vietnamese Dong (₫)</item>
+        <item>VUV  Vanuatu Vatu (VUV)</item>
+        <item>WST  Samoan Tala (WST)</item>
+        <item>XAF  Central African CFA Franc (FCFA)</item>
+        <item>XCD  East Caribbean Dollar (EC$)</item>
+        <item>XDR  Special Drawing Rights (XDR)</item>
+        <item>XOF  West African CFA Franc (CFA)</item>
+        <item>XPF  CFP Franc (CFPF)</item>
+        <item>YER  Yemeni Rial (YER)</item>
+        <item>ZAR  South African Rand (ZAR)</item>
+        <item>ZMK  Zambian Kwacha (ZMK)</item>
+        <item>ZMW  Zambian Kwacha (ZMW)</item>
+        <item>ZWL  Zimbabwean Dollar (ZWL)</item>
+
     </string-array>
 
     <string name="title_activity_contest_details">ContestDetailsActivity</string>
@@ -365,4 +689,10 @@
     <string name="we_ll_notify_you_if_a_seller_is_interested">We’ll notify you if a seller is interested.</string>
     <string name="sure_to_delete">Are you sure you want to delete this item?</string>
     <string name="text_delete">Delete</string>
+    <string name="there_are_no_interested_buyers_for_this_category_right_now_try_again_later">There are no interested buyers for this category right now. Try again later.</string>
+    <string name="sell">Sell</string>
+    <string name="interested_buyer">Interested Buyer</string>
+    <string name="report_this_item">Report This Item</string>
+    <string name="view_seller_s_offers">View seller\'s offers</string>
+    <string name="sell_now">Sell now</string>
 </resources>

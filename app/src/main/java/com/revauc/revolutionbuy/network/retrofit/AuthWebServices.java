@@ -7,6 +7,7 @@ import com.revauc.revolutionbuy.network.request.auth.ChangePasswordRequest;
 import com.revauc.revolutionbuy.network.request.auth.ForgotPasswordRequest;
 import com.revauc.revolutionbuy.network.request.auth.MobilePinRequest;
 import com.revauc.revolutionbuy.network.request.auth.MobileVerifyRequest;
+import com.revauc.revolutionbuy.network.request.auth.ProductSearchRequest;
 import com.revauc.revolutionbuy.network.request.auth.SignUpRequest;
 import com.revauc.revolutionbuy.network.request.auth.SocialSignUpRequest;
 import com.revauc.revolutionbuy.network.response.buyer.CategoriesResponse;
@@ -15,6 +16,7 @@ import com.revauc.revolutionbuy.network.response.profile.CityResponse;
 import com.revauc.revolutionbuy.network.response.profile.CountryResponse;
 import com.revauc.revolutionbuy.network.response.LoginResponse;
 import com.revauc.revolutionbuy.network.response.profile.StateResponse;
+import com.revauc.revolutionbuy.network.response.seller.SellerProductsResponse;
 
 import java.util.Map;
 
@@ -51,6 +53,7 @@ public interface AuthWebServices {
     String CHANGE_PASSWORD = BuildConfig.BASE_URL + "users/change-password";
     String GET_CATEGORIES = BuildConfig.BASE_URL + "categories";
     String GET_BUYER_WISHLIST = BuildConfig.BASE_URL + "buyer-wishlist-products";
+    String PRODUCTS_LIST = BuildConfig.BASE_URL + "products/search";
     String ADD_BUYER_PRODUCT = BuildConfig.BASE_URL + "products/buyer-products";
     String DELETE_BUYER_PRODUCT = BuildConfig.BASE_URL + "products/";
     String VERIFY_MOBILE_NUMBER = BuildConfig.BASE_URL + "users/verify-mobile";
@@ -94,6 +97,9 @@ public interface AuthWebServices {
 
     @GET(GET_BUYER_WISHLIST)
     Observable<WishlistResponse> getBuyerWishlist(@Query("offset") Integer offset, @Query("limit") Integer limit);
+
+    @POST(PRODUCTS_LIST)
+    Observable<SellerProductsResponse> getSellerProductsListing(@Body ProductSearchRequest params);
 
     @Multipart
     @POST(ADD_PROFILE)

@@ -20,11 +20,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
+import android.widget.AdapterView;
 
 
 import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.FragmentSellBinding;
 import com.revauc.revolutionbuy.ui.BaseFragment;
+import com.revauc.revolutionbuy.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,12 +77,23 @@ public class SellFragment extends BaseFragment{
     }
 
     private void setupOptionsGrid() {
-        mBinder.toolbarSell.txvToolbarGeneralCenter.setText("Sell");
+        mBinder.toolbarSell.txvToolbarGeneralCenter.setText(R.string.sell);
         mBinder.toolbarSell.ivToolBarLeft.setImageResource(R.drawable.ic_search);
         mBinder.toolbarSell.ivToolBarRight.setImageResource(R.drawable.ic_cart);
-        String[] titles = getResources().getStringArray(R.array.categories_labels);
+        final String[] titles = getResources().getStringArray(R.array.categories_labels);
         TypedArray imgsArray = getResources().obtainTypedArray(R.array.categories_imgs);
         mBinder.gridOptions.setAdapter(new SellOptionsGridAdapter(getActivity(),titles,imgsArray));
+        mBinder.gridOptions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Intent intent = new Intent(getActivity(),SellerProductLlistingActivity.class);
+                intent.putExtra(Constants.EXTRA_CATEGORY_NAME,titles[position]);
+                intent.putExtra(Constants.EXTRA_CATEGORY,""+(position+1));
+                startActivity(intent);
+            }
+        });
     }
+
+
 
 }

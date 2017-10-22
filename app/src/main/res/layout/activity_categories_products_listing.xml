@@ -1,0 +1,56 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar_sell"
+            layout="@layout/toolbar_general"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/screen_bg">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view_products"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/progressbar_loading" />
+
+                <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+                    android:id="@+id/text_no_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawablePadding="@dimen/margin_24"
+                    android:drawableTop="@drawable/ic_buy_empty"
+                    android:gravity="center"
+                    android:text="@string/there_are_no_interested_buyers_for_this_category_right_now_try_again_later"
+                    android:textColor="@color/color_label"
+                    android:textSize="@dimen/textsize_17"
+                    android:visibility="invisible"
+                    app:customFont="@string/font_avenir_regular" />
+
+                <ProgressBar
+                    android:id="@+id/progressbar_loading"
+                    android:layout_width="@dimen/margin_24"
+                    android:layout_height="@dimen/margin_24"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </LinearLayout>
+</layout>
