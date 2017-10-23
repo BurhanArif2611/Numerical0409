@@ -99,7 +99,7 @@ public class Constants {
     public static final int USER_NAME_MIN_LENGTH = 6;
     public static final int FIRST_NAME_MIN_LENGTH = 2;
 
-    public static final int DEVICE_TYPE_ANDROID = 1;
+    public static final String DEVICE_TYPE_ANDROID = "2";
 
 
     public static final String HOME = "Home";

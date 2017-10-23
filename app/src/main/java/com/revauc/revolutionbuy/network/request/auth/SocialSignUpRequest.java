@@ -8,6 +8,7 @@ public class SocialSignUpRequest {
     public String deviceToken;
     public String deviceId;
     public String name;
+    public String deviceType;
 
 
     public String getEmail() {
@@ -48,5 +49,13 @@ public class SocialSignUpRequest {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDeviceType() {
+        return deviceType;
+    }
+
+    public void setDeviceType(String deviceType) {
+        this.deviceType = deviceType;
     }
 }

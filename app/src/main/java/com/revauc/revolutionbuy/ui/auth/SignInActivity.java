@@ -1,11 +1,15 @@
 package com.revauc.revolutionbuy.ui.auth;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.TypedArray;
 import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.TextPaint;
@@ -14,6 +18,7 @@ import android.text.TextWatcher;
 import android.text.style.ClickableSpan;
 import android.view.View;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.ActivitySignInBinding;
 import com.revauc.revolutionbuy.network.BaseResponse;
@@ -24,6 +29,8 @@ import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.BaseActivity;
 import com.revauc.revolutionbuy.ui.dashboard.DashboardActivity;
+import com.revauc.revolutionbuy.util.Constants;
+import com.revauc.revolutionbuy.util.LogUtils;
 import com.revauc.revolutionbuy.util.PreferenceUtil;
 import com.revauc.revolutionbuy.util.StringUtils;
 import com.revauc.revolutionbuy.util.Utils;
@@ -33,6 +40,8 @@ import com.revauc.revolutionbuy.util.socialhelper.SocialFacebookHelper;
 import com.revauc.revolutionbuy.util.socialhelper.SocialMediaHelper;
 import com.revauc.revolutionbuy.util.socialhelper.SocialProfile;
 import com.revauc.revolutionbuy.util.socialhelper.SocialType;
+
+import java.util.UUID;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -44,6 +53,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     private ActivitySignInBinding mBinding;
     private SocialMediaHelper socialMediaHelper;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +63,15 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         mBinding.textSignIn.setOnClickListener(this);
         mBinding.textForgotPassword.setOnClickListener(this);
         mBinding.textFacebook.setOnClickListener(this);
+
+        //FCM TOKEN
+        String token = FirebaseInstanceId.getInstance().getToken();
+        String fcmToken = PreferenceUtil.getFCMToken();
+        LogUtils.LOGD("FCM instance token ", token);
+        LogUtils.LOGD("FCM token", token);
+        if (!TextUtils.isEmpty(token)) {
+            PreferenceUtil.setFCMToken(token);
+        }
 
         setSpanString();
 
@@ -165,9 +184,9 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         final SignUpRequest request = new SignUpRequest();
         request.setEmail(email);
         request.setPassword(password);
-        request.setDeviceToken("234325252dmcmskc");
-        request.setDeviceId("234325252242151");
-        request.setDeviceType("2");
+        request.setDeviceToken(PreferenceUtil.getFCMToken());
+        request.setDeviceId(UUID.randomUUID().toString());
+        request.setDeviceType(Constants.DEVICE_TYPE_ANDROID);
 
         apiService.loginUser(request).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<LoginResponse>(this) {
 

@@ -1,48 +1,17 @@
-package com.revauc.revolutionbuy.notification;
-
-import android.os.Parcel;
-import android.os.Parcelable;
-
-
-/**
- * Created by hemant on 28/12/16.
+/*
+ * Copyright © 2017 Thrive fantasy. All rights reserved.
+ * Developed by Appster.
  */
 
-public class NotificationPayload implements Parcelable {
+package com.revauc.revolutionbuy.notification;
+
+
+public class NotificationPayload {
 
     private String type;
     private String message;
-    private String notificationType;
-
-    public String getContestID() {
-        return contestID;
-    }
-
-    public void setContestID(String contestID) {
-        this.contestID = contestID;
-    }
-
-    private String contestID;
-
-    public String getNotificationType() {
-        return notificationType;
-    }
-
-    public void setNotificationType(String notificationType) {
-        this.notificationType = notificationType;
-    }
-
-    public NotificationPayload(String type, String message, String notificationType) {
-
-        this.type = type;
-        this.message = message;
-        this.notificationType = notificationType;
-    }
-
-
-    public NotificationPayload() {
-    }
-
+    private int notificationId;
+    private int notificationtypeId;
 
     public String getType() {
         return type;
@@ -60,35 +29,19 @@ public class NotificationPayload implements Parcelable {
         this.message = message;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public int getNotificationId() {
+        return notificationId;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.type);
-        dest.writeString(this.message);
-        dest.writeString(this.notificationType);
-        dest.writeString(this.contestID);
+    public void setNotificationId(int notificationId) {
+        this.notificationId = notificationId;
     }
 
-    protected NotificationPayload(Parcel in) {
-        this.type = in.readString();
-        this.message = in.readString();
-        this.notificationType = in.readString();
-        this.contestID = in.readString();
+    public int getNotificationtypeId() {
+        return notificationtypeId;
     }
 
-    public static final Creator<NotificationPayload> CREATOR = new Creator<NotificationPayload>() {
-        @Override
-        public NotificationPayload createFromParcel(Parcel source) {
-            return new NotificationPayload(source);
-        }
-
-        @Override
-        public NotificationPayload[] newArray(int size) {
-            return new NotificationPayload[size];
-        }
-    };
+    public void setNotificationtypeId(int notificationtypeId) {
+        this.notificationtypeId = notificationtypeId;
+    }
 }

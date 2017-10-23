@@ -37,7 +37,7 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 
 
-public class SellFragment extends BaseFragment{
+public class SellFragment extends BaseFragment implements View.OnClickListener {
     private static final String TAG = "SellFragment";
     private FragmentSellBinding mBinder;
 
@@ -80,6 +80,7 @@ public class SellFragment extends BaseFragment{
         mBinder.toolbarSell.txvToolbarGeneralCenter.setText(R.string.sell);
         mBinder.toolbarSell.ivToolBarLeft.setImageResource(R.drawable.ic_search);
         mBinder.toolbarSell.ivToolBarRight.setImageResource(R.drawable.ic_cart);
+        mBinder.toolbarSell.ivToolBarRight.setOnClickListener(this);
         final String[] titles = getResources().getStringArray(R.array.categories_labels);
         TypedArray imgsArray = getResources().obtainTypedArray(R.array.categories_imgs);
         mBinder.gridOptions.setAdapter(new SellOptionsGridAdapter(getActivity(),titles,imgsArray));
@@ -95,5 +96,13 @@ public class SellFragment extends BaseFragment{
     }
 
 
-
+    @Override
+    public void onClick(View view) {
+        switch (view.getId())
+        {
+            case R.id.iv_tool_bar_right:
+                startActivity(new Intent(getActivity(),SellerOfferActivity.class));
+                break;
+        }
+    }
 }

@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.text.style.ClickableSpan;
 import android.view.View;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.ActivitySignUpBinding;
 import com.revauc.revolutionbuy.network.BaseResponse;
@@ -25,6 +26,8 @@ import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.BaseActivity;
 import com.revauc.revolutionbuy.ui.dashboard.DashboardActivity;
 import com.revauc.revolutionbuy.util.Constants;
+import com.revauc.revolutionbuy.util.LogUtils;
+import com.revauc.revolutionbuy.util.PreferenceUtil;
 import com.revauc.revolutionbuy.util.Utils;
 import com.revauc.revolutionbuy.util.socialhelper.SocialAuthError;
 import com.revauc.revolutionbuy.util.socialhelper.SocialAuthListener;
@@ -55,6 +58,16 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
         activitySignUpBinding.imageBack.setOnClickListener(this);
         activitySignUpBinding.textSignUp.setOnClickListener(this);
         activitySignUpBinding.textFacebook.setOnClickListener(this);
+
+        //FCM TOKEN
+        String token = FirebaseInstanceId.getInstance().getToken();
+        String fcmToken = PreferenceUtil.getFCMToken();
+        LogUtils.LOGD("FCM instance token ", token);
+        LogUtils.LOGD("FCM token", token);
+        if (!TextUtils.isEmpty(token)) {
+            PreferenceUtil.setFCMToken(token);
+        }
+
 
         setSpanString();
 
@@ -161,9 +174,9 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
         final SignUpRequest request = new SignUpRequest();
         request.setEmail(email);
         request.setPassword(password);
-        request.setDeviceToken("234325252dmcmskc");
-        request.setDeviceId("234325252242151");
-        request.setDeviceType("2");
+        request.setDeviceToken(PreferenceUtil.getFCMToken());
+        request.setDeviceId(UUID.randomUUID().toString());
+        request.setDeviceType(Constants.DEVICE_TYPE_ANDROID);
 
         apiService.registerUser(request).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<LoginResponse>(this) {
 

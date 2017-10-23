@@ -95,6 +95,11 @@
         <item>Purchased</item>
     </string-array>
 
+    <string-array name="your_offer_tabs">
+        <item>Current</item>
+        <item>Sold</item>
+    </string-array>
+
     <string-array name="walkthrough_labels">
         <item>Everything is in reverse</item>
         <item>Less time searching</item>
@@ -701,6 +706,7 @@
     <string name="offer_has_been_sent">Your offer has been sent! Sit back and the buyer will get back to you soon.</string>
     <string name="offer_sent">Offer Sent</string>
     <string name="view_items_you_re_selling">View items you\'re selling</string>
+    <string name="items_you_re_selling">Items you\'re selling</string>
     <string name="back_to_categories">Back to categories</string>
     <string name="report_item">Report item</string>
     <string name="reason_for_reporting">Reason for reporting…</string>

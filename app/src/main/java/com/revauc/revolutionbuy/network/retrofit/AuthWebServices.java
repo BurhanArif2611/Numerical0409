@@ -17,6 +17,7 @@ import com.revauc.revolutionbuy.network.response.profile.CityResponse;
 import com.revauc.revolutionbuy.network.response.profile.CountryResponse;
 import com.revauc.revolutionbuy.network.response.LoginResponse;
 import com.revauc.revolutionbuy.network.response.profile.StateResponse;
+import com.revauc.revolutionbuy.network.response.seller.SellerOffersResponse;
 import com.revauc.revolutionbuy.network.response.seller.SellerProductsResponse;
 
 import java.util.Map;
@@ -60,8 +61,7 @@ public interface AuthWebServices {
     String REPORT_BUYER_PRODUCT = BuildConfig.BASE_URL + "products/seller-reports";
     String DELETE_BUYER_PRODUCT = BuildConfig.BASE_URL + "products/";
     String VERIFY_MOBILE_NUMBER = BuildConfig.BASE_URL + "users/verify-mobile";
-
-
+    String GET_SELLER_OFFER = BuildConfig.BASE_URL + "seller-products";
 
 
 
@@ -94,6 +94,9 @@ public interface AuthWebServices {
 
     @GET(GET_STATES)
     Observable<StateResponse> getStates(@Query("countryId") Integer countryId);
+
+    @GET(GET_SELLER_OFFER)
+    Observable<SellerOffersResponse> getSellerOffers(@Query("page") Integer page, @Query("type") Integer type, @Query("limit") Integer limit);
 
     @DELETE(DELETE_BUYER_PRODUCT+"{id}")
     Observable<BaseResponse> deleteBuyerProduct(@Path("id") int productId);

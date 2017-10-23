@@ -1,17 +1,6 @@
-/**
- * Copyright 2016 Google Inc. All Rights Reserved.
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+/*
+ * Copyright © 2017 Thrive fantasy. All rights reserved.
+ * Developed by Appster.
  */
 
 package com.revauc.revolutionbuy.notification;
@@ -21,9 +10,13 @@ import android.support.v4.content.LocalBroadcastManager;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
-import com.revauc.revolutionbuy.ui.auth.SplashActivity;
+import com.revauc.revolutionbuy.ui.walkthrough.WalkThroughActivity;
 import com.revauc.revolutionbuy.util.LogUtils;
 import com.revauc.revolutionbuy.util.PreferenceUtil;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DefaultObserver;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
@@ -42,12 +35,12 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         LogUtils.LOGD("FCM idservice", refreshedToken);
 
-        if(PreferenceUtil.isLoggedIn()){
+        if(PreferenceUtil.getUserProfile()!=null){
             PreferenceUtil.setFCMToken(refreshedToken);
 //            sendUpdatedTokenToServer();
         }else {
             PreferenceUtil.setFCMToken(refreshedToken);
-            LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(SplashActivity.BROAD_FCM_TOKEN));
+//            LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(WalkThroughActivity.BROAD_FCM_TOKEN));
 //            LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(EnterAppActivity.BROAD_FCM_TOKEN));
         }
 
@@ -59,7 +52,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 //
 //        AuthWebServices apiService = RequestController.createRetrofitRequest(false);
 //        UpdateDeviceTokenRequest request = new UpdateDeviceTokenRequest(FirebaseInstanceId.getInstance().getToken());
-//        apiService.updateToken(request).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultObserver<BaseResponse>() {
+//        apiService.updateDeviceToken(request).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultObserver<BaseResponse>() {
 //
 //            @Override
 //            public void onNext(BaseResponse value) {

@@ -364,6 +364,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         request.setFbId(facebookId);
         request.setDeviceId(UUID.randomUUID().toString());
         request.setDeviceToken(PreferenceUtil.getFCMToken());
+        request.setDeviceType(Constants.DEVICE_TYPE_ANDROID);
         request.setName(username);
         apiService.loginUsingFacebook(request).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<LoginResponse>(this) {
 
