@@ -1,4 +1,4 @@
-package com.revauc.revolutionbuy.ui.sell.adapter;
+package com.revauc.revolutionbuy.ui.buy.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -23,33 +23,30 @@ Copyright © 2017 Block Partee. All rights reserved.
 Developed by Appster.
 */
 
-public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.MyViewHolder> {
+public class SellerOffersAdapter extends RecyclerView.Adapter<SellerOffersAdapter.MyViewHolder> {
 
     private final List<SellerOfferDto> mBuyerProducts;
     private final OnWishlistClickListener onWishlistClickListener;
     private Context mContext;
-    private ItemSellerOwnOfferBinding mBinding;
+    private ItemSellerOfferBinding mBinding;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         RoundedImageView imageProduct;
-        TextView tvtitle;
-        TextView tvBuyerLabel;
-        TextView tvBuyerName;
+        TextView tvBy;
+        TextView tvFrom;
         TextView tvPrice;
 
         public MyViewHolder(View view) {
             super(view);
             imageProduct = mBinding.imageItem;
-            tvtitle = mBinding.textProductName;
-            tvBuyerLabel = mBinding.textBuyerLabel;
-            tvBuyerName = mBinding.textBuyerName;
-            tvPrice = mBinding.textProductPrice;
-            tvBuyerLabel.setText("Interested buyer:");
+            tvBy = mBinding.textBy;
+            tvFrom = mBinding.textFrom;
+            tvPrice = mBinding.textFor;;
         }
     }
 
-    public OffersAdapter(Context mContext, List<SellerOfferDto> mBuyerProducts, OnWishlistClickListener onWishlistClickListener) {
+    public SellerOffersAdapter(Context mContext, List<SellerOfferDto> mBuyerProducts, OnWishlistClickListener onWishlistClickListener) {
         this.onWishlistClickListener = onWishlistClickListener;
         this.mContext = mContext;
         this.mBuyerProducts = mBuyerProducts;
@@ -57,7 +54,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.MyViewHold
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        mBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_seller_own_offer, parent, false);
+        mBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_seller_offer, parent, false);
 
         return new MyViewHolder(mBinding.getRoot());
     }
@@ -65,8 +62,8 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.MyViewHold
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final SellerOfferDto sellerOfferDto = mBuyerProducts.get(position);
-        holder.tvtitle.setText(sellerOfferDto.getBuyerProduct().getTitle());
-        holder.tvBuyerName.setText(sellerOfferDto.getBuyerProduct().getUser().getName());
+        holder.tvBy.setText("By "+sellerOfferDto.getUser().getName());
+        holder.tvFrom.setText("From "+sellerOfferDto.getUser().getCity().getName()+", "+sellerOfferDto.getUser().getCity().getState().getName());
         holder.tvPrice.setText((sellerOfferDto.getDescription().split("&&")[0])+" "+sellerOfferDto.getPrice());
 
         if (sellerOfferDto.getSellerProductImages() != null && !sellerOfferDto.getSellerProductImages().isEmpty()) {

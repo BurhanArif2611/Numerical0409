@@ -64,7 +64,7 @@ public abstract class DefaultApiObserver<T> extends DefaultObserver<T> {
 
             if (((HttpException) e).code() == 401) {
                 ((BaseActivity) ref.get()).showToast(ref.get().getString(R.string.authentication_req));
-//                ((BaseActivity) ref.get()).logoutUser();
+                ((BaseActivity) ref.get()).logoutUser();
                 return;
             }
             BaseResponse errorParser = null;

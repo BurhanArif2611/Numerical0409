@@ -42,8 +42,7 @@ import io.reactivex.schedulers.Schedulers;
 
 
 public class CurrentOffersFragment extends BaseFragment implements OnWishlistClickListener, SwipeRefreshLayout.OnRefreshListener {
-    private static final String TAG = "WishListFragment";
-    private static final String PARAM_TITLE = "ParamTitle";
+    private static final String TAG = "CurrentOffersFragment";
     private FragmentWishlistBinding mBinder;
     private int page=1;
     private int limit=10;
@@ -115,6 +114,8 @@ public class CurrentOffersFragment extends BaseFragment implements OnWishlistCli
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mBinder.textNoData.setText(R.string.havent_made_any_offers_yet);
+        mBinder.textNoData.setCompoundDrawablesWithIntrinsicBounds(0,R.drawable.ic_no_offer_data,0,0);
         mAdapter = new OffersAdapter(getActivity(),mBuyerProducts,this);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mBinder.recyclerViewWishlist.setLayoutManager(mLayoutManager);
@@ -131,7 +132,7 @@ public class CurrentOffersFragment extends BaseFragment implements OnWishlistCli
         fetchCurrentOffers(page,limit,true);
     }
 
-    private void fetchCurrentOffers(final int offset, int limit, boolean showLoading) {
+    private void fetchCurrentOffers(final int page, int limit, boolean showLoading) {
 
         if (isFetching) {
             return;
@@ -145,7 +146,7 @@ public class CurrentOffersFragment extends BaseFragment implements OnWishlistCli
         isFetching = true;
         AuthWebServices apiService = RequestController.createRetrofitRequest(false);
 
-        apiService.getSellerOffers(1,1,limit).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<SellerOffersResponse>(getActivity()) {
+        apiService.getSellerOffers(page,1,limit).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<SellerOffersResponse>(getActivity()) {
 
             @Override
             public void onResponse(SellerOffersResponse response) {
@@ -153,7 +154,7 @@ public class CurrentOffersFragment extends BaseFragment implements OnWishlistCli
                 if (response != null && response.isSuccess()) {
                     if(response.getResult()!=null && response.getResult().getSellerProduct()!=null)
                     {
-                        if(offset==0)
+                        if(page==1)
                         {
                             mBuyerProducts.clear();
                             mTotalCount = response.getResult().getTotalCount();

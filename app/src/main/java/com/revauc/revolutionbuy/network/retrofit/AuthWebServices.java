@@ -52,16 +52,26 @@ public interface AuthWebServices {
     String ADD_PROFILE = BuildConfig.BASE_URL + "users/add-profile";
     String EDIT_PROFILE = BuildConfig.BASE_URL + "users/edit-profile";
     String LOGOUT = BuildConfig.BASE_URL + "users/logout";
+    String VERIFY_MOBILE_NUMBER = BuildConfig.BASE_URL + "users/verify-mobile";
     String CHANGE_PASSWORD = BuildConfig.BASE_URL + "users/change-password";
+
+    //SELLER
     String GET_CATEGORIES = BuildConfig.BASE_URL + "categories";
-    String GET_BUYER_WISHLIST = BuildConfig.BASE_URL + "buyer-wishlist-products";
     String PRODUCTS_LIST = BuildConfig.BASE_URL + "products/search";
-    String ADD_BUYER_PRODUCT = BuildConfig.BASE_URL + "products/buyer-products";
     String SEND_OFFER_TO_BUYER = BuildConfig.BASE_URL + "products/seller-products";
     String REPORT_BUYER_PRODUCT = BuildConfig.BASE_URL + "products/seller-reports";
+    String GET_SELLER_OWN_OFFER = BuildConfig.BASE_URL + "seller-products";
+
+    //BUYER
+    String ADD_BUYER_PRODUCT = BuildConfig.BASE_URL + "products/buyer-products";
+    String GET_BUYER_WISHLIST = BuildConfig.BASE_URL + "buyer-wishlist-products";
     String DELETE_BUYER_PRODUCT = BuildConfig.BASE_URL + "products/";
-    String VERIFY_MOBILE_NUMBER = BuildConfig.BASE_URL + "users/verify-mobile";
-    String GET_SELLER_OFFER = BuildConfig.BASE_URL + "seller-products";
+    String REPORT_SELLER_PRODUCT = BuildConfig.BASE_URL + "products/buyer-reports";
+    String BUYER_PURCHASED_PRODUCTS = BuildConfig.BASE_URL + "buyer-purchased-products";
+    String UNLOCK_CONTACT_DETAILS = BuildConfig.BASE_URL + "products/unlock-phone";
+    String BUYER_MARK_TRANSACTION_COMPLETE = BuildConfig.BASE_URL + "products/buyer-complete-transaction";
+    String GET_SELLER_OFFERS = BuildConfig.BASE_URL + "products/seller-offers";
+
 
 
 
@@ -95,8 +105,11 @@ public interface AuthWebServices {
     @GET(GET_STATES)
     Observable<StateResponse> getStates(@Query("countryId") Integer countryId);
 
-    @GET(GET_SELLER_OFFER)
+    @GET(GET_SELLER_OWN_OFFER)
     Observable<SellerOffersResponse> getSellerOffers(@Query("page") Integer page, @Query("type") Integer type, @Query("limit") Integer limit);
+
+    @GET(GET_SELLER_OFFERS)
+    Observable<SellerOffersResponse> getSellerOffersForBuyer(@Query("page") Integer page, @Query("id") Integer id, @Query("limit") Integer limit);
 
     @DELETE(DELETE_BUYER_PRODUCT+"{id}")
     Observable<BaseResponse> deleteBuyerProduct(@Path("id") int productId);

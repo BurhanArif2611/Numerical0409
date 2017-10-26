@@ -713,4 +713,6 @@
     <string name="reporting_item">Reporting Item</string>
     <string name="submit_report">Submit report</string>
     <string name="report_sent">Report sent</string>
+    <string name="havent_made_any_offers_yet">You haven’t made any offers yet.</string>
+    <string name="seller_offers">Seller offers</string>
 </resources>

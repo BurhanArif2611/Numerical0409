@@ -86,8 +86,6 @@ public class SellerProductLlistingActivity extends BaseActivity implements View.
                             fetchSellersProductListing(page,limit,false);
                             mBinding.progressbarLoading.setVisibility(View.VISIBLE);
                         }
-
-
                     } else
                         mBinding.progressbarLoading.setVisibility(View.GONE);
             }
@@ -164,7 +162,7 @@ public class SellerProductLlistingActivity extends BaseActivity implements View.
                 if (response != null && response.isSuccess()) {
                     if(response.getResult()!=null && response.getResult().getProduct()!=null)
                     {
-                        if(page==0)
+                        if(page==1)
                         {
                             mSellerProducts.clear();
                             mTotalCount = response.getResult().getTotalCount();

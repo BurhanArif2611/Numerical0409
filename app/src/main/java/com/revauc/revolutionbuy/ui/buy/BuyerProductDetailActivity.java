@@ -67,6 +67,7 @@ public class BuyerProductDetailActivity extends BaseActivity implements View.OnC
         mBinding.imageDelete.setOnClickListener(this);
         mBinding.imageBack.setOnClickListener(this);
         mBinding.imageShare.setOnClickListener(this);
+        mBinding.textSellerOffers.setOnClickListener(this);
 
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
@@ -88,6 +89,11 @@ public class BuyerProductDetailActivity extends BaseActivity implements View.OnC
                 break;
             case R.id.image_share:
                 shareThisProduct();
+                break;
+            case R.id.text_seller_offers:
+                Intent intent = new Intent(this,SellerOffersActivity.class);
+                intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,mProductDetail);
+                startActivity(intent);
                 break;
         }
 

@@ -28,6 +28,7 @@ public class SellerOfferDto implements Parcelable {
     private int state;
     private String description;
     private BuyerProductDto buyerProduct;
+    private UserDto user;
     private List<BuyerProductImageDto> sellerProductImages;
 
     public int getId() {
@@ -58,6 +59,10 @@ public class SellerOfferDto implements Parcelable {
         return description;
     }
 
+    public UserDto getUser() {
+        return user;
+    }
+
     public BuyerProductDto getBuyerProduct() {
         return buyerProduct;
     }
@@ -82,6 +87,7 @@ public class SellerOfferDto implements Parcelable {
         dest.writeInt(this.state);
         dest.writeString(this.description);
         dest.writeParcelable(this.buyerProduct, flags);
+        dest.writeParcelable(this.user, flags);
         dest.writeTypedList(this.sellerProductImages);
     }
 
@@ -97,6 +103,7 @@ public class SellerOfferDto implements Parcelable {
         this.state = in.readInt();
         this.description = in.readString();
         this.buyerProduct = in.readParcelable(BuyerProductDto.class.getClassLoader());
+        this.user = in.readParcelable(UserDto.class.getClassLoader());
         this.sellerProductImages = in.createTypedArrayList(BuyerProductImageDto.CREATOR);
     }
 
