@@ -31,6 +31,7 @@ public class OfferSentActivity extends BaseActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_view_items:
+                startActivity(new Intent(this,SellerOfferActivity.class));
                 finish();
                 break;
             case R.id.button_back_to_categories:

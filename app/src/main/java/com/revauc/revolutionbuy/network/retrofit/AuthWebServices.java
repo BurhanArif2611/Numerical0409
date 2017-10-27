@@ -3,6 +3,7 @@ package com.revauc.revolutionbuy.network.retrofit;
 
 import com.revauc.revolutionbuy.BuildConfig;
 import com.revauc.revolutionbuy.network.BaseResponse;
+import com.revauc.revolutionbuy.network.request.auth.BuyerCompleteTransactionRequest;
 import com.revauc.revolutionbuy.network.request.auth.ChangePasswordRequest;
 import com.revauc.revolutionbuy.network.request.auth.ForgotPasswordRequest;
 import com.revauc.revolutionbuy.network.request.auth.MobilePinRequest;
@@ -151,6 +152,9 @@ public interface AuthWebServices {
     @Multipart
     @POST(ADD_BUYER_PRODUCT)
     Observable<BaseResponse> addBuyerProduct(@PartMap() Map<String, RequestBody> partMap,@Part MultipartBody.Part primary,@Part MultipartBody.Part one,@Part MultipartBody.Part two);
+
+    @POST(BUYER_MARK_TRANSACTION_COMPLETE)
+    Observable<BaseResponse> markBuyerTransactionComplete(@Body BuyerCompleteTransactionRequest params);
 
     @Multipart
     @POST(SEND_OFFER_TO_BUYER)

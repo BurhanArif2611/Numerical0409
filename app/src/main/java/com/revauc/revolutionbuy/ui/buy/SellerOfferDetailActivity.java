@@ -1,4 +1,4 @@
-package com.revauc.revolutionbuy.ui.sell;
+package com.revauc.revolutionbuy.ui.buy;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -6,23 +6,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 
 import com.revauc.revolutionbuy.R;
-import com.revauc.revolutionbuy.databinding.ActivityBuyerProductDetailBinding;
+import com.revauc.revolutionbuy.databinding.ActivitySellerOfferDetailBinding;
 import com.revauc.revolutionbuy.databinding.ActivitySellerProductDetailBinding;
 import com.revauc.revolutionbuy.eventbusmodel.OnButtonClicked;
 import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.RequestController;
+import com.revauc.revolutionbuy.network.request.auth.BuyerCompleteTransactionRequest;
 import com.revauc.revolutionbuy.network.response.buyer.BuyerProductDto;
+import com.revauc.revolutionbuy.network.response.seller.SellerOfferDto;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.BaseActivity;
 import com.revauc.revolutionbuy.ui.buy.adapter.ProductImageAdapter;
+import com.revauc.revolutionbuy.ui.sell.OfferSentActivity;
+import com.revauc.revolutionbuy.ui.sell.ReportItemActivity;
+import com.revauc.revolutionbuy.ui.sell.SellNowActivity;
 import com.revauc.revolutionbuy.util.Constants;
-import com.revauc.revolutionbuy.widget.BottomSheetAlertInverse;
 import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
@@ -32,11 +37,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class SellerProductDetailActivity extends BaseActivity implements View.OnClickListener {
+public class SellerOfferDetailActivity extends BaseActivity implements View.OnClickListener {
 
 
-    private ActivitySellerProductDetailBinding mBinding;
-    private BuyerProductDto mProductDetail;
+    private ActivitySellerOfferDetailBinding mBinding;
+    private SellerOfferDto mProductDetail;
     private static final int REQUEST_REPORT_ITEM=223;
     private final BroadcastReceiver mReciever = new BroadcastReceiver() {
         @Override
@@ -48,23 +53,25 @@ public class SellerProductDetailActivity extends BaseActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_seller_product_detail);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_seller_offer_detail);
 
         mProductDetail = getIntent().getParcelableExtra(Constants.EXTRA_PRODUCT_DETAIL);
 
-        mBinding.textTitle.setText(mProductDetail.getTitle());
-        mBinding.textCategories.setText(mProductDetail.getBuyerProductCategoriesString() + "");
-        mBinding.textDescription.setText(mProductDetail.getDescription());
+        mBinding.textTitle.setText(mProductDetail.getBuyerProduct().getTitle());
+        mBinding.textCategories.setText(mProductDetail.getBuyerProduct().getBuyerProductCategoriesString() + "");
+        mBinding.textPriceOffered.setText((mProductDetail.getDescription().split("&&")[0])+" "+mProductDetail.getPrice());
+        mBinding.textDescription.setText(mProductDetail.getDescription().split("&&")[1]);
+        mBinding.textMobileNo.setText(mProductDetail.getUser().getMobile());
 
-        if (mProductDetail.getBuyerProductImages() != null && !mProductDetail.getBuyerProductImages().isEmpty()) {
-            if(mProductDetail.getBuyerProductImages().size()>1)
+        if (mProductDetail.getSellerProductImages() != null && !mProductDetail.getSellerProductImages().isEmpty()) {
+            if(mProductDetail.getSellerProductImages().size()>1)
             {
-                mBinding.viewpagerImages.setAdapter(new ProductImageAdapter(this,mProductDetail.getBuyerProductImages()));
+                mBinding.viewpagerImages.setAdapter(new ProductImageAdapter(this,mProductDetail.getSellerProductImages()));
                 mBinding.indicatorImages.setViewPager(mBinding.viewpagerImages);
             }
             else
             {
-                Picasso.with(this).load(mProductDetail.getBuyerProductImages().get(0)
+                Picasso.with(this).load(mProductDetail.getSellerProductImages().get(0)
                         .getImageName()).placeholder(R.drawable.ic_placeholder_purchase_detail).into(mBinding.imageProduct);
             }
         } else {
@@ -73,22 +80,23 @@ public class SellerProductDetailActivity extends BaseActivity implements View.On
 
         if(mProductDetail.getUser()!=null)
         {
-            mBinding.textBuyerName.setText(mProductDetail.getUser().getName());
-            mBinding.textBuyerLocation.setText(mProductDetail.getUser().getCity().getName()+", "+mProductDetail.getUser().getCity().getState().getName());
+            mBinding.textSellerName.setText(mProductDetail.getUser().getName());
+            mBinding.textSellerLocation.setText(mProductDetail.getUser().getCity().getName()+", "+mProductDetail.getUser().getCity().getState().getName());
             mBinding.textItemSold.setText(""+mProductDetail.getUser().getSoldCount());
             mBinding.textItemPurchased.setText(""+mProductDetail.getUser().getPurchasedCount());
         }
 
         mBinding.imageBack.setOnClickListener(this);
-        mBinding.imageCart.setOnClickListener(this);
-        mBinding.textSellNow.setOnClickListener(this);
+        mBinding.textUnlockContactDetails.setOnClickListener(this);
+        mBinding.textPay.setOnClickListener(this);
         mBinding.textReportItem.setOnClickListener(this);
+        mBinding.textMarkComplete.setOnClickListener(this);
 
-        if (!EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().register(this);
-        }
+//        if (!EventBus.getDefault().isRegistered(this)) {
+//            EventBus.getDefault().register(this);
+//        }
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(mReciever, new IntentFilter(OfferSentActivity.BROAD_OFFER_SENT_COMPLETE));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReciever, new IntentFilter(ItemPurchasedActivity.BROAD_OFFER_PURCHASED));
     }
 
 
@@ -98,17 +106,27 @@ public class SellerProductDetailActivity extends BaseActivity implements View.On
 
         switch (view.getId())
         {
-
             case R.id.image_back:
                 onBackPressed();
                 break;
-            case R.id.image_cart:
-                startActivity(new Intent(this,SellerOfferActivity.class));
+            case R.id.text_unlock_contact_details:
+                mBinding.textUnlockContactDetails.setVisibility(View.GONE);
+                mBinding.textMobile.setVisibility(View.VISIBLE);
+                mBinding.textPay.setVisibility(View.VISIBLE);
+                mBinding.textMarkComplete.setVisibility(View.VISIBLE);
                 break;
-            case R.id.text_sell_now:
-                Intent intent = new Intent(this,SellNowActivity.class);
-                intent.putExtra(Constants.EXTRA_CATEGORY,""+mProductDetail.getId());
+            case R.id.text_mobile:
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mProductDetail.getUser().getMobile()));
                 startActivity(intent);
+                break;
+            case R.id.text_pay:
+//                Intent intent = new Intent(this,SellNowActivity.class);
+//                intent.putExtra(Constants.EXTRA_CATEGORY,""+mProductDetail.getId());
+//                startActivity(intent);
+                showToast(getString(R.string.coming_soon));
+                break;
+            case R.id.text_mark_complete:
+                markBuyerTransactionComplete();
                 break;
             case R.id.text_report_item:
                 Intent reoprtintent = new Intent(this,ReportItemActivity.class);
@@ -132,32 +150,20 @@ public class SellerProductDetailActivity extends BaseActivity implements View.On
         }
     }
 
-    @Subscribe
-    public void onDelete(OnButtonClicked onDeleteClicked)
-    {
-        deleteBuyerProduct(mProductDetail.getId());
-    }
 
-    private void shareThisProduct() {
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "Hey! Checkout this item on RevolutionBuy App.\n\n"+mProductDetail.getTitle()+"\n\n"+"https://dev.revolutionbuy.com/api/share-link?itemId="+mProductDetail.getId());
-        sendIntent.setType("text/plain");
-        startActivity(sendIntent);
-    }
 
-    private void deleteBuyerProduct(int id) {
+    private void markBuyerTransactionComplete() {
         showProgressBar();
         AuthWebServices apiService = RequestController.createRetrofitRequest(false);
 
-        apiService.deleteBuyerProduct(id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<BaseResponse>(this) {
+        apiService.markBuyerTransactionComplete(new BuyerCompleteTransactionRequest("Paid in Cash",mProductDetail.getBuyerProductId(),mProductDetail.getId(),mProductDetail.getUser().getId())).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<BaseResponse>(this) {
 
             @Override
             public void onResponse(BaseResponse response) {
                 hideProgressBar();
                 if (response.isSuccess()) {
-                    onBackPressed();
-                    showToast(response.getMessage());
+                    startActivity(new Intent(SellerOfferDetailActivity.this,ItemPurchasedActivity.class));
+//                    showToast(response.getMessage());
                 }
                 else
                 {
@@ -185,8 +191,8 @@ public class SellerProductDetailActivity extends BaseActivity implements View.On
 
     @Override
     protected void onDestroy() {
-        EventBus.getDefault().unregister(this);
         super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mReciever);
     }
 }
 

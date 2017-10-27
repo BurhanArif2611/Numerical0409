@@ -134,7 +134,7 @@ public class SellerProductLlistingActivity extends BaseActivity implements View.
 
                 break;
             case R.id.iv_tool_bar_right:
-                onBackPressed();
+                startActivity(new Intent(this,SellerOfferActivity.class));
                 break;
         }
 

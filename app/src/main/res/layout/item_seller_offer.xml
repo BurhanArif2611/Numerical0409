@@ -38,7 +38,7 @@
                 android:maxLines="1"
                 android:textColor="@color/textColorDark"
                 android:textSize="@dimen/textsize_15"
-                app:customFont="@string/font_avenir_medium" />
+                app:customFont="@string/font_avenir_regular" />
 
             <com.revauc.revolutionbuy.widget.typeface.CustomTextView
                 android:id="@+id/text_from"
@@ -47,6 +47,7 @@
                 android:layout_below="@id/text_by"
                 android:layout_marginEnd="@dimen/margin_16"
                 android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginTop="@dimen/margin_2"
                 android:layout_toRightOf="@id/image_item"
                 android:ellipsize="end"
                 android:maxLines="1"
@@ -60,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_from"
                 android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginTop="@dimen/margin_2"
                 android:layout_toRightOf="@id/image_item"
                 android:ellipsize="end"
                 android:maxLines="1"
@@ -76,6 +78,7 @@
                 android:layout_toEndOf="@id/text_for_label"
                 android:layout_marginEnd="@dimen/margin_16"
                 android:layout_marginStart="@dimen/margin_2"
+                android:layout_marginTop="@dimen/margin_2"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textColor="@color/textColorDark"

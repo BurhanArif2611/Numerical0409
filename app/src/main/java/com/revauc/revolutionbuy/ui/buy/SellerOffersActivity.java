@@ -1,7 +1,12 @@
 package com.revauc.revolutionbuy.ui.buy;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +14,7 @@ import android.view.View;
 
 import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.ActivitySellerOffersBinding;
+import com.revauc.revolutionbuy.listeners.OnSellerOfferClickListener;
 import com.revauc.revolutionbuy.listeners.OnWishlistClickListener;
 import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.RequestController;
@@ -22,6 +28,8 @@ import com.revauc.revolutionbuy.ui.buy.adapter.SellerOffersAdapter;
 import com.revauc.revolutionbuy.ui.buy.adapter.WishListAdapter;
 import com.revauc.revolutionbuy.util.Constants;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +37,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class SellerOffersActivity extends BaseActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, OnWishlistClickListener {
+public class SellerOffersActivity extends BaseActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, OnSellerOfferClickListener {
 
 
     private ActivitySellerOffersBinding mBinding;
@@ -42,6 +50,12 @@ public class SellerOffersActivity extends BaseActivity implements View.OnClickLi
     private int mTotalCount;
     private boolean isFetching = false;
     private BuyerProductDto mBuyerProduct;
+    private final BroadcastReceiver mReciever = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            finish();
+        }
+    };
 
     private RecyclerView.OnScrollListener mRecyclerListner = new RecyclerView.OnScrollListener() {
 
@@ -93,6 +107,8 @@ public class SellerOffersActivity extends BaseActivity implements View.OnClickLi
         mBinding.swipeRefreshLayout.setOnRefreshListener(this);
 
         fetchSellersOffers(page,limit,true);
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReciever, new IntentFilter(ItemPurchasedActivity.BROAD_OFFER_PURCHASED));
     }
 
 
@@ -190,9 +206,19 @@ public class SellerOffersActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
-    @Override
-    public void onWishlistItemClicked(BuyerProductDto buyerProduct) {
 
+
+    @Override
+    public void onSellerOfferClicked(SellerOfferDto sellerOfferDto) {
+        Intent intent = new Intent(this,SellerOfferDetailActivity.class);
+        intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,sellerOfferDto);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mReciever);
     }
 }
 

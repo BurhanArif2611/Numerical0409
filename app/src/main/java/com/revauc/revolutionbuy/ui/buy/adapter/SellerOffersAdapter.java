@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.ItemSellerOfferBinding;
 import com.revauc.revolutionbuy.databinding.ItemSellerOwnOfferBinding;
+import com.revauc.revolutionbuy.listeners.OnSellerOfferClickListener;
 import com.revauc.revolutionbuy.listeners.OnWishlistClickListener;
 import com.revauc.revolutionbuy.network.response.seller.SellerOfferDto;
 import com.revauc.revolutionbuy.widget.roundedimageview.RoundedImageView;
@@ -26,7 +27,7 @@ Developed by Appster.
 public class SellerOffersAdapter extends RecyclerView.Adapter<SellerOffersAdapter.MyViewHolder> {
 
     private final List<SellerOfferDto> mBuyerProducts;
-    private final OnWishlistClickListener onWishlistClickListener;
+    private final OnSellerOfferClickListener onSellerOfferClickListener;
     private Context mContext;
     private ItemSellerOfferBinding mBinding;
 
@@ -46,8 +47,8 @@ public class SellerOffersAdapter extends RecyclerView.Adapter<SellerOffersAdapte
         }
     }
 
-    public SellerOffersAdapter(Context mContext, List<SellerOfferDto> mBuyerProducts, OnWishlistClickListener onWishlistClickListener) {
-        this.onWishlistClickListener = onWishlistClickListener;
+    public SellerOffersAdapter(Context mContext, List<SellerOfferDto> mBuyerProducts, OnSellerOfferClickListener onSellerOfferClickListener) {
+        this.onSellerOfferClickListener = onSellerOfferClickListener;
         this.mContext = mContext;
         this.mBuyerProducts = mBuyerProducts;
     }
@@ -76,7 +77,7 @@ public class SellerOffersAdapter extends RecyclerView.Adapter<SellerOffersAdapte
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onWishlistClickListener.onWishlistItemClicked(sellerOfferDto.getBuyerProduct());
+                onSellerOfferClickListener.onSellerOfferClicked(sellerOfferDto);
             }
         });
     }

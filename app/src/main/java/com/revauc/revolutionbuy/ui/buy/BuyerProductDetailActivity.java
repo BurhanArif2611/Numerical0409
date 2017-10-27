@@ -1,9 +1,13 @@
 package com.revauc.revolutionbuy.ui.buy;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 
 import com.revauc.revolutionbuy.R;
@@ -37,6 +41,12 @@ public class BuyerProductDetailActivity extends BaseActivity implements View.OnC
 
     private ActivityBuyerProductDetailBinding mBinding;
     private BuyerProductDto mProductDetail;
+    private final BroadcastReceiver mReciever = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            finish();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +82,8 @@ public class BuyerProductDetailActivity extends BaseActivity implements View.OnC
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReciever, new IntentFilter(ItemPurchasedActivity.BROAD_OFFER_PURCHASED));
     }
 
 
@@ -154,6 +166,8 @@ public class BuyerProductDetailActivity extends BaseActivity implements View.OnC
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
         super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mReciever);
     }
+
 }
 

@@ -67,13 +67,10 @@ public class SellNowActivity extends BaseActivity implements View.OnClickListene
         mBinding.spinnerCurrency.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                LogUtils.LOGD("CURRENCY",""+mCurrencyCodes[position]);
-                if(position==0)
-                {
+                LogUtils.LOGD("CURRENCY", "" + mCurrencyCodes[position]);
+                if (position == 0) {
                     mBinding.textSelectedCurrency.setText("");
-                }
-                else
-                {
+                } else {
                     mBinding.textSelectedCurrency.setText(mCurrencyCodes[position].split(" ")[0]);
                 }
             }
@@ -98,8 +95,7 @@ public class SellNowActivity extends BaseActivity implements View.OnClickListene
     private ImagePickerUtils.OnImagePickerListener imageListener = new ImagePickerUtils.OnImagePickerListener() {
         @Override
         public void success(String name, String path) {
-            if(requestedFor==1)
-            {
+            if (requestedFor == 1) {
                 mFilePathPrimary = path;
                 isPrimaryImageRemoved = false;
                 mBinding.imageOne.setImageBitmap(BitmapFactory.decodeFile(path));
@@ -107,18 +103,14 @@ public class SellNowActivity extends BaseActivity implements View.OnClickListene
                 mBinding.textPrimary.setVisibility(View.VISIBLE);
                 mBinding.imageRemoveOne.setVisibility(View.VISIBLE);
                 mBinding.imageRemoveOne.setOnClickListener(SellNowActivity.this);
-            }
-            else if(requestedFor==2)
-            {
+            } else if (requestedFor == 2) {
                 mFilePathOne = path;
                 isFirstImageRemoved = false;
                 mBinding.imageTwo.setImageBitmap(BitmapFactory.decodeFile(path));
                 mBinding.imageTwoPlaceholder.setVisibility(View.INVISIBLE);
                 mBinding.imageRemoveTwo.setVisibility(View.VISIBLE);
                 mBinding.imageRemoveTwo.setOnClickListener(SellNowActivity.this);
-            }
-            else if(requestedFor==3)
-            {
+            } else if (requestedFor == 3) {
                 mFilePathTwo = path;
                 isSecondImageRemoved = false;
                 mBinding.imageThree.setImageBitmap(BitmapFactory.decodeFile(path));
@@ -126,55 +118,45 @@ public class SellNowActivity extends BaseActivity implements View.OnClickListene
                 mBinding.imageRemoveThree.setVisibility(View.VISIBLE);
                 mBinding.imageRemoveThree.setOnClickListener(SellNowActivity.this);
             }
-            requestedFor=0;
+            requestedFor = 0;
         }
 
         @Override
         public void fail(String message) {
             showSnackBarFromBottom(message, mBinding.mainContainer, true);
-            if(requestedFor==1)
-            {
+            if (requestedFor == 1) {
                 mFilePathPrimary = "";
                 isPrimaryImageRemoved = false;
-            }
-            else if(requestedFor==2)
-            {
+            } else if (requestedFor == 2) {
                 mFilePathOne = "";
                 isFirstImageRemoved = false;
-            }
-            else if(requestedFor==3)
-            {
+            } else if (requestedFor == 3) {
                 mFilePathTwo = "";
                 isSecondImageRemoved = false;
             }
-            requestedFor=0;
+            requestedFor = 0;
         }
 
         @Override
         public void onImageRemove() {
-            if(requestedFor==1)
-            {
+            if (requestedFor == 1) {
                 mFilePathPrimary = "";
                 isPrimaryImageRemoved = true;
                 mBinding.textPrimary.setVisibility(View.INVISIBLE);
                 mBinding.imageOnePlaceholder.setVisibility(View.VISIBLE);
                 mBinding.imageRemoveOne.setVisibility(View.INVISIBLE);
-            }
-            else if(requestedFor==2)
-            {
+            } else if (requestedFor == 2) {
                 mFilePathOne = "";
                 isSecondImageRemoved = true;
                 mBinding.imageTwoPlaceholder.setVisibility(View.VISIBLE);
                 mBinding.imageRemoveTwo.setVisibility(View.INVISIBLE);
-            }
-            else if(requestedFor==3)
-            {
+            } else if (requestedFor == 3) {
                 mFilePathTwo = "";
                 isSecondImageRemoved = true;
                 mBinding.imageThreePlaceholder.setVisibility(View.VISIBLE);
                 mBinding.imageRemoveThree.setVisibility(View.INVISIBLE);
             }
-            requestedFor=0;
+            requestedFor = 0;
         }
     };
 
@@ -232,7 +214,7 @@ public class SellNowActivity extends BaseActivity implements View.OnClickListene
 
     }
 
-    private void sendOfferToBuyer(String price,String description) {
+    private void sendOfferToBuyer(String price, String description) {
         showProgressBar();
 
         //File creating from selected URL
@@ -292,16 +274,13 @@ public class SellNowActivity extends BaseActivity implements View.OnClickListene
 
         AuthWebServices apiService = RequestController.createRetrofitRequest(false);
         Observable<BaseResponse> observable;
-        if(file1==null && file2==null && file3==null)
-        {
+        if (file1 == null && file2 == null && file3 == null) {
             observable = apiService.sendOfferToBuyer(map);
-        }
-        else
-        {
+        } else {
             observable = apiService.sendOfferToBuyer(map, body1, body2, body3);
         }
 
-        apiService.sendOfferToBuyer(map, body1,body2,body3).subscribeOn(Schedulers.io())
+        apiService.sendOfferToBuyer(map, body1, body2, body3).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DefaultApiObserver<BaseResponse>(this) {
 
@@ -312,7 +291,9 @@ public class SellNowActivity extends BaseActivity implements View.OnClickListene
                             Intent intent = new Intent(SellNowActivity.this, OfferSentActivity.class);
                             startActivity(intent);
                             overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                            }
+                        } else {
+                            showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
+                        }
                     }
 
                     @Override
@@ -331,21 +312,14 @@ public class SellNowActivity extends BaseActivity implements View.OnClickListene
         String price = mBinding.editPrice.getText().toString();
         String description = mBinding.editDescription.getText().toString();
 
-        if(StringUtils.isNullOrEmpty(currency))
-        {
-            showSnackBarFromBottom("You need to select the currency for this item",mBinding.mainContainer,true);
-        }
-        else if(StringUtils.isNullOrEmpty(price))
-        {
-            showSnackBarFromBottom("You need to enter the price for this item",mBinding.mainContainer,true);
-        }
-        else if(StringUtils.isNullOrEmpty(description))
-        {
-            showSnackBarFromBottom("You need to enter the description for this item",mBinding.mainContainer,true);
-        }
-        else
-        {
-            sendOfferToBuyer(price,currency+"&&"+description);
+        if (StringUtils.isNullOrEmpty(currency)) {
+            showSnackBarFromBottom("You need to select the currency for this item", mBinding.mainContainer, true);
+        } else if (StringUtils.isNullOrEmpty(price)) {
+            showSnackBarFromBottom("You need to enter the price for this item", mBinding.mainContainer, true);
+        } else if (StringUtils.isNullOrEmpty(description)) {
+            showSnackBarFromBottom("You need to enter the description for this item", mBinding.mainContainer, true);
+        } else {
+            sendOfferToBuyer(price, currency + "&&" + description);
         }
 
     }

@@ -715,4 +715,13 @@
     <string name="report_sent">Report sent</string>
     <string name="havent_made_any_offers_yet">You haven’t made any offers yet.</string>
     <string name="seller_offers">Seller offers</string>
+    <string name="pay_via_credit_card">Pay via credit card</string>
+    <string name="mark_transaction_as_complete">Mark transaction as complete</string>
+    <string name="seller">Seller</string>
+    <string name="unlock_contact_detials">Unlock contact details</string>
+    <string name="price_offered">Price offered:</string>
+    <string name="you_have_successfully_purchased_the_item">You have successfully purchased the item!</string>
+    <string name="rate_revolution_buy">Rate Revolution Buy</string>
+    <string name="maybe_later">Maybe later</string>
+    <string name="succesfully_sold_the_item">You have successfully sold the item!</string>
 </resources>

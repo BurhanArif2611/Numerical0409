@@ -221,6 +221,12 @@
             android:theme="@style/AppTheme.Fullscreen" />
 
         <activity
+            android:name=".ui.buy.SellerOfferDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Fullscreen" />
+
+        <activity
             android:name=".ui.sell.SellerProductDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait"
@@ -228,6 +234,18 @@
 
         <activity
             android:name=".ui.sell.OfferSentActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.buy.ItemPurchasedActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.sell.ItemSoldActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait" />

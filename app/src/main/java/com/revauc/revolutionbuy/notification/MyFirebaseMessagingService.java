@@ -33,11 +33,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TYPE = "type";
     private static final String DATA = "data";
     private static final String NOTIFICATION_ID = "id";
-    private static final String NOTIFICATION_TYPE_ID = "notificationTypeId";
+    private static final String NOTIFICATION_TYPE_ID = "type";
 
     private static final String MESSAGE = "message";
-    private static final String DICTIONARY = "dictionary";
-    private static final int TYPE_INVITE = 1;
+    private static final String DESCRIPTION = "description";
+    private static final String DICTIONARY = "datamsg";
+    private static final int TYPE_BUYER_MARK = 3;
     private static final int TYPE_ADMIN = 2;
     private static final int TYPE_USER_DELETE = 10;
     private static final int TYPE_TERMS_UPDATE = 14;
@@ -65,7 +66,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         NotificationPayload payload = new NotificationPayload();
 
-        LogUtils.LOGD(">>>>>>", "FCM MESSAGE RECIEVED");
+        LogUtils.LOGD(">>>>>>", "FCM MESSAGE RECIEVED : "+remoteMessage.getData());
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         // {orderId=325, restaurantName=Social, eatingType=2, orderStatus=2}
@@ -85,6 +86,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 try {
                     payload.setNotificationId(notificationObject.getInt(NOTIFICATION_ID));
                     payload.setNotificationtypeId(notificationObject.getInt(NOTIFICATION_TYPE_ID));
+                    payload.setMessage(notificationObject.getString(DESCRIPTION));
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -112,25 +114,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      */
     private void sendNotification(String messageBody, NotificationPayload payload) {
 
-//        if (payload == null) {
-//            return;
-//        }
-
         PendingIntent pendingIntent;
         Intent intent;
 
         if (payload == null) {
             return;
         }
-//        int contestId = 0;
-//        if (!StringUtils.isNullOrEmpty(payload.getContestID())) {
-//            contestId = Integer.parseInt("" + payload.getContestID());
-//        }
 
-        if (payload.getNotificationtypeId() == TYPE_INVITE) {
+        if (payload.getNotificationtypeId() == TYPE_BUYER_MARK) {
             intent = new Intent(this, DashboardActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            intent.putExtra(Constants.EXTRA_FROM_NOTIFICATIONS, true);
             pendingIntent = PendingIntent.getActivity(this, 0, intent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
         }
@@ -191,6 +184,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(getNotificationIcon())
                 .setLargeIcon(getLargeIcon())
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(messageBody))
                 .setContentTitle(getString(R.string.app_name))
                 .setContentText(messageBody)
                 .setAutoCancel(true)
