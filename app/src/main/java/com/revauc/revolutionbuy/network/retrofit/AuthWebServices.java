@@ -13,6 +13,7 @@ import com.revauc.revolutionbuy.network.request.auth.ReportItemRequest;
 import com.revauc.revolutionbuy.network.request.auth.SignUpRequest;
 import com.revauc.revolutionbuy.network.request.auth.SocialSignUpRequest;
 import com.revauc.revolutionbuy.network.response.buyer.CategoriesResponse;
+import com.revauc.revolutionbuy.network.response.buyer.PurchasedResponse;
 import com.revauc.revolutionbuy.network.response.buyer.WishlistResponse;
 import com.revauc.revolutionbuy.network.response.profile.CityResponse;
 import com.revauc.revolutionbuy.network.response.profile.CountryResponse;
@@ -117,6 +118,9 @@ public interface AuthWebServices {
 
     @GET(GET_BUYER_WISHLIST)
     Observable<WishlistResponse> getBuyerWishlist(@Query("offset") Integer offset, @Query("limit") Integer limit);
+
+    @GET(BUYER_PURCHASED_PRODUCTS)
+    Observable<PurchasedResponse> getBuyerPurchasedList(@Query("offset") Integer offset, @Query("limit") Integer limit);
 
     @POST(PRODUCTS_LIST)
     Observable<SellerProductsResponse> getSellerProductsListing(@Body ProductSearchRequest params);

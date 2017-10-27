@@ -1,4 +1,4 @@
-package com.revauc.revolutionbuy.network.response.seller;
+package com.revauc.revolutionbuy.network.response.buyer;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,10 +6,6 @@ import android.os.Parcelable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.revauc.revolutionbuy.network.response.UserDto;
-import com.revauc.revolutionbuy.network.response.buyer.BuyerProductCategoryDto;
-import com.revauc.revolutionbuy.network.response.buyer.BuyerProductDto;
-import com.revauc.revolutionbuy.network.response.buyer.BuyerProductImageDto;
-import com.revauc.revolutionbuy.util.StringUtils;
 
 import java.util.List;
 
@@ -18,17 +14,15 @@ import java.util.List;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SellerOfferDto implements Parcelable {
+public class SellerProductDto implements Parcelable {
 
 
     private int id;
     private int userId;
     private int buyerProductId;
     private int price;
-    private int productType;
-    private int state;
     private String description;
-    private BuyerProductDto buyerProduct;
+    private String sellerProductTypeText;
     private UserDto user;
     private List<BuyerProductImageDto> sellerProductImages;
 
@@ -48,24 +42,16 @@ public class SellerOfferDto implements Parcelable {
         return price;
     }
 
-    public int getProductType() {
-        return productType;
-    }
-
-    public int getState() {
-        return state;
-    }
-
     public String getDescription() {
         return description;
     }
 
-    public UserDto getUser() {
-        return user;
+    public String getSellerProductTypeText() {
+        return sellerProductTypeText;
     }
 
-    public BuyerProductDto getBuyerProduct() {
-        return buyerProduct;
+    public UserDto getUser() {
+        return user;
     }
 
     public List<BuyerProductImageDto> getSellerProductImages() {
@@ -84,39 +70,35 @@ public class SellerOfferDto implements Parcelable {
         dest.writeInt(this.userId);
         dest.writeInt(this.buyerProductId);
         dest.writeInt(this.price);
-        dest.writeInt(this.productType);
-        dest.writeInt(this.state);
         dest.writeString(this.description);
-        dest.writeParcelable(this.buyerProduct, flags);
+        dest.writeString(this.sellerProductTypeText);
         dest.writeParcelable(this.user, flags);
         dest.writeTypedList(this.sellerProductImages);
     }
 
-    public SellerOfferDto() {
+    public SellerProductDto() {
     }
 
-    protected SellerOfferDto(Parcel in) {
+    protected SellerProductDto(Parcel in) {
         this.id = in.readInt();
         this.userId = in.readInt();
         this.buyerProductId = in.readInt();
         this.price = in.readInt();
-        this.productType = in.readInt();
-        this.state = in.readInt();
         this.description = in.readString();
-        this.buyerProduct = in.readParcelable(BuyerProductDto.class.getClassLoader());
+        this.sellerProductTypeText = in.readString();
         this.user = in.readParcelable(UserDto.class.getClassLoader());
         this.sellerProductImages = in.createTypedArrayList(BuyerProductImageDto.CREATOR);
     }
 
-    public static final Creator<SellerOfferDto> CREATOR = new Creator<SellerOfferDto>() {
+    public static final Creator<SellerProductDto> CREATOR = new Creator<SellerProductDto>() {
         @Override
-        public SellerOfferDto createFromParcel(Parcel source) {
-            return new SellerOfferDto(source);
+        public SellerProductDto createFromParcel(Parcel source) {
+            return new SellerProductDto(source);
         }
 
         @Override
-        public SellerOfferDto[] newArray(int size) {
-            return new SellerOfferDto[size];
+        public SellerProductDto[] newArray(int size) {
+            return new SellerProductDto[size];
         }
     };
 }
