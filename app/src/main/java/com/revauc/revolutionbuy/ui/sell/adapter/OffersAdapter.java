@@ -28,6 +28,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.MyViewHold
 
     private final List<SellerOfferDto> mBuyerProducts;
     private final OnSellerOfferClickListener onWishlistClickListener;
+    private final int type;
     private Context mContext;
     private ItemSellerOwnOfferBinding mBinding;
 
@@ -46,14 +47,15 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.MyViewHold
             tvBuyerLabel = mBinding.textBuyerLabel;
             tvBuyerName = mBinding.textBuyerName;
             tvPrice = mBinding.textProductPrice;
-            tvBuyerLabel.setText("Interested buyer:");
+            tvBuyerLabel.setText(type==1?"Interested buyer:":"Buyer:");
         }
     }
 
-    public OffersAdapter(Context mContext, List<SellerOfferDto> mBuyerProducts, OnSellerOfferClickListener onWishlistClickListener) {
+    public OffersAdapter(Context mContext, List<SellerOfferDto> mBuyerProducts, OnSellerOfferClickListener onWishlistClickListener,int type) {
         this.onWishlistClickListener = onWishlistClickListener;
         this.mContext = mContext;
         this.mBuyerProducts = mBuyerProducts;
+        this.type = type;
     }
 
     @Override

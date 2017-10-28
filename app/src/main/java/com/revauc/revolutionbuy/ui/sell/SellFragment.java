@@ -6,6 +6,7 @@
 package com.revauc.revolutionbuy.ui.sell;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.databinding.DataBindingUtil;
@@ -19,8 +20,16 @@ import android.widget.AdapterView;
 
 import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.FragmentSellBinding;
+import com.revauc.revolutionbuy.eventbusmodel.OnSignUpClicked;
 import com.revauc.revolutionbuy.ui.BaseFragment;
+import com.revauc.revolutionbuy.ui.auth.SignUpActivity;
+import com.revauc.revolutionbuy.ui.settings.ChangePasswordActivity;
 import com.revauc.revolutionbuy.util.Constants;
+import com.revauc.revolutionbuy.util.PreferenceUtil;
+import com.revauc.revolutionbuy.widget.BottomMemberAlert;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 
 public class SellFragment extends BaseFragment implements View.OnClickListener {
@@ -83,17 +92,47 @@ public class SellFragment extends BaseFragment implements View.OnClickListener {
 
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        EventBus.getDefault().unregister(this);
+        super.onDetach();
+    }
+
 
     @Override
     public void onClick(View view) {
         switch (view.getId())
         {
             case R.id.iv_tool_bar_right:
-                startActivity(new Intent(getActivity(),SellerOfferActivity.class));
+                if(PreferenceUtil.isLoggedIn())
+                {
+                    startActivity(new Intent(getActivity(),SellerOfferActivity.class));
+                }
+                else
+                {
+                    BottomMemberAlert.getInstance(getActivity(),getString(R.string.need_to_be_a_member),getString(R.string.sign_up),getString(R.string.cancel)).show();
+                }
+
                 break;
             case R.id.iv_tool_bar_left:
                 startActivity(new Intent(getActivity(),SellerProductSearchActivity.class));
                 break;
         }
+    }
+
+    @Subscribe
+    public void onSignUp(OnSignUpClicked onSignUpClicked)
+    {
+        getActivity().startActivity(new Intent(getActivity(), SignUpActivity.class));
+        getActivity().finish();
+
     }
 }

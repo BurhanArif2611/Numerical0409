@@ -14,14 +14,18 @@ import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.ActivityBuyerProductDetailBinding;
 import com.revauc.revolutionbuy.databinding.ActivitySellerProductDetailBinding;
 import com.revauc.revolutionbuy.eventbusmodel.OnButtonClicked;
+import com.revauc.revolutionbuy.eventbusmodel.OnSignUpClicked;
 import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.RequestController;
 import com.revauc.revolutionbuy.network.response.buyer.BuyerProductDto;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.BaseActivity;
+import com.revauc.revolutionbuy.ui.auth.SignUpActivity;
 import com.revauc.revolutionbuy.ui.buy.adapter.ProductImageAdapter;
 import com.revauc.revolutionbuy.util.Constants;
+import com.revauc.revolutionbuy.util.PreferenceUtil;
+import com.revauc.revolutionbuy.widget.BottomMemberAlert;
 import com.revauc.revolutionbuy.widget.BottomSheetAlertInverse;
 import com.squareup.picasso.Picasso;
 
@@ -103,17 +107,40 @@ public class SellerProductDetailActivity extends BaseActivity implements View.On
                 onBackPressed();
                 break;
             case R.id.image_cart:
-                startActivity(new Intent(this,SellerOfferActivity.class));
+                if(PreferenceUtil.isLoggedIn())
+                {
+                    startActivity(new Intent(this,SellerOfferActivity.class));
+                }
+                else
+                {
+                    BottomMemberAlert.getInstance(this,getString(R.string.need_to_be_a_member),getString(R.string.sign_up),getString(R.string.cancel)).show();
+                }
+
                 break;
             case R.id.text_sell_now:
-                Intent intent = new Intent(this,SellNowActivity.class);
-                intent.putExtra(Constants.EXTRA_CATEGORY,""+mProductDetail.getId());
-                startActivity(intent);
+                if(PreferenceUtil.isLoggedIn())
+                {
+                    Intent intent = new Intent(this,SellNowActivity.class);
+                    intent.putExtra(Constants.EXTRA_CATEGORY,""+mProductDetail.getId());
+                    startActivity(intent);
+                }
+                else
+                {
+                    BottomMemberAlert.getInstance(this,getString(R.string.need_to_be_a_member),getString(R.string.sign_up),getString(R.string.cancel)).show();
+                }
+
                 break;
             case R.id.text_report_item:
-                Intent reoprtintent = new Intent(this,ReportItemActivity.class);
-                reoprtintent.putExtra(Constants.EXTRA_PRODUCT_ID,mProductDetail.getId());
-                startActivityForResult(reoprtintent,REQUEST_REPORT_ITEM);
+                if(PreferenceUtil.isLoggedIn())
+                {
+                    Intent reoprtintent = new Intent(this,ReportItemActivity.class);
+                    reoprtintent.putExtra(Constants.EXTRA_PRODUCT_ID,mProductDetail.getId());
+                    startActivityForResult(reoprtintent,REQUEST_REPORT_ITEM);
+                }
+                else
+                {
+                    BottomMemberAlert.getInstance(this,getString(R.string.need_to_be_a_member),getString(R.string.sign_up),getString(R.string.cancel)).show();
+                }
                 break;
 
         }
@@ -130,6 +157,13 @@ public class SellerProductDetailActivity extends BaseActivity implements View.On
                 showSnackBarFromBottom(getString(R.string.report_sent),mBinding.mainContainer,false);
             }
         }
+    }
+
+    @Subscribe
+    public void onSignUp(OnSignUpClicked onSignUpClicked)
+    {
+        startActivity(new Intent(this, SignUpActivity.class));
+        finish();
     }
 
     @Subscribe

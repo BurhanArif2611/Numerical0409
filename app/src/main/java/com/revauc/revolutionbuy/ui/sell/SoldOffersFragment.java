@@ -117,7 +117,7 @@ public class SoldOffersFragment extends BaseFragment implements OnSellerOfferCli
 
         mBinder.textNoData.setText(R.string.havent_sold_any_offers_yet);
         mBinder.textNoData.setCompoundDrawablesWithIntrinsicBounds(0,R.drawable.ic_no_offer_data,0,0);
-        mAdapter = new OffersAdapter(getActivity(),mBuyerProducts,this);
+        mAdapter = new OffersAdapter(getActivity(),mBuyerProducts,this,2);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mBinder.recyclerViewWishlist.setLayoutManager(mLayoutManager);
         mBinder.recyclerViewWishlist.setLayoutManager(mLayoutManager);

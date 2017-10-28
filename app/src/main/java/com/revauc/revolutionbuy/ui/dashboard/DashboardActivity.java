@@ -25,17 +25,23 @@ import android.widget.TextView;
 import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.ActivityDashboardBinding;
 import com.revauc.revolutionbuy.databinding.ActivitySignUpBinding;
+import com.revauc.revolutionbuy.eventbusmodel.OnSignUpClicked;
 import com.revauc.revolutionbuy.ui.BaseActivity;
 import com.revauc.revolutionbuy.ui.ComingSoonFragment;
+import com.revauc.revolutionbuy.ui.auth.SignUpActivity;
 import com.revauc.revolutionbuy.ui.buy.BuyFragment;
 import com.revauc.revolutionbuy.ui.notification.NotificationsFragment;
+import com.revauc.revolutionbuy.ui.sell.ReportItemActivity;
 import com.revauc.revolutionbuy.ui.sell.SellFragment;
 import com.revauc.revolutionbuy.ui.settings.SettingsFragment;
 import com.revauc.revolutionbuy.util.Constants;
 import com.revauc.revolutionbuy.util.LogUtils;
+import com.revauc.revolutionbuy.util.PreferenceUtil;
 import com.revauc.revolutionbuy.util.Utils;
+import com.revauc.revolutionbuy.widget.BottomMemberAlert;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
@@ -92,9 +98,10 @@ public class DashboardActivity extends BaseActivity implements View.OnClickListe
 //                                .commit();
 //                        setNavigationMode(NAVIGATION_LIVE);
 //                    }
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.content, NotificationsFragment.newInstance())
-                            .commit();
+
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.content, NotificationsFragment.newInstance())
+                                .commit();
 
                     break;
                 case R.id.navigation_settings:
@@ -156,8 +163,8 @@ public class DashboardActivity extends BaseActivity implements View.OnClickListe
 
         mBinder.navigation.setCurrentItem(0);
 
-
     }
+
 
     @Override
     public void onClick(View view) {

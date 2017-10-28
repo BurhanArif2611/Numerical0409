@@ -117,7 +117,7 @@ public class CurrentOffersFragment extends BaseFragment implements OnSellerOffer
 
         mBinder.textNoData.setText(R.string.havent_made_any_offers_yet);
         mBinder.textNoData.setCompoundDrawablesWithIntrinsicBounds(0,R.drawable.ic_no_offer_data,0,0);
-        mAdapter = new OffersAdapter(getActivity(),mBuyerProducts,this);
+        mAdapter = new OffersAdapter(getActivity(),mBuyerProducts,this,1);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mBinder.recyclerViewWishlist.setLayoutManager(mLayoutManager);
         mBinder.recyclerViewWishlist.setLayoutManager(mLayoutManager);

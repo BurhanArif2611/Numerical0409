@@ -6,6 +6,7 @@
 package com.revauc.revolutionbuy.ui.buy;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.databinding.DataBindingUtil;
@@ -19,9 +20,18 @@ import android.view.ViewGroup;
 import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.FragmentBuyBinding;
 import com.revauc.revolutionbuy.databinding.FragmentSellBinding;
+import com.revauc.revolutionbuy.eventbusmodel.OnSignUpClicked;
 import com.revauc.revolutionbuy.ui.BaseFragment;
+import com.revauc.revolutionbuy.ui.auth.SignUpActivity;
+import com.revauc.revolutionbuy.ui.sell.ReportItemActivity;
 import com.revauc.revolutionbuy.ui.sell.SellOptionsGridAdapter;
+import com.revauc.revolutionbuy.util.Constants;
+import com.revauc.revolutionbuy.util.PreferenceUtil;
+import com.revauc.revolutionbuy.widget.BottomMemberAlert;
 import com.revauc.revolutionbuy.widget.typeface.CustomTextView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 
 public class BuyFragment extends BaseFragment implements TabLayout.OnTabSelectedListener, View.OnClickListener {
@@ -100,9 +110,40 @@ public class BuyFragment extends BaseFragment implements TabLayout.OnTabSelected
         switch (view.getId())
         {
             case R.id.floating_action_button:
-                startActivity(new Intent(getActivity(),SelectCategoriesActivity.class));
-                getActivity().overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                if(PreferenceUtil.isLoggedIn())
+                {
+                    startActivity(new Intent(getActivity(),SelectCategoriesActivity.class));
+                    getActivity().overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                }
+                else
+                {
+                    BottomMemberAlert.getInstance(getActivity(),getString(R.string.need_to_be_a_member),getString(R.string.sign_up),getString(R.string.cancel)).show();
+                }
+
                 break;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        EventBus.getDefault().unregister(this);
+        super.onDetach();
+    }
+
+
+    @Subscribe
+    public void onSignUp(OnSignUpClicked onSignUpClicked)
+    {
+        getActivity().startActivity(new Intent(getActivity(), SignUpActivity.class));
+        getActivity().finish();
+
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
         }
     }
 }

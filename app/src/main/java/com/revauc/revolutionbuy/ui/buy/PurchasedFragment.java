@@ -118,6 +118,7 @@ public class PurchasedFragment extends BaseFragment implements OnPurchasedClickL
 
         mAdapter = new PurchasedAdapter(getActivity(),mBuyerProducts,this);
         mLayoutManager = new LinearLayoutManager(getActivity());
+        mBinder.textNoData.setText(R.string.purchased_no_data_text);
         mBinder.recyclerViewWishlist.setLayoutManager(mLayoutManager);
         mBinder.recyclerViewWishlist.setLayoutManager(mLayoutManager);
         mBinder.recyclerViewWishlist.setAdapter(mAdapter);
