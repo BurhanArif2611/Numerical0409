@@ -77,7 +77,16 @@ public class BuyerProductDetailActivity extends BaseActivity implements View.OnC
         mBinding.imageDelete.setOnClickListener(this);
         mBinding.imageBack.setOnClickListener(this);
         mBinding.imageShare.setOnClickListener(this);
-        mBinding.textSellerOffers.setOnClickListener(this);
+        if(mProductDetail.getOfferGet()>0)
+        {
+            mBinding.imageEdit.setVisibility(View.GONE);
+            mBinding.textSellerOffers.setVisibility(View.VISIBLE);
+            mBinding.textSellerOffers.setOnClickListener(this);
+        }
+        else
+        {
+
+        }
 
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
@@ -104,7 +113,7 @@ public class BuyerProductDetailActivity extends BaseActivity implements View.OnC
                 break;
             case R.id.text_seller_offers:
                 Intent intent = new Intent(this,SellerOffersActivity.class);
-                intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,mProductDetail);
+                intent.putExtra(Constants.EXTRA_PRODUCT_ID,mProductDetail.getId());
                 startActivity(intent);
                 break;
         }

@@ -175,6 +175,7 @@
                 android:background="@drawable/ic_button_blue"
                 android:gravity="center"
                 android:padding="@dimen/margin_16"
+                android:visibility="gone"
                 android:paddingBottom="@dimen/margin_20"
                 android:text="@string/view_seller_s_offers"
                 android:textColor="@color/white"

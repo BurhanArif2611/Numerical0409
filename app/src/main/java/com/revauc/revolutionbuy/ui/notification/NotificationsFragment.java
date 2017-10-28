@@ -30,6 +30,7 @@ import com.revauc.revolutionbuy.network.response.seller.SellerOfferDto;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.BaseFragment;
+import com.revauc.revolutionbuy.ui.buy.SellerOffersActivity;
 import com.revauc.revolutionbuy.ui.sell.SellerOwnOfferDetailActivity;
 import com.revauc.revolutionbuy.ui.sell.adapter.OffersAdapter;
 import com.revauc.revolutionbuy.util.Constants;
@@ -211,6 +212,9 @@ public class NotificationsFragment extends BaseFragment implements OnNotificatio
         switch (notificationDto.getType())
         {
             case Constants.TYPE_OFFER_SENT:
+                Intent intent = new Intent(getActivity(),SellerOffersActivity.class);
+                intent.putExtra(Constants.EXTRA_PRODUCT_ID,notificationDto.getBuyerProductId());
+                startActivity(intent);
                 break;
             case Constants.TYPE_BUYER_UNLOCKED:
                 break;

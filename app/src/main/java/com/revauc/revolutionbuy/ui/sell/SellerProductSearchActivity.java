@@ -1,4 +1,4 @@
-package com.revauc.revolutionbuy.ui.buy;
+package com.revauc.revolutionbuy.ui.sell;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,23 +10,29 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 
 import com.revauc.revolutionbuy.R;
-import com.revauc.revolutionbuy.databinding.ActivitySellerOffersBinding;
-import com.revauc.revolutionbuy.listeners.OnSellerOfferClickListener;
+import com.revauc.revolutionbuy.databinding.ActivityCategoriesProductsListingBinding;
+import com.revauc.revolutionbuy.databinding.ActivityProductSearchBinding;
 import com.revauc.revolutionbuy.listeners.OnWishlistClickListener;
 import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.RequestController;
+import com.revauc.revolutionbuy.network.request.auth.ProductSearchRequest;
 import com.revauc.revolutionbuy.network.response.buyer.BuyerProductDto;
-import com.revauc.revolutionbuy.network.response.seller.SellerOfferDto;
-import com.revauc.revolutionbuy.network.response.seller.SellerOffersResponse;
+import com.revauc.revolutionbuy.network.response.seller.SellerProductsResponse;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.BaseActivity;
-import com.revauc.revolutionbuy.ui.buy.adapter.SellerOffersAdapter;
 import com.revauc.revolutionbuy.ui.buy.adapter.WishListAdapter;
+import com.revauc.revolutionbuy.ui.sell.OfferSentActivity;
+import com.revauc.revolutionbuy.ui.sell.SellerOfferActivity;
+import com.revauc.revolutionbuy.ui.sell.SellerProductDetailActivity;
 import com.revauc.revolutionbuy.util.Constants;
+import com.revauc.revolutionbuy.util.StringUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -37,19 +43,19 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class SellerOffersActivity extends BaseActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, OnSellerOfferClickListener {
+public class SellerProductSearchActivity extends BaseActivity implements View.OnClickListener, OnWishlistClickListener, SwipeRefreshLayout.OnRefreshListener {
 
 
-    private ActivitySellerOffersBinding mBinding;
-
+    private ActivityProductSearchBinding mBinding;
+    private String mCategory;
+    private String mSearchKey;
     private int page=1;
     private int limit=10;
-    private SellerOffersAdapter mAdapter;
-    private List<SellerOfferDto> mSellerOffers = new ArrayList<>();
+    private WishListAdapter mAdapter;
+    private List<BuyerProductDto> mSellerProducts = new ArrayList<>();
     private LinearLayoutManager mLayoutManager;
     private int mTotalCount;
     private boolean isFetching = false;
-//    private BuyerProductDto mBuyerProduct;
     private final BroadcastReceiver mReciever = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -78,7 +84,7 @@ public class SellerOffersActivity extends BaseActivity implements View.OnClickLi
                     if ((total - 1) == lastVisibleItemCount) {
                         if (mTotalCount > page*limit) {
                             page = page+1;
-                            fetchSellersOffers(page,limit,false);
+                            fetchSellersProductListing(false);
                             mBinding.progressbarLoading.setVisibility(View.VISIBLE);
                         }
                     } else
@@ -86,32 +92,58 @@ public class SellerOffersActivity extends BaseActivity implements View.OnClickLi
             }
         }
     };
-    private int mProductId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_seller_offers);
-//        mBuyerProduct = getIntent().getParcelableExtra(Constants.EXTRA_PRODUCT_DETAIL);
-        mProductId = getIntent().getIntExtra(Constants.EXTRA_PRODUCT_ID,0);
-        mBinding.toolbarSell.ivToolBarLeft.setImageResource(R.drawable.ic_back_blue);
-        mBinding.toolbarSell.txvToolbarGeneralCenter.setText(R.string.seller_offers);
-        mBinding.toolbarSell.ivToolBarLeft.setOnClickListener(this);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_product_search);
+        mCategory = getIntent().getStringExtra(Constants.EXTRA_CATEGORY);
+        mBinding.toolbarSearch.tvToolbarRight.setOnClickListener(this);
 
         //Setting recycler
-        mAdapter = new SellerOffersAdapter(this,mSellerOffers,this);
+        mAdapter = new WishListAdapter(this,mSellerProducts,this);
         mLayoutManager = new LinearLayoutManager(this);
-        mBinding.recyclerViewOffers.setLayoutManager(mLayoutManager);
-        mBinding.recyclerViewOffers.setLayoutManager(mLayoutManager);
-        mBinding.recyclerViewOffers.setAdapter(mAdapter);
-        mBinding.recyclerViewOffers.addOnScrollListener(mRecyclerListner);
+        mBinding.recyclerViewProducts.setLayoutManager(mLayoutManager);
+        mBinding.recyclerViewProducts.setLayoutManager(mLayoutManager);
+        mBinding.recyclerViewProducts.setAdapter(mAdapter);
+        mBinding.recyclerViewProducts.addOnScrollListener(mRecyclerListner);
         mBinding.swipeRefreshLayout.setOnRefreshListener(this);
 
-        fetchSellersOffers(page,limit,true);
+        mBinding.toolbarSearch.editSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(isFetching)
+                {
+                    return false;
+                }
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    String keyword = mBinding.toolbarSearch.editSearch.getText().toString();
+                    if (!StringUtils.isNullOrEmpty(keyword)) {
+                        hideKeyboard();
+                        attemptSearch(keyword);
+                    } else {
+                        showSnackBarFromBottom(getString(R.string.enter_a_key_to_search),mBinding.swipeRefreshLayout,true);
+                    }
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(mReciever, new IntentFilter(ItemPurchasedActivity.BROAD_OFFER_PURCHASED));
+
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReciever, new IntentFilter(OfferSentActivity.BROAD_OFFER_SENT_COMPLETE));
     }
 
+    private void attemptSearch(String keyword) {
+        mSearchKey = keyword;
+        if(!isFetching) {
+            page = 1;
+            mBinding.swipeRefreshLayout.setRefreshing(false);
+            fetchSellersProductListing(true);
+        }
+    }
 
 
     @Override
@@ -123,18 +155,14 @@ public class SellerOffersActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.iv_tool_bar_left:
-                onBackPressed();
-
-                break;
-            case R.id.iv_tool_bar_right:
+            case R.id.tv_toolbar_right:
                 onBackPressed();
                 break;
         }
 
     }
 
-    private void fetchSellersOffers(final int page, int limit,boolean showLoading) {
+    private void fetchSellersProductListing(boolean showLoading) {
 
         if (isFetching) {
             return;
@@ -147,21 +175,21 @@ public class SellerOffersActivity extends BaseActivity implements View.OnClickLi
 
         isFetching = true;
         AuthWebServices apiService = RequestController.createRetrofitRequest(false);
-        apiService.getSellerOffersForBuyer(page,mProductId,limit).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<SellerOffersResponse>(this) {
+
+        apiService.getSellerProductsListing(new ProductSearchRequest(page,limit,mSearchKey,mCategory)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<SellerProductsResponse>(this) {
 
             @Override
-            public void onResponse(SellerOffersResponse response) {
+            public void onResponse(SellerProductsResponse response) {
                 hideProgressBar();
                 if (response != null && response.isSuccess()) {
-                    if(response.getResult()!=null && response.getResult().getSellerProduct()!=null)
+                    if(response.getResult()!=null && response.getResult().getProduct()!=null)
                     {
                         if(page==1)
                         {
-                            mSellerOffers.clear();
+                            mSellerProducts.clear();
                             mTotalCount = response.getResult().getTotalCount();
                         }
-                        mSellerOffers.addAll(response.getResult().getSellerProduct());
-                        mBinding.textProductName.setText(mSellerOffers.get(0).getBuyerProduct().getTitle());
+                        mSellerProducts.addAll(response.getResult().getProduct());
                         mAdapter.notifyDataSetChanged();
                     }
                 } else {
@@ -188,13 +216,15 @@ public class SellerOffersActivity extends BaseActivity implements View.OnClickLi
         mBinding.swipeRefreshLayout.setRefreshing(false);
         mBinding.progressbarLoading.setVisibility(View.GONE);
         isFetching = false;
-        if(mSellerOffers!=null && !mSellerOffers.isEmpty())
+        if(mSellerProducts!=null && !mSellerProducts.isEmpty())
         {
             mBinding.textNoData.setVisibility(View.GONE);
 
         }
         else
         {
+            mBinding.textNoData.setCompoundDrawablesWithIntrinsicBounds(0,R.drawable.ic_no_search_result,0,0);
+            mBinding.textNoData.setText(R.string.text_no_search_result);
             mBinding.textNoData.setVisibility(View.VISIBLE);
         }
     }
@@ -204,16 +234,14 @@ public class SellerOffersActivity extends BaseActivity implements View.OnClickLi
         if(!isFetching) {
             page = 1;
             mBinding.swipeRefreshLayout.setRefreshing(false);
-            fetchSellersOffers(page,limit,true);
+            fetchSellersProductListing(true);
         }
     }
 
-
-
     @Override
-    public void onSellerOfferClicked(SellerOfferDto sellerOfferDto) {
-        Intent intent = new Intent(this,SellerOfferDetailActivity.class);
-        intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,sellerOfferDto);
+    public void onWishlistItemClicked(BuyerProductDto buyerProduct) {
+        Intent intent = new Intent(this,SellerProductDetailActivity.class);
+        intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,buyerProduct);
         startActivity(intent);
     }
 

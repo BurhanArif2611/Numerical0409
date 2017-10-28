@@ -19,6 +19,7 @@ import java.util.List;
 public class BuyerProductDto implements Parcelable {
 
     private int id;
+    private int offerGet;
     private String title;
     private String description;
     private List<BuyerProductCategoryDto> buyerProductCategories;
@@ -27,6 +28,10 @@ public class BuyerProductDto implements Parcelable {
 
     public int getId() {
         return id;
+    }
+
+    public int getOfferGet() {
+        return offerGet;
     }
 
     public String getTitle() {
@@ -72,6 +77,7 @@ public class BuyerProductDto implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
+        dest.writeInt(this.offerGet);
         dest.writeString(this.title);
         dest.writeString(this.description);
         dest.writeTypedList(this.buyerProductCategories);
@@ -84,6 +90,7 @@ public class BuyerProductDto implements Parcelable {
 
     protected BuyerProductDto(Parcel in) {
         this.id = in.readInt();
+        this.offerGet = in.readInt();
         this.title = in.readString();
         this.description = in.readString();
         this.buyerProductCategories = in.createTypedArrayList(BuyerProductCategoryDto.CREATOR);

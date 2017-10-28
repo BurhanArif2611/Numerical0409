@@ -130,7 +130,8 @@ public class SellerOfferDetailActivity extends BaseActivity implements View.OnCl
                 break;
             case R.id.text_report_item:
                 Intent reoprtintent = new Intent(this,ReportItemActivity.class);
-                reoprtintent.putExtra(Constants.EXTRA_PRODUCT_ID,mProductDetail.getId());
+                reoprtintent.putExtra(Constants.EXTRA_PRODUCT_ID,mProductDetail.getUserId());
+                reoprtintent.putExtra(Constants.EXTRA_IS_BUYER,true);
                 startActivityForResult(reoprtintent,REQUEST_REPORT_ITEM);
                 break;
 

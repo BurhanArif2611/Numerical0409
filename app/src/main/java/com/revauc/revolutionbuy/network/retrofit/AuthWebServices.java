@@ -10,6 +10,7 @@ import com.revauc.revolutionbuy.network.request.auth.MobilePinRequest;
 import com.revauc.revolutionbuy.network.request.auth.MobileVerifyRequest;
 import com.revauc.revolutionbuy.network.request.auth.ProductSearchRequest;
 import com.revauc.revolutionbuy.network.request.auth.ReportItemRequest;
+import com.revauc.revolutionbuy.network.request.auth.SellerReportItemRequest;
 import com.revauc.revolutionbuy.network.request.auth.SignUpRequest;
 import com.revauc.revolutionbuy.network.request.auth.SocialSignUpRequest;
 import com.revauc.revolutionbuy.network.response.buyer.CategoriesResponse;
@@ -183,6 +184,9 @@ public interface AuthWebServices {
 
     @POST(REPORT_BUYER_PRODUCT)
     Observable<BaseResponse> reportBuyerItem(@Body ReportItemRequest params);
+
+    @POST(REPORT_SELLER_PRODUCT)
+    Observable<BaseResponse> reportSellerItem(@Body SellerReportItemRequest params);
 
     @GET(GET_CITIES)
     Observable<CityResponse> getCities(@Query("countryId") Integer countryId, @Query("stateId") Integer stateId);

@@ -20,6 +20,7 @@ import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.RequestController;
 import com.revauc.revolutionbuy.network.request.auth.ForgotPasswordRequest;
 import com.revauc.revolutionbuy.network.request.auth.ReportItemRequest;
+import com.revauc.revolutionbuy.network.request.auth.SellerReportItemRequest;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.BaseActivity;
@@ -45,6 +46,7 @@ public class ReportItemActivity extends BaseActivity implements View.OnClickList
         }
     };
     private int mProductId;
+    private boolean isBuyer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,7 @@ public class ReportItemActivity extends BaseActivity implements View.OnClickList
         LocalBroadcastManager.getInstance(this).registerReceiver(mReciever, new IntentFilter(ItemListedActivity.BROAD_BUY_LISTED_COMPLETE));
 
         mProductId = getIntent().getIntExtra(Constants.EXTRA_PRODUCT_ID,0);
+        isBuyer = getIntent().getBooleanExtra(Constants.EXTRA_IS_BUYER,false);
     }
 
     @Override
@@ -115,7 +118,15 @@ public class ReportItemActivity extends BaseActivity implements View.OnClickList
             showSnackBarFromBottom(getString(R.string.text_please_enter,getString(R.string.reason_for_reporting)),mBinding.mainContainer, true);
             mBinding.containerDesc.setBackgroundResource(R.drawable.ic_button_red_border);
         }else{
-            reportThisItem(description);
+            if(isBuyer)
+            {
+                reportThisSellerItem(description);
+            }
+            else
+            {
+                reportThisItem(description);
+            }
+
         }
     }
 
@@ -124,6 +135,38 @@ public class ReportItemActivity extends BaseActivity implements View.OnClickList
         AuthWebServices apiService = RequestController.createRetrofitRequest(false);
 
         apiService.reportBuyerItem(new ReportItemRequest(description,mProductId)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<BaseResponse>(this) {
+
+            @Override
+            public void onResponse(BaseResponse response) {
+                hideProgressBar();
+                if (response.isSuccess()) {
+                    Intent returnIntent = new Intent();
+                    setResult(Activity.RESULT_OK, returnIntent);
+                    finish();
+                }
+                else
+                {
+                    showSnackBarFromBottom(response.getMessage(),mBinding.mainContainer, true);
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable call, BaseResponse baseResponse) {
+                hideProgressBar();
+                if (baseResponse != null) {
+                    String errorMessage = baseResponse.getMessage();
+                    showSnackBarFromBottom(errorMessage,mBinding.mainContainer, true);
+                }
+            }
+        });
+    }
+
+    private void reportThisSellerItem(String description) {
+        showProgressBar(getString(R.string.reporting_item));
+        AuthWebServices apiService = RequestController.createRetrofitRequest(false);
+
+        apiService.reportSellerItem(new SellerReportItemRequest(description,mProductId)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<BaseResponse>(this) {
 
             @Override
             public void onResponse(BaseResponse response) {

@@ -61,6 +61,7 @@ public class Constants {
     public static final int TYPE_BUYER_MARKED_COMPLETE = 3;
     public static final int TYPE_PRODUCT_SOLD_BY_ANOTHER = 4;
     public static final int TYPE_SELLER_MARKED_COMPLETE = 5;
+    public static final String EXTRA_IS_BUYER = "IS_BUYER";
 
     public static String BROAD_PICKS_ENTER_COMPLETE = "BROAD_PICKS_ENTER_COMPLETE";
     public static String CONTEST_CANCELLED = "CANCELLED";

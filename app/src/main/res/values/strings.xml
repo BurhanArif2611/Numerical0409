@@ -715,6 +715,7 @@
     <string name="submit_report">Submit report</string>
     <string name="report_sent">Report sent</string>
     <string name="havent_made_any_offers_yet">You haven’t made any offers yet.</string>
+    <string name="havent_sold_any_offers_yet">You haven’t sold any offers yet.</string>
     <string name="seller_offers">Seller offers</string>
     <string name="pay_via_credit_card">Pay via credit card</string>
     <string name="mark_transaction_as_complete">Mark transaction as complete</string>
@@ -728,4 +729,8 @@
     <string name="your_offer">Your offer:</string>
     <string name="no_notifications_yet">No notifications yet</string>
     <string name="notifications">Notifications</string>
+    <string name="search_for_items">Search for items</string>
+    <string name="search_for_items_you_want_to_sell">Search for items you want to sell</string>
+    <string name="enter_a_key_to_search">Please enter a keyword to search</string>
+    <string name="text_no_search_result">Sorry, there are no interested buyers for that right now. Try again later.</string>
 </resources>

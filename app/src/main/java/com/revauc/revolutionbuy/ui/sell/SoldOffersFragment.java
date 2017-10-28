@@ -115,7 +115,7 @@ public class SoldOffersFragment extends BaseFragment implements OnSellerOfferCli
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mBinder.textNoData.setText(R.string.havent_made_any_offers_yet);
+        mBinder.textNoData.setText(R.string.havent_sold_any_offers_yet);
         mBinder.textNoData.setCompoundDrawablesWithIntrinsicBounds(0,R.drawable.ic_no_offer_data,0,0);
         mAdapter = new OffersAdapter(getActivity(),mBuyerProducts,this);
         mLayoutManager = new LinearLayoutManager(getActivity());

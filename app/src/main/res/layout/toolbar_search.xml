@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:contentInsetStart="0dp">
+
+        <RelativeLayout
+            android:id="@+id/container_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_toolbar_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingBottom="@dimen/margin_10"
+                android:paddingEnd="@dimen/margin_10"
+                android:paddingStart="@dimen/margin_16"
+                android:src="@drawable/ic_search"
+                android:paddingTop="@dimen/margin_10"
+                android:visibility="visible" />
+
+            <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+                android:id="@+id/tv_toolbar_right"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:gravity="center"
+                android:textSize="@dimen/textsize_15"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/cancel"
+                app:customFont="@string/font_avenir_regular"
+                />
+
+            <com.revauc.revolutionbuy.widget.typeface.CustomEditText
+                android:id="@+id/edit_search"
+                android:textSize="@dimen/textsize_17"
+                android:layout_toEndOf="@id/iv_toolbar_left"
+                android:layout_marginStart="@dimen/margin_25"
+                android:layout_toStartOf="@id/tv_toolbar_right"
+                android:layout_centerVertical="true"
+                android:textColor="@color/textColorDark"
+                android:textColorHint="@color/textcolor_hint"
+                android:layout_width="wrap_content"
+                android:ellipsize="end"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:maxLines="1"
+                android:hint="@string/search_for_items"
+                android:background="@null"
+                android:layout_height="wrap_content"
+                app:customFont="@string/font_avenir_regular"/>
+
+
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+</layout>
