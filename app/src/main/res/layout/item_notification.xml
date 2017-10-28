@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+
+            <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+                android:id="@+id/text_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_15"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_16"
+                android:textColor="@color/textColorDark87"
+                android:textSize="@dimen/textsize_15"
+                android:text="vsdbswbb"
+                app:customFont="@string/font_avenir_regular" />
+
+            <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+                android:id="@+id/text_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_5"
+                android:layout_marginBottom="@dimen/margin_15"
+                android:textColor="@color/color_tab_inactive"
+                android:textSize="@dimen/textsize_12"
+                android:text="cveeev"
+                app:customFont="@string/font_avenir_regular" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_line_divider"/>
+        </LinearLayout>
+</layout>

@@ -694,6 +694,7 @@
     <string name="item_listed">Item Listed</string>
     <string name="we_ll_notify_you_if_a_seller_is_interested">We’ll notify you if a seller is interested.</string>
     <string name="sure_to_delete">Are you sure you want to delete this item?</string>
+    <string name="sure_to_delete_offer">Are you sure you want to delete this offer?</string>
     <string name="text_delete">Delete</string>
     <string name="there_are_no_interested_buyers_for_this_category_right_now_try_again_later">There are no interested buyers for this category right now. Try again later.</string>
     <string name="sell">Sell</string>
@@ -725,4 +726,6 @@
     <string name="maybe_later">Maybe later</string>
     <string name="succesfully_sold_the_item">You have successfully sold the item!</string>
     <string name="your_offer">Your offer:</string>
+    <string name="no_notifications_yet">No notifications yet</string>
+    <string name="notifications">Notifications</string>
 </resources>

@@ -18,6 +18,7 @@ import com.revauc.revolutionbuy.network.response.buyer.WishlistResponse;
 import com.revauc.revolutionbuy.network.response.profile.CityResponse;
 import com.revauc.revolutionbuy.network.response.profile.CountryResponse;
 import com.revauc.revolutionbuy.network.response.LoginResponse;
+import com.revauc.revolutionbuy.network.response.profile.NotificationResponse;
 import com.revauc.revolutionbuy.network.response.profile.StateResponse;
 import com.revauc.revolutionbuy.network.response.seller.SellerOffersResponse;
 import com.revauc.revolutionbuy.network.response.seller.SellerProductsResponse;
@@ -63,6 +64,8 @@ public interface AuthWebServices {
     String SEND_OFFER_TO_BUYER = BuildConfig.BASE_URL + "products/seller-products";
     String REPORT_BUYER_PRODUCT = BuildConfig.BASE_URL + "products/seller-reports";
     String GET_SELLER_OWN_OFFER = BuildConfig.BASE_URL + "seller-products";
+    String DELETE_SELLER_OFFER = BuildConfig.BASE_URL + "products/delete-enquiry/";
+    String SELLER_MARK_TRANSACTION_COMPLETE = BuildConfig.BASE_URL + "products/seller-complete-transaction";
 
     //BUYER
     String ADD_BUYER_PRODUCT = BuildConfig.BASE_URL + "products/buyer-products";
@@ -74,6 +77,10 @@ public interface AuthWebServices {
     String BUYER_MARK_TRANSACTION_COMPLETE = BuildConfig.BASE_URL + "products/buyer-complete-transaction";
     String GET_SELLER_OFFERS = BuildConfig.BASE_URL + "products/seller-offers";
 
+    //NOTIFICATIONS
+    String GET_NOTIFICATIONS = BuildConfig.BASE_URL + "users/notification";
+    String UNREAD_NOTIFICATION = BuildConfig.BASE_URL + "users/unread-notification";
+    String READ_NOTIFICATION = BuildConfig.BASE_URL + "users/read-notification";
 
 
 
@@ -115,6 +122,9 @@ public interface AuthWebServices {
 
     @DELETE(DELETE_BUYER_PRODUCT+"{id}")
     Observable<BaseResponse> deleteBuyerProduct(@Path("id") int productId);
+
+    @DELETE(DELETE_SELLER_OFFER+"{id}")
+    Observable<BaseResponse> deleteSellerProduct(@Path("id") int productId);
 
     @GET(GET_BUYER_WISHLIST)
     Observable<WishlistResponse> getBuyerWishlist(@Query("offset") Integer offset, @Query("limit") Integer limit);
@@ -160,6 +170,9 @@ public interface AuthWebServices {
     @POST(BUYER_MARK_TRANSACTION_COMPLETE)
     Observable<BaseResponse> markBuyerTransactionComplete(@Body BuyerCompleteTransactionRequest params);
 
+    @POST(SELLER_MARK_TRANSACTION_COMPLETE)
+    Observable<BaseResponse> markSellerTransactionComplete(@Body BuyerCompleteTransactionRequest params);
+
     @Multipart
     @POST(SEND_OFFER_TO_BUYER)
     Observable<BaseResponse> sendOfferToBuyer(@PartMap() Map<String, RequestBody> partMap);
@@ -174,11 +187,12 @@ public interface AuthWebServices {
     @GET(GET_CITIES)
     Observable<CityResponse> getCities(@Query("countryId") Integer countryId, @Query("stateId") Integer stateId);
 
-//    @POST(CHANGE_PASSWORD)
-//    Observable<BaseResponse> changePassword(@Body ChangePasswordRequest params);
-//
     @GET(LOGOUT)
     Observable<BaseResponse> logout();
+
+
+    @GET(GET_NOTIFICATIONS)
+    Observable<NotificationResponse> getUserNotifications(@Query("page") Integer page, @Query("limit") Integer limit);
 //
 //    @POST(CONTEST_DETAILS)
 //    Observable<ContestDetailResponse> getContestDetails(@Body ContestDetailRequest contestDetailRequest);

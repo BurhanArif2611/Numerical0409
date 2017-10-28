@@ -12,10 +12,12 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 
 import com.revauc.revolutionbuy.R;
+import com.revauc.revolutionbuy.databinding.ActivityPurchasedItemBinding;
 import com.revauc.revolutionbuy.databinding.ActivitySellerOfferDetailBinding;
 import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.RequestController;
 import com.revauc.revolutionbuy.network.request.auth.BuyerCompleteTransactionRequest;
+import com.revauc.revolutionbuy.network.response.buyer.PurchasedProductDto;
 import com.revauc.revolutionbuy.network.response.seller.SellerOfferDto;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
@@ -32,63 +34,53 @@ import io.reactivex.schedulers.Schedulers;
 public class PurchasedItemDetailActivity extends BaseActivity implements View.OnClickListener {
 
 
-    private ActivitySellerOfferDetailBinding mBinding;
-    private SellerOfferDto mProductDetail;
-    private static final int REQUEST_REPORT_ITEM=223;
-    private final BroadcastReceiver mReciever = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            finish();
-        }
-    };
+    private ActivityPurchasedItemBinding mBinding;
+    private PurchasedProductDto mProductDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_seller_offer_detail);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_purchased_item);
 
         mProductDetail = getIntent().getParcelableExtra(Constants.EXTRA_PRODUCT_DETAIL);
 
-        mBinding.textTitle.setText(mProductDetail.getBuyerProduct().getTitle());
-        mBinding.textCategories.setText(mProductDetail.getBuyerProduct().getBuyerProductCategoriesString() + "");
-        mBinding.textPriceOffered.setText((mProductDetail.getDescription().split("&&")[0])+" "+mProductDetail.getPrice());
-        mBinding.textDescription.setText(mProductDetail.getDescription().split("&&")[1]);
-        mBinding.textMobileNo.setText(mProductDetail.getUser().getMobile());
-
-        if (mProductDetail.getSellerProductImages() != null && !mProductDetail.getSellerProductImages().isEmpty()) {
-            if(mProductDetail.getSellerProductImages().size()>1)
-            {
-                mBinding.viewpagerImages.setAdapter(new ProductImageAdapter(this,mProductDetail.getSellerProductImages()));
-                mBinding.indicatorImages.setViewPager(mBinding.viewpagerImages);
-            }
-            else
-            {
-                Picasso.with(this).load(mProductDetail.getSellerProductImages().get(0)
-                        .getImageName()).placeholder(R.drawable.ic_placeholder_purchase_detail).into(mBinding.imageProduct);
-            }
-        } else {
-            mBinding.imageProduct.setImageResource(R.drawable.ic_placeholder_purchase_detail);
-        }
-
-        if(mProductDetail.getUser()!=null)
+        mBinding.textTitle.setText(mProductDetail.getTitle());
+        mBinding.textCategories.setText(mProductDetail.getBuyerProductCategoriesString() + "");
+        if(mProductDetail.getSellerProducts()!=null && !mProductDetail.getSellerProducts().isEmpty())
         {
-            mBinding.textSellerName.setText(mProductDetail.getUser().getName());
-            mBinding.textSellerLocation.setText(mProductDetail.getUser().getCity().getName()+", "+mProductDetail.getUser().getCity().getState().getName());
-            mBinding.textItemSold.setText(""+mProductDetail.getUser().getSoldCount());
-            mBinding.textItemPurchased.setText(""+mProductDetail.getUser().getPurchasedCount());
+            mBinding.textPriceOffered.setText((mProductDetail.getSellerProducts().get(0).getDescription().split("&&")[0])+" "+mProductDetail.getSellerProducts().get(0).getPrice());
+
+            //IMAGES
+            if (mProductDetail.getSellerProducts().get(0).getSellerProductImages() != null && !mProductDetail.getSellerProducts().get(0).getSellerProductImages().isEmpty()) {
+                if(mProductDetail.getSellerProducts().get(0).getSellerProductImages().size()>1)
+                {
+                    mBinding.viewpagerImages.setAdapter(new ProductImageAdapter(this,mProductDetail.getSellerProducts().get(0).getSellerProductImages()));
+                    mBinding.indicatorImages.setViewPager(mBinding.viewpagerImages);
+                }
+                else
+                {
+                    Picasso.with(this).load(mProductDetail.getSellerProducts().get(0).getSellerProductImages().get(0)
+                            .getImageName()).placeholder(R.drawable.ic_placeholder_purchase_detail).into(mBinding.imageProduct);
+                }
+            } else {
+                mBinding.imageProduct.setImageResource(R.drawable.ic_placeholder_purchase_detail);
+            }
+           //USER DETAIL
+
+            if(mProductDetail.getSellerProducts().get(0).getUser()!=null)
+            {
+                mBinding.textSellerName.setText(mProductDetail.getSellerProducts().get(0).getUser().getName());
+                mBinding.textSellerLocation.setText(mProductDetail.getSellerProducts().get(0).getUser().getCity().getName()+", "+mProductDetail.getSellerProducts().get(0).getUser().getCity().getState().getName());
+                mBinding.textItemSold.setText(""+mProductDetail.getSellerProducts().get(0).getUser().getSoldCount());
+                mBinding.textItemPurchased.setText(""+mProductDetail.getSellerProducts().get(0).getUser().getPurchasedCount());
+                mBinding.textMobileNo.setText(mProductDetail.getSellerProducts().get(0).getUser().getMobile());
+            }
+
         }
+
 
         mBinding.imageBack.setOnClickListener(this);
-        mBinding.textUnlockContactDetails.setOnClickListener(this);
-        mBinding.textPay.setOnClickListener(this);
-        mBinding.textReportItem.setOnClickListener(this);
-        mBinding.textMarkComplete.setOnClickListener(this);
-
-//        if (!EventBus.getDefault().isRegistered(this)) {
-//            EventBus.getDefault().register(this);
-//        }
-
-        LocalBroadcastManager.getInstance(this).registerReceiver(mReciever, new IntentFilter(ItemPurchasedActivity.BROAD_OFFER_PURCHASED));
+        mBinding.textMobile.setOnClickListener(this);
     }
 
 
@@ -101,78 +93,12 @@ public class PurchasedItemDetailActivity extends BaseActivity implements View.On
             case R.id.image_back:
                 onBackPressed();
                 break;
-            case R.id.text_unlock_contact_details:
-                mBinding.textUnlockContactDetails.setVisibility(View.GONE);
-                mBinding.textMobile.setVisibility(View.VISIBLE);
-                mBinding.textPay.setVisibility(View.VISIBLE);
-                mBinding.textMarkComplete.setVisibility(View.VISIBLE);
-                break;
             case R.id.text_mobile:
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mProductDetail.getUser().getMobile()));
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mProductDetail.getSellerProducts().get(0).getUser().getMobile()));
                 startActivity(intent);
                 break;
-            case R.id.text_pay:
-//                Intent intent = new Intent(this,SellNowActivity.class);
-//                intent.putExtra(Constants.EXTRA_CATEGORY,""+mProductDetail.getId());
-//                startActivity(intent);
-                showToast(getString(R.string.coming_soon));
-                break;
-            case R.id.text_mark_complete:
-                markBuyerTransactionComplete();
-                break;
-            case R.id.text_report_item:
-                Intent reoprtintent = new Intent(this,ReportItemActivity.class);
-                reoprtintent.putExtra(Constants.EXTRA_PRODUCT_ID,mProductDetail.getId());
-                startActivityForResult(reoprtintent,REQUEST_REPORT_ITEM);
-                break;
-
         }
 
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==REQUEST_REPORT_ITEM)
-        {
-            if(resultCode==Activity.RESULT_OK)
-            {
-                showSnackBarFromBottom(getString(R.string.report_sent),mBinding.mainContainer,false);
-            }
-        }
-    }
-
-
-
-    private void markBuyerTransactionComplete() {
-        showProgressBar();
-        AuthWebServices apiService = RequestController.createRetrofitRequest(false);
-
-        apiService.markBuyerTransactionComplete(new BuyerCompleteTransactionRequest("Paid in Cash",mProductDetail.getBuyerProductId(),mProductDetail.getId(),mProductDetail.getUser().getId())).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<BaseResponse>(this) {
-
-            @Override
-            public void onResponse(BaseResponse response) {
-                hideProgressBar();
-                if (response.isSuccess()) {
-                    startActivity(new Intent(PurchasedItemDetailActivity.this,ItemPurchasedActivity.class));
-//                    showToast(response.getMessage());
-                }
-                else
-                {
-                    showSnackBarFromBottom(response.getMessage(),mBinding.mainContainer, true);
-                }
-
-            }
-
-            @Override
-            public void onError(Throwable call, BaseResponse baseResponse) {
-                hideProgressBar();
-                if (baseResponse != null) {
-                    String errorMessage = baseResponse.getMessage();
-                    showSnackBarFromBottom(errorMessage,mBinding.mainContainer, true);
-                }
-            }
-        });
     }
 
     @Override
@@ -181,10 +107,5 @@ public class PurchasedItemDetailActivity extends BaseActivity implements View.On
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mReciever);
-    }
 }
 

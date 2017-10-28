@@ -3,7 +3,7 @@
  * Developed by Appster.
  */
 
-package com.revauc.revolutionbuy.ui.buy;
+package com.revauc.revolutionbuy.ui.notification;
 
 
 import android.content.Intent;
@@ -18,21 +18,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.revauc.revolutionbuy.R;
-import com.revauc.revolutionbuy.databinding.FragmentPurchasedBinding;
+import com.revauc.revolutionbuy.databinding.FragmentNotificationsBinding;
 import com.revauc.revolutionbuy.databinding.FragmentWishlistBinding;
-import com.revauc.revolutionbuy.listeners.OnPurchasedClickListener;
-import com.revauc.revolutionbuy.listeners.OnWishlistClickListener;
+import com.revauc.revolutionbuy.listeners.OnNotificationClickListener;
+import com.revauc.revolutionbuy.listeners.OnSellerOfferClickListener;
 import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.RequestController;
-import com.revauc.revolutionbuy.network.response.buyer.BuyerProductDto;
-import com.revauc.revolutionbuy.network.response.buyer.PurchasedProductDto;
-import com.revauc.revolutionbuy.network.response.buyer.PurchasedResponse;
-import com.revauc.revolutionbuy.network.response.buyer.WishlistResponse;
+import com.revauc.revolutionbuy.network.response.profile.NotificationDto;
+import com.revauc.revolutionbuy.network.response.profile.NotificationResponse;
+import com.revauc.revolutionbuy.network.response.seller.SellerOfferDto;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.BaseFragment;
-import com.revauc.revolutionbuy.ui.buy.adapter.PurchasedAdapter;
-import com.revauc.revolutionbuy.ui.buy.adapter.WishListAdapter;
+import com.revauc.revolutionbuy.ui.sell.SellerOwnOfferDetailActivity;
+import com.revauc.revolutionbuy.ui.sell.adapter.OffersAdapter;
 import com.revauc.revolutionbuy.util.Constants;
 
 import java.util.ArrayList;
@@ -42,25 +41,24 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class PurchasedFragment extends BaseFragment implements OnPurchasedClickListener, SwipeRefreshLayout.OnRefreshListener {
-    private static final String TAG = "WishListFragment";
-    private static final String PARAM_TITLE = "ParamTitle";
-    private FragmentWishlistBinding mBinder;
-    private int offset=0;
+public class NotificationsFragment extends BaseFragment implements OnNotificationClickListener, SwipeRefreshLayout.OnRefreshListener {
+    private static final String TAG = "NotificationsFragment";
+    private FragmentNotificationsBinding mBinder;
+    private int page=1;
     private int limit=10;
-    private PurchasedAdapter mAdapter;
-    private List<PurchasedProductDto> mBuyerProducts = new ArrayList<>();
+    private NotificationAdapter mAdapter;
+    private List<NotificationDto> mNotifications = new ArrayList<>();
     private LinearLayoutManager mLayoutManager;
     private int mTotalCount;
     private boolean isFetching = false;
 
 
-    public PurchasedFragment() {
+    public NotificationsFragment() {
         // Required empty public constructor
     }
 
-    public static PurchasedFragment newInstance() {
-        return new PurchasedFragment();
+    public static NotificationsFragment newInstance() {
+        return new NotificationsFragment();
     }
 
     private RecyclerView.OnScrollListener mRecyclerListner = new RecyclerView.OnScrollListener() {
@@ -82,9 +80,9 @@ public class PurchasedFragment extends BaseFragment implements OnPurchasedClickL
             if (!isFetching) {
                 if (total > 0)
                     if ((total - 1) == lastVisibleItemCount) {
-                        if (mTotalCount > offset) {
-                            offset = offset+10;
-                            fetchBuyerWishlist(offset,limit,false);
+                        if (mTotalCount > page*limit) {
+                            page = page+1;
+                            fetchUserNotifications(page,limit,false);
                             mBinder.progressbarLoading.setVisibility(View.VISIBLE);
                         }
 
@@ -108,7 +106,7 @@ public class PurchasedFragment extends BaseFragment implements OnPurchasedClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mBinder = DataBindingUtil.inflate(inflater, R.layout.fragment_wishlist, container, false);
+        mBinder = DataBindingUtil.inflate(inflater, R.layout.fragment_notifications, container, false);
         return mBinder.getRoot();
     }
 
@@ -116,23 +114,25 @@ public class PurchasedFragment extends BaseFragment implements OnPurchasedClickL
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mAdapter = new PurchasedAdapter(getActivity(),mBuyerProducts,this);
+        mBinder.toolbarNotifications.txvToolbarGeneralCenter.setText(R.string.notifications);
+
+        mAdapter = new NotificationAdapter(getActivity(), mNotifications,this);
         mLayoutManager = new LinearLayoutManager(getActivity());
-        mBinder.recyclerViewWishlist.setLayoutManager(mLayoutManager);
-        mBinder.recyclerViewWishlist.setLayoutManager(mLayoutManager);
-        mBinder.recyclerViewWishlist.setAdapter(mAdapter);
-        mBinder.recyclerViewWishlist.addOnScrollListener(mRecyclerListner);
+        mBinder.recyclerView.setLayoutManager(mLayoutManager);
+        mBinder.recyclerView.setLayoutManager(mLayoutManager);
+        mBinder.recyclerView.setAdapter(mAdapter);
+        mBinder.recyclerView.addOnScrollListener(mRecyclerListner);
         mBinder.swipeRefreshLayout.setOnRefreshListener(this);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        offset=0;
-        fetchBuyerWishlist(offset,limit,true);
+        page = 1;
+        fetchUserNotifications(page,limit,true);
     }
 
-    private void fetchBuyerWishlist(final int offset, int limit,boolean showLoading) {
+    private void fetchUserNotifications(final int page, int limit, boolean showLoading) {
 
         if (isFetching) {
             return;
@@ -146,27 +146,27 @@ public class PurchasedFragment extends BaseFragment implements OnPurchasedClickL
         isFetching = true;
         AuthWebServices apiService = RequestController.createRetrofitRequest(false);
 
-        apiService.getBuyerPurchasedList(offset, limit).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<PurchasedResponse>(getActivity()) {
+        apiService.getUserNotifications(page,limit).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<NotificationResponse>(getActivity()) {
 
             @Override
-            public void onResponse(PurchasedResponse response) {
+            public void onResponse(NotificationResponse response) {
                 hideProgressBar();
                 if (response != null && response.isSuccess()) {
-                    if(response.getResult()!=null && response.getResult().getBuyerProduct()!=null)
+                    if(response.getResult()!=null && response.getResult().getNotification()!=null)
                     {
-                        if(offset==0)
+                        if(page==1)
                         {
-                            mBuyerProducts.clear();
+                            mNotifications.clear();
                             mTotalCount = response.getResult().getTotalCount();
                         }
-                        mBuyerProducts.addAll(response.getResult().getBuyerProduct());
+                        mNotifications.addAll(response.getResult().getNotification());
                         mAdapter.notifyDataSetChanged();
                     }
                 } else {
                     showToast(response.getMessage());
 //                    showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
                 }
-                doPostLoadingTask();
+                    doPostLoadingTask();
             }
 
             @Override
@@ -186,9 +186,9 @@ public class PurchasedFragment extends BaseFragment implements OnPurchasedClickL
         mBinder.swipeRefreshLayout.setRefreshing(false);
         mBinder.progressbarLoading.setVisibility(View.GONE);
         isFetching = false;
-        if(mBuyerProducts!=null && !mBuyerProducts.isEmpty())
+        if(mNotifications !=null && !mNotifications.isEmpty())
         {
-            mBinder.textNoData.setVisibility(View.GONE);
+         mBinder.textNoData.setVisibility(View.GONE);
 
         }
         else
@@ -200,16 +200,26 @@ public class PurchasedFragment extends BaseFragment implements OnPurchasedClickL
     @Override
     public void onRefresh() {
         if(!isFetching) {
-            offset = 0;
+            page = 1;
             mBinder.swipeRefreshLayout.setRefreshing(false);
-            fetchBuyerWishlist(offset,limit,true);
+            fetchUserNotifications(page,limit,true);
         }
     }
 
     @Override
-    public void onPurchaseClicked(PurchasedProductDto purchasedProductDto) {
-        Intent intent = new Intent(getActivity(),PurchasedItemDetailActivity.class);
-        intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,purchasedProductDto);
-        startActivity(intent);
+    public void onNotificationClicked(NotificationDto notificationDto) {
+        switch (notificationDto.getType())
+        {
+            case Constants.TYPE_OFFER_SENT:
+                break;
+            case Constants.TYPE_BUYER_UNLOCKED:
+                break;
+            case Constants.TYPE_BUYER_MARKED_COMPLETE:
+                break;
+            case Constants.TYPE_PRODUCT_SOLD_BY_ANOTHER:
+                break;
+            case Constants.TYPE_SELLER_MARKED_COMPLETE:
+                break;
+        }
     }
 }

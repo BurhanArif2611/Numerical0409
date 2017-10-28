@@ -55,6 +55,13 @@ public class Constants {
     public static final int STATE_BUYER_ACCEPTED_MY_OFFER = 4;
     public static final int STATE_ITEM_SOLD_TO_BUYER = 5;
 
+    //NOTIFICATION TYPES
+    public static final int TYPE_OFFER_SENT = 1;
+    public static final int TYPE_BUYER_UNLOCKED = 2;
+    public static final int TYPE_BUYER_MARKED_COMPLETE = 3;
+    public static final int TYPE_PRODUCT_SOLD_BY_ANOTHER = 4;
+    public static final int TYPE_SELLER_MARKED_COMPLETE = 5;
+
     public static String BROAD_PICKS_ENTER_COMPLETE = "BROAD_PICKS_ENTER_COMPLETE";
     public static String CONTEST_CANCELLED = "CANCELLED";
 
