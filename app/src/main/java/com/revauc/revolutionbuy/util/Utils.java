@@ -316,6 +316,24 @@ public class Utils {
         }
     }
 
+    public static String getSellerOfferStates(int state) {
+
+        switch (state) {
+            case 1:
+                return "Awaiting buyer’s response";
+            case 2:
+                return "Item removed by buyer";
+            case 3:
+                return "Item sold to another seller";
+            case 4:
+                return "Awaiting your response. Tap the button below.";
+            case 5:
+                return "You sold this item";
+            default:
+                return "";
+        }
+    }
+
     public static String getPrizeNumberWithSuffix(int prizePosition) {
         String suffix;
         if (prizePosition >= 11 && prizePosition <= 13) {

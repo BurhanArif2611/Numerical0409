@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.ItemSellerOfferBinding;
 import com.revauc.revolutionbuy.databinding.ItemSellerOwnOfferBinding;
+import com.revauc.revolutionbuy.listeners.OnSellerOfferClickListener;
 import com.revauc.revolutionbuy.listeners.OnWishlistClickListener;
 import com.revauc.revolutionbuy.network.response.seller.SellerOfferDto;
 import com.revauc.revolutionbuy.widget.roundedimageview.RoundedImageView;
@@ -26,7 +27,7 @@ Developed by Appster.
 public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.MyViewHolder> {
 
     private final List<SellerOfferDto> mBuyerProducts;
-    private final OnWishlistClickListener onWishlistClickListener;
+    private final OnSellerOfferClickListener onWishlistClickListener;
     private Context mContext;
     private ItemSellerOwnOfferBinding mBinding;
 
@@ -49,7 +50,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.MyViewHold
         }
     }
 
-    public OffersAdapter(Context mContext, List<SellerOfferDto> mBuyerProducts, OnWishlistClickListener onWishlistClickListener) {
+    public OffersAdapter(Context mContext, List<SellerOfferDto> mBuyerProducts, OnSellerOfferClickListener onWishlistClickListener) {
         this.onWishlistClickListener = onWishlistClickListener;
         this.mContext = mContext;
         this.mBuyerProducts = mBuyerProducts;
@@ -79,7 +80,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.MyViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onWishlistClickListener.onWishlistItemClicked(sellerOfferDto.getBuyerProduct());
+                onWishlistClickListener.onSellerOfferClicked(sellerOfferDto);
             }
         });
     }

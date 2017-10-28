@@ -233,6 +233,12 @@
             android:theme="@style/AppTheme.Fullscreen" />
 
         <activity
+            android:name=".ui.sell.SellerOwnOfferDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Fullscreen" />
+
+        <activity
             android:name=".ui.sell.OfferSentActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"

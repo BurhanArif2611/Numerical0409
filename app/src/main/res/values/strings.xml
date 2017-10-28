@@ -724,4 +724,5 @@
     <string name="rate_revolution_buy">Rate Revolution Buy</string>
     <string name="maybe_later">Maybe later</string>
     <string name="succesfully_sold_the_item">You have successfully sold the item!</string>
+    <string name="your_offer">Your offer:</string>
 </resources>

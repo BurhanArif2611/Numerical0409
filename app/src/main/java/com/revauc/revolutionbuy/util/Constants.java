@@ -48,6 +48,12 @@ public class Constants {
     public static final String EXTRA_PROFILE_IMAGE = "EXTRA_PROFILE_IMAGE";
     public static final String EXTRA_CATEGORY_NAME = "EXTRA_CATEGORY_NAME";
 
+    //SELLER STATES
+    public static final int STATE_OFFER_SENT = 1;
+    public static final int STATE_ITEM_REMOVED_BY_BUYER = 2;
+    public static final int STATE_BUYER_ACCEPTED_OTHER_OFFER = 3;
+    public static final int STATE_BUYER_ACCEPTED_MY_OFFER = 4;
+    public static final int STATE_ITEM_SOLD_TO_BUYER = 5;
 
     public static String BROAD_PICKS_ENTER_COMPLETE = "BROAD_PICKS_ENTER_COMPLETE";
     public static String CONTEST_CANCELLED = "CANCELLED";

@@ -9,6 +9,8 @@
     <color name="color_tab_inactive">#b0b0b0</color>
     <color name="color_header_bg">#f4f6fe</color>
     <color name="color_label">#999999</color>
+    <color name="colorPrimary87">#D91f599c</color>
+    <color name="text_color_green87">#D9249860</color>
     <color name="color_red_border">#d0021b</color>
     <color name="color_snackbar_error_bg">#fbefee</color>
 

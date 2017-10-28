@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 
 import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.FragmentWishlistBinding;
+import com.revauc.revolutionbuy.listeners.OnSellerOfferClickListener;
 import com.revauc.revolutionbuy.listeners.OnWishlistClickListener;
 import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.RequestController;
@@ -41,7 +42,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class SoldOffersFragment extends BaseFragment implements OnWishlistClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class SoldOffersFragment extends BaseFragment implements OnSellerOfferClickListener, SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = "CurrentOffersFragment";
     private FragmentWishlistBinding mBinder;
     private int page=1;
@@ -199,18 +200,18 @@ public class SoldOffersFragment extends BaseFragment implements OnWishlistClickL
 
 
     @Override
-    public void onWishlistItemClicked(BuyerProductDto buyerProduct) {
-        Intent intent = new Intent(getActivity(),BuyerProductDetailActivity.class);
-        intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,buyerProduct);
-        startActivity(intent);
-    }
-
-    @Override
     public void onRefresh() {
         if(!isFetching) {
             page = 1;
             mBinder.swipeRefreshLayout.setRefreshing(false);
             fetchCurrentOffers(page,limit,true);
         }
+    }
+
+    @Override
+    public void onSellerOfferClicked(SellerOfferDto sellerOfferDto) {
+        Intent intent = new Intent(getActivity(),SellerOwnOfferDetailActivity.class);
+        intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,sellerOfferDto);
+        startActivity(intent);
     }
 }
