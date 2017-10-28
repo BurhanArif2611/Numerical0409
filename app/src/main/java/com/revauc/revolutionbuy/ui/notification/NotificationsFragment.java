@@ -27,6 +27,7 @@ import com.revauc.revolutionbuy.network.RequestController;
 import com.revauc.revolutionbuy.network.response.profile.NotificationDto;
 import com.revauc.revolutionbuy.network.response.profile.NotificationResponse;
 import com.revauc.revolutionbuy.network.response.seller.SellerOfferDto;
+import com.revauc.revolutionbuy.network.response.seller.SellerOffersResponse;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.BaseFragment;
@@ -217,13 +218,64 @@ public class NotificationsFragment extends BaseFragment implements OnNotificatio
                 startActivity(intent);
                 break;
             case Constants.TYPE_BUYER_UNLOCKED:
+                fetchCurrentOffers(1,notificationDto);
                 break;
             case Constants.TYPE_BUYER_MARKED_COMPLETE:
+                fetchCurrentOffers(1,notificationDto);
                 break;
             case Constants.TYPE_PRODUCT_SOLD_BY_ANOTHER:
+                fetchCurrentOffers(1,notificationDto);
                 break;
             case Constants.TYPE_SELLER_MARKED_COMPLETE:
                 break;
         }
+    }
+
+    private void fetchCurrentOffers(int type, final NotificationDto notificationDto) {
+
+        if (isFetching) {
+            return;
+        }
+
+        showProgressBar();
+
+        isFetching = true;
+        AuthWebServices apiService = RequestController.createRetrofitRequest(false);
+
+        apiService.getSellerOffers(type).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<SellerOffersResponse>(getActivity()) {
+
+            @Override
+            public void onResponse(SellerOffersResponse response) {
+                hideProgressBar();
+                if (response != null && response.isSuccess()) {
+                    if(response.getResult()!=null && response.getResult().getSellerProduct()!=null)
+                    {
+                        for(SellerOfferDto sellerOfferDto:response.getResult().getSellerProduct())
+                        {
+                            if(sellerOfferDto.getId()==notificationDto.getSellerProductId())
+                            {
+                                Intent intent = new Intent(getActivity(),SellerOwnOfferDetailActivity.class);
+                                intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,sellerOfferDto);
+                                startActivity(intent);
+                                break;
+                            }
+                        }
+                    }
+                } else {
+                    showToast(response.getMessage());
+//                    showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
+                }
+            }
+
+            @Override
+            public void onError(Throwable call, BaseResponse baseResponse) {
+                hideProgressBar();
+                if (baseResponse != null) {
+                    String errorMessage = baseResponse.getMessage();
+                    showToast(errorMessage);
+//                    Utils.showSnackbar(errorMessage, mBinder.mainContainer, true);
+                }
+            }
+        });
     }
 }

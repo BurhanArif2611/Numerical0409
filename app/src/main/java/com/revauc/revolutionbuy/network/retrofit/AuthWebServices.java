@@ -118,6 +118,9 @@ public interface AuthWebServices {
     @GET(GET_SELLER_OWN_OFFER)
     Observable<SellerOffersResponse> getSellerOffers(@Query("page") Integer page, @Query("type") Integer type, @Query("limit") Integer limit);
 
+    @GET(GET_SELLER_OWN_OFFER)
+    Observable<SellerOffersResponse> getSellerOffers(@Query("type") Integer type);
+
     @GET(GET_SELLER_OFFERS)
     Observable<SellerOffersResponse> getSellerOffersForBuyer(@Query("page") Integer page, @Query("id") Integer id, @Query("limit") Integer limit);
 
