@@ -24,6 +24,8 @@ import com.revauc.revolutionbuy.listeners.OnNotificationClickListener;
 import com.revauc.revolutionbuy.listeners.OnSellerOfferClickListener;
 import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.RequestController;
+import com.revauc.revolutionbuy.network.response.buyer.PurchasedProductDto;
+import com.revauc.revolutionbuy.network.response.buyer.PurchasedResponse;
 import com.revauc.revolutionbuy.network.response.profile.NotificationDto;
 import com.revauc.revolutionbuy.network.response.profile.NotificationResponse;
 import com.revauc.revolutionbuy.network.response.seller.SellerOfferDto;
@@ -31,6 +33,7 @@ import com.revauc.revolutionbuy.network.response.seller.SellerOffersResponse;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.BaseFragment;
+import com.revauc.revolutionbuy.ui.buy.PurchasedItemDetailActivity;
 import com.revauc.revolutionbuy.ui.buy.SellerOffersActivity;
 import com.revauc.revolutionbuy.ui.sell.SellerOwnOfferDetailActivity;
 import com.revauc.revolutionbuy.ui.sell.adapter.OffersAdapter;
@@ -227,6 +230,7 @@ public class NotificationsFragment extends BaseFragment implements OnNotificatio
                 fetchCurrentOffers(1,notificationDto);
                 break;
             case Constants.TYPE_SELLER_MARKED_COMPLETE:
+                fetchPurchasedItems(notificationDto);
                 break;
         }
     }
@@ -260,6 +264,54 @@ public class NotificationsFragment extends BaseFragment implements OnNotificatio
                                 break;
                             }
                         }
+                    }
+                } else {
+                    showToast(response.getMessage());
+//                    showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
+                }
+            }
+
+            @Override
+            public void onError(Throwable call, BaseResponse baseResponse) {
+                hideProgressBar();
+                if (baseResponse != null) {
+                    String errorMessage = baseResponse.getMessage();
+                    showToast(errorMessage);
+//                    Utils.showSnackbar(errorMessage, mBinder.mainContainer, true);
+                }
+            }
+        });
+    }
+
+    private void fetchPurchasedItems(final NotificationDto notificationDto) {
+
+        if (isFetching) {
+            return;
+        }
+
+        mBinder.swipeRefreshLayout.setRefreshing(true);
+
+        isFetching = true;
+        AuthWebServices apiService = RequestController.createRetrofitRequest(false);
+
+        apiService.getBuyerPurchasedList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<PurchasedResponse>(getActivity()) {
+
+            @Override
+            public void onResponse(PurchasedResponse response) {
+                hideProgressBar();
+                if (response != null && response.isSuccess()) {
+                    if(response.getResult()!=null && response.getResult().getBuyerProduct()!=null)
+                    {
+                       for(PurchasedProductDto purchasedProductDto:response.getResult().getBuyerProduct())
+                       {
+                           if(purchasedProductDto.getSellerProducts().get(0).getBuyerProductId()==notificationDto.getBuyerProductId())
+                           {
+                               Intent intent = new Intent(getActivity(),PurchasedItemDetailActivity.class);
+                               intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,purchasedProductDto);
+                               startActivity(intent);
+                               break;
+                           }
+                       }
                     }
                 } else {
                     showToast(response.getMessage());

@@ -136,6 +136,9 @@ public interface AuthWebServices {
     @GET(BUYER_PURCHASED_PRODUCTS)
     Observable<PurchasedResponse> getBuyerPurchasedList(@Query("offset") Integer offset, @Query("limit") Integer limit);
 
+    @GET(BUYER_PURCHASED_PRODUCTS)
+    Observable<PurchasedResponse> getBuyerPurchasedList();
+
     @POST(PRODUCTS_LIST)
     Observable<SellerProductsResponse> getSellerProductsListing(@Body ProductSearchRequest params);
 

@@ -207,18 +207,21 @@ public class Utils {
     }
 
     public static String getLocalTimeFormatted(long millisecond,String format) {
+        LogUtils.LOGD(">>MILLISECOND>>>",""+millisecond);
         Calendar utcCal = Calendar.getInstance();
         utcCal.setTimeInMillis(millisecond);
         utcCal.setTimeZone(TimeZone.getTimeZone("UTC"));
 
+        LogUtils.LOGD(">>CAL>>>",""+utcCal.getTime());
 
         SimpleDateFormat sdfLocal = new SimpleDateFormat(format);
         sdfLocal.setTimeZone(TimeZone.getDefault());
-
         String localFormattedTime =  sdfLocal.format(utcCal.getTime());
+
+        LogUtils.LOGD(">>SDF>>>",""+sdfLocal.format(utcCal.getTime()));
+        LogUtils.LOGD(">>SDF1>>>",""+sdfLocal.format(millisecond));
+
         return localFormattedTime;
-
-
     }
 
     public static String getDuration(long createdMillis, Context context) {
@@ -267,10 +270,24 @@ public class Utils {
 
                     if (hrs > 24) {
                         int days = (int) hrs / 24;
-                        time = context.getString(R.string.yesterday);
+                        time = days + " " + (days > 1 ? context.getString(R.string.days) : context.getString(R.string.day));
 
-                        if (days >= 2) {
-                            time = convertedCreatedDate;//WEEK
+                        if (days >= 7 ) {
+                            if(days>=30)
+                            {
+                                int month = (int)days/30;
+                                time = month + " " + (month > 1 ? context.getString(R.string.months) : context.getString(R.string.month));
+                                if(month>12)
+                                {
+                                    int year = (int)month/12;
+                                    time = year + " " + (year > 1 ? context.getString(R.string.years) : context.getString(R.string.year));
+                                }
+                            }
+                            else
+                            {
+                                int week = (int)days/7;
+                                time = week + " " + (week > 1 ? context.getString(R.string.weeks) : context.getString(R.string.week));
+                            }
                         }
                     }
                 }

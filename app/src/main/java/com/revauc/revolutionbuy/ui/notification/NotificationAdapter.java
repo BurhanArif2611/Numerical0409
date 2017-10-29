@@ -14,16 +14,14 @@ import com.revauc.revolutionbuy.databinding.ItemSellerOwnOfferBinding;
 import com.revauc.revolutionbuy.listeners.OnNotificationClickListener;
 import com.revauc.revolutionbuy.network.response.profile.NotificationDto;
 import com.revauc.revolutionbuy.network.response.seller.SellerOfferDto;
+import com.revauc.revolutionbuy.util.Constants;
 import com.revauc.revolutionbuy.util.Utils;
 import com.revauc.revolutionbuy.widget.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-/*
-Copyright © 2017 Block Partee. All rights reserved.
-Developed by Appster.
-*/
+
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.MyViewHolder> {
 
@@ -63,7 +61,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final NotificationDto notificationDto = mNotifications.get(position);
         holder.tvDesc.setText(notificationDto.getDescription());
-        holder.tvTime.setText(Utils.getDuration(notificationDto.getTimestamp(),mContext));
+        holder.tvTime.setText(Utils.getDuration(notificationDto.getTimestamp()*1000,mContext));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

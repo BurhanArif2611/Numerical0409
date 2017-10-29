@@ -569,6 +569,14 @@
 
     <string name="sec">sec ago</string>
     <string name="min">min ago</string>
+    <string name="days">days ago</string>
+    <string name="day">day ago</string>
+    <string name="weeks">weeks ago</string>
+    <string name="week">week ago</string>
+    <string name="months">months ago</string>
+    <string name="month">month ago</string>
+    <string name="years">years ago</string>
+    <string name="year">year ago</string>
     <string name="hrs">hrs ago</string>
     <string name="hr">hr ago</string>
     <string name="done">Done</string>
