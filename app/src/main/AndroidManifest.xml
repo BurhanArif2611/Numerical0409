@@ -281,6 +281,12 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".ui.buy.PayViaCardActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".ui.buy.SellerOffersActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"

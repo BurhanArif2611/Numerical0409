@@ -15,10 +15,12 @@ import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.ActivitySellerOfferDetailBinding;
 import com.revauc.revolutionbuy.databinding.ActivitySellerProductDetailBinding;
 import com.revauc.revolutionbuy.eventbusmodel.OnButtonClicked;
+import com.revauc.revolutionbuy.eventbusmodel.OnPaymentConfirmClicked;
 import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.RequestController;
 import com.revauc.revolutionbuy.network.request.auth.BuyerCompleteTransactionRequest;
 import com.revauc.revolutionbuy.network.response.buyer.BuyerProductDto;
+import com.revauc.revolutionbuy.network.response.buyer.UnlockResponse;
 import com.revauc.revolutionbuy.network.response.seller.SellerOfferDto;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
@@ -28,13 +30,19 @@ import com.revauc.revolutionbuy.ui.sell.OfferSentActivity;
 import com.revauc.revolutionbuy.ui.sell.ReportItemActivity;
 import com.revauc.revolutionbuy.ui.sell.SellNowActivity;
 import com.revauc.revolutionbuy.util.Constants;
+import com.revauc.revolutionbuy.util.LogUtils;
+import com.revauc.revolutionbuy.util.Utils;
+import com.revauc.revolutionbuy.widget.PaymentAmountDialog;
 import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.io.IOException;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
 
 
 public class SellerOfferDetailActivity extends BaseActivity implements View.OnClickListener {
@@ -92,11 +100,13 @@ public class SellerOfferDetailActivity extends BaseActivity implements View.OnCl
         mBinding.textReportItem.setOnClickListener(this);
         mBinding.textMarkComplete.setOnClickListener(this);
 
-//        if (!EventBus.getDefault().isRegistered(this)) {
-//            EventBus.getDefault().register(this);
-//        }
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mReciever, new IntentFilter(ItemPurchasedActivity.BROAD_OFFER_PURCHASED));
+
+
     }
 
 
@@ -110,20 +120,23 @@ public class SellerOfferDetailActivity extends BaseActivity implements View.OnCl
                 onBackPressed();
                 break;
             case R.id.text_unlock_contact_details:
-                mBinding.textUnlockContactDetails.setVisibility(View.GONE);
-                mBinding.textMobile.setVisibility(View.VISIBLE);
-                mBinding.textPay.setVisibility(View.VISIBLE);
-                mBinding.textMarkComplete.setVisibility(View.VISIBLE);
+                getUnlockStatus();
                 break;
             case R.id.text_mobile:
                 Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mProductDetail.getUser().getMobile()));
                 startActivity(intent);
                 break;
             case R.id.text_pay:
-//                Intent intent = new Intent(this,SellNowActivity.class);
-//                intent.putExtra(Constants.EXTRA_CATEGORY,""+mProductDetail.getId());
-//                startActivity(intent);
-                showToast(getString(R.string.coming_soon));
+                if(mProductDetail.getUser().getIsSellerAccConnected()==1)
+                {
+                    PaymentAmountDialog.getInstance(this,getString(R.string.payment_amount_dialog_message,mProductDetail.getDescription().split("&&")[0]+" "+ Utils.increasePriceByTenPercent(mProductDetail.getPrice())),getString(R.string.proceed),getString(R.string.cancel)).show();
+                }
+                else
+                {
+                    showSnackBarFromBottom("Seller Account is not connected.",mBinding.mainContainer,true);
+                }
+
+
                 break;
             case R.id.text_mark_complete:
                 markBuyerTransactionComplete();
@@ -150,6 +163,16 @@ public class SellerOfferDetailActivity extends BaseActivity implements View.OnCl
             }
         }
     }
+
+    @Subscribe
+    public void onPaymentProceedConfirmed(OnPaymentConfirmClicked onPaymentConfirmClicked)
+    {
+        Intent payIntent = new Intent(this,PayViaCardActivity.class);
+        payIntent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,mProductDetail);
+        payIntent.putExtra(Constants.EXTRA_CATEGORY,""+mProductDetail.getId());
+        startActivity(payIntent);
+    }
+
 
 
 
@@ -184,6 +207,51 @@ public class SellerOfferDetailActivity extends BaseActivity implements View.OnCl
         });
     }
 
+    private void getUnlockStatus() {
+        showProgressBar();
+        AuthWebServices apiService = RequestController.createRetrofitRequest(false);
+
+        apiService.getUnlockStatus(mProductDetail.getBuyerProductId(),mProductDetail.getId()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<UnlockResponse>(this) {
+
+            @Override
+            public void onResponse(UnlockResponse response) {
+                hideProgressBar();
+                if (response.isSuccess()) {
+                    if(response.getResult().getUnlockPayment()==1)
+                    {
+                        mBinding.textUnlockContactDetails.setVisibility(View.GONE);
+                        mBinding.textMobile.setVisibility(View.VISIBLE);
+                        mBinding.textPay.setVisibility(View.VISIBLE);
+                        mBinding.textMarkComplete.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        showSnackBarFromBottom("Need to Unlock the payment",mBinding.mainContainer,true);
+                        mBinding.textUnlockContactDetails.setVisibility(View.GONE);
+                        mBinding.textMobile.setVisibility(View.VISIBLE);
+                        mBinding.textPay.setVisibility(View.VISIBLE);
+                        mBinding.textMarkComplete.setVisibility(View.VISIBLE);
+                        mBinding.textSellerLocation.setText(mProductDetail.getUser().getCity().getName()+", "+mProductDetail.getUser().getCity().getState().getName()+", "+mProductDetail.getUser().getEmail());
+                    }
+                }
+                else
+                {
+                    showSnackBarFromBottom(response.getMessage(),mBinding.mainContainer, true);
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable call, BaseResponse baseResponse) {
+                hideProgressBar();
+                if (baseResponse != null) {
+                    String errorMessage = baseResponse.getMessage();
+                    showSnackBarFromBottom(errorMessage,mBinding.mainContainer, true);
+                }
+            }
+        });
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -192,6 +260,7 @@ public class SellerOfferDetailActivity extends BaseActivity implements View.OnCl
 
     @Override
     protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mReciever);
     }

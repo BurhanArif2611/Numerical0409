@@ -4,6 +4,7 @@ package com.revauc.revolutionbuy.network.retrofit;
 import com.revauc.revolutionbuy.BuildConfig;
 import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.request.auth.BuyerCompleteTransactionRequest;
+import com.revauc.revolutionbuy.network.request.auth.BuyerPaymentRequest;
 import com.revauc.revolutionbuy.network.request.auth.ChangePasswordRequest;
 import com.revauc.revolutionbuy.network.request.auth.ForgotPasswordRequest;
 import com.revauc.revolutionbuy.network.request.auth.MobilePinRequest;
@@ -15,6 +16,7 @@ import com.revauc.revolutionbuy.network.request.auth.SignUpRequest;
 import com.revauc.revolutionbuy.network.request.auth.SocialSignUpRequest;
 import com.revauc.revolutionbuy.network.response.buyer.CategoriesResponse;
 import com.revauc.revolutionbuy.network.response.buyer.PurchasedResponse;
+import com.revauc.revolutionbuy.network.response.buyer.UnlockResponse;
 import com.revauc.revolutionbuy.network.response.buyer.WishlistResponse;
 import com.revauc.revolutionbuy.network.response.profile.CityResponse;
 import com.revauc.revolutionbuy.network.response.profile.CountryResponse;
@@ -29,6 +31,7 @@ import java.util.Map;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -75,8 +78,11 @@ public interface AuthWebServices {
     String REPORT_SELLER_PRODUCT = BuildConfig.BASE_URL + "products/buyer-reports";
     String BUYER_PURCHASED_PRODUCTS = BuildConfig.BASE_URL + "buyer-purchased-products";
     String UNLOCK_CONTACT_DETAILS = BuildConfig.BASE_URL + "products/unlock-phone";
+    String GET_UNLOCK_STATUS = BuildConfig.BASE_URL + "products/check-payment";
     String BUYER_MARK_TRANSACTION_COMPLETE = BuildConfig.BASE_URL + "products/buyer-complete-transaction";
     String GET_SELLER_OFFERS = BuildConfig.BASE_URL + "products/seller-offers";
+    String GET_CONVERTED_AMOUNT = "https://finance.google.com/finance/converter";
+    String PRODUCT_PAYMENT = BuildConfig.BASE_URL + "products/payment";
 
     //NOTIFICATIONS
     String GET_NOTIFICATIONS = BuildConfig.BASE_URL + "users/notification";
@@ -115,11 +121,17 @@ public interface AuthWebServices {
     @GET(GET_STATES)
     Observable<StateResponse> getStates(@Query("countryId") Integer countryId);
 
+    @GET(GET_CONVERTED_AMOUNT)
+    Observable<ResponseBody> getConvertedAmount(@Query("a") String amount,@Query("from") String from,@Query("to") String to);
+
     @GET(GET_SELLER_OWN_OFFER)
     Observable<SellerOffersResponse> getSellerOffers(@Query("page") Integer page, @Query("type") Integer type, @Query("limit") Integer limit);
 
     @GET(GET_SELLER_OWN_OFFER)
     Observable<SellerOffersResponse> getSellerOffers(@Query("type") Integer type);
+
+    @GET(GET_UNLOCK_STATUS)
+    Observable<UnlockResponse> getUnlockStatus(@Query("buyerProductId") Integer buyerProductId, @Query("sellerProductId") Integer sellerProductId);
 
     @GET(GET_SELLER_OFFERS)
     Observable<SellerOffersResponse> getSellerOffersForBuyer(@Query("page") Integer page, @Query("id") Integer id, @Query("limit") Integer limit);
@@ -176,6 +188,10 @@ public interface AuthWebServices {
 
     @POST(BUYER_MARK_TRANSACTION_COMPLETE)
     Observable<BaseResponse> markBuyerTransactionComplete(@Body BuyerCompleteTransactionRequest params);
+
+
+    @POST(PRODUCT_PAYMENT)
+    Observable<BaseResponse> processProductPayment(@Body BuyerPaymentRequest params);
 
     @POST(SELLER_MARK_TRANSACTION_COMPLETE)
     Observable<BaseResponse> markSellerTransactionComplete(@Body BuyerCompleteTransactionRequest params);

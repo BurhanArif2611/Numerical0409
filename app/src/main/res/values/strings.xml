@@ -675,6 +675,7 @@
     <string name="item_sold">Items sold</string>
     <string name="item_purchased">Items purchased</string>
     <string name="sure_to_logout">Are you sure you want to logout?</string>
+    <string name="payment_amount_dialog_message">Payment Amount %s \nAn Additional 10 percent will be deducted from your card to make online payment</string>
     <string name="sure_to_continue_as_guest">Are you sure you want to continue as a guest\nuser?</string>
     <string name="continue_as_guest">Continue As Guest</string>
     <string name="signing_in">Signing in</string>
@@ -742,4 +743,5 @@
     <string name="enter_a_key_to_search">Please enter a keyword to search</string>
     <string name="text_no_search_result">Sorry, there are no interested buyers for that right now. Try again later.</string>
     <string name="purchased_no_data_text">You haven’t purchased anything yet. Try adding something to your wishlist.</string>
+    <string name="proceed">Proceed</string>
 </resources>

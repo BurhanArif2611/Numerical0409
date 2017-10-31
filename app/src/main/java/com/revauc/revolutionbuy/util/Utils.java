@@ -810,4 +810,29 @@ public class Utils {
     }
 
 
+    public static String increasePriceByTenPercent(int price) {
+        if(price>0)
+        {
+            DecimalFormat df = new DecimalFormat("#.00");
+            return df.format(Math.round(price+(price*0.10)));
+        }
+        else
+        {
+            return price+"";
+        }
+
+    }
+
+    public static String deccreasePriceByTenPercent(int price) {
+        if(price>0)
+        {
+            DecimalFormat df = new DecimalFormat("#.00");
+            return df.format(Math.round(price-(price*0.10)));
+        }
+        else
+        {
+            return price+"";
+        }
+
+    }
 }
