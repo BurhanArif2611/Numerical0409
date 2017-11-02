@@ -14,6 +14,7 @@ import com.revauc.revolutionbuy.network.request.auth.ReportItemRequest;
 import com.revauc.revolutionbuy.network.request.auth.SellerReportItemRequest;
 import com.revauc.revolutionbuy.network.request.auth.SignUpRequest;
 import com.revauc.revolutionbuy.network.request.auth.SocialSignUpRequest;
+import com.revauc.revolutionbuy.network.request.auth.UnlockPhoneRequest;
 import com.revauc.revolutionbuy.network.response.buyer.CategoriesResponse;
 import com.revauc.revolutionbuy.network.response.buyer.PurchasedResponse;
 import com.revauc.revolutionbuy.network.response.buyer.UnlockResponse;
@@ -84,6 +85,7 @@ public interface AuthWebServices {
     String GET_CONVERTED_AMOUNT = "https://finance.google.com/finance/converter";
     String PRODUCT_PAYMENT = BuildConfig.BASE_URL + "products/payment";
 
+
     //NOTIFICATIONS
     String GET_NOTIFICATIONS = BuildConfig.BASE_URL + "users/notification";
     String UNREAD_NOTIFICATION = BuildConfig.BASE_URL + "users/unread-notification";
@@ -153,6 +155,9 @@ public interface AuthWebServices {
 
     @POST(PRODUCTS_LIST)
     Observable<SellerProductsResponse> getSellerProductsListing(@Body ProductSearchRequest params);
+
+    @POST(UNLOCK_CONTACT_DETAILS)
+    Observable<BaseResponse> unlockPhoneDetails(@Body UnlockPhoneRequest params);
 
     @Multipart
     @POST(ADD_PROFILE)

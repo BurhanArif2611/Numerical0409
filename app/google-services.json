@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "426087298528-8ejfkdnkma1ksrphuppt1r6m13uo18ad.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.revauc.revolutionbuy",
+            "certificate_hash": "e4996ec947514dc2704ab05568054f7f8c5c5634"
+          }
+        },
+        {
+          "client_id": "426087298528-hkd3aful9h15nf3vprk2672er11unvcl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.revauc.revolutionbuy",
+            "certificate_hash": "7a1cf63c2c1934b92e82a27303e851e2e0205209"
+          }
+        },
+        {
           "client_id": "426087298528-plcek5i7iqgnmb03kbcg0fk6iekuhg0e.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +45,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "426087298528-plcek5i7iqgnmb03kbcg0fk6iekuhg0e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
@@ -46,6 +67,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "426087298528-tv97469geh3oblqi4evuv2ns2lj7hhpa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.revauc.revolutionbuy.dev",
+            "certificate_hash": "e4996ec947514dc2704ab05568054f7f8c5c5634"
+          }
+        },
+        {
+          "client_id": "426087298528-jeiljrg7sfktdeh9cc4rbp1k611j1cao.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.revauc.revolutionbuy.dev",
+            "certificate_hash": "7a1cf63c2c1934b92e82a27303e851e2e0205209"
+          }
+        },
+        {
           "client_id": "426087298528-plcek5i7iqgnmb03kbcg0fk6iekuhg0e.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -60,8 +97,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "426087298528-plcek5i7iqgnmb03kbcg0fk6iekuhg0e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

@@ -78,11 +78,19 @@ public static final org.codehaus.jackson.annotate.JsonAutoDetect$Visibility *; }
 }
 
 
--keep class com.appster.p2f.network** {
+-keep class com.revauc.revolutionbuy.network** {
 *;
 }
 
--keep class com.appster.p2f.notification.NotificationPayload** {
+-keep class com.revauc.revolutionbuy.widget** {
+*;
+}
+
+-keep class com.revauc.revolutionbuy.ui** {
+*;
+}
+
+-keep class com.revauc.revolutionbuy.notification.NotificationPayload** {
  *;
 }
 
@@ -117,3 +125,4 @@ public *;
 
 -dontwarn okio.**
 -dontwarn okhttp3.**
+-keep class com.android.vending.billing.**
