@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -15,6 +16,7 @@ import android.view.View;
 import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.ActivityAddDescriptionBinding;
 import com.revauc.revolutionbuy.databinding.ActivityAddTitleBinding;
+import com.revauc.revolutionbuy.network.response.buyer.BuyerProductDto;
 import com.revauc.revolutionbuy.ui.BaseActivity;
 import com.revauc.revolutionbuy.ui.buy.adapter.ItemListedActivity;
 import com.revauc.revolutionbuy.util.Constants;
@@ -33,11 +35,13 @@ public class AddDescriptionActivity extends BaseActivity implements View.OnClick
     };
     private String mTitle;
     private String mCategory;
+    private BuyerProductDto mProductDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_description);
+        mProductDetail = getIntent().getParcelableExtra(Constants.EXTRA_PRODUCT_DETAIL);
         mBinding.toolbarAddDescription.tvToolbarGeneralLeft.setText(R.string.cancel);
         mBinding.toolbarAddDescription.tvToolbarGeneralLeft.setVisibility(View.VISIBLE);
         mBinding.toolbarAddDescription.tvToolbarGeneralLeft.setOnClickListener(this);
@@ -46,6 +50,11 @@ public class AddDescriptionActivity extends BaseActivity implements View.OnClick
         mBinding.toolbarAddDescription.tvToolbarGeneralRight.setVisibility(View.VISIBLE);
         mBinding.toolbarAddDescription.tvToolbarGeneralRight.setOnClickListener(this);
         mBinding.layoutBuyerFooter.textStepThree.setEnabled(true);
+
+        if(mProductDetail!=null)
+        {
+            mBinding.editTitle.setText(mProductDetail.getDescription());
+        }
 
         mBinding.editTitle.addTextChangedListener(new TextWatcher() {
             @Override
@@ -112,6 +121,7 @@ public class AddDescriptionActivity extends BaseActivity implements View.OnClick
             intent.putExtra(Constants.EXTRA_TITLE,mTitle);
             intent.putExtra(Constants.EXTRA_CATEGORY,mCategory);
             intent.putExtra(Constants.EXTRA_DESCRIPTION,description);
+            intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,mProductDetail);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
         }

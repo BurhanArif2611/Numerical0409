@@ -6,19 +6,41 @@
 package com.revauc.revolutionbuy.notification;
 
 
-public class NotificationPayload {
+import android.os.Parcel;
+import android.os.Parcelable;
 
-    private String type;
+public class NotificationPayload implements Parcelable {
+
+    private int id;
+    private int type;
+    private String badge;
     private String message;
-    private int notificationId;
-    private int notificationtypeId;
+    private String description;
+    private String buyerProductId;
+    private String sellerProductId;
 
-    public String getType() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
+    }
+
+    public String getBadge() {
+        return badge;
+    }
+
+    public void setBadge(String badge) {
+        this.badge = badge;
     }
 
     public String getMessage() {
@@ -29,19 +51,69 @@ public class NotificationPayload {
         this.message = message;
     }
 
-    public int getNotificationId() {
-        return notificationId;
+    public String getDescription() {
+        return description;
     }
 
-    public void setNotificationId(int notificationId) {
-        this.notificationId = notificationId;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public int getNotificationtypeId() {
-        return notificationtypeId;
+    public String getBuyerProductId() {
+        return buyerProductId;
     }
 
-    public void setNotificationtypeId(int notificationtypeId) {
-        this.notificationtypeId = notificationtypeId;
+    public void setBuyerProductId(String buyerProductId) {
+        this.buyerProductId = buyerProductId;
     }
+
+    public String getSellerProductId() {
+        return sellerProductId;
+    }
+
+    public void setSellerProductId(String sellerProductId) {
+        this.sellerProductId = sellerProductId;
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeInt(this.type);
+        dest.writeString(this.badge);
+        dest.writeString(this.message);
+        dest.writeString(this.description);
+        dest.writeString(this.buyerProductId);
+        dest.writeString(this.sellerProductId);
+    }
+
+    public NotificationPayload() {
+    }
+
+    protected NotificationPayload(Parcel in) {
+        this.id = in.readInt();
+        this.type = in.readInt();
+        this.badge = in.readString();
+        this.message = in.readString();
+        this.description = in.readString();
+        this.buyerProductId = in.readString();
+        this.sellerProductId = in.readString();
+    }
+
+    public static final Creator<NotificationPayload> CREATOR = new Creator<NotificationPayload>() {
+        @Override
+        public NotificationPayload createFromParcel(Parcel source) {
+            return new NotificationPayload(source);
+        }
+
+        @Override
+        public NotificationPayload[] newArray(int size) {
+            return new NotificationPayload[size];
+        }
+    };
 }

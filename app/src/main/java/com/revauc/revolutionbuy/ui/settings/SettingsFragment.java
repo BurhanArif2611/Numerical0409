@@ -134,9 +134,16 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 startActivity(adminIntent);
                 break;
             case R.id.text_change_mobile:
-                Intent mobileIntent = new Intent(getActivity(), MobileVerificationActivity.class);
-                mobileIntent.putExtra(Constants.EXTRA_FROM_SETTINGS,true);
-                startActivity(mobileIntent);
+                if(PreferenceUtil.isLoggedIn())
+                {
+                    Intent mobileIntent = new Intent(getActivity(), MobileVerificationActivity.class);
+                    mobileIntent.putExtra(Constants.EXTRA_FROM_SETTINGS,true);
+                    startActivity(mobileIntent);
+                }
+                else
+                {
+                    BottomMemberAlert.getInstance(getActivity(),getString(R.string.need_to_be_a_member),getString(R.string.sign_up),getString(R.string.cancel)).show();
+                }
                 break;
             case R.id.text_change_password:
                 if(PreferenceUtil.isLoggedIn())

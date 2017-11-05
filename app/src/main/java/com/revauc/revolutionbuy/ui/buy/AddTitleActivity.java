@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import com.revauc.revolutionbuy.databinding.ActivitySelectCategoriesBinding;
 import com.revauc.revolutionbuy.listeners.OnCategorySelectListener;
 import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.RequestController;
+import com.revauc.revolutionbuy.network.response.buyer.BuyerProductDto;
 import com.revauc.revolutionbuy.network.response.buyer.CategoriesResponse;
 import com.revauc.revolutionbuy.network.response.buyer.CategoryDto;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
@@ -51,11 +53,13 @@ public class AddTitleActivity extends BaseActivity implements View.OnClickListen
         }
     };
     private String mCategory;
+    private BuyerProductDto mProductDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_title);
+        mProductDetail = getIntent().getParcelableExtra(Constants.EXTRA_PRODUCT_DETAIL);
         mBinding.toolbarAddTitle.tvToolbarGeneralLeft.setText(R.string.cancel);
         mBinding.toolbarAddTitle.tvToolbarGeneralLeft.setVisibility(View.VISIBLE);
         mBinding.toolbarAddTitle.tvToolbarGeneralLeft.setOnClickListener(this);
@@ -64,6 +68,11 @@ public class AddTitleActivity extends BaseActivity implements View.OnClickListen
         mBinding.toolbarAddTitle.tvToolbarGeneralRight.setVisibility(View.VISIBLE);
         mBinding.toolbarAddTitle.tvToolbarGeneralRight.setOnClickListener(this);
         mBinding.layoutBuyerFooter.textStepTwo.setEnabled(true);
+
+        if(mProductDetail!=null)
+        {
+            mBinding.editTitle.setText(mProductDetail.getTitle());
+        }
 
         mBinding.editTitle.addTextChangedListener(new TextWatcher() {
             @Override
@@ -128,6 +137,7 @@ public class AddTitleActivity extends BaseActivity implements View.OnClickListen
             Intent intent = new Intent(AddTitleActivity.this,AddDescriptionActivity.class);
             intent.putExtra(Constants.EXTRA_TITLE,title);
             intent.putExtra(Constants.EXTRA_CATEGORY,mCategory);
+            intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,mProductDetail);
             startActivity(intent);
 
             overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);

@@ -738,10 +738,12 @@
     <string name="your_offer">Your offer:</string>
     <string name="no_notifications_yet">No notifications yet</string>
     <string name="notifications">Notifications</string>
+    <string name="edit_category">Edit Categories</string>
     <string name="search_for_items">Search for items</string>
     <string name="search_for_items_you_want_to_sell">Search for items you want to sell</string>
     <string name="enter_a_key_to_search">Please enter a keyword to search</string>
     <string name="text_no_search_result">Sorry, there are no interested buyers for that right now. Try again later.</string>
     <string name="purchased_no_data_text">You haven’t purchased anything yet. Try adding something to your wishlist.</string>
     <string name="proceed">Proceed</string>
+
 </resources>

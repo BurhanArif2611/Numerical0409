@@ -24,6 +24,7 @@ import com.revauc.revolutionbuy.ui.dashboard.DashboardActivity;
 import com.revauc.revolutionbuy.util.Constants;
 import com.revauc.revolutionbuy.util.LogUtils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,11 +34,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TYPE = "type";
     private static final String DATA = "data";
     private static final String NOTIFICATION_ID = "id";
-    private static final String NOTIFICATION_TYPE_ID = "type";
-
+    private static final String NOTIFICATION_TYPE = "type";
+    private static final String NOTIFICATION_BADGE = "badge";
     private static final String MESSAGE = "message";
     private static final String DESCRIPTION = "description";
     private static final String DICTIONARY = "datamsg";
+    private static final String BUYER_PRODUCT_ID = "buyer_product_id";
+    private static final String SELLER_PRODUCT_ID = "seller_product_id";
     private static final int TYPE_BUYER_MARK = 3;
     private static final int TYPE_ADMIN = 2;
     private static final int TYPE_USER_DELETE = 10;
@@ -66,27 +69,33 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         NotificationPayload payload = new NotificationPayload();
 
-        LogUtils.LOGD(">>>>>>", "FCM MESSAGE RECIEVED : "+remoteMessage.getData());
+        LogUtils.LOGD(">>>>>>", "FCM MESSAGE RECIEVED : " + remoteMessage.getData());
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         // {orderId=325, restaurantName=Social, eatingType=2, orderStatus=2}
         // Check if message contains a data payload.
 
         // {data=4, notificationId=2, message=HB NBA - Trad this is invite message, notificationType=Invite to Contest}
+        JSONArray notificationArray = null;
         JSONObject notificationObject = null;
-        if (remoteMessage.getData()!=null) {
+        if (remoteMessage.getData() != null) {
             try {
-                notificationObject = new JSONObject(remoteMessage.getData().get(DICTIONARY));
+                notificationArray = new JSONArray(remoteMessage.getData().get(DICTIONARY));
+                if (notificationArray != null && notificationArray.length() > 0) {
+                    notificationObject = notificationArray.getJSONObject(0);
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            if(notificationObject!=null)
-            {
+            if (notificationObject != null) {
                 try {
-                    payload.setNotificationId(notificationObject.getInt(NOTIFICATION_ID));
-                    payload.setNotificationtypeId(notificationObject.getInt(NOTIFICATION_TYPE_ID));
-                    payload.setMessage(notificationObject.getString(DESCRIPTION));
+                    payload.setId(notificationObject.getInt(NOTIFICATION_ID));
+                    payload.setType(notificationObject.getInt(NOTIFICATION_TYPE));
+                    payload.setDescription(notificationObject.getString(DESCRIPTION));
+                    payload.setBuyerProductId(notificationObject.getString(BUYER_PRODUCT_ID));
+                    payload.setSellerProductId(notificationObject.getString(SELLER_PRODUCT_ID));
+                    payload.setBadge(remoteMessage.getData().get(NOTIFICATION_BADGE));
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -99,7 +108,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 //            payload.setContestID(remoteMessage.getData().get(DATA));
 //            payload.setNotificationType(remoteMessage.getData().get(DICTIONARY));
 //            payload.setMessage(remoteMessage.getData().get(MESSAGE));
-        sendNotification(remoteMessage.getData().get(MESSAGE), payload);
+            sendNotification(remoteMessage.getData().get(MESSAGE), payload);
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM
@@ -121,25 +130,23 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             return;
         }
 
-        if (payload.getNotificationtypeId() == TYPE_BUYER_MARK) {
+//        if (payload.getType() == TYPE_BUYER_MARK) {
+//            intent = new Intent(this, DashboardActivity.class);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            pendingIntent = PendingIntent.getActivity(this, 0, intent,
+//                    PendingIntent.FLAG_UPDATE_CURRENT);
+//        } else if (payload.getType() == TYPE_ADMIN) {
+//            intent = new Intent(this, DashboardActivity.class);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            pendingIntent = PendingIntent.getActivity(this, 0, intent,
+//                    PendingIntent.FLAG_UPDATE_CURRENT);
+//        } else {
             intent = new Intent(this, DashboardActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra(Constants.EXTRA_NOTIFICATION, payload);
             pendingIntent = PendingIntent.getActivity(this, 0, intent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
-        }
-        else if (payload.getNotificationtypeId() == TYPE_ADMIN) {
-            intent = new Intent(this, DashboardActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            pendingIntent = PendingIntent.getActivity(this, 0, intent,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
-        }
-        else
-        {
-            intent = new Intent(this, DashboardActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            pendingIntent = PendingIntent.getActivity(this, 0, intent,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
-        }
+//        }
 //        else if (Integer.parseInt(payload.getNotificationType()) == TYPE_15_MIN_BEFORE) {
 //            intent = new Intent(this, DashboardActivity.class);
 //            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -194,7 +201,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(payload.getNotificationId(), notificationBuilder.build());
+        notificationManager.notify(payload.getId(), notificationBuilder.build());
     }
 
 

@@ -85,7 +85,7 @@ public class BuyerProductDetailActivity extends BaseActivity implements View.OnC
         }
         else
         {
-
+            mBinding.imageEdit.setOnClickListener(this);
         }
 
         if (!EventBus.getDefault().isRegistered(this)) {
@@ -105,6 +105,11 @@ public class BuyerProductDetailActivity extends BaseActivity implements View.OnC
                 BottomSheetAlertInverse.getInstance(this,getString(R.string.sure_to_delete),getString(R.string.text_delete),getString(R.string.cancel)).show();
 
             break;
+            case R.id.image_edit:
+                Intent editIntent = new Intent(this,SelectCategoriesActivity.class);
+                editIntent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,mProductDetail);
+                startActivity(editIntent);
+                break;
             case R.id.image_back:
                 onBackPressed();
                 break;

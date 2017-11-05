@@ -17,6 +17,7 @@ import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.BaseActivity;
 import com.revauc.revolutionbuy.util.Constants;
+import com.revauc.revolutionbuy.util.PreferenceUtil;
 import com.revauc.revolutionbuy.util.StringUtils;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -45,6 +46,11 @@ public class MobileVerificationActivity extends BaseActivity implements View.OnC
             age = getIntent().getIntExtra(Constants.EXTRA_AGE,0);
             cityId = getIntent().getIntExtra(Constants.EXTRA_CITY_ID,0);
             mFilePath = getIntent().getStringExtra(Constants.EXTRA_PROFILE_IMAGE);
+        }
+
+        if(isFromSettings)
+        {
+            mBinding.editMobile.setText(PreferenceUtil.getUserProfile().getMobile());
         }
 
         mBinding.toolbarProfile.tvToolbarGeneralLeft.setText(R.string.back);
