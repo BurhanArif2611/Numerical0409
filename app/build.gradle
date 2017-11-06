@@ -79,7 +79,7 @@ android {
         }
         debug {
             minifyEnabled false
-            debuggable true
+            debuggable false
             versionNameSuffix '-Release'
         }
     }
@@ -110,6 +110,7 @@ android {
             applicationId yourApplicationId + DOT + RELEASE_FLAV_QA
 //            buildConfigField "String", "BASE_URL", "\"http://P2F-QA-ELB-1420757754.us-east-1.elb.amazonaws.com/props2Fantasy/\""
             buildConfigField "String", "BASE_URL", "\"https://qa.revolutionbuy.com/api/\""
+            buildConfigField "String", "STRIPE_BASE_URL", "\"https://connect.stripe.com/oauth/authorize?response_type=code&scope=read_write&client_id=\""
             buildConfigField "String", "STRIPE_CLIENT_ID", "\"ca_AaUzkY7uzAa8MAx093csNSeceA0q75XL\""
             buildConfigField "String", "STRIPE_PUBLISH_KEY", "\"pk_test_zWO1HIyUYzoxq1sxsvwaevuc\""
 //              buildConfigField "String", "BASE_URL", "\"http://192.168.2.101:8080/props2Fantasy/\""
@@ -121,6 +122,7 @@ android {
             dimension "environment"
             applicationId yourApplicationId + DOT + RELEASE_FLAV_DEV
             buildConfigField "String", "BASE_URL", "\"https://dev.revolutionbuy.com/api/\""
+            buildConfigField "String", "STRIPE_BASE_URL", "\"https://connect.stripe.com/oauth/authorize?response_type=code&scope=read_write&client_id=\""
             buildConfigField "String", "STRIPE_CLIENT_ID", "\"ca_AaUzkY7uzAa8MAx093csNSeceA0q75XL\""
             buildConfigField "String", "STRIPE_PUBLISH_KEY", "\"pk_test_zWO1HIyUYzoxq1sxsvwaevuc\""
 //            buildConfigField "String", "BASE_URL", "\"http://revolutionbuy.com/dev/public/api/\"";
@@ -133,6 +135,7 @@ android {
             applicationId yourApplicationId
             resValue("string", "app_name", appName)
             buildConfigField "String", "BASE_URL", "\"https://api.revolutionbuy.com/api/\""
+            buildConfigField "String", "STRIPE_BASE_URL", "\"https://connect.stripe.com/oauth/authorize?response_type=code&scope=read_write&client_id=\""
             buildConfigField "String", "STRIPE_CLIENT_ID", "\"ca_AaUzsU5H7KV373Y2kG5JtWM098hdup8G\""
             buildConfigField "String", "STRIPE_PUBLISH_KEY", "\"pk_live_QVTY4xfW2X5lUCYwPKbsdYHY\""
             versionName fullVersion as String
@@ -142,6 +145,7 @@ android {
             applicationId yourApplicationId + DOT + RELEASE_FLAV_Staging
             resValue("string", "app_name", appName)
             buildConfigField "String", "BASE_URL", "\"https://staging.revolutionbuy.com/api/\""
+            buildConfigField "String", "STRIPE_BASE_URL", "\"https://connect.stripe.com/oauth/authorize?response_type=code&scope=read_write&client_id=\""
             buildConfigField "String", "STRIPE_CLIENT_ID", "\"ca_AaUzkY7uzAa8MAx093csNSeceA0q75XL\""
             buildConfigField "String", "STRIPE_PUBLISH_KEY", "\"pk_test_zWO1HIyUYzoxq1sxsvwaevuc\""
 //            buildConfigField "String", "BASE_URL", "\"https://thrive-fantasy-staging.herokuapp.com/\""

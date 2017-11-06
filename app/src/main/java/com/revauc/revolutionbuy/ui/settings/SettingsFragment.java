@@ -19,6 +19,7 @@ import com.revauc.revolutionbuy.ui.auth.MobilePinVerificationActivity;
 import com.revauc.revolutionbuy.ui.auth.MobileVerificationActivity;
 import com.revauc.revolutionbuy.ui.auth.PrivacyActivity;
 import com.revauc.revolutionbuy.ui.auth.SignUpActivity;
+import com.revauc.revolutionbuy.ui.auth.StripeWebActivity;
 import com.revauc.revolutionbuy.ui.auth.TermsConditionsActivity;
 import com.revauc.revolutionbuy.ui.auth.ContactAdminActivity;
 import com.revauc.revolutionbuy.ui.profile.ProfileActivity;
@@ -81,6 +82,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         mBinder.textChangePassword.setOnClickListener(this);
         mBinder.textChangeMobile.setOnClickListener(this);
         mBinder.textContactAdmin.setOnClickListener(this);
+        mBinder.textStripeAccount.setOnClickListener(this);
         mBinder.textLogout.setOnClickListener(this);
     }
 
@@ -132,6 +134,19 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 Intent adminIntent = new Intent(getActivity(), ContactAdminActivity.class);
                 adminIntent.putExtra(Constants.EXTRA_FROM_SETTINGS,true);
                 startActivity(adminIntent);
+                break;
+            case R.id.text_stripe_account:
+                if(PreferenceUtil.isLoggedIn())
+                {
+                    Intent stripeIntent = new Intent(getActivity(), StripeWebActivity.class);
+                    stripeIntent.putExtra(Constants.EXTRA_FROM_SETTINGS,true);
+                    startActivity(stripeIntent);
+                }
+                else
+                {
+                    BottomMemberAlert.getInstance(getActivity(),getString(R.string.need_to_be_a_member),getString(R.string.sign_up),getString(R.string.cancel)).show();
+                }
+
                 break;
             case R.id.text_change_mobile:
                 if(PreferenceUtil.isLoggedIn())
