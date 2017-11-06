@@ -2,6 +2,7 @@ package com.revauc.revolutionbuy.ui.notification;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,6 +63,15 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         final NotificationDto notificationDto = mNotifications.get(position);
         holder.tvDesc.setText(notificationDto.getDescription());
         holder.tvTime.setText(Utils.getDuration(notificationDto.getTimestamp()*1000,mContext));
+
+        if(notificationDto.getIsRead()==1)
+        {
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext,R.color.white));
+        }
+        else
+        {
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext,R.color.color_unread_notification));
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

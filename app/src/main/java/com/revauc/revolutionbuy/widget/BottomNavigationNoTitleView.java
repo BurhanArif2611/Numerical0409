@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.SparseIntArray;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -812,6 +813,35 @@ public class BottomNavigationNoTitleView extends BottomNavigationView {
         }
     }
 
+    private void initBadges(int badgeLayoutId) {
+        // Adding badges to each Item
+
+        int totalItems = mMenuView.getChildCount();
+
+//        int oneItemAreaWidth = uiCalculator.getScreenSize(context).first / totalItems
+//
+//        val marginTop = uiCalculator.dpToPixels(context, BADGE_MARGIN_TOP)
+//        val marginLeft = uiCalculator.dpToPixels(context, BADGE_MARGIN_LEFT)
+
+//        for (i in 0 until totalItems) {
+//            val menuItem = mMenuView.getChildAt(i) as BottomNavigationItemView
+//
+//            // Add badge to every item
+//            val badge = View.inflate(context, badgeLayoutId, null) as FrameLayout
+//            badge.visibility = View.GONE
+//            badge.minimumWidth = uiCalculator.dpToPixels(context, BADGE_MIN_WIDTH)
+//
+//            val layoutParam = FrameLayout.LayoutParams(
+//                    FrameLayout.getL.WRAP_CONTENT,
+//                    FrameLayout.LayoutParams.WRAP_CONTENT)
+//            layoutParam.gravity = Gravity.START
+//
+//            layoutParam.setMargins(oneItemAreaWidth / 2 + marginLeft, marginTop, 0, 0)
+//            menuItem.addView(badge, layoutParam)
+//        }
+    }
+
+
     /**
      * Decorate OnNavigationItemSelectedListener for setupWithViewPager
      */
@@ -872,5 +902,6 @@ public class BottomNavigationNoTitleView extends BottomNavigationView {
         }
 
     }
+
 
 }

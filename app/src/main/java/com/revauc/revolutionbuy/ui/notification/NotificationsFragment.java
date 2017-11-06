@@ -24,8 +24,11 @@ import com.revauc.revolutionbuy.listeners.OnNotificationClickListener;
 import com.revauc.revolutionbuy.listeners.OnSellerOfferClickListener;
 import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.RequestController;
+import com.revauc.revolutionbuy.network.request.auth.NotificationDetailRequest;
 import com.revauc.revolutionbuy.network.response.buyer.PurchasedProductDto;
 import com.revauc.revolutionbuy.network.response.buyer.PurchasedResponse;
+import com.revauc.revolutionbuy.network.response.profile.NotificationDetailPurchaseResponse;
+import com.revauc.revolutionbuy.network.response.profile.NotificationDetailResponse;
 import com.revauc.revolutionbuy.network.response.profile.NotificationDto;
 import com.revauc.revolutionbuy.network.response.profile.NotificationResponse;
 import com.revauc.revolutionbuy.network.response.seller.SellerOfferDto;
@@ -34,6 +37,7 @@ import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.BaseFragment;
 import com.revauc.revolutionbuy.ui.buy.PurchasedItemDetailActivity;
+import com.revauc.revolutionbuy.ui.buy.SellerOfferDetailActivity;
 import com.revauc.revolutionbuy.ui.buy.SellerOffersActivity;
 import com.revauc.revolutionbuy.ui.sell.SellerOwnOfferDetailActivity;
 import com.revauc.revolutionbuy.ui.sell.adapter.OffersAdapter;
@@ -213,30 +217,11 @@ public class NotificationsFragment extends BaseFragment implements OnNotificatio
 
     @Override
     public void onNotificationClicked(NotificationDto notificationDto) {
-        switch (notificationDto.getType())
-        {
-            case Constants.TYPE_OFFER_SENT:
-                Intent intent = new Intent(getActivity(),SellerOffersActivity.class);
-                intent.putExtra(Constants.EXTRA_PRODUCT_ID,notificationDto.getBuyerProductId());
-                startActivity(intent);
-                break;
-            case Constants.TYPE_BUYER_UNLOCKED:
-                fetchCurrentOffers(1,notificationDto);
-                break;
-            case Constants.TYPE_BUYER_MARKED_COMPLETE:
-                fetchCurrentOffers(1,notificationDto);
-                break;
-            case Constants.TYPE_PRODUCT_SOLD_BY_ANOTHER:
-                fetchCurrentOffers(1,notificationDto);
-                break;
-            case Constants.TYPE_SELLER_MARKED_COMPLETE:
-                fetchPurchasedItems(notificationDto);
-                break;
-        }
+        fetchNotificationDetail(notificationDto.getId(),notificationDto.getType());
     }
 
-    private void fetchCurrentOffers(int type, final NotificationDto notificationDto) {
-
+    private void fetchNotificationDetail(int notificationId, final int type)
+    {
         if (isFetching) {
             return;
         }
@@ -246,88 +231,131 @@ public class NotificationsFragment extends BaseFragment implements OnNotificatio
         isFetching = true;
         AuthWebServices apiService = RequestController.createRetrofitRequest(false);
 
-        apiService.getSellerOffers(type).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<SellerOffersResponse>(getActivity()) {
 
-            @Override
-            public void onResponse(SellerOffersResponse response) {
-                hideProgressBar();
-                if (response != null && response.isSuccess()) {
-                    if(response.getResult()!=null && response.getResult().getSellerProduct()!=null)
-                    {
-                        for(SellerOfferDto sellerOfferDto:response.getResult().getSellerProduct())
+        if(type==Constants.TYPE_SELLER_MARKED_COMPLETE)
+        {
+
+            apiService.getNotificationDetailForPurchase(new NotificationDetailRequest(notificationId)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<NotificationDetailPurchaseResponse>(getActivity()) {
+
+                @Override
+                public void onResponse(NotificationDetailPurchaseResponse response) {
+                    isFetching = false;
+                    hideProgressBar();
+                    if (response != null && response.isSuccess()) {
+                        if(response.getResult()!=null)
                         {
-                            if(sellerOfferDto.getId()==notificationDto.getSellerProductId())
+                            if(response.getResult().getPurchasedProduct()!=null)
                             {
-                                Intent intent = new Intent(getActivity(),SellerOwnOfferDetailActivity.class);
-                                intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,sellerOfferDto);
+                                Intent intent = new Intent(getActivity(),PurchasedItemDetailActivity.class);
+                                intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,response.getResult().getPurchasedProduct());
                                 startActivity(intent);
-                                break;
+                            }
+                            else
+                            {
+                                showToast(response.getMessage());
                             }
                         }
-                    }
-                } else {
-                    showToast(response.getMessage());
+                    } else {
+                        showToast(response.getMessage());
 //                    showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
+                    }
                 }
-            }
 
-            @Override
-            public void onError(Throwable call, BaseResponse baseResponse) {
-                hideProgressBar();
-                if (baseResponse != null) {
-                    String errorMessage = baseResponse.getMessage();
-                    showToast(errorMessage);
+                @Override
+                public void onError(Throwable call, BaseResponse baseResponse) {
+                    hideProgressBar();
+                    isFetching = false;
+                    if (baseResponse != null) {
+                        String errorMessage = baseResponse.getMessage();
+                        showToast(errorMessage);
 //                    Utils.showSnackbar(errorMessage, mBinder.mainContainer, true);
+                    }
                 }
-            }
-        });
-    }
-
-    private void fetchPurchasedItems(final NotificationDto notificationDto) {
-
-        if (isFetching) {
-            return;
+            });
         }
+        else
+        {
+            apiService.getNotificationDetail(new NotificationDetailRequest(notificationId)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<NotificationDetailResponse>(getActivity()) {
 
-        mBinder.swipeRefreshLayout.setRefreshing(true);
+                @Override
+                public void onResponse(NotificationDetailResponse response) {
+                    hideProgressBar();
+                    isFetching = false;
+                    if (response != null && response.isSuccess()) {
+                        if(response.getResult()!=null)
+                        {
+                            switch (type)
+                            {
+                                case Constants.TYPE_OFFER_SENT:
+                                    if(response.getResult().getSellerProduct()!=null)
+                                    {
+                                        Intent intent = new Intent(getActivity(),SellerOfferDetailActivity.class);
+                                        intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,response.getResult().getSellerProduct());
+                                        startActivity(intent);
+                                    }
+                                    else
+                                    {
+                                        showToast(response.getMessage());
+                                    }
+                                    break;
+                                case Constants.TYPE_BUYER_UNLOCKED:
+                                    if(response.getResult().getSellerProduct()!=null)
+                                    {
+                                        Intent intent = new Intent(getActivity(),SellerOwnOfferDetailActivity.class);
+                                        intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,response.getResult().getSellerProduct());
+                                        startActivity(intent);
+                                    }
+                                    else
+                                    {
+                                        showToast(response.getMessage());
+                                    }
 
-        isFetching = true;
-        AuthWebServices apiService = RequestController.createRetrofitRequest(false);
+                                    break;
+                                case Constants.TYPE_BUYER_MARKED_COMPLETE:
+                                    if(response.getResult().getSellerProduct()!=null)
+                                    {
+                                        Intent intent = new Intent(getActivity(),SellerOwnOfferDetailActivity.class);
+                                        intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,response.getResult().getSellerProduct());
+                                        startActivity(intent);
+                                    }
+                                    else
+                                    {
+                                        showToast(response.getMessage());
+                                    }
+                                    break;
+                                case Constants.TYPE_PRODUCT_SOLD_BY_ANOTHER:
+                                    if(response.getResult().getSellerProduct()!=null)
+                                    {
+                                        Intent intent = new Intent(getActivity(),SellerOwnOfferDetailActivity.class);
+                                        intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,response.getResult().getSellerProduct());
+                                        startActivity(intent);
+                                    }
+                                    else
+                                    {
+                                        showToast(response.getMessage());
+                                    }
+                                    break;
+                            }
 
-        apiService.getBuyerPurchasedList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<PurchasedResponse>(getActivity()) {
-
-            @Override
-            public void onResponse(PurchasedResponse response) {
-                hideProgressBar();
-                if (response != null && response.isSuccess()) {
-                    if(response.getResult()!=null && response.getResult().getBuyerProduct()!=null)
-                    {
-                       for(PurchasedProductDto purchasedProductDto:response.getResult().getBuyerProduct())
-                       {
-                           if(purchasedProductDto.getSellerProducts().get(0).getBuyerProductId()==notificationDto.getBuyerProductId())
-                           {
-                               Intent intent = new Intent(getActivity(),PurchasedItemDetailActivity.class);
-                               intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,purchasedProductDto);
-                               startActivity(intent);
-                               break;
-                           }
-                       }
-                    }
-                } else {
-                    showToast(response.getMessage());
+                        }
+                    } else {
+                        showToast(response.getMessage());
 //                    showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
+                    }
                 }
-            }
 
-            @Override
-            public void onError(Throwable call, BaseResponse baseResponse) {
-                hideProgressBar();
-                if (baseResponse != null) {
-                    String errorMessage = baseResponse.getMessage();
-                    showToast(errorMessage);
+                @Override
+                public void onError(Throwable call, BaseResponse baseResponse) {
+                    hideProgressBar();
+                    isFetching = false;
+                    if (baseResponse != null) {
+                        String errorMessage = baseResponse.getMessage();
+                        showToast(errorMessage);
 //                    Utils.showSnackbar(errorMessage, mBinder.mainContainer, true);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
+
 }

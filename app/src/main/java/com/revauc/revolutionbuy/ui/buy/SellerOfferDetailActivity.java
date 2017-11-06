@@ -44,6 +44,7 @@ import com.revauc.revolutionbuy.util.Constants;
 import com.revauc.revolutionbuy.util.LogUtils;
 import com.revauc.revolutionbuy.util.StringUtils;
 import com.revauc.revolutionbuy.util.Utils;
+import com.revauc.revolutionbuy.widget.BottomSheetAlertInverse;
 import com.revauc.revolutionbuy.widget.PaymentAmountDialog;
 import com.squareup.picasso.Picasso;
 
@@ -250,7 +251,7 @@ public class SellerOfferDetailActivity extends BaseActivity implements View.OnCl
                     } else {
 //                        showSnackBarFromBottom("Need to Unlock the payment", mBinding.mainContainer, true);
                         if (!StringUtils.isNullOrEmpty(mSku)) {
-                            buyPackage(mService, mSku);
+                            BottomSheetAlertInverse.getInstance(SellerOfferDetailActivity.this,getString(R.string.unlock_contact_details_message),getString(R.string.yes_pay_now),getString(R.string.cancel)).show();
                         }
 //                        mBinding.textUnlockContactDetails.setVisibility(View.GONE);
 //                        mBinding.textMobile.setVisibility(View.VISIBLE);
@@ -273,6 +274,12 @@ public class SellerOfferDetailActivity extends BaseActivity implements View.OnCl
                 }
             }
         });
+    }
+
+    @Subscribe
+    public void onPayConfirm(OnButtonClicked onDeleteClicked)
+    {
+        buyPackage(mService, mSku);
     }
 
     @Override
@@ -448,7 +455,7 @@ public class SellerOfferDetailActivity extends BaseActivity implements View.OnCl
                     mBinding.textMobile.setVisibility(View.VISIBLE);
                     mBinding.textPay.setVisibility(View.VISIBLE);
                     mBinding.textMarkComplete.setVisibility(View.VISIBLE);
-                    showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
+                    showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, false);
                 } else {
                     showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
                 }

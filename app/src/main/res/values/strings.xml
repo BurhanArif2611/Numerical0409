@@ -745,5 +745,7 @@
     <string name="text_no_search_result">Sorry, there are no interested buyers for that right now. Try again later.</string>
     <string name="purchased_no_data_text">You haven’t purchased anything yet. Try adding something to your wishlist.</string>
     <string name="proceed">Proceed</string>
+    <string name="unlock_contact_details_message">Unlock the contact details of all sellers for this item for $1?</string>
+    <string name="yes_pay_now">Yes, pay now</string>
 
 </resources>

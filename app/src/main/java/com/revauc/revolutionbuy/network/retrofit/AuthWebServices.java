@@ -9,6 +9,7 @@ import com.revauc.revolutionbuy.network.request.auth.ChangePasswordRequest;
 import com.revauc.revolutionbuy.network.request.auth.ForgotPasswordRequest;
 import com.revauc.revolutionbuy.network.request.auth.MobilePinRequest;
 import com.revauc.revolutionbuy.network.request.auth.MobileVerifyRequest;
+import com.revauc.revolutionbuy.network.request.auth.NotificationDetailRequest;
 import com.revauc.revolutionbuy.network.request.auth.ProductSearchRequest;
 import com.revauc.revolutionbuy.network.request.auth.ReportItemRequest;
 import com.revauc.revolutionbuy.network.request.auth.SellerReportItemRequest;
@@ -22,6 +23,10 @@ import com.revauc.revolutionbuy.network.response.buyer.WishlistResponse;
 import com.revauc.revolutionbuy.network.response.profile.CityResponse;
 import com.revauc.revolutionbuy.network.response.profile.CountryResponse;
 import com.revauc.revolutionbuy.network.response.LoginResponse;
+import com.revauc.revolutionbuy.network.response.profile.NotificationCountResponse;
+import com.revauc.revolutionbuy.network.response.profile.NotificationDetailPurchaseResponse;
+import com.revauc.revolutionbuy.network.response.profile.NotificationDetailResponse;
+import com.revauc.revolutionbuy.network.response.profile.NotificationDetailResult;
 import com.revauc.revolutionbuy.network.response.profile.NotificationResponse;
 import com.revauc.revolutionbuy.network.response.profile.StateResponse;
 import com.revauc.revolutionbuy.network.response.seller.SellerOffersResponse;
@@ -224,6 +229,15 @@ public interface AuthWebServices {
 
     @GET(GET_NOTIFICATIONS)
     Observable<NotificationResponse> getUserNotifications(@Query("page") Integer page, @Query("limit") Integer limit);
+
+    @GET(UNREAD_NOTIFICATION)
+    Observable<NotificationCountResponse> getUnreadNotificationsCount();
+
+    @POST(READ_NOTIFICATION)
+    Observable<NotificationDetailResponse> getNotificationDetail(@Body NotificationDetailRequest params);
+
+    @POST(READ_NOTIFICATION)
+    Observable<NotificationDetailPurchaseResponse> getNotificationDetailForPurchase(@Body NotificationDetailRequest params);
 //
 //    @POST(CONTEST_DETAILS)
 //    Observable<ContestDetailResponse> getContestDetails(@Body ContestDetailRequest contestDetailRequest);

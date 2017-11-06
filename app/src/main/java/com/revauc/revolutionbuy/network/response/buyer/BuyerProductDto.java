@@ -19,6 +19,7 @@ import java.util.List;
 public class BuyerProductDto implements Parcelable {
 
     private int id;
+    private int userId;
     private int offerGet;
     private String title;
     private String description;
@@ -30,28 +31,64 @@ public class BuyerProductDto implements Parcelable {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     public int getOfferGet() {
         return offerGet;
+    }
+
+    public void setOfferGet(int offerGet) {
+        this.offerGet = offerGet;
     }
 
     public String getTitle() {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<BuyerProductCategoryDto> getBuyerProductCategories() {
         return buyerProductCategories;
     }
 
+    public void setBuyerProductCategories(List<BuyerProductCategoryDto> buyerProductCategories) {
+        this.buyerProductCategories = buyerProductCategories;
+    }
+
     public List<BuyerProductImageDto> getBuyerProductImages() {
         return buyerProductImages;
     }
 
+    public void setBuyerProductImages(List<BuyerProductImageDto> buyerProductImages) {
+        this.buyerProductImages = buyerProductImages;
+    }
+
     public UserDto getUser() {
         return user;
+    }
+
+    public void setUser(UserDto user) {
+        this.user = user;
     }
 
     public String getBuyerProductCategoriesString()
@@ -77,6 +114,7 @@ public class BuyerProductDto implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
+        dest.writeInt(this.userId);
         dest.writeInt(this.offerGet);
         dest.writeString(this.title);
         dest.writeString(this.description);
@@ -90,6 +128,7 @@ public class BuyerProductDto implements Parcelable {
 
     protected BuyerProductDto(Parcel in) {
         this.id = in.readInt();
+        this.userId = in.readInt();
         this.offerGet = in.readInt();
         this.title = in.readString();
         this.description = in.readString();
@@ -98,7 +137,7 @@ public class BuyerProductDto implements Parcelable {
         this.user = in.readParcelable(UserDto.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<BuyerProductDto> CREATOR = new Parcelable.Creator<BuyerProductDto>() {
+    public static final Creator<BuyerProductDto> CREATOR = new Creator<BuyerProductDto>() {
         @Override
         public BuyerProductDto createFromParcel(Parcel source) {
             return new BuyerProductDto(source);
