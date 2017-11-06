@@ -59,7 +59,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         final NotificationDto notificationDto = mNotifications.get(position);
         holder.tvDesc.setText(notificationDto.getDescription());
         holder.tvTime.setText(Utils.getDuration(notificationDto.getTimestamp()*1000,mContext));
@@ -76,7 +76,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onNotificationClickListener.onNotificationClicked(notificationDto);
+                onNotificationClickListener.onNotificationClicked(notificationDto,position);
             }
         });
     }

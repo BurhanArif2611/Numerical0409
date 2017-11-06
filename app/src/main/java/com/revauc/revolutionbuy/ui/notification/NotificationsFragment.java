@@ -39,6 +39,7 @@ import com.revauc.revolutionbuy.ui.BaseFragment;
 import com.revauc.revolutionbuy.ui.buy.PurchasedItemDetailActivity;
 import com.revauc.revolutionbuy.ui.buy.SellerOfferDetailActivity;
 import com.revauc.revolutionbuy.ui.buy.SellerOffersActivity;
+import com.revauc.revolutionbuy.ui.dashboard.DashboardActivity;
 import com.revauc.revolutionbuy.ui.sell.SellerOwnOfferDetailActivity;
 import com.revauc.revolutionbuy.ui.sell.adapter.OffersAdapter;
 import com.revauc.revolutionbuy.util.Constants;
@@ -170,6 +171,9 @@ public class NotificationsFragment extends BaseFragment implements OnNotificatio
                         }
                         mNotifications.addAll(response.getResult().getNotification());
                         mAdapter.notifyDataSetChanged();
+
+                        ((DashboardActivity)getActivity()).updateBadgeCount(response.getResult().getTotalUnreadCount());
+
                     }
                 } else {
                     showToast(response.getMessage());
@@ -216,7 +220,9 @@ public class NotificationsFragment extends BaseFragment implements OnNotificatio
     }
 
     @Override
-    public void onNotificationClicked(NotificationDto notificationDto) {
+    public void onNotificationClicked(NotificationDto notificationDto,int position) {
+        mNotifications.get(position).setIsRead(0);
+        mAdapter.notifyDataSetChanged();
         fetchNotificationDetail(notificationDto.getId(),notificationDto.getType());
     }
 

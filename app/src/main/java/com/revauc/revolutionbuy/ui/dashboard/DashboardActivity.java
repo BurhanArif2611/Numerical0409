@@ -8,6 +8,8 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -18,6 +20,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -154,6 +157,7 @@ public class DashboardActivity extends BaseActivity {
     private NotificationPayload mNotificationPayload;
     private boolean isFetching;
     private Integer mBadgeCount;
+    private TextView tvBadgeCount;
 
 
     @Override
@@ -209,8 +213,22 @@ public class DashboardActivity extends BaseActivity {
 
         if(mNotificationPayload!=null)
         {
+            if(mNotificationPayload.getBadge()!=null && !mNotificationPayload.getBadge().equalsIgnoreCase("0"))
+            {
+                BottomNavigationMenuView bottomNavigationMenuView =
+                        (BottomNavigationMenuView) mBinder.navigation.getChildAt(0);
+                View v = bottomNavigationMenuView.getChildAt(2);
+                BottomNavigationItemView itemView = (BottomNavigationItemView) v;
+
+                View badge = LayoutInflater.from(this)
+                        .inflate(R.layout.layout_badge, bottomNavigationMenuView, false);
+                tvBadgeCount = (TextView)badge.findViewById(R.id.notifications_badge);
+                tvBadgeCount.setText(mNotificationPayload.getBadge());
+                itemView.addView(badge);
+            }
             handleNotificationNavigation();
         }
+
     }
 
     private void handleNotificationNavigation() {
@@ -365,6 +383,19 @@ public class DashboardActivity extends BaseActivity {
 
                 if (response != null && response.isSuccess()) {
                     mBadgeCount = response.getResult().getCount();
+                    if(mBadgeCount>0)
+                    {
+                        BottomNavigationMenuView bottomNavigationMenuView =
+                                (BottomNavigationMenuView) mBinder.navigation.getChildAt(0);
+                        View v = bottomNavigationMenuView.getChildAt(2);
+                        BottomNavigationItemView itemView = (BottomNavigationItemView) v;
+
+                        View badge = LayoutInflater.from(DashboardActivity.this)
+                                .inflate(R.layout.layout_badge, bottomNavigationMenuView, false);
+                        tvBadgeCount = (TextView)badge.findViewById(R.id.notifications_badge);
+                        tvBadgeCount.setText(""+mBadgeCount);
+                        itemView.addView(badge);
+                    }
                 }
 
             }
@@ -377,5 +408,12 @@ public class DashboardActivity extends BaseActivity {
             }
         });
     }
+
+    public void updateBadgeCount(int badgeCount)
+    {
+        mBadgeCount = badgeCount;
+        tvBadgeCount.setText(""+mBadgeCount);
+    }
+
 
 }

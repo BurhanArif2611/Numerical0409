@@ -38,6 +38,10 @@ public class NotificationDto {
         return isRead;
     }
 
+    public void setIsRead(int isRead) {
+        this.isRead = isRead;
+    }
+
     public String getDescription() {
         return description;
     }

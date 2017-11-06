@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent">
+
+    <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+        android:id="@+id/notifications.badge"
+        android:layout_width="wrap_content"
+        android:minWidth="@dimen/margin_18"
+        android:layout_height="@dimen/margin_18"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_gravity="top|center_horizontal"
+        android:background="@drawable/ic_badge_bg"
+        android:gravity="right"
+        android:padding="@dimen/margin_3"
+        android:textColor="@color/white"
+        app:customFont="@string/font_avenir_medium"
+        android:textSize="@dimen/textsize_10" />
+</FrameLayout>

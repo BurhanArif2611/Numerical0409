@@ -9,5 +9,5 @@ import com.revauc.revolutionbuy.network.response.profile.NotificationDto;
 
 public interface OnNotificationClickListener {
 
-    public void onNotificationClicked(NotificationDto notificationDto);
+    public void onNotificationClicked(NotificationDto notificationDto,int position);
 }
