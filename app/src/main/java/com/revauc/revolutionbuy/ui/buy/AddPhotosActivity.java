@@ -407,15 +407,15 @@ public class AddPhotosActivity extends BaseActivity implements View.OnClickListe
         File file1 = null;
         File file2 = null;
         File file3 = null;
-        if (mFilePathPrimary != null) {
+        if (!StringUtils.isNullOrEmpty(mFilePathPrimary)) {
             file1 = new File(mFilePathPrimary);
         }
 
-        if (mFilePathOne != null) {
+        if (!StringUtils.isNullOrEmpty(mFilePathOne)) {
             file2 = new File(mFilePathOne);
         }
 
-        if (mFilePathTwo != null) {
+        if (!StringUtils.isNullOrEmpty(mFilePathTwo)) {
             file3 = new File(mFilePathTwo);
         }
 
@@ -474,7 +474,7 @@ public class AddPhotosActivity extends BaseActivity implements View.OnClickListe
             observable = apiService.addBuyerProduct(map, body1, body2, body3);
         }
 
-        apiService.addBuyerProduct(map, body1,body2,body3).subscribeOn(Schedulers.io())
+        observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DefaultApiObserver<BaseResponse>(this) {
 

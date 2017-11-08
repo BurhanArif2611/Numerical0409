@@ -79,7 +79,7 @@ android {
         }
         debug {
             minifyEnabled false
-            debuggable false
+            debuggable true
             versionNameSuffix '-Release'
         }
     }
