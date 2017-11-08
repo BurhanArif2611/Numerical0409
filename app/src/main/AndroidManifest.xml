@@ -294,6 +294,12 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".ui.sell.CurrencyChooserActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".ui.auth.StripeWebActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"

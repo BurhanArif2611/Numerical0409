@@ -1,5 +1,6 @@
 package com.revauc.revolutionbuy.ui.sell;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -51,6 +52,7 @@ public class SellNowActivity extends BaseActivity implements View.OnClickListene
         }
     };
     private String mCategory;
+    private static final int REQUEST_CODE_CURRENCY = 2324;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,23 +65,24 @@ public class SellNowActivity extends BaseActivity implements View.OnClickListene
         mBinding.imageTwoPlaceholder.setOnClickListener(this);
         mBinding.imageThreePlaceholder.setOnClickListener(this);
         mBinding.textSendOffer.setOnClickListener(this);
-        final String[] mCurrencyCodes = getResources().getStringArray(R.array.currency_names);
-        mBinding.spinnerCurrency.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                LogUtils.LOGD("CURRENCY", "" + mCurrencyCodes[position]);
-                if (position == 0) {
-                    mBinding.textSelectedCurrency.setText("");
-                } else {
-                    mBinding.textSelectedCurrency.setText(mCurrencyCodes[position].split(" ")[0]);
-                }
-            }
+        mBinding.textCurrency.setOnClickListener(this);
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+//        mBinding.spinnerCurrency.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+//                LogUtils.LOGD("CURRENCY", "" + mCurrencyCodes[position]);
+//                if (position == 0) {
+//                    mBinding.textSelectedCurrency.setText("");
+//                } else {
+//                    mBinding.textSelectedCurrency.setText(mCurrencyCodes[position].split(" ")[0]);
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
         LocalBroadcastManager.getInstance(this).registerReceiver(mReciever, new IntentFilter(OfferSentActivity.BROAD_OFFER_SENT_COMPLETE));
 
         mCategory = getIntent().getStringExtra(Constants.EXTRA_CATEGORY);
@@ -210,8 +213,39 @@ public class SellNowActivity extends BaseActivity implements View.OnClickListene
                 mBinding.imageThreePlaceholder.setVisibility(View.VISIBLE);
                 mBinding.imageRemoveThree.setVisibility(View.INVISIBLE);
                 break;
+            case R.id.text_currency:
+                startActivityForResult(new Intent(this,CurrencyChooserActivity.class),REQUEST_CODE_CURRENCY);
+                break;
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REQUEST_CODE_CURRENCY)
+        {
+            if(resultCode== Activity.RESULT_OK)
+            {
+                String currency = data.getStringExtra(Constants.EXTRA_CURRENCY_NAME);
+                LogUtils.LOGD("CURRENCY", "" + currency);
+                if(StringUtils.isNullOrEmpty(currency))
+                {
+                    mBinding.textCurrency.setText("");
+                    mBinding.textSelectedCurrency.setText("");
+                }
+                else
+                {
+                    mBinding.textCurrency.setText(currency);
+                    mBinding.textSelectedCurrency.setText(currency.split(" ")[0]);
+                }
+            }
+            else
+            {
+//                mBinding.textCurrency.setText("");
+//                mBinding.textSelectedCurrency.setText("");
+            }
+        }
     }
 
     private void sendOfferToBuyer(String price, String description) {

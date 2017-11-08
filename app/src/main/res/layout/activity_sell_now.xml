@@ -176,19 +176,18 @@
                         android:textSize="@dimen/textsize_15"
                         app:customFont="@string/font_avenir_regular" />
 
-                    <Spinner
-                        android:id="@+id/spinner_currency"
+                    <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+                        android:id="@+id/text_currency"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/margin_16"
                         android:layout_marginStart="@dimen/margin_16"
                         android:layout_marginTop="@dimen/margin_16"
-                        android:entries="@array/currency_names"
                         android:background="@drawable/et_edittext_border"
-                        android:drawableEnd="@drawable/ic_dropdown"
                         android:ellipsize="end"
                         android:textColorHint="@color/textcolor_hint"
                         android:maxLines="1"
+                        android:hint="Select Currency"
                         android:padding="@dimen/margin_16"
                         android:textColor="@color/textColorDark"
                         android:textSize="@dimen/textsize_15"
