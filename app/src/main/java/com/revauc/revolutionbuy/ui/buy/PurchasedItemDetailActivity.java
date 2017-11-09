@@ -25,6 +25,7 @@ import com.revauc.revolutionbuy.ui.BaseActivity;
 import com.revauc.revolutionbuy.ui.buy.adapter.ProductImageAdapter;
 import com.revauc.revolutionbuy.ui.sell.ReportItemActivity;
 import com.revauc.revolutionbuy.util.Constants;
+import com.revauc.revolutionbuy.util.StringUtils;
 import com.squareup.picasso.Picasso;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -48,7 +49,15 @@ public class PurchasedItemDetailActivity extends BaseActivity implements View.On
         mBinding.textCategories.setText(mProductDetail.getBuyerProductCategoriesString() + "");
         if(mProductDetail.getSellerProducts()!=null && !mProductDetail.getSellerProducts().isEmpty())
         {
-            mBinding.textPriceOffered.setText((mProductDetail.getSellerProducts().get(0).getDescription().split("&&")[0])+" "+mProductDetail.getSellerProducts().get(0).getPrice());
+            if(StringUtils.isNullOrEmpty(mProductDetail.getSellerProducts().get(0).getDescription()))
+            {
+                mBinding.textPriceOffered.setText("");
+            }
+            else
+            {
+                mBinding.textPriceOffered.setText((mProductDetail.getSellerProducts().get(0).getDescription().split("&&")[0])+" "+mProductDetail.getSellerProducts().get(0).getPrice());
+            }
+
 
             //IMAGES
             if (mProductDetail.getSellerProducts().get(0).getSellerProductImages() != null && !mProductDetail.getSellerProducts().get(0).getSellerProductImages().isEmpty()) {

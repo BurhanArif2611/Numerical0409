@@ -4,18 +4,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.revauc.revolutionbuy.network.response.buyer.BuyerProductDto;
 import com.revauc.revolutionbuy.network.response.buyer.PurchasedProductDto;
-import com.revauc.revolutionbuy.network.response.seller.SellerOfferDto;
 
 /**
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class NotificationDetailPurchaseResult {
+public class NotificationDetailUnlockResult {
 
-    private PurchasedProductDto purchasedProduct;
+    private BuyerProductDto buyerProduct;
 
-    public PurchasedProductDto getPurchasedProduct() {
-        return purchasedProduct;
+    public BuyerProductDto getBuyerProduct() {
+        return buyerProduct;
     }
 }

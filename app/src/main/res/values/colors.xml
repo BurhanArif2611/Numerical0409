@@ -6,7 +6,6 @@
     <color name="color_line_divider">#e0e0e0</color>
     <color name="edittext_image_bg">#f6faff</color>
     <color name="textcolor_hint">#8095ac</color>
-    <color name="color_tab_inactive">#b0b0b0</color>
     <color name="color_header_bg">#f4f6fe</color>
     <color name="color_label">#999999</color>
     <color name="textColorDark87">#D9234270</color>
@@ -17,7 +16,7 @@
 
 
 
-
+    <color name="color_tab_inactive">#b0b0b0</color>
     <color name="colorAccent">#1f599c</color>
     <color name="colorAccent_10">#1A00c8ff</color>
     <color name="colorRed">#fd5774</color>

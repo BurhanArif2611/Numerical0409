@@ -41,6 +41,7 @@ import com.revauc.revolutionbuy.network.response.buyer.PurchasedResponse;
 import com.revauc.revolutionbuy.network.response.profile.NotificationCountResponse;
 import com.revauc.revolutionbuy.network.response.profile.NotificationDetailPurchaseResponse;
 import com.revauc.revolutionbuy.network.response.profile.NotificationDetailResponse;
+import com.revauc.revolutionbuy.network.response.profile.NotificationDetailUnlockResponse;
 import com.revauc.revolutionbuy.network.response.profile.NotificationDto;
 import com.revauc.revolutionbuy.network.response.seller.SellerOfferDto;
 import com.revauc.revolutionbuy.network.response.seller.SellerOffersResponse;
@@ -51,6 +52,7 @@ import com.revauc.revolutionbuy.ui.BaseActivity;
 import com.revauc.revolutionbuy.ui.ComingSoonFragment;
 import com.revauc.revolutionbuy.ui.auth.SignUpActivity;
 import com.revauc.revolutionbuy.ui.buy.BuyFragment;
+import com.revauc.revolutionbuy.ui.buy.BuyerProductDetailActivity;
 import com.revauc.revolutionbuy.ui.buy.PurchasedItemDetailActivity;
 import com.revauc.revolutionbuy.ui.buy.SelectCategoriesActivity;
 import com.revauc.revolutionbuy.ui.buy.SellerOfferDetailActivity;
@@ -288,6 +290,47 @@ public class DashboardActivity extends BaseActivity {
                 }
             });
         }
+        else if(type==Constants.TYPE_BUYER_UNLOCKED)
+        {
+
+            apiService.getNotificationDetailForUnlock(new NotificationDetailRequest(notificationId)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<NotificationDetailUnlockResponse>(this) {
+
+                @Override
+                public void onResponse(NotificationDetailUnlockResponse response) {
+                    isFetching = false;
+                    hideProgressBar();
+                    if (response != null && response.isSuccess()) {
+                        if(response.getResult()!=null)
+                        {
+                            if(response.getResult().getBuyerProduct()!=null)
+                            {
+                                Intent intent = new Intent(DashboardActivity.this,BuyerProductDetailActivity.class);
+                                intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,response.getResult().getBuyerProduct());
+                                startActivity(intent);
+                            }
+                            else
+                            {
+                                showToast(response.getMessage());
+                            }
+                        }
+                    } else {
+                        showToast(response.getMessage());
+//                    showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
+                    }
+                }
+
+                @Override
+                public void onError(Throwable call, BaseResponse baseResponse) {
+                    hideProgressBar();
+                    isFetching = false;
+                    if (baseResponse != null) {
+                        String errorMessage = baseResponse.getMessage();
+                        showToast(errorMessage);
+//                    Utils.showSnackbar(errorMessage, mBinder.mainContainer, true);
+                    }
+                }
+            });
+        }
         else
         {
             apiService.getNotificationDetail(new NotificationDetailRequest(notificationId)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<NotificationDetailResponse>(DashboardActivity.this) {
@@ -313,19 +356,7 @@ public class DashboardActivity extends BaseActivity {
                                         showToast(response.getMessage());
                                     }
                                     break;
-                                case Constants.TYPE_BUYER_UNLOCKED:
-                                    if(response.getResult().getSellerProduct()!=null)
-                                    {
-                                        Intent intent = new Intent(DashboardActivity.this,SellerOwnOfferDetailActivity.class);
-                                        intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,response.getResult().getSellerProduct());
-                                        startActivity(intent);
-                                    }
-                                    else
-                                    {
-                                        showToast(response.getMessage());
-                                    }
 
-                                    break;
                                 case Constants.TYPE_BUYER_MARKED_COMPLETE:
                                     if(response.getResult().getSellerProduct()!=null)
                                     {

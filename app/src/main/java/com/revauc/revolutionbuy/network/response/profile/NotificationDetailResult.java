@@ -15,15 +15,14 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class NotificationDetailResult {
 
-    private BuyerProductDto buyerProduct;
+//    private Object buyerProduct;
     private SellerOfferDto sellerProduct;
-
-    public BuyerProductDto getBuyerProduct() {
-        return buyerProduct;
-    }
+//
+//    public Object getBuyerProduct() {
+//        return buyerProduct;
+//    }
 
     public SellerOfferDto getSellerProduct() {
         return sellerProduct;
     }
-
 }

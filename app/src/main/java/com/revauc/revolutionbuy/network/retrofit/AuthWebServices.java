@@ -27,6 +27,7 @@ import com.revauc.revolutionbuy.network.response.profile.NotificationCountRespon
 import com.revauc.revolutionbuy.network.response.profile.NotificationDetailPurchaseResponse;
 import com.revauc.revolutionbuy.network.response.profile.NotificationDetailResponse;
 import com.revauc.revolutionbuy.network.response.profile.NotificationDetailResult;
+import com.revauc.revolutionbuy.network.response.profile.NotificationDetailUnlockResponse;
 import com.revauc.revolutionbuy.network.response.profile.NotificationResponse;
 import com.revauc.revolutionbuy.network.response.profile.StateResponse;
 import com.revauc.revolutionbuy.network.response.seller.SellerOffersResponse;
@@ -238,6 +239,9 @@ public interface AuthWebServices {
 
     @POST(READ_NOTIFICATION)
     Observable<NotificationDetailPurchaseResponse> getNotificationDetailForPurchase(@Body NotificationDetailRequest params);
+
+    @POST(READ_NOTIFICATION)
+    Observable<NotificationDetailUnlockResponse> getNotificationDetailForUnlock(@Body NotificationDetailRequest params);
 //
 //    @POST(CONTEST_DETAILS)
 //    Observable<ContestDetailResponse> getContestDetails(@Body ContestDetailRequest contestDetailRequest);

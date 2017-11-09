@@ -25,10 +25,12 @@ import com.revauc.revolutionbuy.listeners.OnSellerOfferClickListener;
 import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.RequestController;
 import com.revauc.revolutionbuy.network.request.auth.NotificationDetailRequest;
+import com.revauc.revolutionbuy.network.response.buyer.BuyerProductDto;
 import com.revauc.revolutionbuy.network.response.buyer.PurchasedProductDto;
 import com.revauc.revolutionbuy.network.response.buyer.PurchasedResponse;
 import com.revauc.revolutionbuy.network.response.profile.NotificationDetailPurchaseResponse;
 import com.revauc.revolutionbuy.network.response.profile.NotificationDetailResponse;
+import com.revauc.revolutionbuy.network.response.profile.NotificationDetailUnlockResponse;
 import com.revauc.revolutionbuy.network.response.profile.NotificationDto;
 import com.revauc.revolutionbuy.network.response.profile.NotificationResponse;
 import com.revauc.revolutionbuy.network.response.seller.SellerOfferDto;
@@ -36,6 +38,7 @@ import com.revauc.revolutionbuy.network.response.seller.SellerOffersResponse;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.BaseFragment;
+import com.revauc.revolutionbuy.ui.buy.BuyerProductDetailActivity;
 import com.revauc.revolutionbuy.ui.buy.PurchasedItemDetailActivity;
 import com.revauc.revolutionbuy.ui.buy.SellerOfferDetailActivity;
 import com.revauc.revolutionbuy.ui.buy.SellerOffersActivity;
@@ -279,6 +282,47 @@ public class NotificationsFragment extends BaseFragment implements OnNotificatio
                 }
             });
         }
+        else if(type==Constants.TYPE_BUYER_UNLOCKED)
+        {
+
+            apiService.getNotificationDetailForUnlock(new NotificationDetailRequest(notificationId)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<NotificationDetailUnlockResponse>(getActivity()) {
+
+                @Override
+                public void onResponse(NotificationDetailUnlockResponse response) {
+                    isFetching = false;
+                    hideProgressBar();
+                    if (response != null && response.isSuccess()) {
+                        if(response.getResult()!=null)
+                        {
+                            if(response.getResult().getBuyerProduct()!=null)
+                            {
+                                Intent intent = new Intent(getActivity(),BuyerProductDetailActivity.class);
+                                intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,response.getResult().getBuyerProduct());
+                                startActivity(intent);
+                            }
+                            else
+                            {
+                                showToast(response.getMessage());
+                            }
+                        }
+                    } else {
+                        showToast(response.getMessage());
+//                    showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
+                    }
+                }
+
+                @Override
+                public void onError(Throwable call, BaseResponse baseResponse) {
+                    hideProgressBar();
+                    isFetching = false;
+                    if (baseResponse != null) {
+                        String errorMessage = baseResponse.getMessage();
+                        showToast(errorMessage);
+//                    Utils.showSnackbar(errorMessage, mBinder.mainContainer, true);
+                    }
+                }
+            });
+        }
         else
         {
             apiService.getNotificationDetail(new NotificationDetailRequest(notificationId)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<NotificationDetailResponse>(getActivity()) {
@@ -303,19 +347,6 @@ public class NotificationsFragment extends BaseFragment implements OnNotificatio
                                     {
                                         showToast(response.getMessage());
                                     }
-                                    break;
-                                case Constants.TYPE_BUYER_UNLOCKED:
-                                    if(response.getResult().getSellerProduct()!=null)
-                                    {
-                                        Intent intent = new Intent(getActivity(),SellerOwnOfferDetailActivity.class);
-                                        intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,response.getResult().getSellerProduct());
-                                        startActivity(intent);
-                                    }
-                                    else
-                                    {
-                                        showToast(response.getMessage());
-                                    }
-
                                     break;
                                 case Constants.TYPE_BUYER_MARKED_COMPLETE:
                                     if(response.getResult().getSellerProduct()!=null)
