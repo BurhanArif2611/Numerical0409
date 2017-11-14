@@ -19,6 +19,7 @@ import com.revauc.revolutionbuy.network.request.auth.ForgotPasswordRequest;
 import com.revauc.revolutionbuy.network.request.auth.MobilePinRequest;
 import com.revauc.revolutionbuy.network.request.auth.MobileVerifyRequest;
 import com.revauc.revolutionbuy.network.response.LoginResponse;
+import com.revauc.revolutionbuy.network.response.UserDto;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.BaseActivity;
@@ -31,6 +32,7 @@ import com.revauc.revolutionbuy.util.StringUtils;
 import java.io.File;
 import java.util.HashMap;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
@@ -47,6 +49,7 @@ public class MobilePinVerificationActivity extends BaseActivity implements View.
     private int cityId;
     private String mFilePath;
     private boolean isFromSettings;
+
 
 
     @Override
@@ -68,6 +71,7 @@ public class MobilePinVerificationActivity extends BaseActivity implements View.
         mBinding.toolbarProfile.tvToolbarGeneralLeft.setOnClickListener(this);
         mBinding.toolbarProfile.txvToolbarGeneralCenter.setText(R.string.mobile_verification);
         mBinding.textVerifyPin.setOnClickListener(this);
+        mBinding.textResend.setOnClickListener(this);
 
         mBinding.editPin.addTextChangedListener(new TextWatcher() {
             @Override
@@ -108,6 +112,10 @@ public class MobilePinVerificationActivity extends BaseActivity implements View.
             case R.id.text_verify_pin:
                 validateDetails();
                 break;
+
+            case R.id.text_resend:
+                generatePin(mobile);
+                break;
         }
 
     }
@@ -143,6 +151,9 @@ public class MobilePinVerificationActivity extends BaseActivity implements View.
             public void onResponse(BaseResponse response) {
                 hideProgressBar();
                 if (response.isSuccess()) {
+                    UserDto userDto = PreferenceUtil.getUserProfile();
+                    userDto.setMobile(mobile);
+                    PreferenceUtil.setUserProfile(userDto);
                     onBackPressed();
                     showToast(response.getMessage());
                 } else {
@@ -162,11 +173,50 @@ public class MobilePinVerificationActivity extends BaseActivity implements View.
         });
     }
 
+    private void generatePin(final String mobile) {
+        showProgressBar();
+        AuthWebServices apiService = RequestController.createRetrofitRequest(false);
+
+        apiService.generateMobilePin(new MobilePinRequest(mobile)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<BaseResponse>(this) {
+
+            @Override
+            public void onResponse(BaseResponse response) {
+                hideProgressBar();
+                if (response.isSuccess()) {
+                   showSnackBarFromBottom(response.getMessage(),mBinding.mainContainer,false);
+                }
+                else
+                {
+                    showSnackBarFromBottom(response.getMessage(),mBinding.mainContainer, true);
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable call, BaseResponse baseResponse) {
+                hideProgressBar();
+                if (baseResponse != null) {
+                    String errorMessage = baseResponse.getMessage();
+                    showSnackBarFromBottom(errorMessage,mBinding.mainContainer, true);
+                }
+            }
+        });
+    }
+
     private void addProfileWithPin(String pin) {
         showProgressBar();
 
         //File creating from selected URL
-        File file = new File(mFilePath);
+        File file = null;
+        try
+        {
+            file = new File(mFilePath);
+        }
+        catch (Exception e)
+        {
+
+        }
+
 
         //Creating Profile Details
         RequestBody nameBody = RequestBody.create(MediaType.parse("text/plain"), name);
@@ -182,15 +232,26 @@ public class MobilePinVerificationActivity extends BaseActivity implements View.
         map.put("mobile", mobileBody);
         map.put("pin", pinBody);
         // create RequestBody instance from file
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-
-        // MultipartBody.Part is used to send also the actual file name
-        MultipartBody.Part body =
-                MultipartBody.Part.createFormData("image", file.getName(), requestFile);
 
         AuthWebServices apiService = RequestController.createRetrofitRequest(false);
+        Observable<LoginResponse> uploadForm;
+        if(file!=null)
+        {
+            RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            // MultipartBody.Part is used to send also the actual file name
+            MultipartBody.Part body =
+                    MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+            uploadForm =  apiService.uploadFormData(map, body);
+        }
+        else
+        {
+            uploadForm =  apiService.uploadFormData(map);
+        }
 
-        apiService.uploadFormData(map, body).subscribeOn(Schedulers.io())
+
+
+
+        uploadForm.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DefaultApiObserver<LoginResponse>(this) {
 
@@ -198,14 +259,21 @@ public class MobilePinVerificationActivity extends BaseActivity implements View.
                     public void onResponse(LoginResponse response) {
                         hideProgressBar();
                         if (response.isSuccess()) {
-                            PreferenceUtil.setUserProfile(response.getResult().getUser());
-                            PreferenceUtil.setLoggedIn(true);
-                            Intent intent = new Intent(MobilePinVerificationActivity.this, DashboardActivity.class);
-                            intent.putExtra(Constants.EXTRA_IS_FROM_PROFILE, true);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                            finish();
+                            if(response.getResult()!=null)
+                            {
+                                if(response.getResult().getUser()!=null)
+                                {
+                                    PreferenceUtil.setUserProfile(response.getResult().getUser());
+                                    PreferenceUtil.setLoggedIn(true);
+                                    Intent intent = new Intent(MobilePinVerificationActivity.this, DashboardActivity.class);
+                                    intent.putExtra(Constants.EXTRA_IS_FROM_PROFILE, true);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                                    finish();
+                                }
+                            }
+
                         } else {
                             showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
                         }

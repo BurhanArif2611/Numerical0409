@@ -20,6 +20,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -424,6 +425,7 @@ public class DashboardActivity extends BaseActivity {
                         View badge = LayoutInflater.from(DashboardActivity.this)
                                 .inflate(R.layout.layout_badge, bottomNavigationMenuView, false);
                         tvBadgeCount = (TextView)badge.findViewById(R.id.notifications_badge);
+                        tvBadgeCount.setGravity(Gravity.CENTER);
                         tvBadgeCount.setText(""+mBadgeCount);
                         itemView.addView(badge);
                     }
@@ -443,7 +445,28 @@ public class DashboardActivity extends BaseActivity {
     public void updateBadgeCount(int badgeCount)
     {
         mBadgeCount = badgeCount;
-        tvBadgeCount.setText(""+mBadgeCount);
+        if(tvBadgeCount==null)
+        {
+            if(mBadgeCount>0)
+            {
+                BottomNavigationMenuView bottomNavigationMenuView =
+                        (BottomNavigationMenuView) mBinder.navigation.getChildAt(0);
+                View v = bottomNavigationMenuView.getChildAt(2);
+                BottomNavigationItemView itemView = (BottomNavigationItemView) v;
+
+                View badge = LayoutInflater.from(DashboardActivity.this)
+                        .inflate(R.layout.layout_badge, bottomNavigationMenuView, false);
+                tvBadgeCount = (TextView)badge.findViewById(R.id.notifications_badge);
+                tvBadgeCount.setGravity(Gravity.CENTER);
+                tvBadgeCount.setText(""+mBadgeCount);
+                itemView.addView(badge);
+            }
+        }
+        else
+        {
+            tvBadgeCount.setText(""+mBadgeCount);
+        }
+
     }
 
 

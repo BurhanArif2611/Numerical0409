@@ -3,6 +3,7 @@ package com.revauc.revolutionbuy;
 import android.app.Application;
 import android.content.Context;
 
+import com.google.firebase.FirebaseApp;
 import com.orhanobut.hawk.Hawk;
 
 
@@ -99,7 +100,7 @@ public class RevBuyApp extends Application {
 //        initRealm();
 
         // Push Notification initialize
-        // FirebaseApp.initializeApp(mAppContext);
+         FirebaseApp.initializeApp(mAppContext);
     }
 
 

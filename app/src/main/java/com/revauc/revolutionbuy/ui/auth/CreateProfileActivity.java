@@ -1,6 +1,7 @@
 package com.revauc.revolutionbuy.ui.auth;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
@@ -68,8 +69,12 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
     private int selectedStateId;
     private int selectedCityId;
     private String mFilePath;
+    private String selectedPhoneCode;
     private boolean isImageRemoved, isPhotoPresentFromServer;
     private boolean isFromSettings;
+    private TextWatcher textWatcherCountry;
+    private TextWatcher textWatcherState;
+    private TextWatcher textWatcherCity;
 
     private ImagePickerUtils.OnImagePickerListener imageListener = new ImagePickerUtils.OnImagePickerListener() {
         @Override
@@ -96,6 +101,7 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
             mBinding.textAddPhoto.setText(R.string.add_photo);
         }
     };
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -140,7 +146,7 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
 
                 mBinding.textAddPhoto.setText(R.string.change_photo);
             }
-            loadLocations();
+//            loadLocations();
         } else {
             mBinding.toolbarProfile.txvToolbarGeneralCenter.setText(R.string.create_profile);
             mBinding.toolbarProfile.tvToolbarGeneralLeft.setText(R.string.cancel);
@@ -153,6 +159,8 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
         mBinding.toolbarProfile.tvToolbarGeneralRight.setOnClickListener(this);
         mBinding.imageProfile.setOnClickListener(this);
         mBinding.editCountry.setOnClickListener(this);
+        mBinding.editState.setOnClickListener(this);
+        mBinding.editCity.setOnClickListener(this);
 
         mBinding.editName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -165,7 +173,7 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
                 if (TextUtils.isEmpty(s.toString().trim())) {
                     mBinding.containerName.setBackgroundResource(R.drawable.ic_button_red_border);
                 } else {
-                    mBinding.containerName.setBackgroundResource(R.drawable.ic_button_blue_border);
+                    mBinding.containerName.setBackgroundResource(R.drawable.et_edittext_border);
                 }
             }
 
@@ -186,7 +194,7 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
                 if (TextUtils.isEmpty(s.toString().trim())) {
                     mBinding.containerAge.setBackgroundResource(R.drawable.ic_button_red_border);
                 } else {
-                    mBinding.containerAge.setBackgroundResource(R.drawable.ic_button_blue_border);
+                    mBinding.containerAge.setBackgroundResource(R.drawable.et_edittext_border);
                 }
             }
 
@@ -196,7 +204,7 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
             }
         });
 
-        mBinding.editCountry.addTextChangedListener(new TextWatcher() {
+        textWatcherCountry = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -207,7 +215,7 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
                 if (TextUtils.isEmpty(s.toString().trim())) {
                     mBinding.containerCountry.setBackgroundResource(R.drawable.ic_button_red_border);
                 } else {
-                    mBinding.containerCountry.setBackgroundResource(R.drawable.ic_button_blue_border);
+                    mBinding.containerCountry.setBackgroundResource(R.drawable.et_edittext_border);
                 }
             }
 
@@ -215,9 +223,9 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
             public void afterTextChanged(Editable s) {
 
             }
-        });
+        };
 
-        mBinding.editState.addTextChangedListener(new TextWatcher() {
+        textWatcherState = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -228,7 +236,7 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
                 if (TextUtils.isEmpty(s.toString().trim())) {
                     mBinding.containerState.setBackgroundResource(R.drawable.ic_button_red_border);
                 } else {
-                    mBinding.containerState.setBackgroundResource(R.drawable.ic_button_blue_border);
+                    mBinding.containerState.setBackgroundResource(R.drawable.et_edittext_border);
                 }
             }
 
@@ -236,9 +244,9 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
             public void afterTextChanged(Editable s) {
 
             }
-        });
+        };
 
-        mBinding.editCity.addTextChangedListener(new TextWatcher() {
+        textWatcherCity = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -249,7 +257,7 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
                 if (TextUtils.isEmpty(s.toString().trim())) {
                     mBinding.containerCity.setBackgroundResource(R.drawable.ic_button_red_border);
                 } else {
-                    mBinding.containerCity.setBackgroundResource(R.drawable.ic_button_blue_border);
+                    mBinding.containerCity.setBackgroundResource(R.drawable.et_edittext_border);
                 }
             }
 
@@ -257,9 +265,13 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
             public void afterTextChanged(Editable s) {
 
             }
-        });
+        };
 
-        fetchCountries();
+        mBinding.editCountry.addTextChangedListener(textWatcherCountry);
+
+        mBinding.editState.addTextChangedListener(textWatcherState);
+
+        mBinding.editCity.addTextChangedListener(textWatcherCity);
     }
 
 
@@ -279,10 +291,29 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
                     ImagePickerUtils.add(getSupportFragmentManager(), imageListener, false);
                 }
                 break;
+            case R.id.edit_country:
+                Intent countryChooserIntent = new Intent(CreateProfileActivity.this, CountryChooserActivity.class);
+                countryChooserIntent.putExtra(Constants.EXTRA_CHOOSE_TYPE, Constants.CHOOSE_TYPE_COUNTRY);
+                startActivityForResult(countryChooserIntent, Constants.REQUEST_CODE_CHOOSER);
+                break;
+            case R.id.edit_state:
+                Intent stateChooserIntent = new Intent(CreateProfileActivity.this, CountryChooserActivity.class);
+                stateChooserIntent.putExtra(Constants.EXTRA_CHOOSE_TYPE, Constants.CHOOSE_TYPE_STATE);
+                stateChooserIntent.putExtra(Constants.EXTRA_COUNTRY_ID, selectedCountryId);
+                startActivityForResult(stateChooserIntent, Constants.REQUEST_CODE_CHOOSER);
+                break;
+            case R.id.edit_city:
+                Intent cityChooserIntent = new Intent(CreateProfileActivity.this, CountryChooserActivity.class);
+                cityChooserIntent.putExtra(Constants.EXTRA_CHOOSE_TYPE, Constants.CHOOSE_TYPE_CITY);
+                cityChooserIntent.putExtra(Constants.EXTRA_COUNTRY_ID, selectedCountryId);
+                cityChooserIntent.putExtra(Constants.EXTRA_STATE_ID, selectedStateId);
+                startActivityForResult(cityChooserIntent, Constants.REQUEST_CODE_CHOOSER);
+                break;
             default:
                 break;
         }
     }
+
 
     private void validateDetailsEntered() {
         String name = mBinding.editName.getText().toString();
@@ -306,21 +337,55 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
             showSnackBarFromBottom(getString(R.string.text_please_select, "city"), mBinding.mainContainer, true);
             mBinding.containerCity.setBackgroundResource(R.drawable.ic_button_red_border);
         } else {
-            if (isFromSettings)
-            {
+            if (isFromSettings) {
                 editProfile(name, age, selectedCityId + "");
-            }
-            else
-            {
-                Intent intent = new Intent(CreateProfileActivity.this,MobileVerificationActivity.class);
-                intent.putExtra(Constants.EXTRA_USER_NAME,name);
-                intent.putExtra(Constants.EXTRA_AGE,Integer.parseInt(age));
-                intent.putExtra(Constants.EXTRA_CITY_ID,selectedCityId);
-                intent.putExtra(Constants.EXTRA_PROFILE_IMAGE,mFilePath);
+            } else {
+                Intent intent = new Intent(CreateProfileActivity.this, MobileVerificationActivity.class);
+                intent.putExtra(Constants.EXTRA_USER_NAME, name);
+                intent.putExtra(Constants.EXTRA_AGE, Integer.parseInt(age));
+                intent.putExtra(Constants.EXTRA_CITY_ID, selectedCityId);
+                intent.putExtra(Constants.EXTRA_PHONE_CODE, selectedPhoneCode);
+                intent.putExtra(Constants.EXTRA_PROFILE_IMAGE, mFilePath);
                 startActivity(intent);
             }
 
 
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mBinding.editName.clearFocus();
+        if (requestCode == Constants.REQUEST_CODE_CHOOSER) {
+            if (resultCode == Activity.RESULT_OK) {
+                int chooseType = data.getIntExtra(Constants.EXTRA_CHOOSE_TYPE, 0);
+                if (chooseType == Constants.CHOOSE_TYPE_COUNTRY) {
+                    selectedCountryId = data.getIntExtra(Constants.EXTRA_COUNTRY_ID, 0);
+                    selectedPhoneCode = data.getStringExtra(Constants.EXTRA_PHONE_CODE);
+                    mBinding.editCountry.setText(""+data.getStringExtra(Constants.EXTRA_LOCATION_VALUE));
+                    mBinding.editState.removeTextChangedListener(textWatcherState);
+                    mBinding.editCity.removeTextChangedListener(textWatcherCity);
+                    mBinding.editState.setText("");
+                    mBinding.editCity.setText("");
+                    mBinding.editState.addTextChangedListener(textWatcherState);
+                    mBinding.editCity.addTextChangedListener(textWatcherCity);
+                    selectedCityId = 0;
+                    selectedStateId = 0;
+                }
+                if (chooseType == Constants.CHOOSE_TYPE_STATE) {
+                    selectedStateId = data.getIntExtra(Constants.EXTRA_STATE_ID, 0);
+                    mBinding.editState.setText(""+data.getStringExtra(Constants.EXTRA_LOCATION_VALUE));
+                    mBinding.editCity.removeTextChangedListener(textWatcherCity);
+                    mBinding.editCity.setText("");
+                    mBinding.editCity.addTextChangedListener(textWatcherCity);
+                    selectedCityId = 0;
+                }
+                if (chooseType == Constants.CHOOSE_TYPE_CITY) {
+                    selectedCityId = data.getIntExtra(Constants.EXTRA_CITY_ID, 0);
+                    mBinding.editCity.setText(""+data.getStringExtra(Constants.EXTRA_LOCATION_VALUE));
+                }
+            }
         }
     }
 
@@ -330,131 +395,132 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
     }
 
-    private void fetchCountries() {
-        showProgressBar();
-        AuthWebServices apiService = RequestController.createRetrofitRequest(false);
+//    private void fetchCountries() {
+//        showProgressBar();
+//        AuthWebServices apiService = RequestController.createRetrofitRequest(false);
+//
+//        apiService.getCountries().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<CountryResponse>(this) {
+//
+//            @Override
+//            public void onResponse(CountryResponse response) {
+//                hideProgressBar();
+//                if (response != null && response.isSuccess()) {
+//                    setupCountries(response.getResult().getCountry());
+//                } else {
+//                    showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable call, BaseResponse baseResponse) {
+//                hideProgressBar();
+//                if (baseResponse != null) {
+//                    String errorMessage = baseResponse.getMessage();
+//                    showSnackBarFromBottom(errorMessage, mBinding.mainContainer, true);
+//                }
+//            }
+//        });
+//    }
+//
+//    private void setupCountries(List<CountryDto> countries) {
+//        mCountries = countries;
+//        mCountriesAdapter = new AutoCompleteCountryAdapter(CreateProfileActivity.this, mCountries);
+//        mBinding.editCountry.setAdapter(mCountriesAdapter);
+//        mBinding.editCountry.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+//                hideKeyboard();
+//                selectedCountryId = mCountriesAdapter.getItem(position).getId();
+//                selectedPhoneCode = mCountriesAdapter.getItem(position).getPhoneCode();
+//                mBinding.editState.setText("");
+//                mBinding.editCity.setText("");
+//                selectedCityId = 0;
+//                selectedStateId = 0;
+//                fetchStates(selectedCountryId);
+//            }
+//        });
+//    }
 
-        apiService.getCountries().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<CountryResponse>(this) {
-
-            @Override
-            public void onResponse(CountryResponse response) {
-                hideProgressBar();
-                if (response != null && response.isSuccess()) {
-                    setupCountries(response.getResult().getCountry());
-                } else {
-                    showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
-                }
-
-            }
-
-            @Override
-            public void onError(Throwable call, BaseResponse baseResponse) {
-                hideProgressBar();
-                if (baseResponse != null) {
-                    String errorMessage = baseResponse.getMessage();
-                    showSnackBarFromBottom(errorMessage, mBinding.mainContainer, true);
-                }
-            }
-        });
-    }
-
-    private void setupCountries(List<CountryDto> countries) {
-        mCountries = countries;
-        mCountriesAdapter = new AutoCompleteCountryAdapter(CreateProfileActivity.this, mCountries);
-        mBinding.editCountry.setAdapter(mCountriesAdapter);
-        mBinding.editCountry.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                hideKeyboard();
-                selectedCountryId = mCountriesAdapter.getItem(position).getId();
-                mBinding.editState.setText("");
-                mBinding.editCity.setText("");
-                selectedCityId = 0;
-                selectedStateId = 0;
-                fetchStates(selectedCountryId);
-            }
-        });
-    }
-
-    private void fetchStates(int countryId) {
-        AuthWebServices apiService = RequestController.createRetrofitRequest(false);
-
-        apiService.getStates(countryId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<StateResponse>(this) {
-
-            @Override
-            public void onResponse(StateResponse response) {
-                if (response != null && response.isSuccess()) {
-                    setupStates(response.getResult().getState());
-                } else {
-                    showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
-                }
-
-            }
-
-            @Override
-            public void onError(Throwable call, BaseResponse baseResponse) {
-                if (baseResponse != null) {
-                    String errorMessage = baseResponse.getMessage();
-                    showSnackBarFromBottom(errorMessage, mBinding.mainContainer, true);
-                }
-            }
-        });
-    }
-
-    private void setupStates(List<StateDto> states) {
-        mStates = states;
-        mStatesAdapter = new AutoCompleteStateAdapter(CreateProfileActivity.this, mStates);
-        mBinding.editState.setAdapter(mStatesAdapter);
-        mBinding.editState.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                hideKeyboard();
-                selectedStateId = mStatesAdapter.getItem(position).getId();
-                mBinding.editCity.setText("");
-                selectedCityId = 0;
-                fetchCities(selectedStateId, selectedStateId);
-
-            }
-        });
-    }
-
-    private void fetchCities(int countryId, int stateId) {
-        AuthWebServices apiService = RequestController.createRetrofitRequest(false);
-
-        apiService.getCities(countryId, stateId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<CityResponse>(this) {
-
-            @Override
-            public void onResponse(CityResponse response) {
-                if (response != null && response.isSuccess()) {
-                    setupCities(response.getResult().getCity());
-                } else {
-                    showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
-                }
-
-            }
-
-            @Override
-            public void onError(Throwable call, BaseResponse baseResponse) {
-                if (baseResponse != null) {
-                    String errorMessage = baseResponse.getMessage();
-                    showSnackBarFromBottom(errorMessage, mBinding.mainContainer, true);
-                }
-            }
-        });
-    }
-
-    private void setupCities(List<CityDto> cities) {
-        mCities = cities;
-        mCitiesAdapter = new AutoCompleteCityAdapter(CreateProfileActivity.this, mCities);
-        mBinding.editCity.setAdapter(mCitiesAdapter);
-        mBinding.editCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                hideKeyboard();
-                selectedCityId = mCitiesAdapter.getItem(position).getId();
-            }
-        });
-    }
+//    private void fetchStates(int countryId) {
+//        AuthWebServices apiService = RequestController.createRetrofitRequest(false);
+//
+//        apiService.getStates(countryId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<StateResponse>(this) {
+//
+//            @Override
+//            public void onResponse(StateResponse response) {
+//                if (response != null && response.isSuccess()) {
+//                    setupStates(response.getResult().getState());
+//                } else {
+//                    showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable call, BaseResponse baseResponse) {
+//                if (baseResponse != null) {
+//                    String errorMessage = baseResponse.getMessage();
+//                    showSnackBarFromBottom(errorMessage, mBinding.mainContainer, true);
+//                }
+//            }
+//        });
+//    }
+//
+//    private void setupStates(List<StateDto> states) {
+//        mStates = states;
+//        mStatesAdapter = new AutoCompleteStateAdapter(CreateProfileActivity.this, mStates);
+//        mBinding.editState.setAdapter(mStatesAdapter);
+//        mBinding.editState.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+//                hideKeyboard();
+//                selectedStateId = mStatesAdapter.getItem(position).getId();
+//                mBinding.editCity.setText("");
+//                selectedCityId = 0;
+//                fetchCities(selectedStateId, selectedStateId);
+//
+//            }
+//        });
+//    }
+//
+//    private void fetchCities(int countryId, int stateId) {
+//        AuthWebServices apiService = RequestController.createRetrofitRequest(false);
+//
+//        apiService.getCities(countryId, stateId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<CityResponse>(this) {
+//
+//            @Override
+//            public void onResponse(CityResponse response) {
+//                if (response != null && response.isSuccess()) {
+//                    setupCities(response.getResult().getCity());
+//                } else {
+//                    showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable call, BaseResponse baseResponse) {
+//                if (baseResponse != null) {
+//                    String errorMessage = baseResponse.getMessage();
+//                    showSnackBarFromBottom(errorMessage, mBinding.mainContainer, true);
+//                }
+//            }
+//        });
+//    }
+//
+//    private void setupCities(List<CityDto> cities) {
+//        mCities = cities;
+//        mCitiesAdapter = new AutoCompleteCityAdapter(CreateProfileActivity.this, mCities);
+//        mBinding.editCity.setAdapter(mCitiesAdapter);
+//        mBinding.editCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+//                hideKeyboard();
+//                selectedCityId = mCitiesAdapter.getItem(position).getId();
+//            }
+//        });
+//    }
 
     private void editProfile(String name, String age, String cityId) {
         showProgressBar();
@@ -525,11 +591,11 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
                 });
     }
 
-    private void loadLocations() {
-        fetchCountries();
-        fetchStates(selectedCountryId);
-        fetchCities(selectedCountryId, selectedStateId);
-    }
+//    private void loadLocations() {
+//        fetchCountries();
+//        fetchStates(selectedCountryId);
+//        fetchCities(selectedCountryId, selectedStateId);
+//    }
 
 
 }

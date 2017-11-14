@@ -79,6 +79,11 @@ public class BuyFragment extends BaseFragment implements TabLayout.OnTabSelected
         }
         mBinder.toolbarBuy.buyTabs.addOnTabSelectedListener(this);
         mBinder.floatingActionButton.setOnClickListener(this);
+
+        if(!PreferenceUtil.isLoggedIn())
+        {
+            BottomMemberAlert.getInstance(getActivity(),getString(R.string.need_to_be_a_member),getString(R.string.sign_up),getString(R.string.cancel)).show();
+        }
     }
 
     @Override

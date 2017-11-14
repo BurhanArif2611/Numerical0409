@@ -46,6 +46,8 @@ import com.revauc.revolutionbuy.ui.dashboard.DashboardActivity;
 import com.revauc.revolutionbuy.ui.sell.SellerOwnOfferDetailActivity;
 import com.revauc.revolutionbuy.ui.sell.adapter.OffersAdapter;
 import com.revauc.revolutionbuy.util.Constants;
+import com.revauc.revolutionbuy.util.PreferenceUtil;
+import com.revauc.revolutionbuy.widget.BottomMemberAlert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,13 +138,25 @@ public class NotificationsFragment extends BaseFragment implements OnNotificatio
         mBinder.recyclerView.setAdapter(mAdapter);
         mBinder.recyclerView.addOnScrollListener(mRecyclerListner);
         mBinder.swipeRefreshLayout.setOnRefreshListener(this);
+        if(!PreferenceUtil.isLoggedIn())
+        {
+            mBinder.swipeRefreshLayout.setEnabled(false);
+        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        page = 1;
-        fetchUserNotifications(page,limit,true);
+        if(PreferenceUtil.isLoggedIn())
+        {
+            page = 1;
+            fetchUserNotifications(page,limit,true);
+        }
+        else
+        {
+            BottomMemberAlert.getInstance(getActivity(),getString(R.string.need_to_be_a_member),getString(R.string.sign_up),getString(R.string.cancel)).show();
+        }
+
     }
 
     private void fetchUserNotifications(final int page, int limit, boolean showLoading) {

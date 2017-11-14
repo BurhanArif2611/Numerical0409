@@ -1,28 +1,12 @@
 package com.revauc.revolutionbuy.util;
 
-import android.content.Context;
 import android.support.annotation.IntDef;
-
-import com.revauc.revolutionbuy.R;
 
 import java.lang.annotation.Retention;
 
 import static com.revauc.revolutionbuy.util.Constants.EnterType.EDIT_PICKS;
 import static com.revauc.revolutionbuy.util.Constants.EnterType.ENTER;
 import static com.revauc.revolutionbuy.util.Constants.EnterType.RE_ENTER;
-import static com.revauc.revolutionbuy.util.Constants.LeagueType.LEAGUE_ALL;
-import static com.revauc.revolutionbuy.util.Constants.LeagueType.LEAGUE_MLB;
-import static com.revauc.revolutionbuy.util.Constants.LeagueType.LEAGUE_NBA;
-import static com.revauc.revolutionbuy.util.Constants.LeagueType.LEAGUE_NFL;
-import static com.revauc.revolutionbuy.util.Constants.NavigationMode.NAVIGATION_FEED;
-import static com.revauc.revolutionbuy.util.Constants.NavigationMode.NAVIGATION_HISTORY;
-import static com.revauc.revolutionbuy.util.Constants.NavigationMode.NAVIGATION_LIVE;
-import static com.revauc.revolutionbuy.util.Constants.NavigationMode.NAVIGATION_NOTIFICATION;
-import static com.revauc.revolutionbuy.util.Constants.NavigationMode.NAVIGATION_UPCOMING;
-import static com.revauc.revolutionbuy.util.Constants.PickViewMode.VIEW_TRADITIONAL_PICK;
-import static com.revauc.revolutionbuy.util.Constants.PickViewMode.VIEW_TRAD_SELECTED_PICK;
-import static com.revauc.revolutionbuy.util.Constants.PickViewMode.VIEW_VERSUS_PICK;
-import static com.revauc.revolutionbuy.util.Constants.PickViewMode.VIEW_VERSUS_SELECTED_PICK;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
@@ -66,6 +50,10 @@ public class Constants {
 
     public static String BROAD_PICKS_ENTER_COMPLETE = "BROAD_PICKS_ENTER_COMPLETE";
     public static String CONTEST_CANCELLED = "CANCELLED";
+    public static final String EXTRA_PHONE_CODE = "PHONE_CODE";
+
+    public static final int REQUEST_CODE_CHOOSER = 1005;
+    public static final String EXTRA_LOCATION_VALUE = "LOCATION_VALUE";
 
 
     private Constants() {
@@ -75,10 +63,10 @@ public class Constants {
     public static final int SELECTED_OVER = 2;
     public static final int SELECTED_NONE = 0;
 
-    public static final String EXTRA_ERROR_MESSAGE = "ERROR_MESSAGE";
+    public static final String EXTRA_CHOOSE_TYPE = "CHOOSE_TYPE";
     public static final String EXTRA_FROM_SETTINGS = "FROM_SETTINGS";
-    public static final String EXTRA_IS_USER_DELETED = "IS_USER_DELETED";
-    public static final String EXTRA_USER_ID = "EXTRA_USER_ID";
+    public static final String EXTRA_STATE_ID = "EXTRA_STATE_ID";
+    public static final String EXTRA_COUNTRY_ID = "EXTRA_COUNTRY_ID";
     public static final String EXTRA_USER_RANK = "EXTRA_USER_RANK";
     public static final String EXTRA_USER_NAME = "EXTRA_USER_NAME";
     public static final String EXTRA_CONTEST_ID = "EXTRA_CONTEST_ID";
@@ -113,6 +101,10 @@ public class Constants {
     public static final int PASSWORD_MIN_LENGTH = 6;
     public static final int USER_NAME_MIN_LENGTH = 6;
     public static final int FIRST_NAME_MIN_LENGTH = 2;
+
+    public static final int CHOOSE_TYPE_COUNTRY = 1;
+    public static final int CHOOSE_TYPE_STATE = 2;
+    public static final int CHOOSE_TYPE_CITY = 3;
 
     public static final String DEVICE_TYPE_ANDROID = "ANDROID";
 
@@ -160,16 +152,6 @@ public class Constants {
     }
 
 
-    //Int Defs
-
-    @Retention(SOURCE)
-    @IntDef({LEAGUE_NBA, LEAGUE_NFL, LEAGUE_MLB, LEAGUE_ALL})
-    public @interface LeagueType {
-        int LEAGUE_ALL = 0;
-        int LEAGUE_NBA = 1;
-        int LEAGUE_MLB = 2;
-        int LEAGUE_NFL = 3;
-    }
 
     @Retention(SOURCE)
     @IntDef({ENTER, RE_ENTER, EDIT_PICKS})
@@ -180,61 +162,4 @@ public class Constants {
     }
 
 
-    @Retention(SOURCE)
-    @IntDef({NAVIGATION_FEED, NAVIGATION_UPCOMING, NAVIGATION_LIVE, NAVIGATION_HISTORY, NAVIGATION_NOTIFICATION})
-    public @interface NavigationMode {
-        int NAVIGATION_FEED = 1;
-        int NAVIGATION_UPCOMING = 2;
-        int NAVIGATION_LIVE = 3;
-        int NAVIGATION_HISTORY = 4;
-        int NAVIGATION_NOTIFICATION = 5;
-    }
-
-
-    @Retention(SOURCE)
-    @IntDef({VIEW_TRADITIONAL_PICK, VIEW_VERSUS_PICK, VIEW_TRAD_SELECTED_PICK, VIEW_VERSUS_SELECTED_PICK})
-    public @interface PickViewMode {
-        int VIEW_TRADITIONAL_PICK = 0;
-        int VIEW_VERSUS_PICK = 1;
-        int VIEW_TRAD_SELECTED_PICK = 2;
-        int VIEW_VERSUS_SELECTED_PICK = 3;
-    }
-
-
-    public static String getNavigationModeName(Context mContext, @Constants.NavigationMode int mode) {
-
-        switch (mode) {
-            case NAVIGATION_FEED:
-                return mContext.getString(R.string.sports);
-            case NAVIGATION_HISTORY:
-                return mContext.getString(R.string.history);
-            case NAVIGATION_LIVE:
-                return mContext.getString(R.string.live);
-            case NAVIGATION_UPCOMING:
-                return mContext.getString(R.string.upcoming);
-        }
-        return "";
-    }
-
-    public static String getLeagueName(Context mContext, @Constants.LeagueType int league) {
-
-        switch (league) {
-            case LEAGUE_ALL:
-                return mContext.getString(R.string.all);
-            case LEAGUE_MLB:
-                return mContext.getString(R.string.MLB);
-            case LEAGUE_NBA:
-                return mContext.getString(R.string.NBA);
-            case LEAGUE_NFL:
-                return mContext.getString(R.string.NFL);
-        }
-        return "";
-    }
-
-
-    public interface SortType {
-        int DEFAULT = 0;
-        int ALPHABETICALLY = 1;
-        int ENDINGSOON = 2;
-    }
 }

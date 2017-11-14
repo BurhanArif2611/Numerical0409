@@ -29,6 +29,8 @@ import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.BaseFragment;
 import com.revauc.revolutionbuy.ui.buy.adapter.WishListAdapter;
 import com.revauc.revolutionbuy.util.Constants;
+import com.revauc.revolutionbuy.util.PreferenceUtil;
+import com.revauc.revolutionbuy.widget.BottomMemberAlert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,13 +120,22 @@ public class WishListFragment extends BaseFragment implements OnWishlistClickLis
         mBinder.recyclerViewWishlist.setAdapter(mAdapter);
         mBinder.recyclerViewWishlist.addOnScrollListener(mRecyclerListner);
         mBinder.swipeRefreshLayout.setOnRefreshListener(this);
+
+        if(!PreferenceUtil.isLoggedIn())
+        {
+            mBinder.swipeRefreshLayout.setEnabled(false);
+            mBinder.textNoData.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        offset=0;
-        fetchBuyerWishlist(offset,limit,true);
+        if(PreferenceUtil.isLoggedIn())
+        {
+            offset=0;
+            fetchBuyerWishlist(offset,limit,true);
+        }
     }
 
     private void fetchBuyerWishlist(final int offset, int limit,boolean showLoading) {

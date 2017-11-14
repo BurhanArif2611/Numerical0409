@@ -33,6 +33,7 @@ public class MobileVerificationActivity extends BaseActivity implements View.OnC
     private int cityId;
     private String mFilePath;
     private boolean isFromSettings;
+    private String mPhoneCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,11 @@ public class MobileVerificationActivity extends BaseActivity implements View.OnC
             age = getIntent().getIntExtra(Constants.EXTRA_AGE,0);
             cityId = getIntent().getIntExtra(Constants.EXTRA_CITY_ID,0);
             mFilePath = getIntent().getStringExtra(Constants.EXTRA_PROFILE_IMAGE);
+            mPhoneCode = getIntent().getStringExtra(Constants.EXTRA_PHONE_CODE);
+            if(mPhoneCode!=null)
+            {
+                mBinding.editMobile.setText(mPhoneCode);
+            }
         }
 
         if(isFromSettings)

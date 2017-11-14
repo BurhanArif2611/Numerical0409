@@ -121,13 +121,13 @@ public interface AuthWebServices {
     Observable<BaseResponse> verifyMobileChangePin(@Body MobileVerifyRequest params);
 
     @GET(GET_COUNTRIES)
-    Observable<CountryResponse> getCountries();
+    Observable<CountryResponse> getCountries(@Query("keyword") String keyword);
 
     @GET(GET_CATEGORIES)
     Observable<CategoriesResponse> getCategories();
 
     @GET(GET_STATES)
-    Observable<StateResponse> getStates(@Query("countryId") Integer countryId);
+    Observable<StateResponse> getStates(@Query("countryId") Integer countryId,@Query("keyword") String keyword);
 
     @GET(GET_CONVERTED_AMOUNT)
     Observable<ResponseBody> getConvertedAmount(@Query("a") String amount,@Query("from") String from,@Query("to") String to);
@@ -222,7 +222,7 @@ public interface AuthWebServices {
     Observable<BaseResponse> reportSellerItem(@Body SellerReportItemRequest params);
 
     @GET(GET_CITIES)
-    Observable<CityResponse> getCities(@Query("countryId") Integer countryId, @Query("stateId") Integer stateId);
+    Observable<CityResponse> getCities(@Query("countryId") Integer countryId, @Query("stateId") Integer stateId,@Query("keyword") String keyword);
 
     @GET(LOGOUT)
     Observable<BaseResponse> logout();

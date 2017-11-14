@@ -113,7 +113,10 @@ public class SellerOfferDetailActivity extends BaseActivity implements View.OnCl
         mBinding.textTitle.setText(mProductDetail.getBuyerProduct().getTitle());
         mBinding.textCategories.setText(mProductDetail.getBuyerProduct().getBuyerProductCategoriesString() + "");
         mBinding.textPriceOffered.setText((mProductDetail.getDescription().split("&&")[0]) + " " + mProductDetail.getPrice());
-        mBinding.textDescription.setText(mProductDetail.getDescription().split("&&")[1]);
+        if(mProductDetail.getDescription().split("&&").length>1)
+        {
+            mBinding.textDescription.setText(mProductDetail.getDescription().split("&&")[1]);
+        }
         mBinding.textMobileNo.setText(mProductDetail.getUser().getMobile());
 
         if (mProductDetail.getSellerProductImages() != null && !mProductDetail.getSellerProductImages().isEmpty()) {
@@ -147,6 +150,8 @@ public class SellerOfferDetailActivity extends BaseActivity implements View.OnCl
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mReciever, new IntentFilter(ItemPurchasedActivity.BROAD_OFFER_PURCHASED));
 
+        getUnlockStatus(false);
+
 /*
         Binding to the Service.
          */
@@ -165,7 +170,7 @@ public class SellerOfferDetailActivity extends BaseActivity implements View.OnCl
                 onBackPressed();
                 break;
             case R.id.text_unlock_contact_details:
-                getUnlockStatus();
+                getUnlockStatus(true);
                 break;
             case R.id.text_mobile:
                 Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mProductDetail.getUser().getMobile()));
@@ -233,7 +238,7 @@ public class SellerOfferDetailActivity extends BaseActivity implements View.OnCl
         });
     }
 
-    private void getUnlockStatus() {
+    private void getUnlockStatus(final boolean showDialog) {
         showProgressBar();
         AuthWebServices apiService = RequestController.createRetrofitRequest(false);
 
@@ -250,8 +255,11 @@ public class SellerOfferDetailActivity extends BaseActivity implements View.OnCl
                         mBinding.textMarkComplete.setVisibility(View.VISIBLE);
                     } else {
 //                        showSnackBarFromBottom("Need to Unlock the payment", mBinding.mainContainer, true);
-                        if (!StringUtils.isNullOrEmpty(mSku)) {
-                            BottomSheetAlertInverse.getInstance(SellerOfferDetailActivity.this,getString(R.string.unlock_contact_details_message),getString(R.string.yes_pay_now),getString(R.string.cancel)).show();
+                        if(showDialog)
+                        {
+                            if (!StringUtils.isNullOrEmpty(mSku)) {
+                                BottomSheetAlertInverse.getInstance(SellerOfferDetailActivity.this,getString(R.string.unlock_contact_details_message),getString(R.string.yes_pay_now),getString(R.string.cancel)).show();
+                            }
                         }
 //                        mBinding.textUnlockContactDetails.setVisibility(View.GONE);
 //                        mBinding.textMobile.setVisibility(View.VISIBLE);

@@ -58,7 +58,7 @@ android {
         applicationId "com.revauc.revolutionbuy"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 2
+        versionCode 4
         versionName "1.0"
         multiDexEnabled = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -79,7 +79,7 @@ android {
         }
         debug {
             minifyEnabled false
-            debuggable true
+            debuggable false
             versionNameSuffix '-Release'
         }
     }
@@ -121,10 +121,18 @@ android {
         Dev {
             dimension "environment"
             applicationId yourApplicationId + DOT + RELEASE_FLAV_DEV
-            buildConfigField "String", "BASE_URL", "\"https://dev.revolutionbuy.com/api/\""
+            //DEV ENDPOINTS
+//            buildConfigField "String", "BASE_URL", "\"https://dev.revolutionbuy.com/api/\""
+//            buildConfigField "String", "STRIPE_BASE_URL", "\"https://connect.stripe.com/oauth/authorize?response_type=code&scope=read_write&client_id=\""
+//            buildConfigField "String", "STRIPE_CLIENT_ID", "\"ca_AaUzkY7uzAa8MAx093csNSeceA0q75XL\""
+//            buildConfigField "String", "STRIPE_PUBLISH_KEY", "\"pk_test_zWO1HIyUYzoxq1sxsvwaevuc\""
+
+            //PROD END POINTS
+            buildConfigField "String", "BASE_URL", "\"https://api.revolutionbuy.com/api/\""
             buildConfigField "String", "STRIPE_BASE_URL", "\"https://connect.stripe.com/oauth/authorize?response_type=code&scope=read_write&client_id=\""
-            buildConfigField "String", "STRIPE_CLIENT_ID", "\"ca_AaUzkY7uzAa8MAx093csNSeceA0q75XL\""
-            buildConfigField "String", "STRIPE_PUBLISH_KEY", "\"pk_test_zWO1HIyUYzoxq1sxsvwaevuc\""
+            buildConfigField "String", "STRIPE_CLIENT_ID", "\"ca_AaUzsU5H7KV373Y2kG5JtWM098hdup8G\""
+            buildConfigField "String", "STRIPE_PUBLISH_KEY", "\"pk_live_QVTY4xfW2X5lUCYwPKbsdYHY\""
+
 //            buildConfigField "String", "BASE_URL", "\"http://revolutionbuy.com/dev/public/api/\"";
             resValue("string", "app_name", appName)
             versionName fullVersion + RELEASE_FLAV_DEV as String
