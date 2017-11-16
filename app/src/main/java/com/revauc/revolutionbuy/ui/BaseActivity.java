@@ -9,7 +9,9 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PersistableBundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -20,8 +22,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.RevBuyApp;
+import com.revauc.revolutionbuy.analytics.AnalyticsManager;
 import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.RequestController;
 //import com.revauc.revolutionbuy.network.request.auth.FBLoginRequest;
@@ -52,9 +56,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
-/**
- * Created by gautam.bisht on 11/11/16.
- */
+
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -63,7 +65,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     private boolean mActive;
     private Dialog mLoadingDialog;
     private Toast mToast;
+    private MixpanelAPI mixpanelAPI;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+        mixpanelAPI = MixpanelAPI.getInstance(this, getString(R.string.mixpanel_token));
+    }
 
     private BaseFragment getFragment(Constants.FRAGMENTS fragmentId) {
         BaseFragment fragment = null;
@@ -114,7 +122,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-
+        if(mixpanelAPI!=null)
+        {
+            mixpanelAPI.flush();
+        }
         hideHud();
         mAlive = false;
         Alert.dismissSnackBar();
@@ -345,6 +356,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void logoutUser() {
+        AnalyticsManager.setDistictUser(mixpanelAPI,null);
+        AnalyticsManager.trackMixpanelEvent(mixpanelAPI,getString(R.string.logout));
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
         PreferenceUtil.reset();
@@ -353,6 +366,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+
+
     }
 
 
@@ -386,6 +401,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                         } else {
                             PreferenceUtil.setUserProfile(response.getResult().getUser());
                             PreferenceUtil.setLoggedIn(true);
+                            AnalyticsManager.setDistictUserSuperProperties(mixpanelAPI,Constants.LOGIN_FACEBOOK,Constants.TYPE_LOGIN,response.getResult().getUser());
+                            AnalyticsManager.trackMixpanelEvent(mixpanelAPI,getString(R.string.login));
                             Intent intent = new Intent(BaseActivity.this, DashboardActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);

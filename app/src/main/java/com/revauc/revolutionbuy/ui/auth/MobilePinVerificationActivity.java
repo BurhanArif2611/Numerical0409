@@ -10,7 +10,9 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import com.revauc.revolutionbuy.R;
+import com.revauc.revolutionbuy.analytics.AnalyticsManager;
 import com.revauc.revolutionbuy.databinding.ActivityMobilePinVerificationBinding;
 import com.revauc.revolutionbuy.databinding.ActivityMobileVerificationBinding;
 import com.revauc.revolutionbuy.network.BaseResponse;
@@ -49,13 +51,14 @@ public class MobilePinVerificationActivity extends BaseActivity implements View.
     private int cityId;
     private String mFilePath;
     private boolean isFromSettings;
-
+    private MixpanelAPI mixpanelAPI;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_mobile_pin_verification);
+        mixpanelAPI = MixpanelAPI.getInstance(this, getString(R.string.mixpanel_token));
 
         if (getIntent() != null) {
             isFromSettings = getIntent().getBooleanExtra(Constants.EXTRA_FROM_SETTINGS, false);
@@ -118,6 +121,15 @@ public class MobilePinVerificationActivity extends BaseActivity implements View.
                 break;
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        if(mixpanelAPI!=null)
+        {
+            mixpanelAPI.flush();
+        }
+        super.onDestroy();
     }
 
     /**
@@ -265,6 +277,8 @@ public class MobilePinVerificationActivity extends BaseActivity implements View.
                                 {
                                     PreferenceUtil.setUserProfile(response.getResult().getUser());
                                     PreferenceUtil.setLoggedIn(true);
+                                    AnalyticsManager.setDistictUserSuperProperties(mixpanelAPI,response.getResult().getUser().getFbId()!=null?Constants.LOGIN_FACEBOOK:Constants.LOGIN_EMAIL,Constants.TYPE_SIGNUP,response.getResult().getUser());
+                                    AnalyticsManager.trackMixpanelEvent(mixpanelAPI,getString(R.string.login));
                                     Intent intent = new Intent(MobilePinVerificationActivity.this, DashboardActivity.class);
                                     intent.putExtra(Constants.EXTRA_IS_FROM_PROFILE, true);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

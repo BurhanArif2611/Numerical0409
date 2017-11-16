@@ -122,16 +122,16 @@ android {
             dimension "environment"
             applicationId yourApplicationId + DOT + RELEASE_FLAV_DEV
             //DEV ENDPOINTS
-//            buildConfigField "String", "BASE_URL", "\"https://dev.revolutionbuy.com/api/\""
-//            buildConfigField "String", "STRIPE_BASE_URL", "\"https://connect.stripe.com/oauth/authorize?response_type=code&scope=read_write&client_id=\""
-//            buildConfigField "String", "STRIPE_CLIENT_ID", "\"ca_AaUzkY7uzAa8MAx093csNSeceA0q75XL\""
-//            buildConfigField "String", "STRIPE_PUBLISH_KEY", "\"pk_test_zWO1HIyUYzoxq1sxsvwaevuc\""
+            buildConfigField "String", "BASE_URL", "\"https://dev.revolutionbuy.com/api/\""
+            buildConfigField "String", "STRIPE_BASE_URL", "\"https://connect.stripe.com/oauth/authorize?response_type=code&scope=read_write&client_id=\""
+            buildConfigField "String", "STRIPE_CLIENT_ID", "\"ca_AaUzkY7uzAa8MAx093csNSeceA0q75XL\""
+            buildConfigField "String", "STRIPE_PUBLISH_KEY", "\"pk_test_zWO1HIyUYzoxq1sxsvwaevuc\""
 
             //PROD END POINTS
-            buildConfigField "String", "BASE_URL", "\"https://api.revolutionbuy.com/api/\""
-            buildConfigField "String", "STRIPE_BASE_URL", "\"https://connect.stripe.com/oauth/authorize?response_type=code&scope=read_write&client_id=\""
-            buildConfigField "String", "STRIPE_CLIENT_ID", "\"ca_AaUzsU5H7KV373Y2kG5JtWM098hdup8G\""
-            buildConfigField "String", "STRIPE_PUBLISH_KEY", "\"pk_live_QVTY4xfW2X5lUCYwPKbsdYHY\""
+//            buildConfigField "String", "BASE_URL", "\"https://api.revolutionbuy.com/api/\""
+//            buildConfigField "String", "STRIPE_BASE_URL", "\"https://connect.stripe.com/oauth/authorize?response_type=code&scope=read_write&client_id=\""
+//            buildConfigField "String", "STRIPE_CLIENT_ID", "\"ca_AaUzsU5H7KV373Y2kG5JtWM098hdup8G\""
+//            buildConfigField "String", "STRIPE_PUBLISH_KEY", "\"pk_live_QVTY4xfW2X5lUCYwPKbsdYHY\""
 
 //            buildConfigField "String", "BASE_URL", "\"http://revolutionbuy.com/dev/public/api/\"";
             resValue("string", "app_name", appName)
@@ -228,6 +228,7 @@ dependencies {
     compile 'com.github.aerdy:Android-Viger_View_Pager_PDF_OpenSource:-SNAPSHOT'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile "com.mixpanel.android:mixpanel-android:5.+"
     testCompile 'junit:junit:4.12'
     compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true;

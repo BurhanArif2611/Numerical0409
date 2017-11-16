@@ -2,6 +2,8 @@
     <string name="facebook_app_id">1051478504985433</string>
     <string name="fb_login_protocol_scheme">fb1051478504985433</string>
     <string name="application_name">REVOLUTION BUY</string>
+    <string name="mixpanel_token">1ba1c374621aa98d268cb08a8285312d</string>
+
     <string name="title_activity_dashboard">Dashboard</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

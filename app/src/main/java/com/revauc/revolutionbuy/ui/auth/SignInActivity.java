@@ -19,7 +19,9 @@ import android.text.style.ClickableSpan;
 import android.view.View;
 
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import com.revauc.revolutionbuy.R;
+import com.revauc.revolutionbuy.analytics.AnalyticsManager;
 import com.revauc.revolutionbuy.databinding.ActivitySignInBinding;
 import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.RequestController;
@@ -29,6 +31,7 @@ import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.BaseActivity;
 import com.revauc.revolutionbuy.ui.dashboard.DashboardActivity;
+import com.revauc.revolutionbuy.util.Alert;
 import com.revauc.revolutionbuy.util.Constants;
 import com.revauc.revolutionbuy.util.LogUtils;
 import com.revauc.revolutionbuy.util.PreferenceUtil;
@@ -52,11 +55,14 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
     private ActivitySignInBinding mBinding;
     private SocialMediaHelper socialMediaHelper;
+    private MixpanelAPI mixpanelAPI;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mixpanelAPI = MixpanelAPI.getInstance(this, getString(R.string.mixpanel_token));
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_sign_in);
 
         mBinding.imageBack.setOnClickListener(this);
@@ -210,6 +216,8 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                         else
                         {
                             PreferenceUtil.setUserProfile(response.getResult().getUser());
+                            AnalyticsManager.setDistictUserSuperProperties(mixpanelAPI,Constants.LOGIN_EMAIL,Constants.TYPE_LOGIN,response.getResult().getUser());
+                            AnalyticsManager.trackMixpanelEvent(mixpanelAPI,getString(R.string.login));
                             PreferenceUtil.setLoggedIn(true);
                             Intent intent = new Intent(SignInActivity.this, DashboardActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -236,6 +244,15 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 }
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        if(mixpanelAPI!=null)
+        {
+            mixpanelAPI.flush();
+        }
+        super.onDestroy();
     }
 
     /**

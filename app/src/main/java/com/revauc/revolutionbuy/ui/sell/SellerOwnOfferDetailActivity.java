@@ -12,7 +12,9 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 
 import com.facebook.rebound.ui.Util;
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import com.revauc.revolutionbuy.R;
+import com.revauc.revolutionbuy.analytics.AnalyticsManager;
 import com.revauc.revolutionbuy.databinding.ActivitySellerOwnOfferDetailBinding;
 import com.revauc.revolutionbuy.databinding.ActivitySellerProductDetailBinding;
 import com.revauc.revolutionbuy.eventbusmodel.OnButtonClicked;
@@ -50,12 +52,13 @@ public class SellerOwnOfferDetailActivity extends BaseActivity implements View.O
             finish();
         }
     };
+    private MixpanelAPI mixpanelAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_seller_own_offer_detail);
-
+        mixpanelAPI = MixpanelAPI.getInstance(this, getString(R.string.mixpanel_token));
         mProductDetail = getIntent().getParcelableExtra(Constants.EXTRA_PRODUCT_DETAIL);
 
         mBinding.textTitle.setText(mProductDetail.getBuyerProduct().getTitle());
@@ -126,6 +129,7 @@ public class SellerOwnOfferDetailActivity extends BaseActivity implements View.O
     }
 
 
+
     @Subscribe
     public void onDelete(OnButtonClicked onDeleteClicked) {
         deleteSellerProduct(mProductDetail.getId());
@@ -170,6 +174,7 @@ public class SellerOwnOfferDetailActivity extends BaseActivity implements View.O
             public void onResponse(BaseResponse response) {
                 hideProgressBar();
                 if (response.isSuccess()) {
+                    AnalyticsManager.trackMixpanelEvent(mixpanelAPI,"Deal Successful");
                     startActivity(new Intent(SellerOwnOfferDetailActivity.this, ItemSoldActivity.class));
 //                    showToast(response.getMessage());
                 } else {
@@ -197,6 +202,7 @@ public class SellerOwnOfferDetailActivity extends BaseActivity implements View.O
 
     @Override
     protected void onDestroy() {
+        mixpanelAPI.flush();
         EventBus.getDefault().unregister(this);
         super.onDestroy();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mReciever);

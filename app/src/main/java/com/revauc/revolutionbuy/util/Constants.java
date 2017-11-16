@@ -106,6 +106,11 @@ public class Constants {
     public static final int CHOOSE_TYPE_STATE = 2;
     public static final int CHOOSE_TYPE_CITY = 3;
 
+    public static final String LOGIN_FACEBOOK = "Facebook";
+    public static final String LOGIN_EMAIL = "Email";
+    public static final String TYPE_LOGIN = "Login";
+    public static final String TYPE_SIGNUP = "SignUp";
+
     public static final String DEVICE_TYPE_ANDROID = "ANDROID";
 
 
