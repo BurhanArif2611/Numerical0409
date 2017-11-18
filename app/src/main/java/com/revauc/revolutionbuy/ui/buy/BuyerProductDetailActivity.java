@@ -102,7 +102,7 @@ public class BuyerProductDetailActivity extends BaseActivity implements View.OnC
         switch (view.getId())
         {
             case R.id.image_delete:
-                BottomSheetAlertInverse.getInstance(this,getString(R.string.sure_to_delete),getString(R.string.text_delete),getString(R.string.cancel)).show();
+                BottomSheetAlertInverse.getInstance(this,Constants.REQUEST_CODE_BUYER_PRODUCT_DELETE,getString(R.string.sure_to_delete),getString(R.string.text_delete),getString(R.string.cancel)).show();
 
             break;
             case R.id.image_edit:
@@ -128,7 +128,10 @@ public class BuyerProductDetailActivity extends BaseActivity implements View.OnC
     @Subscribe
     public void onDelete(OnButtonClicked onDeleteClicked)
     {
-        deleteBuyerProduct(mProductDetail.getId());
+        if(onDeleteClicked.getRequestCode()==Constants.REQUEST_CODE_BUYER_PRODUCT_DELETE)
+        {
+            deleteBuyerProduct(mProductDetail.getId());
+        }
     }
 
     private void shareThisProduct() {

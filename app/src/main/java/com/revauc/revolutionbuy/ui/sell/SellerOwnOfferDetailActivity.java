@@ -116,7 +116,7 @@ public class SellerOwnOfferDetailActivity extends BaseActivity implements View.O
                 onBackPressed();
                 break;
             case R.id.image_delete:
-                BottomSheetAlertInverse.getInstance(this, getString(R.string.sure_to_delete_offer), getString(R.string.text_delete), getString(R.string.cancel)).show();
+                BottomSheetAlertInverse.getInstance(this,Constants.REQUEST_CODE_SELLER_PRODUCT_DELETE, getString(R.string.sure_to_delete_offer), getString(R.string.text_delete), getString(R.string.cancel)).show();
                 break;
             case R.id.text_mark_complete:
                 markSellerTransactionComplete();
@@ -132,7 +132,10 @@ public class SellerOwnOfferDetailActivity extends BaseActivity implements View.O
 
     @Subscribe
     public void onDelete(OnButtonClicked onDeleteClicked) {
-        deleteSellerProduct(mProductDetail.getId());
+        if(onDeleteClicked.getRequestCode()==Constants.REQUEST_CODE_SELLER_PRODUCT_DELETE)
+        {
+            deleteSellerProduct(mProductDetail.getId());
+        }
     }
 
     private void deleteSellerProduct(int id) {

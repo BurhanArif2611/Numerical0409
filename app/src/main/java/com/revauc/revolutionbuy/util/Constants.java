@@ -39,6 +39,13 @@ public class Constants {
     public static final int STATE_BUYER_ACCEPTED_MY_OFFER = 4;
     public static final int STATE_ITEM_SOLD_TO_BUYER = 5;
 
+    //REQUEST CODES
+    public static final int REQUEST_CODE_ENTER_APP = 2241;
+    public static final int REQUEST_CODE_BUYER_PRODUCT_DELETE = 2242;
+    public static final int REQUEST_CODE_SELLER_PRODUCT_DELETE = 2243;
+    public static final int REQUEST_CODE_LOGOUT = 2244;
+    public static final int REQUEST_CODE_CONFIRM_PAY = 2245;
+
     //NOTIFICATION TYPES
     public static final int TYPE_OFFER_SENT = 1;
     public static final int TYPE_BUYER_UNLOCKED = 2;

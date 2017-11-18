@@ -65,12 +65,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     private boolean mActive;
     private Dialog mLoadingDialog;
     private Toast mToast;
-    private MixpanelAPI mixpanelAPI;
+    private MixpanelAPI panelAPI;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-        mixpanelAPI = MixpanelAPI.getInstance(this, getString(R.string.mixpanel_token));
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        panelAPI = MixpanelAPI.getInstance(this, getString(R.string.mixpanel_token));
     }
 
     private BaseFragment getFragment(Constants.FRAGMENTS fragmentId) {
@@ -122,9 +123,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if(mixpanelAPI!=null)
+        if(panelAPI!=null)
         {
-            mixpanelAPI.flush();
+            panelAPI.flush();
         }
         hideHud();
         mAlive = false;
@@ -356,8 +357,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void logoutUser() {
-        AnalyticsManager.setDistictUser(mixpanelAPI,null);
-        AnalyticsManager.trackMixpanelEvent(mixpanelAPI,getString(R.string.logout));
+        AnalyticsManager.setDistictUser(panelAPI,null);
+        AnalyticsManager.trackMixpanelEvent(panelAPI,getString(R.string.logout));
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
         PreferenceUtil.reset();
@@ -401,8 +402,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                         } else {
                             PreferenceUtil.setUserProfile(response.getResult().getUser());
                             PreferenceUtil.setLoggedIn(true);
-                            AnalyticsManager.setDistictUserSuperProperties(mixpanelAPI,Constants.LOGIN_FACEBOOK,Constants.TYPE_LOGIN,response.getResult().getUser());
-                            AnalyticsManager.trackMixpanelEvent(mixpanelAPI,getString(R.string.login));
+                            AnalyticsManager.setDistictUserSuperProperties(panelAPI,Constants.LOGIN_FACEBOOK,Constants.TYPE_LOGIN,response.getResult().getUser());
+                            AnalyticsManager.trackMixpanelEvent(panelAPI,getString(R.string.login));
                             Intent intent = new Intent(BaseActivity.this, DashboardActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);

@@ -3,6 +3,7 @@ package com.revauc.revolutionbuy.ui.profile;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -14,6 +15,7 @@ import com.revauc.revolutionbuy.databinding.ActivityProfileBinding;
 import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.RequestController;
 import com.revauc.revolutionbuy.network.request.auth.ForgotPasswordRequest;
+import com.revauc.revolutionbuy.network.response.LoginResponse;
 import com.revauc.revolutionbuy.network.response.UserDto;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
@@ -47,20 +49,30 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
         mBinding.imageBack.setOnClickListener(this);
         mBinding.textEdit.setOnClickListener(this);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getUserProfile();
+            }
+        }, 250);
+
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        populateDetails();
+    }
+
+    private void populateDetails() {
         UserDto userDto = PreferenceUtil.getUserProfile();
         //setting values
         mBinding.textName.setText(userDto.getName());
-        mBinding.textAge.setText(userDto.getAge()+" Years Old");
-        mBinding.textLocation.setText(userDto.getCity().getName()+", "+userDto.getCity().getState().getName()+", "+userDto.getCity().getState().getCountry().getName());
+        mBinding.textAge.setText(userDto.getAge() + " Years Old");
+        mBinding.textLocation.setText(userDto.getCity().getName() + ", " + userDto.getCity().getState().getName() + ", " + userDto.getCity().getState().getCountry().getName());
 
-        if(!StringUtils.isNullOrEmpty(userDto.getImageName()))
-        {
+        if (!StringUtils.isNullOrEmpty(userDto.getImageName())) {
             showProgressBar();
             Picasso.with(ProfileActivity.this).load(userDto.getImageName()).into(mBinding.imageProfile,
                     new Callback() {
@@ -77,6 +89,9 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
                     });
 
         }
+
+        mBinding.textItemPurchased.setText(userDto.getPurchasedCount()+"");
+        mBinding.textItemSold.setText(userDto.getSoldCount()+"");
     }
 
     @Override
@@ -87,19 +102,45 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        switch (view.getId())
-        {
+        switch (view.getId()) {
             case R.id.image_back:
                 onBackPressed();
 
                 break;
             case R.id.text_edit:
                 Intent intent = new Intent(ProfileActivity.this, CreateProfileActivity.class);
-                intent.putExtra(Constants.EXTRA_FROM_SETTINGS,true);
+                intent.putExtra(Constants.EXTRA_FROM_SETTINGS, true);
                 startActivity(intent);
                 break;
         }
 
+    }
+
+    public void getUserProfile() {
+        showProgressBar();
+        AuthWebServices apiService = RequestController.createRetrofitRequest(false);
+        apiService.getUserProfile().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<LoginResponse>(this) {
+
+            @Override
+            public void onResponse(LoginResponse response) {
+                hideProgressBar();
+                if (response.isSuccess()) {
+                    PreferenceUtil.setUserProfile(response.getResult().getUser());
+                    populateDetails();
+                }
+            }
+
+            @Override
+            public void onError(Throwable call, BaseResponse baseResponse) {
+                hideProgressBar();
+                if (baseResponse != null) {
+                    String errorMessage = baseResponse.getMessage();
+                    if (errorMessage != null) {
+                        showSnakBarFromTop(errorMessage, true);
+                    }
+                }
+            }
+        });
     }
 
 }

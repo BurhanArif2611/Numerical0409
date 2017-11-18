@@ -19,6 +19,7 @@ import java.util.Calendar;
 
 public class BottomSheetAlertInverse implements View.OnClickListener {
     private static final int SPINNER_COUNT = 3;
+    private final int mRequestCode;
 
     private BottomInverseAlertLayoutBinding mBinding;
     private BottomSheetDialog mBottomSheetDialog;
@@ -27,11 +28,11 @@ public class BottomSheetAlertInverse implements View.OnClickListener {
     private static BottomSheetAlertInverse ourInstance;
 
 
-    public static BottomSheetAlertInverse getInstance(final Context context, String message, String positiveText, String negativeText) {
+    public static BottomSheetAlertInverse getInstance(final Context context,int requestCode, String message, String positiveText, String negativeText) {
         if (ourInstance == null) {
             synchronized (BottomSheetAlertInverse.class) {
                 if (ourInstance == null) {
-                    ourInstance = new BottomSheetAlertInverse(context, message, positiveText, negativeText);
+                    ourInstance = new BottomSheetAlertInverse(context, requestCode,message, positiveText, negativeText);
                 }
             }
         }
@@ -46,13 +47,14 @@ public class BottomSheetAlertInverse implements View.OnClickListener {
     }
 
 
-    private BottomSheetAlertInverse(final Context context, String message, String positiveText, String negativeText) {
+    private BottomSheetAlertInverse(final Context context,int requestCode, String message, String positiveText, String negativeText) {
         mContext = context;
         mBottomSheetDialog = new BottomSheetDialog(mContext);
         mBottomSheetDialog.setCancelable(false);
         mBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.bottom_inverse_alert_layout, null, false);
 
         //Setting Values
+        mRequestCode = requestCode;
         mBinding.textMessage.setText(message);
         mBinding.textPositive.setText(positiveText);
         mBinding.textNegative.setText(negativeText);
@@ -83,7 +85,7 @@ public class BottomSheetAlertInverse implements View.OnClickListener {
                 break;
 
             case R.id.text_positive:
-                EventBus.getDefault().post(new OnButtonClicked(true));
+                EventBus.getDefault().post(new OnButtonClicked(mRequestCode));
                 clearInstance();
                 break;
 

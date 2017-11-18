@@ -6,17 +6,17 @@ package com.revauc.revolutionbuy.eventbusmodel;
 
 public class OnButtonClicked {
 
-    boolean isPositive;
+    int requestCode;
 
-    public OnButtonClicked(boolean isPositive) {
-        this.isPositive = isPositive;
+    public OnButtonClicked(int requestCode) {
+        this.requestCode = requestCode;
     }
 
-    public boolean isPositive() {
-        return isPositive;
+    public int getRequestCode() {
+        return requestCode;
     }
 
-    public void setPositive(boolean positive) {
-        isPositive = positive;
+    public void setRequestCode(int requestCode) {
+        this.requestCode = requestCode;
     }
 }

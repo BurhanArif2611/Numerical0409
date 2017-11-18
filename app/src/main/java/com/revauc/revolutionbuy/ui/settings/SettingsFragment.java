@@ -113,7 +113,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 }
                     break;
             case R.id.text_logout:
-                BottomSheetAlertInverse.getInstance(getActivity(),getString(R.string.sure_to_logout),getString(R.string.logout),getString(R.string.cancel)).show();
+                BottomSheetAlertInverse.getInstance(getActivity(),Constants.REQUEST_CODE_LOGOUT,getString(R.string.sure_to_logout),getString(R.string.logout),getString(R.string.cancel)).show();
                 break;
             case R.id.text_onboarding:
                 Intent walkthroughIntent = new Intent(getActivity(), WalkThroughActivity.class);
@@ -178,15 +178,17 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     @Subscribe
     public void onLogout(OnButtonClicked onLogoutClicked)
     {
-        if(PreferenceUtil.isLoggedIn())
+        if(onLogoutClicked.getRequestCode()==Constants.REQUEST_CODE_LOGOUT)
         {
-            ((BaseActivity)getActivity()).logoutUserApi();
+            if(PreferenceUtil.isLoggedIn())
+            {
+                ((BaseActivity)getActivity()).logoutUserApi();
+            }
+            else
+            {
+                ((BaseActivity)getActivity()).logoutUser();
+            }
         }
-        else
-        {
-            ((BaseActivity)getActivity()).logoutUser();
-        }
-
     }
 
     @Subscribe

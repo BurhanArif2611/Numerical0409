@@ -64,7 +64,9 @@ public interface AuthWebServices {
     String GET_CITIES = BuildConfig.BASE_URL + "cities";
     String MOBILE_PIN = BuildConfig.BASE_URL + "users/mobile-pin";
     String ADD_PROFILE = BuildConfig.BASE_URL + "users/add-profile";
+    String GET_PROFILE = BuildConfig.BASE_URL + "users/profile";
     String EDIT_PROFILE = BuildConfig.BASE_URL + "users/edit-profile";
+
     String LOGOUT = BuildConfig.BASE_URL + "users/logout";
     String VERIFY_MOBILE_NUMBER = BuildConfig.BASE_URL + "users/verify-mobile";
     String CHANGE_PASSWORD = BuildConfig.BASE_URL + "users/change-password";
@@ -158,6 +160,9 @@ public interface AuthWebServices {
 
     @GET(BUYER_PURCHASED_PRODUCTS)
     Observable<PurchasedResponse> getBuyerPurchasedList();
+
+    @GET(GET_PROFILE)
+    Observable<LoginResponse> getUserProfile();
 
     @POST(PRODUCTS_LIST)
     Observable<SellerProductsResponse> getSellerProductsListing(@Body ProductSearchRequest params);

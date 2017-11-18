@@ -2,7 +2,8 @@
     <string name="facebook_app_id">1051478504985433</string>
     <string name="fb_login_protocol_scheme">fb1051478504985433</string>
     <string name="application_name">REVOLUTION BUY</string>
-    <string name="mixpanel_token">1ba1c374621aa98d268cb08a8285312d</string>
+    <!--<string name="mixpanel_token">1ba1c374621aa98d268cb08a8285312d</string>-->
+    <string name="mixpanel_token">6916d23001e163176d4f0840dc0a9269</string>
 
     <string name="title_activity_dashboard">Dashboard</string>
 
@@ -39,6 +40,7 @@
     <string name="or">OR</string>
     <string name="sign_in">SIGN IN</string>
     <string name="sign_up">Sign up</string>
+    <string name="sign_up_event">SignUp Event</string>
     <string name="register">REGISTER</string>
     <string name="to_be_linked">Easiest way to\nbe linked</string>
     <string name="ranking">Ranking</string>

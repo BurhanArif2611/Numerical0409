@@ -258,7 +258,7 @@ public class SellerOfferDetailActivity extends BaseActivity implements View.OnCl
                         if(showDialog)
                         {
                             if (!StringUtils.isNullOrEmpty(mSku)) {
-                                BottomSheetAlertInverse.getInstance(SellerOfferDetailActivity.this,getString(R.string.unlock_contact_details_message),getString(R.string.yes_pay_now),getString(R.string.cancel)).show();
+                                BottomSheetAlertInverse.getInstance(SellerOfferDetailActivity.this,Constants.REQUEST_CODE_CONFIRM_PAY,getString(R.string.unlock_contact_details_message),getString(R.string.yes_pay_now),getString(R.string.cancel)).show();
                             }
                         }
 //                        mBinding.textUnlockContactDetails.setVisibility(View.GONE);
@@ -287,7 +287,10 @@ public class SellerOfferDetailActivity extends BaseActivity implements View.OnCl
     @Subscribe
     public void onPayConfirm(OnButtonClicked onDeleteClicked)
     {
-        buyPackage(mService, mSku);
+        if(onDeleteClicked.getRequestCode()==Constants.REQUEST_CODE_CONFIRM_PAY)
+        {
+            buyPackage(mService, mSku);
+        }
     }
 
     @Override
@@ -376,12 +379,75 @@ public class SellerOfferDetailActivity extends BaseActivity implements View.OnCl
                         0);
 
             } else if (response == BILLING_RESPONSE_RESULT_ALREADY_OWNED) {
-//                getAllOwnedItems(service, productCode);
+                getAllOwnedItems(service, productCode);
             }
 
         } catch (RemoteException | IntentSender.SendIntentException e) {
             e.printStackTrace();
 //             mListener.onHideProgress();
+        }
+    }
+
+    private void getAllOwnedItems(IInAppBillingService service, String productCode) {
+        try {
+
+            if(service == null){
+                return;
+            }
+
+            /*
+            This method returns the current un-consumed products owned by the user, including both purchased items and items acquired by redeeming a promo code
+             */
+            Bundle ownedItems = service.getPurchases(BILLING_LIB_VERSION,
+                    getPackageName(),
+                    PRODUCT_TYPE_IN_APP,
+                    null);
+
+            int response = ownedItems.getInt("RESPONSE_CODE");
+            if (checkResponseIsSuccess(response)) {
+                ArrayList<String> purchaseDataList = ownedItems.getStringArrayList("INAPP_PURCHASE_DATA_LIST");
+
+                ArrayList<InAppPurchasedModel> data = new Gson().fromJson(purchaseDataList.toString(),
+                        new TypeToken<List<InAppPurchasedModel>>() {
+                        }.getType());
+
+
+                for (InAppPurchasedModel model : data) {
+
+                    /*
+                    The non-consumed product code which we need to ensure it is available on server or not.
+                     */
+                    consumeProducts(service,model.getOrderId(),model.getPurchaseToken());
+                    break;
+                }
+
+
+            }
+
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            hideProgressBar();
+        }
+    }
+
+    public void consumeProducts(IInAppBillingService mService,String orderId,String purchaseToken) {
+        if(mService == null){
+            return;
+        }
+
+        showProgressBar();
+        try {
+            int response = mService.consumePurchase(BILLING_LIB_VERSION, getPackageName(), purchaseToken);
+            if (checkResponseIsSuccess(response)) {
+                    unlockContactDetails(orderId,purchaseToken);
+            }
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
+
+        }finally {
+            hideProgressBar();
         }
     }
 
@@ -407,9 +473,9 @@ public class SellerOfferDetailActivity extends BaseActivity implements View.OnCl
                 showSnackBarFromBottom("Please check your Google PlayStore settings and try again", mBinding.mainContainer, true);
                 break;
 
-            default:
-                showSnackBarFromBottom("There seems to be some error. Please try again later", mBinding.mainContainer, true);
-                break;
+//            default:
+//                showSnackBarFromBottom("There seems to be some error. Please try again later", mBinding.mainContainer, true);
+//                break;
         }
 
         return isSuccess;
@@ -431,25 +497,25 @@ public class SellerOfferDetailActivity extends BaseActivity implements View.OnCl
                 LogUtils.LOGD(">>>IN APP>>", "PRODUCT PURCHASED");
                 String purchaseData = data.getStringExtra("INAPP_PURCHASE_DATA");
                 InAppPurchasedModel purchasedModel = new Gson().fromJson(purchaseData, InAppPurchasedModel.class);
-                String purchaseToken = purchasedModel.getPurchaseToken();
-
-                int response = 0;
-                try {
-                    response = mService.consumePurchase(BILLING_LIB_VERSION, getPackageName(), purchaseToken);
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
-                if (checkResponseIsSuccess(response)) {
-                    LogUtils.LOGD(">>>IN APP>>", "PRODUCT CONSUMED");
+//                String purchaseToken = purchasedModel.getPurchaseToken();
+//
+//                int response = 0;
+//                try {
+//                    response = mService.consumePurchase(BILLING_LIB_VERSION, getPackageName(), purchaseToken);
+//                } catch (RemoteException e) {
+//                    e.printStackTrace();
+//                }
+//                if (checkResponseIsSuccess(response)) {
+//                    LogUtils.LOGD(">>>IN APP>>", "PRODUCT CONSUMED");
 
                     unlockContactDetails(purchasedModel.getOrderId(),purchasedModel.getPurchaseToken());
-                }
+//                }
             }
 
         }
     }
 
-    private void unlockContactDetails(String transactionId, String transactionReciept) {
+    private void unlockContactDetails(String transactionId, final String transactionReciept) {
         showProgressBar();
         AuthWebServices apiService = RequestController.createRetrofitRequest(false);
 
@@ -459,6 +525,15 @@ public class SellerOfferDetailActivity extends BaseActivity implements View.OnCl
             public void onResponse(BaseResponse response) {
                 hideProgressBar();
                 if (response.isSuccess()) {
+                    int responseCode = 0;
+                    try {
+                        responseCode = mService.consumePurchase(BILLING_LIB_VERSION, getPackageName(), transactionReciept);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                    if (checkResponseIsSuccess(responseCode)) {
+                        LogUtils.LOGD(">>>IN APP>>", "PRODUCT CONSUMED");
+                    }
                     mBinding.textUnlockContactDetails.setVisibility(View.GONE);
                     mBinding.textMobile.setVisibility(View.VISIBLE);
                     mBinding.textPay.setVisibility(View.VISIBLE);

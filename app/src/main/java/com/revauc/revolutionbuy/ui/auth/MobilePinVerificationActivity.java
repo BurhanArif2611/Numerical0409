@@ -278,7 +278,7 @@ public class MobilePinVerificationActivity extends BaseActivity implements View.
                                     PreferenceUtil.setUserProfile(response.getResult().getUser());
                                     PreferenceUtil.setLoggedIn(true);
                                     AnalyticsManager.setDistictUserSuperProperties(mixpanelAPI,response.getResult().getUser().getFbId()!=null?Constants.LOGIN_FACEBOOK:Constants.LOGIN_EMAIL,Constants.TYPE_SIGNUP,response.getResult().getUser());
-                                    AnalyticsManager.trackMixpanelEvent(mixpanelAPI,getString(R.string.login));
+                                    AnalyticsManager.trackMixpanelEvent(mixpanelAPI,getString(R.string.sign_up_event));
                                     Intent intent = new Intent(MobilePinVerificationActivity.this, DashboardActivity.class);
                                     intent.putExtra(Constants.EXTRA_IS_FROM_PROFILE, true);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

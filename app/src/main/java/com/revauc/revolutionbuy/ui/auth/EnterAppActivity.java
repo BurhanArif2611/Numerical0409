@@ -62,19 +62,22 @@ public class EnterAppActivity extends BaseActivity implements View.OnClickListen
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                 break;
             case R.id.text_skip:
-                BottomSheetAlertInverse.getInstance(EnterAppActivity.this,getString(R.string.sure_to_continue_as_guest),getString(R.string.continue_as_guest),getString(R.string.cancel)).show();
+                BottomSheetAlertInverse.getInstance(EnterAppActivity.this,Constants.REQUEST_CODE_ENTER_APP,getString(R.string.sure_to_continue_as_guest),getString(R.string.continue_as_guest),getString(R.string.cancel)).show();
                 break;
         }
     }
 
     @Subscribe
-    public void onSkip(OnButtonClicked onPositiveClicked)
+    public void onSkip(OnButtonClicked onButtonClicked)
     {
-        Intent intent = new Intent(EnterAppActivity.this, DashboardActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-        finish();
+        if(onButtonClicked.getRequestCode()==Constants.REQUEST_CODE_ENTER_APP)
+        {
+            Intent intent = new Intent(EnterAppActivity.this, DashboardActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+            finish();
+        }
     }
 
 
