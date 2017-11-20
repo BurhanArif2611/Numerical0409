@@ -58,7 +58,7 @@ android {
         applicationId "com.revauc.revolutionbuy"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 5
+        versionCode 6
         versionName "1.0"
         multiDexEnabled = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -80,7 +80,7 @@ android {
         debug {
             minifyEnabled false
             debuggable false
-            versionNameSuffix '-Release'
+            versionNameSuffix
         }
     }
 
@@ -135,7 +135,7 @@ android {
 
 //            buildConfigField "String", "BASE_URL", "\"http://revolutionbuy.com/dev/public/api/\"";
             resValue("string", "app_name", appName)
-            versionName fullVersion + RELEASE_FLAV_DEV as String
+            versionName fullVersion as String
 
         }
         Production {

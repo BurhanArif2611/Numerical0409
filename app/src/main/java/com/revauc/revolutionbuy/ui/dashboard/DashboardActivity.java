@@ -464,7 +464,16 @@ public class DashboardActivity extends BaseActivity {
         }
         else
         {
-            tvBadgeCount.setText(""+mBadgeCount);
+            if(mBadgeCount>0)
+            {
+                tvBadgeCount.setText(""+mBadgeCount);
+            }
+            else
+            {
+                tvBadgeCount.setText(""+mBadgeCount);
+                tvBadgeCount.setVisibility(View.INVISIBLE);
+            }
+
         }
 
     }
