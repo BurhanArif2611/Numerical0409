@@ -253,6 +253,7 @@ public class SellerOfferDetailActivity extends BaseActivity implements View.OnCl
                         mBinding.textMobile.setVisibility(View.VISIBLE);
                         mBinding.textPay.setVisibility(View.VISIBLE);
                         mBinding.textMarkComplete.setVisibility(View.VISIBLE);
+                        mBinding.textSellerLocation.setText(mProductDetail.getUser().getCity().getName()+", "+mProductDetail.getUser().getCity().getState().getName()+", "+mProductDetail.getUser().getEmail());
                     } else {
 //                        showSnackBarFromBottom("Need to Unlock the payment", mBinding.mainContainer, true);
                         if(showDialog)
@@ -538,6 +539,7 @@ public class SellerOfferDetailActivity extends BaseActivity implements View.OnCl
                     mBinding.textMobile.setVisibility(View.VISIBLE);
                     mBinding.textPay.setVisibility(View.VISIBLE);
                     mBinding.textMarkComplete.setVisibility(View.VISIBLE);
+                    mBinding.textSellerLocation.setText(mProductDetail.getUser().getCity().getName()+", "+mProductDetail.getUser().getCity().getState().getName()+", "+mProductDetail.getUser().getEmail());
                     showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, false);
                 } else {
                     showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
