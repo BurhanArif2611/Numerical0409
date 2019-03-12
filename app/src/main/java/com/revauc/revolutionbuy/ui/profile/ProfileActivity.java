@@ -4,38 +4,26 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 
 import com.revauc.revolutionbuy.R;
-import com.revauc.revolutionbuy.databinding.ActivityForgotPasswordBinding;
 import com.revauc.revolutionbuy.databinding.ActivityProfileBinding;
 import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.RequestController;
-import com.revauc.revolutionbuy.network.request.auth.ForgotPasswordRequest;
 import com.revauc.revolutionbuy.network.response.LoginResponse;
 import com.revauc.revolutionbuy.network.response.UserDto;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.BaseActivity;
 import com.revauc.revolutionbuy.ui.auth.CreateProfileActivity;
-import com.revauc.revolutionbuy.ui.auth.ForgotPasswordActivity;
-import com.revauc.revolutionbuy.ui.auth.ForgotPasswordConfirmActivity;
 import com.revauc.revolutionbuy.util.Constants;
 import com.revauc.revolutionbuy.util.PreferenceUtil;
 import com.revauc.revolutionbuy.util.StringUtils;
-import com.revauc.revolutionbuy.util.Utils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-
-/**
- * Created by nishant on 24/09/17.
- */
 
 public class ProfileActivity extends BaseActivity implements View.OnClickListener {
 
@@ -90,8 +78,8 @@ public class ProfileActivity extends BaseActivity implements View.OnClickListene
 
         }
 
-        mBinding.textItemPurchased.setText(userDto.getPurchasedCount()+"");
-        mBinding.textItemSold.setText(userDto.getSoldCount()+"");
+        mBinding.textItemPurchased.setText(userDto.getPurchasedCount() + "");
+        mBinding.textItemSold.setText(userDto.getSoldCount() + "");
     }
 
     @Override

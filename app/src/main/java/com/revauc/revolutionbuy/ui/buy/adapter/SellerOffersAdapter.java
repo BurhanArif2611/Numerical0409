@@ -19,10 +19,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-/*
-Copyright © 2017 Block Partee. All rights reserved.
-Developed by Appster.
-*/
+
 
 public class SellerOffersAdapter extends RecyclerView.Adapter<SellerOffersAdapter.MyViewHolder> {
 

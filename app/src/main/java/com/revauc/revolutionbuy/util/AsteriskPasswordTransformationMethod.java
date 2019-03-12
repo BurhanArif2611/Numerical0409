@@ -4,7 +4,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 
 /**
- * Created by nishant on 23/05/17.
+ *  23/05/17.
  */
 
 public class AsteriskPasswordTransformationMethod extends PasswordTransformationMethod {

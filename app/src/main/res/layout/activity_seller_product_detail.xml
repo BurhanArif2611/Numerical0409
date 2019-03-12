@@ -11,7 +11,8 @@
             android:layout_height="match_parent"
             android:background="@drawable/screen_bg"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -199,24 +200,24 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@color/white"
                         android:paddingBottom="@dimen/margin_16"
                         android:paddingEnd="@dimen/margin_16"
                         android:paddingStart="@dimen/margin_16"
-                        android:background="@color/white"
                         android:paddingTop="@dimen/margin_24">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/margin_76"
-                            android:orientation="horizontal"
-                            android:background="@drawable/bg_box_border">
+                            android:background="@drawable/bg_box_border"
+                            android:orientation="horizontal">
 
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:orientation="vertical"
+                                android:layout_weight="1.0"
                                 android:gravity="center"
-                                android:layout_weight="1.0">
+                                android:orientation="vertical">
 
                                 <com.revauc.revolutionbuy.widget.typeface.CustomTextView
                                     android:id="@+id/text_item_sold"
@@ -231,21 +232,21 @@
                                     android:id="@+id/text_item_sold_label"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_2"
                                     android:gravity="center"
                                     android:text="@string/item_sold"
-                                    android:layout_marginTop="@dimen/margin_2"
                                     android:textColor="@color/color_tab_inactive"
                                     android:textSize="@dimen/textsize_12"
                                     app:customFont="@string/font_avenir_regular" />
 
-                                </LinearLayout>
+                            </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:orientation="vertical"
+                                android:layout_weight="1.0"
                                 android:gravity="center"
-                                android:layout_weight="1.0">
+                                android:orientation="vertical">
 
                                 <com.revauc.revolutionbuy.widget.typeface.CustomTextView
                                     android:id="@+id/text_item_purchased"
@@ -260,8 +261,8 @@
                                     android:id="@+id/text_item_purchased_label"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:gravity="center"
                                     android:layout_marginTop="@dimen/margin_2"
+                                    android:gravity="center"
                                     android:text="@string/item_purchased"
                                     android:textColor="@color/color_tab_inactive"
                                     android:textSize="@dimen/textsize_12"
@@ -278,9 +279,9 @@
                         android:id="@+id/text_report_item"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_marginTop="@dimen/margin_24"
                         android:layout_marginBottom="@dimen/margin_16"
+                        android:layout_marginTop="@dimen/margin_24"
+                        android:gravity="center"
                         android:text="@string/report_this_item"
                         android:textColor="@color/textColorDark"
                         android:textSize="@dimen/textsize_12"
@@ -303,5 +304,69 @@
                 app:customFont="@string/font_avenir_regular" />
 
         </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/llMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_10"
+            app:behavior_hideable="true"
+            app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_connect_stripe" />
+
+            <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin_15"
+                android:layout_marginEnd="@dimen/margin_15"
+                android:layout_marginStart="@dimen/margin_15"
+                android:layout_marginTop="@dimen/margin_15"
+                android:gravity="center"
+                android:text="@string/connect_to_stripe_msg"
+                android:textColor="@color/color_label"
+                android:textSize="@dimen/textsize_16"
+                app:customFont="@string/font_avenir_regular" />
+
+            <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+                android:id="@+id/tvConnectStripe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_15"
+                android:layout_marginEnd="@dimen/margin_15"
+                android:layout_marginStart="@dimen/margin_15"
+                android:layout_marginTop="@dimen/margin_15"
+                android:background="@drawable/ic_button_blue"
+                android:gravity="center"
+                android:padding="@dimen/margin_12"
+                android:text="@string/connect_to_stripe"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize_15"
+                app:customFont="@string/font_avenir_medium" />
+
+            <com.revauc.revolutionbuy.widget.typeface.CustomTextView
+                android:id="@+id/tvSkipForNow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/margin_10"
+                android:text="@string/skip_for_now"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/textsize_15"
+                app:customFont="@string/font_avenir_regular" />
+
+        </LinearLayout>
+
+
     </android.support.design.widget.CoordinatorLayout>
 </layout>

@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.appster.p2f", appContext.getPackageName());
+        assertEquals("com.revauc.revolutionbuy", appContext.getPackageName());
     }
 }

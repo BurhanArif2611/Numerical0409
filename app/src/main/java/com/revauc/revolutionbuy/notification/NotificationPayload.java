@@ -1,7 +1,4 @@
-/*
- * Copyright © 2017 Thrive fantasy. All rights reserved.
- * Developed by Appster.
- */
+
 
 package com.revauc.revolutionbuy.notification;
 

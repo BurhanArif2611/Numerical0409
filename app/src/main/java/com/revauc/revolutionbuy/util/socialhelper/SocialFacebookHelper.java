@@ -102,7 +102,8 @@ public class SocialFacebookHelper {
                                             profile.setFirstName(object.optString("first_name", null));
                                             profile.setLastName(object.optString("last_name", null));
                                         }
-                                        profile.setProfileImageURL("http://graph.facebook.com/" + object.optString("id") + "/picture?type=square");
+                                        profile.setProfileImageURL(object.getJSONObject("picture").getJSONObject("data").getString("url"));
+                                        //profile.setProfileImageURL("http://graph.facebook.com/" + object.optString("id") + "/picture?type=square");
                                         profile.setEmail(object.optString("email", null));
                                         if (object.has("gender"))
                                             profile.setGender(object.optString("gender", null));
@@ -115,10 +116,8 @@ public class SocialFacebookHelper {
                                                 profile.setAge(ageRangeObj.getInt("min"));
                                             }
                                         }
-
-
-                                        profile.setProfileImageURL(String.format(PROFILE_IMAGE_URL,
-                                                object.getString("id")));
+//                                        profile.setProfileImageURL(String.format(PROFILE_IMAGE_URL,
+//                                                object.getString("id")));
 
                                         mProfileListener.onExecute(SocialType.FACEBOOK, profile);
                                     }
@@ -129,7 +128,7 @@ public class SocialFacebookHelper {
                             }
                         });
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "id, name,first_name,last_name,age_range,email,gender,birthday");
+                parameters.putString("fields", "id, name,first_name,last_name,age_range,email,gender,birthday,picture.type(large)");
 
 
                 request.setParameters(parameters);

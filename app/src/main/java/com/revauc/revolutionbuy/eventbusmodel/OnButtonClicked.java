@@ -1,7 +1,7 @@
 package com.revauc.revolutionbuy.eventbusmodel;
 
 /**
- * Created by nishant on 26/09/17.
+ *  26/09/17.
  */
 
 public class OnButtonClicked {

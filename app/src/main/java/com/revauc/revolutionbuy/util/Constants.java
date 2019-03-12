@@ -31,6 +31,7 @@ public class Constants {
     public static final String EXTRA_PRODUCT_DETAIL = "EXTRA_PRODUCT_DETAIL";
     public static final String EXTRA_PROFILE_IMAGE = "EXTRA_PROFILE_IMAGE";
     public static final String EXTRA_CATEGORY_NAME = "EXTRA_CATEGORY_NAME";
+    public static final String EXTRA_CATEGORY_SOCIAL_PROFILE = "EXTRA_CATEGORY_SOCIAL_PROFILE";
 
     //SELLER STATES
     public static final int STATE_OFFER_SENT = 1;

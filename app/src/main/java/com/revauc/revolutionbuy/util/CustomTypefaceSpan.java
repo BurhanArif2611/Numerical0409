@@ -7,7 +7,7 @@ import android.text.TextPaint;
 import android.text.style.TypefaceSpan;
 
 /**
- * Created by hemant on 08/05/17.
+ * ant on 08/05/17.
  */
 
 @SuppressLint("ParcelCreator")

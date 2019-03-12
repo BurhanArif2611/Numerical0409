@@ -9,9 +9,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-/**
- * Created by gautambisht on 11/11/16.
- */
+
 
 public abstract class BaseFragment extends Fragment {
 

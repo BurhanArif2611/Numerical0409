@@ -14,8 +14,6 @@
     <color name="color_red_border">#d0021b</color>
     <color name="color_snackbar_error_bg">#fbefee</color>
 
-
-
     <color name="color_tab_inactive">#b0b0b0</color>
     <color name="colorAccent">#1f599c</color>
     <color name="colorAccent_10">#1A00c8ff</color>
@@ -70,12 +68,6 @@
     <color name="ugly_blue_10">#26337081</color>
     <color name="gray">#D3D3D3</color>
     <color name="color_unread_notification">#eff3ff</color>
-
-
-
-
-
-
 
 </resources>
 

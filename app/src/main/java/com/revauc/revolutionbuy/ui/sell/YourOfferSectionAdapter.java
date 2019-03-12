@@ -1,7 +1,4 @@
-/*
- * Copyright © 2017 Block Partee. All rights reserved.
- * Developed by Appster.
- */
+
 
 package com.revauc.revolutionbuy.ui.sell;
 

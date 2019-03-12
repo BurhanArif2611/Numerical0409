@@ -9,15 +9,12 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PersistableBundle;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,12 +31,10 @@ import com.revauc.revolutionbuy.network.RequestController;
 //import com.revauc.revolutionbuy.network.response.auth.UserDto;
 import com.revauc.revolutionbuy.network.request.auth.SocialSignUpRequest;
 import com.revauc.revolutionbuy.network.response.LoginResponse;
-import com.revauc.revolutionbuy.network.response.UserDto;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.auth.CreateProfileActivity;
 import com.revauc.revolutionbuy.ui.auth.EnterAppActivity;
-import com.revauc.revolutionbuy.ui.auth.SignInActivity;
 import com.revauc.revolutionbuy.ui.dashboard.DashboardActivity;
 import com.revauc.revolutionbuy.util.Alert;
 import com.revauc.revolutionbuy.util.Constants;
@@ -47,6 +42,7 @@ import com.revauc.revolutionbuy.util.LogUtils;
 import com.revauc.revolutionbuy.util.PreferenceUtil;
 import com.revauc.revolutionbuy.util.StringUtils;
 import com.revauc.revolutionbuy.util.Utils;
+import com.revauc.revolutionbuy.util.socialhelper.SocialProfile;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -54,8 +50,6 @@ import java.util.UUID;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-
-
 
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -101,7 +95,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-
     public void showDualActionSnackBar(String title, String text, String positiveText, String negativeText, View.OnClickListener positiveListener, View.OnClickListener negativeListener) {
 //        LocationSnackBar customSnackbar = LocationSnackBar.make((ViewGroup) findViewById(android.R.id.content));
 //        customSnackbar.getView().setPadding(0, 0, 0, 0);
@@ -123,8 +116,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if(panelAPI!=null)
-        {
+        if (panelAPI != null) {
             panelAPI.flush();
         }
         hideHud();
@@ -209,9 +201,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             if (mLoadingDialog == null) {
                 mLoadingDialog = new Dialog(this, R.style.TransDialog);
                 mLoadingDialog.setContentView(R.layout.view_progress_dialog);
-                if(msg!=null)
-                {
-                    ((TextView)mLoadingDialog.findViewById(R.id.text_loading_message)).setText(msg);
+                if (msg != null) {
+                    ((TextView) mLoadingDialog.findViewById(R.id.text_loading_message)).setText(msg);
                 }
             }
             mLoadingDialog.setCancelable(false);
@@ -268,11 +259,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         Utils.showSnakbarFromTop(getApplicationContext(), getWindow().getDecorView().getRootView(), msg, isError);
     }
 
-    public void showSnackBarFromBottom(String msg,boolean isError) {
+    public void showSnackBarFromBottom(String msg, boolean isError) {
         Utils.showSnackbar(getApplicationContext(), getWindow().getDecorView().getRootView(), msg, isError);
     }
 
-    public void showSnackBarFromBottom(String msg,View view,boolean isError) {
+    public void showSnackBarFromBottom(String msg, View view, boolean isError) {
         Utils.showSnackbar(getApplicationContext(), view, msg, isError);
     }
 
@@ -357,8 +348,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void logoutUser() {
-        AnalyticsManager.setDistictUser(panelAPI,null);
-        AnalyticsManager.trackMixpanelEvent(panelAPI,getString(R.string.logout));
+        AnalyticsManager.setDistictUser(panelAPI, null);
+        AnalyticsManager.trackMixpanelEvent(panelAPI, getString(R.string.logout));
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
         PreferenceUtil.reset();
@@ -372,7 +363,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-    public void loginSignUpWithFacebook(boolean isLogin,final String email, String username, final String facebookId) {
+    public void loginSignUpWithFacebook(boolean isLogin, final String email, String username, final String facebookId, final SocialProfile socialProfile) {
         showProgressBar();
         AuthWebServices apiService = RequestController.createRetrofitRequest(true);
         final SocialSignUpRequest request = new SocialSignUpRequest();
@@ -390,20 +381,21 @@ public abstract class BaseActivity extends AppCompatActivity {
                 if (response.isSuccess()) {
                     if (response.getResult() != null) {
                         PreferenceUtil.setAuthToken(response.getResult().getToken());
-                        if(response.getResult().getUser().getIsProfileComplete()==0)
-                        {
-                            startActivity(new Intent(BaseActivity.this,CreateProfileActivity.class));
+                        if (response.getResult().getUser().getIsProfileComplete() == 0) {
+                            final Intent intent = new Intent(BaseActivity.this, CreateProfileActivity.class);
+                            intent.putExtra(Constants.EXTRA_CATEGORY_SOCIAL_PROFILE, socialProfile);
+                            startActivity(intent);
                             finish();
-                        }
-
-                        else if (StringUtils.isNullOrEmpty(response.getResult().getUser().getName())) {
-                            startActivity(new Intent(BaseActivity.this, CreateProfileActivity.class));
+                        } else if (StringUtils.isNullOrEmpty(response.getResult().getUser().getName())) {
+                            final Intent intent = new Intent(BaseActivity.this, CreateProfileActivity.class);
+                            intent.putExtra(Constants.EXTRA_CATEGORY_SOCIAL_PROFILE, socialProfile);
+                            startActivity(intent);
                             finish();
                         } else {
                             PreferenceUtil.setUserProfile(response.getResult().getUser());
                             PreferenceUtil.setLoggedIn(true);
-                            AnalyticsManager.setDistictUserSuperProperties(panelAPI,Constants.LOGIN_FACEBOOK,Constants.TYPE_LOGIN,response.getResult().getUser());
-                            AnalyticsManager.trackMixpanelEvent(panelAPI,getString(R.string.login));
+                            AnalyticsManager.setDistictUserSuperProperties(panelAPI, Constants.LOGIN_FACEBOOK, Constants.TYPE_LOGIN, response.getResult().getUser());
+                            AnalyticsManager.trackMixpanelEvent(panelAPI, getString(R.string.login));
                             Intent intent = new Intent(BaseActivity.this, DashboardActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
@@ -429,7 +421,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 //                        startActivity(intent);
                         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                     } else {
-                        showSnakBarFromTop(errorMessage,true);
+                        showSnakBarFromTop(errorMessage, true);
                     }
                 }
             }
@@ -445,7 +437,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             public void onResponse(BaseResponse response) {
                 hideProgressBar();
                 if (response.isSuccess()) {
-                logoutUser();
+                    logoutUser();
                 }
             }
 
@@ -456,7 +448,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     String errorMessage = baseResponse.getMessage();
                     int errorCode = baseResponse.getStatusCode();
                     if (errorMessage != null) {
-                        showSnakBarFromTop(errorMessage,true);
+                        showSnakBarFromTop(errorMessage, true);
                     }
                 }
             }

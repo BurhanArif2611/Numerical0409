@@ -43,7 +43,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Created by nishant on 24/09/17.
+ *  24/09/17.
  */
 
 public class CurrencyChooserActivity extends BaseActivity implements View.OnClickListener, OnCurrencySelectListener {

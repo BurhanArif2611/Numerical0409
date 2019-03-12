@@ -16,9 +16,7 @@ import com.revauc.revolutionbuy.network.response.profile.CityDto;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by nishant on 22/09/17.
- */
+
 
 public class AutoCompleteCityAdapter extends ArrayAdapter<CityDto> {
 

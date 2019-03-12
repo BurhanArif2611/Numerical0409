@@ -58,8 +58,8 @@ android {
         applicationId "com.revauc.revolutionbuy"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 6
-        versionName "1.0"
+        versionCode 10
+        versionName "1.2"
         multiDexEnabled = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -70,7 +70,7 @@ android {
                 abortOnError false
             }
             minifyEnabled false
-            shrinkResources true
+            //shrinkResources true
             zipAlignEnabled true
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -79,7 +79,7 @@ android {
         }
         debug {
             minifyEnabled false
-            debuggable false
+            debuggable true
             versionNameSuffix
         }
     }
@@ -91,6 +91,8 @@ android {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE.txt'
+        doNotStrip '*/mips/*.so'
+        doNotStrip '*/mips64/*.so'
     }
 
 //    applicationVariants.all { variant ->
@@ -225,7 +227,7 @@ dependencies {
     compile 'com.androidadvance:topsnackbar:1.1.1'
     compile 'com.stripe:stripe-android:5.1.0'
     compile 'com.facebook.rebound:rebound:0.3.8'
-    compile 'com.github.aerdy:Android-Viger_View_Pager_PDF_OpenSource:-SNAPSHOT'
+
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile "com.mixpanel.android:mixpanel-android:5.+"

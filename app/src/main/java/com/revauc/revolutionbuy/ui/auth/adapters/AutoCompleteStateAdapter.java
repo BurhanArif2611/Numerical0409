@@ -16,9 +16,7 @@ import com.revauc.revolutionbuy.network.response.profile.StateDto;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by nishant on 22/09/17.
- */
+
 
 public class AutoCompleteStateAdapter extends ArrayAdapter<StateDto> {
 

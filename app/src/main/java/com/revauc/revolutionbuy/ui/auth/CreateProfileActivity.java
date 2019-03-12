@@ -40,10 +40,12 @@ import com.revauc.revolutionbuy.util.Constants;
 import com.revauc.revolutionbuy.util.ImagePickerUtils;
 import com.revauc.revolutionbuy.util.PreferenceUtil;
 import com.revauc.revolutionbuy.util.StringUtils;
+import com.revauc.revolutionbuy.util.socialhelper.SocialProfile;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
@@ -108,8 +110,9 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_create_profile);
 
-        isFromSettings = getIntent().getBooleanExtra(Constants.EXTRA_FROM_SETTINGS, false);
-
+        if (getIntent().hasExtra(Constants.EXTRA_FROM_SETTINGS)) {
+            isFromSettings = getIntent().getBooleanExtra(Constants.EXTRA_FROM_SETTINGS, false);
+        }
 
         if (isFromSettings) {
             UserDto userDto = PreferenceUtil.getUserProfile();
@@ -153,6 +156,17 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
             mBinding.toolbarProfile.tvToolbarGeneralLeft.setVisibility(View.VISIBLE);
             mBinding.toolbarProfile.tvToolbarGeneralLeft.setOnClickListener(this);
             mBinding.toolbarProfile.tvToolbarGeneralRight.setText(R.string.next);
+            if (getIntent().hasExtra(Constants.EXTRA_CATEGORY_SOCIAL_PROFILE)) {
+                SocialProfile socialProfile = (SocialProfile) getIntent().getSerializableExtra(Constants.EXTRA_CATEGORY_SOCIAL_PROFILE);
+                if (socialProfile != null) {
+                    if (!TextUtils.isEmpty(socialProfile.getProfileImageURL()) && socialProfile.getProfileImageURL() != null) {
+                        Picasso.with(this).load(socialProfile.getProfileImageURL()).into(mBinding.imageProfile);
+                    }
+                    if (!TextUtils.isEmpty(socialProfile.getProfileImageURL()) && socialProfile.getDisplayName() != null) {
+                        mBinding.editName.setText(socialProfile.getDisplayName());
+                    }
+                }
+            }
         }
 
         mBinding.toolbarProfile.tvToolbarGeneralRight.setVisibility(View.VISIBLE);
@@ -363,7 +377,7 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
                 if (chooseType == Constants.CHOOSE_TYPE_COUNTRY) {
                     selectedCountryId = data.getIntExtra(Constants.EXTRA_COUNTRY_ID, 0);
                     selectedPhoneCode = data.getStringExtra(Constants.EXTRA_PHONE_CODE);
-                    mBinding.editCountry.setText(""+data.getStringExtra(Constants.EXTRA_LOCATION_VALUE));
+                    mBinding.editCountry.setText("" + data.getStringExtra(Constants.EXTRA_LOCATION_VALUE));
                     mBinding.editState.removeTextChangedListener(textWatcherState);
                     mBinding.editCity.removeTextChangedListener(textWatcherCity);
                     mBinding.editState.setText("");
@@ -375,7 +389,7 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
                 }
                 if (chooseType == Constants.CHOOSE_TYPE_STATE) {
                     selectedStateId = data.getIntExtra(Constants.EXTRA_STATE_ID, 0);
-                    mBinding.editState.setText(""+data.getStringExtra(Constants.EXTRA_LOCATION_VALUE));
+                    mBinding.editState.setText("" + data.getStringExtra(Constants.EXTRA_LOCATION_VALUE));
                     mBinding.editCity.removeTextChangedListener(textWatcherCity);
                     mBinding.editCity.setText("");
                     mBinding.editCity.addTextChangedListener(textWatcherCity);
@@ -383,7 +397,7 @@ public class CreateProfileActivity extends BaseActivity implements View.OnClickL
                 }
                 if (chooseType == Constants.CHOOSE_TYPE_CITY) {
                     selectedCityId = data.getIntExtra(Constants.EXTRA_CITY_ID, 0);
-                    mBinding.editCity.setText(""+data.getStringExtra(Constants.EXTRA_LOCATION_VALUE));
+                    mBinding.editCity.setText("" + data.getStringExtra(Constants.EXTRA_LOCATION_VALUE));
                 }
             }
         }

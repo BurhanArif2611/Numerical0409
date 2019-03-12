@@ -1,14 +1,10 @@
-/*
- * Copyright © 2017 Thrive fantasy. All rights reserved.
- * Developed by Appster.
- */
+
 
 package com.revauc.revolutionbuy.ui.buy;
 
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,13 +15,9 @@ import android.view.ViewGroup;
 
 import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.FragmentBuyBinding;
-import com.revauc.revolutionbuy.databinding.FragmentSellBinding;
 import com.revauc.revolutionbuy.eventbusmodel.OnSignUpClicked;
 import com.revauc.revolutionbuy.ui.BaseFragment;
 import com.revauc.revolutionbuy.ui.auth.SignUpActivity;
-import com.revauc.revolutionbuy.ui.sell.ReportItemActivity;
-import com.revauc.revolutionbuy.ui.sell.SellOptionsGridAdapter;
-import com.revauc.revolutionbuy.util.Constants;
 import com.revauc.revolutionbuy.util.PreferenceUtil;
 import com.revauc.revolutionbuy.widget.BottomMemberAlert;
 import com.revauc.revolutionbuy.widget.typeface.CustomTextView;

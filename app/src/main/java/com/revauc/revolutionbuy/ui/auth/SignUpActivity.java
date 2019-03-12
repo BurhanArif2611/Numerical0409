@@ -24,7 +24,6 @@ import com.revauc.revolutionbuy.network.response.LoginResponse;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.BaseActivity;
-import com.revauc.revolutionbuy.ui.dashboard.DashboardActivity;
 import com.revauc.revolutionbuy.util.Constants;
 import com.revauc.revolutionbuy.util.LogUtils;
 import com.revauc.revolutionbuy.util.PreferenceUtil;
@@ -272,7 +271,7 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
                 SocialProfile socialProfile = (SocialProfile) o;
                 if(socialProfile.getAge()>18)
                 {
-                    loginSignUpWithFacebook(true, socialProfile.getEmail(), socialProfile.getDisplayName(), socialProfile.getProviderId());
+                    loginSignUpWithFacebook(true, socialProfile.getEmail(), socialProfile.getDisplayName(), socialProfile.getProviderId(), socialProfile);
                 }
                 else
                 {

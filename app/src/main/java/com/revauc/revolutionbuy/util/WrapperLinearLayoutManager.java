@@ -5,7 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 /**
- * Created by hemant on 26/05/17.
+ * ant on 26/05/17.
  */
 
 public class WrapperLinearLayoutManager extends LinearLayoutManager {

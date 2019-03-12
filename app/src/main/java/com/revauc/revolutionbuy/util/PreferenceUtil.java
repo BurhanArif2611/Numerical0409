@@ -5,9 +5,7 @@ import android.location.Location;
 import com.orhanobut.hawk.Hawk;
 import com.revauc.revolutionbuy.network.response.UserDto;
 
-/**
- * Created by gautambisht on 11/11/16.
- */
+
 
 public final class PreferenceUtil {
 

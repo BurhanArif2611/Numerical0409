@@ -46,13 +46,12 @@ public class AddDescriptionActivity extends BaseActivity implements View.OnClick
         mBinding.toolbarAddDescription.tvToolbarGeneralLeft.setVisibility(View.VISIBLE);
         mBinding.toolbarAddDescription.tvToolbarGeneralLeft.setOnClickListener(this);
         mBinding.toolbarAddDescription.txvToolbarGeneralCenter.setText(R.string.add_description);
-        mBinding.toolbarAddDescription.tvToolbarGeneralRight.setText(R.string.skip_next_text);
+        mBinding.toolbarAddDescription.tvToolbarGeneralRight.setText(R.string.text_next);
         mBinding.toolbarAddDescription.tvToolbarGeneralRight.setVisibility(View.VISIBLE);
         mBinding.toolbarAddDescription.tvToolbarGeneralRight.setOnClickListener(this);
         mBinding.layoutBuyerFooter.textStepThree.setEnabled(true);
 
-        if(mProductDetail!=null)
-        {
+        if (mProductDetail != null) {
             mBinding.editTitle.setText(mProductDetail.getDescription());
         }
 
@@ -64,9 +63,9 @@ public class AddDescriptionActivity extends BaseActivity implements View.OnClick
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(TextUtils.isEmpty(s.toString().trim())){
+                if (TextUtils.isEmpty(s.toString().trim())) {
                     mBinding.containerDesc.setBackgroundResource(R.drawable.ic_button_red_border);
-                }else{
+                } else {
                     mBinding.containerDesc.setBackgroundResource(R.drawable.et_edittext_border);
                 }
             }
@@ -113,15 +112,15 @@ public class AddDescriptionActivity extends BaseActivity implements View.OnClick
 
     private void validateDetails() {
         String description = mBinding.editTitle.getText().toString();
-        if(StringUtils.isNullOrEmpty(description)){
-            showSnackBarFromBottom(getString(R.string.text_please_enter,getString(R.string.description)),mBinding.mainContainer, true);
+        if (StringUtils.isNullOrEmpty(description)) {
+            showSnackBarFromBottom(getString(R.string.text_please_enter, getString(R.string.description)), mBinding.mainContainer, true);
             mBinding.containerDesc.setBackgroundResource(R.drawable.ic_button_red_border);
-        }else{
+        } else {
             Intent intent = new Intent(AddDescriptionActivity.this, AddPhotosActivity.class);
-            intent.putExtra(Constants.EXTRA_TITLE,mTitle);
-            intent.putExtra(Constants.EXTRA_CATEGORY,mCategory);
-            intent.putExtra(Constants.EXTRA_DESCRIPTION,description);
-            intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,mProductDetail);
+            intent.putExtra(Constants.EXTRA_TITLE, mTitle);
+            intent.putExtra(Constants.EXTRA_CATEGORY, mCategory);
+            intent.putExtra(Constants.EXTRA_DESCRIPTION, description);
+            intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL, mProductDetail);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
         }

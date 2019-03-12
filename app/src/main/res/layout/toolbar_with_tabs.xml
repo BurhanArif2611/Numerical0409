@@ -43,7 +43,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:paddingBottom="@dimen/margin_10"
-                        android:paddingEnd="@dimen/margin_10"
+                        android:paddingEnd="@dimen/margin_16"
                         android:paddingStart="@dimen/margin_16"
                         android:paddingTop="@dimen/margin_10"
                         android:visibility="visible" />
@@ -67,6 +67,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/margin_16"
                         android:paddingBottom="@dimen/margin_10"
+                        android:paddingEnd="@dimen/margin_10"
                         android:paddingStart="@dimen/margin_10"
                         android:paddingTop="@dimen/margin_10"
                         android:visibility="visible" />

@@ -48,10 +48,10 @@ public class AddPhotosActivity extends BaseActivity implements View.OnClickListe
 
     private ActivityAddPhotosBinding mBinding;
     private String mFilePathPrimary, mFilePathOne, mFilePathTwo;
-    private boolean isPrimaryImageRemoved=true;
-    private boolean  isFirstImageRemoved=true;
-    private boolean isSecondImageRemoved=true;
-    private int primaryId,firstId,secondId;
+    private boolean isPrimaryImageRemoved = true;
+    private boolean isFirstImageRemoved = true;
+    private boolean isSecondImageRemoved = true;
+    private int primaryId, firstId, secondId;
     private int requestedFor;
     private final BroadcastReceiver mReciever = new BroadcastReceiver() {
         @Override
@@ -62,7 +62,7 @@ public class AddPhotosActivity extends BaseActivity implements View.OnClickListe
     private String mTitle;
     private String mDescription;
     private String mCategory;
-    private String mDeletedIds="";
+    private String mDeletedIds = "";
     private BuyerProductDto mProductDetail;
 
     @Override
@@ -88,13 +88,10 @@ public class AddPhotosActivity extends BaseActivity implements View.OnClickListe
         mDescription = getIntent().getStringExtra(Constants.EXTRA_DESCRIPTION);
         mCategory = getIntent().getStringExtra(Constants.EXTRA_CATEGORY);
 
-        if(mProductDetail!=null)
-        {
-            if(mProductDetail.getBuyerProductImages()!=null && !mProductDetail.getBuyerProductImages().isEmpty())
-            {
-                for(BuyerProductImageDto buyerProductImageDto: mProductDetail.getBuyerProductImages()){
-                    if(buyerProductImageDto.getPrimaryImage()==1)
-                    {
+        if (mProductDetail != null) {
+            if (mProductDetail.getBuyerProductImages() != null && !mProductDetail.getBuyerProductImages().isEmpty()) {
+                for (BuyerProductImageDto buyerProductImageDto : mProductDetail.getBuyerProductImages()) {
+                    if (buyerProductImageDto.getPrimaryImage() == 1) {
                         Picasso.with(this).load(buyerProductImageDto.getImageName()).into(mBinding.imageOne);
                         isPrimaryImageRemoved = false;
                         primaryId = buyerProductImageDto.getId();
@@ -102,20 +99,15 @@ public class AddPhotosActivity extends BaseActivity implements View.OnClickListe
                         mBinding.textPrimary.setVisibility(View.VISIBLE);
                         mBinding.imageRemoveOne.setVisibility(View.VISIBLE);
                         mBinding.imageRemoveOne.setOnClickListener(AddPhotosActivity.this);
-                    }
-                    else
-                    {
-                        if(isFirstImageRemoved)
-                        {
+                    } else {
+                        if (isFirstImageRemoved) {
                             Picasso.with(this).load(buyerProductImageDto.getImageName()).into(mBinding.imageTwo);
                             isFirstImageRemoved = false;
                             firstId = buyerProductImageDto.getId();
                             mBinding.imageTwoPlaceholder.setVisibility(View.INVISIBLE);
                             mBinding.imageRemoveTwo.setVisibility(View.VISIBLE);
                             mBinding.imageRemoveTwo.setOnClickListener(AddPhotosActivity.this);
-                        }
-                        else if(isSecondImageRemoved)
-                        {
+                        } else if (isSecondImageRemoved) {
                             Picasso.with(this).load(buyerProductImageDto.getImageName()).into(mBinding.imageThree);
                             isSecondImageRemoved = false;
                             secondId = buyerProductImageDto.getId();
@@ -140,8 +132,7 @@ public class AddPhotosActivity extends BaseActivity implements View.OnClickListe
     private ImagePickerUtils.OnImagePickerListener imageListener = new ImagePickerUtils.OnImagePickerListener() {
         @Override
         public void success(String name, String path) {
-            if(requestedFor==1)
-            {
+            if (requestedFor == 1) {
                 mFilePathPrimary = path;
                 isPrimaryImageRemoved = false;
                 mBinding.imageOne.setImageBitmap(BitmapFactory.decodeFile(path));
@@ -149,18 +140,14 @@ public class AddPhotosActivity extends BaseActivity implements View.OnClickListe
                 mBinding.textPrimary.setVisibility(View.VISIBLE);
                 mBinding.imageRemoveOne.setVisibility(View.VISIBLE);
                 mBinding.imageRemoveOne.setOnClickListener(AddPhotosActivity.this);
-            }
-            else if(requestedFor==2)
-            {
+            } else if (requestedFor == 2) {
                 mFilePathOne = path;
                 isFirstImageRemoved = false;
                 mBinding.imageTwo.setImageBitmap(BitmapFactory.decodeFile(path));
                 mBinding.imageTwoPlaceholder.setVisibility(View.INVISIBLE);
                 mBinding.imageRemoveTwo.setVisibility(View.VISIBLE);
                 mBinding.imageRemoveTwo.setOnClickListener(AddPhotosActivity.this);
-            }
-            else if(requestedFor==3)
-            {
+            } else if (requestedFor == 3) {
                 mFilePathTwo = path;
                 isSecondImageRemoved = false;
                 mBinding.imageThree.setImageBitmap(BitmapFactory.decodeFile(path));
@@ -168,57 +155,47 @@ public class AddPhotosActivity extends BaseActivity implements View.OnClickListe
                 mBinding.imageRemoveThree.setVisibility(View.VISIBLE);
                 mBinding.imageRemoveThree.setOnClickListener(AddPhotosActivity.this);
             }
-            requestedFor=0;
+            requestedFor = 0;
         }
 
         @Override
         public void fail(String message) {
             showSnackBarFromBottom(message, mBinding.mainContainer, true);
-            if(requestedFor==1)
-            {
+            if (requestedFor == 1) {
                 mFilePathPrimary = "";
                 isPrimaryImageRemoved = true;
-            }
-            else if(requestedFor==2)
-            {
+            } else if (requestedFor == 2) {
                 mFilePathOne = "";
                 isFirstImageRemoved = true;
-            }
-            else if(requestedFor==3)
-            {
+            } else if (requestedFor == 3) {
                 mFilePathTwo = "";
                 isSecondImageRemoved = true;
             }
-            requestedFor=0;
+            requestedFor = 0;
         }
 
         @Override
         public void onImageRemove() {
-            if(requestedFor==1)
-            {
+            if (requestedFor == 1) {
                 mFilePathPrimary = "";
                 isPrimaryImageRemoved = true;
                 mBinding.textPrimary.setVisibility(View.INVISIBLE);
                 mBinding.imageOnePlaceholder.setVisibility(View.VISIBLE);
                 mBinding.imageRemoveOne.setVisibility(View.INVISIBLE);
-            }
-            else if(requestedFor==2)
-            {
+            } else if (requestedFor == 2) {
 
                 mFilePathOne = "";
                 isSecondImageRemoved = true;
                 mBinding.imageTwoPlaceholder.setVisibility(View.VISIBLE);
                 mBinding.imageRemoveTwo.setVisibility(View.INVISIBLE);
-            }
-            else if(requestedFor==3)
-            {
+            } else if (requestedFor == 3) {
 
                 mFilePathTwo = "";
                 isSecondImageRemoved = true;
                 mBinding.imageThreePlaceholder.setVisibility(View.VISIBLE);
                 mBinding.imageRemoveThree.setVisibility(View.INVISIBLE);
             }
-            requestedFor=0;
+            requestedFor = 0;
         }
     };
 
@@ -237,12 +214,9 @@ public class AddPhotosActivity extends BaseActivity implements View.OnClickListe
 
                 break;
             case R.id.tv_toolbar_general_right:
-                if(mProductDetail!=null)
-                {
+                if (mProductDetail != null) {
                     editBuyerProduct();
-                }
-                else
-                {
+                } else {
                     addBuyerProduct();
 
                 }
@@ -260,11 +234,9 @@ public class AddPhotosActivity extends BaseActivity implements View.OnClickListe
                 ImagePickerUtils.add(getSupportFragmentManager(), imageListener, false);
                 break;
             case R.id.image_remove_one:
-                if(mProductDetail!=null)
-                {
-                    if(primaryId>0)
-                    {
-                        mDeletedIds = mDeletedIds+primaryId+",";
+                if (mProductDetail != null) {
+                    if (primaryId > 0) {
+                        mDeletedIds = mDeletedIds + primaryId + ",";
                     }
                 }
                 mFilePathPrimary = "";
@@ -275,11 +247,9 @@ public class AddPhotosActivity extends BaseActivity implements View.OnClickListe
                 mBinding.imageRemoveOne.setVisibility(View.INVISIBLE);
                 break;
             case R.id.image_remove_two:
-                if(mProductDetail!=null)
-                {
-                    if(firstId>0)
-                    {
-                        mDeletedIds = mDeletedIds+firstId+",";
+                if (mProductDetail != null) {
+                    if (firstId > 0) {
+                        mDeletedIds = mDeletedIds + firstId + ",";
                     }
                 }
                 mFilePathOne = "";
@@ -289,11 +259,9 @@ public class AddPhotosActivity extends BaseActivity implements View.OnClickListe
                 mBinding.imageRemoveTwo.setVisibility(View.INVISIBLE);
                 break;
             case R.id.image_remove_three:
-                if(mProductDetail!=null)
-                {
-                    if(secondId>0)
-                    {
-                        mDeletedIds = mDeletedIds+secondId+",";
+                if (mProductDetail != null) {
+                    if (secondId > 0) {
+                        mDeletedIds = mDeletedIds + secondId + ",";
                     }
                 }
                 mFilePathTwo = "";
@@ -313,15 +281,15 @@ public class AddPhotosActivity extends BaseActivity implements View.OnClickListe
         File file1 = null;
         File file2 = null;
         File file3 = null;
-        if (mFilePathPrimary != null) {
+        if (!StringUtils.isNullOrEmpty(mFilePathPrimary)) {
             file1 = new File(mFilePathPrimary);
         }
 
-        if (mFilePathOne != null) {
+        if (!StringUtils.isNullOrEmpty(mFilePathOne)) {
             file2 = new File(mFilePathOne);
         }
 
-        if (mFilePathTwo != null) {
+        if (!StringUtils.isNullOrEmpty(mFilePathTwo)) {
             file3 = new File(mFilePathTwo);
         }
 
@@ -366,16 +334,13 @@ public class AddPhotosActivity extends BaseActivity implements View.OnClickListe
 
         AuthWebServices apiService = RequestController.createRetrofitRequest(false);
         Observable<BaseResponse> observable;
-        if(file1==null && file2==null && file3==null)
-        {
+        if (file1 == null && file2 == null && file3 == null) {
             observable = apiService.addBuyerProduct(map);
-        }
-        else
-        {
+        } else {
             observable = apiService.addBuyerProduct(map, body1, body2, body3);
         }
 
-        apiService.addBuyerProduct(map, body1,body2,body3).subscribeOn(Schedulers.io())
+        apiService.addBuyerProduct(map, body1, body2, body3).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DefaultApiObserver<BaseResponse>(this) {
 
@@ -386,7 +351,7 @@ public class AddPhotosActivity extends BaseActivity implements View.OnClickListe
                             Intent intent = new Intent(AddPhotosActivity.this, ItemListedActivity.class);
                             startActivity(intent);
                             overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                            }
+                        }
                     }
 
                     @Override
@@ -421,9 +386,9 @@ public class AddPhotosActivity extends BaseActivity implements View.OnClickListe
 
 
         //Creating Profile Details
-        RequestBody idBody = RequestBody.create(MediaType.parse("text/plain"), ""+mProductDetail.getId());
+        RequestBody idBody = RequestBody.create(MediaType.parse("text/plain"), "" + mProductDetail.getId());
 
-        RequestBody deletedIdBody = RequestBody.create(MediaType.parse("text/plain"), StringUtils.isNullOrEmpty(mDeletedIds)?mDeletedIds:mDeletedIds.substring(0,mDeletedIds.length()-1));
+        RequestBody deletedIdBody = RequestBody.create(MediaType.parse("text/plain"), StringUtils.isNullOrEmpty(mDeletedIds) ? mDeletedIds : mDeletedIds.substring(0, mDeletedIds.length() - 1));
         RequestBody titleBody = RequestBody.create(MediaType.parse("text/plain"), mTitle);
         RequestBody descBody = RequestBody.create(MediaType.parse("text/plain"), mDescription);
         RequestBody categoryBody = RequestBody.create(MediaType.parse("text/plain"), mCategory);
@@ -465,12 +430,9 @@ public class AddPhotosActivity extends BaseActivity implements View.OnClickListe
 
         AuthWebServices apiService = RequestController.createRetrofitRequest(false);
         Observable<BaseResponse> observable;
-        if(file1==null && file2==null && file3==null)
-        {
+        if (file1 == null && file2 == null && file3 == null) {
             observable = apiService.addBuyerProduct(map);
-        }
-        else
-        {
+        } else {
             observable = apiService.addBuyerProduct(map, body1, body2, body3);
         }
 

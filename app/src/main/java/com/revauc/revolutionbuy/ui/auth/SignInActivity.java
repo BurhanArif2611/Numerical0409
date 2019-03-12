@@ -56,6 +56,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     private ActivitySignInBinding mBinding;
     private SocialMediaHelper socialMediaHelper;
     private MixpanelAPI mixpanelAPI;
+    private SocialProfile socialProfile;
 
 
     @Override
@@ -89,9 +90,9 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(TextUtils.isEmpty(s.toString().trim())){
+                if (TextUtils.isEmpty(s.toString().trim())) {
                     mBinding.containerEmail.setBackgroundResource(R.drawable.ic_button_red_border);
-                }else{
+                } else {
                     mBinding.containerEmail.setBackgroundResource(R.drawable.ic_button_blue_border);
                 }
             }
@@ -110,9 +111,9 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(TextUtils.isEmpty(s.toString().trim())){
+                if (TextUtils.isEmpty(s.toString().trim())) {
                     mBinding.containerPassword.setBackgroundResource(R.drawable.ic_button_red_border);
-                }else{
+                } else {
                     mBinding.containerPassword.setBackgroundResource(R.drawable.ic_button_blue_border);
                 }
             }
@@ -132,8 +133,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
-        switch (view.getId())
-        {
+        switch (view.getId()) {
             case R.id.image_back:
                 onBackPressed();
 
@@ -143,7 +143,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 break;
 
             case R.id.text_forgot_password:
-                startActivity(new Intent(SignInActivity.this,ForgotPasswordActivity.class));
+                startActivity(new Intent(SignInActivity.this, ForgotPasswordActivity.class));
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                 break;
             case R.id.text_facebook:
@@ -161,20 +161,20 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         String email = mBinding.editEmail.getText().toString().trim();
         String password = mBinding.editPassword.getText().toString().trim();
 
-        if(!Utils.isEmailValid(email)){
-            showSnackBarFromBottom(getString(R.string.error_valid_email),mBinding.mainContainer, true);
+        if (!Utils.isEmailValid(email)) {
+            showSnackBarFromBottom(getString(R.string.error_valid_email), mBinding.mainContainer, true);
             mBinding.containerEmail.setBackgroundResource(R.drawable.ic_button_red_border);
 
-        }else if(password.length() < getResources().getInteger(R.integer.password_min_length)){
-            showSnackBarFromBottom(getString(R.string.error_pass_min_fail),mBinding.mainContainer, true);
+        } else if (password.length() < getResources().getInteger(R.integer.password_min_length)) {
+            showSnackBarFromBottom(getString(R.string.error_pass_min_fail), mBinding.mainContainer, true);
             mBinding.containerPassword.setBackgroundResource(R.drawable.ic_button_red_border);
 
-        }else if(password.length() > getResources().getInteger(R.integer.password_max_length)){
-            showSnackBarFromBottom(getString(R.string.error_pass_max_fail),mBinding.mainContainer, true);
+        } else if (password.length() > getResources().getInteger(R.integer.password_max_length)) {
+            showSnackBarFromBottom(getString(R.string.error_pass_max_fail), mBinding.mainContainer, true);
             mBinding.containerPassword.setBackgroundResource(R.drawable.ic_button_red_border);
 
-        }else{
-            attemptSignIn(email,password);
+        } else {
+            attemptSignIn(email, password);
         }
     }
 
@@ -184,7 +184,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
      * @param email
      * @param password
      */
-    private void attemptSignIn(String email,String password) {
+    private void attemptSignIn(String email, String password) {
         showProgressBar(getString(R.string.signing_in));
         AuthWebServices apiService = RequestController.createRetrofitRequest(true);
         final SignUpRequest request = new SignUpRequest();
@@ -200,24 +200,18 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
             public void onResponse(LoginResponse response) {
                 hideProgressBar();
                 if (response.isSuccess()) {
-                    if(response.getResult()!=null)
-                    {
+                    if (response.getResult() != null) {
                         PreferenceUtil.setAuthToken(response.getResult().getToken());
-                        if(response.getResult().getUser().getIsProfileComplete()==0)
-                        {
-                            startActivity(new Intent(SignInActivity.this,CreateProfileActivity.class));
+                        if (response.getResult().getUser().getIsProfileComplete() == 0) {
+                            startActivity(new Intent(SignInActivity.this, CreateProfileActivity.class));
                             finish();
-                        }
-                        else if(StringUtils.isNullOrEmpty(response.getResult().getUser().getName()))
-                        {
-                            startActivity(new Intent(SignInActivity.this,CreateProfileActivity.class));
+                        } else if (StringUtils.isNullOrEmpty(response.getResult().getUser().getName())) {
+                            startActivity(new Intent(SignInActivity.this, CreateProfileActivity.class));
                             finish();
-                        }
-                        else
-                        {
+                        } else {
                             PreferenceUtil.setUserProfile(response.getResult().getUser());
-                            AnalyticsManager.setDistictUserSuperProperties(mixpanelAPI,Constants.LOGIN_EMAIL,Constants.TYPE_LOGIN,response.getResult().getUser());
-                            AnalyticsManager.trackMixpanelEvent(mixpanelAPI,getString(R.string.login));
+                            AnalyticsManager.setDistictUserSuperProperties(mixpanelAPI, Constants.LOGIN_EMAIL, Constants.TYPE_LOGIN, response.getResult().getUser());
+                            AnalyticsManager.trackMixpanelEvent(mixpanelAPI, getString(R.string.login));
                             PreferenceUtil.setLoggedIn(true);
                             Intent intent = new Intent(SignInActivity.this, DashboardActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -227,10 +221,8 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                         }
                     }
                     showToast(response.getMessage());
-                }
-                else
-                {
-                    showSnackBarFromBottom(response.getMessage(),mBinding.mainContainer, true);
+                } else {
+                    showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
                 }
 
             }
@@ -240,7 +232,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 hideProgressBar();
                 if (baseResponse != null) {
                     String errorMessage = baseResponse.getMessage();
-                    showSnackBarFromBottom(errorMessage,mBinding.mainContainer, true);
+                    showSnackBarFromBottom(errorMessage, mBinding.mainContainer, true);
                 }
             }
         });
@@ -248,8 +240,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected void onDestroy() {
-        if(mixpanelAPI!=null)
-        {
+        if (mixpanelAPI != null) {
             mixpanelAPI.flush();
         }
         super.onDestroy();
@@ -316,14 +307,11 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         socialMediaHelper = new SocialMediaHelper(this, new SocialAuthListener() {
             @Override
             public void onExecute(SocialType provider, Object o) {
-                SocialProfile socialProfile = (SocialProfile) o;
-                if(socialProfile.getAge()>18)
-                {
-                    loginSignUpWithFacebook(true, socialProfile.getEmail(), socialProfile.getDisplayName(), socialProfile.getProviderId());
-                }
-                else
-                {
-                    showSnackBarFromBottom(getString(R.string.label_negation),mBinding.mainContainer,true);
+                socialProfile = (SocialProfile) o;
+                if (socialProfile.getAge() > 18) {
+                    loginSignUpWithFacebook(true, socialProfile.getEmail(), socialProfile.getDisplayName(), socialProfile.getProviderId(), socialProfile);
+                } else {
+                    showSnackBarFromBottom(getString(R.string.label_negation), mBinding.mainContainer, true);
                 }
 
             }

@@ -21,10 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-/*
-Copyright © 2017 Block Partee. All rights reserved.
-Developed by Appster.
-*/
+
 
 public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.MyViewHolder> {
 

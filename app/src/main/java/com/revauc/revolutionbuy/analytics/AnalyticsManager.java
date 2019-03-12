@@ -8,9 +8,7 @@ import org.json.JSONObject;
 
 import java.util.Date;
 
-/**
- * Created by nishant on 16/11/17.
- */
+
 
 public class AnalyticsManager {
 

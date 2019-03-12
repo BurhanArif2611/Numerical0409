@@ -17,10 +17,7 @@ import com.revauc.revolutionbuy.network.response.buyer.CategoryDto;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
-Copyright © 2017 Block Partee. All rights reserved.
-Developed by Appster.
-*/
+
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.MyViewHolder> {
 

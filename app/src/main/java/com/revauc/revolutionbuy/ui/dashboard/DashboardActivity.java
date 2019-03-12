@@ -1,79 +1,44 @@
 package com.revauc.revolutionbuy.ui.dashboard;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.CompoundButton;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.ActivityDashboardBinding;
-import com.revauc.revolutionbuy.databinding.ActivitySignUpBinding;
-import com.revauc.revolutionbuy.eventbusmodel.OnSignUpClicked;
 import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.RequestController;
 import com.revauc.revolutionbuy.network.request.auth.NotificationDetailRequest;
-import com.revauc.revolutionbuy.network.response.buyer.CategoriesResponse;
-import com.revauc.revolutionbuy.network.response.buyer.PurchasedProductDto;
-import com.revauc.revolutionbuy.network.response.buyer.PurchasedResponse;
 import com.revauc.revolutionbuy.network.response.profile.NotificationCountResponse;
 import com.revauc.revolutionbuy.network.response.profile.NotificationDetailPurchaseResponse;
 import com.revauc.revolutionbuy.network.response.profile.NotificationDetailResponse;
 import com.revauc.revolutionbuy.network.response.profile.NotificationDetailUnlockResponse;
-import com.revauc.revolutionbuy.network.response.profile.NotificationDto;
-import com.revauc.revolutionbuy.network.response.seller.SellerOfferDto;
-import com.revauc.revolutionbuy.network.response.seller.SellerOffersResponse;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.notification.NotificationPayload;
 import com.revauc.revolutionbuy.ui.BaseActivity;
-import com.revauc.revolutionbuy.ui.ComingSoonFragment;
-import com.revauc.revolutionbuy.ui.auth.SignUpActivity;
 import com.revauc.revolutionbuy.ui.buy.BuyFragment;
 import com.revauc.revolutionbuy.ui.buy.BuyerProductDetailActivity;
 import com.revauc.revolutionbuy.ui.buy.PurchasedItemDetailActivity;
-import com.revauc.revolutionbuy.ui.buy.SelectCategoriesActivity;
 import com.revauc.revolutionbuy.ui.buy.SellerOfferDetailActivity;
-import com.revauc.revolutionbuy.ui.buy.SellerOffersActivity;
-import com.revauc.revolutionbuy.ui.buy.adapter.CategoriesAdapter;
 import com.revauc.revolutionbuy.ui.notification.NotificationsFragment;
-import com.revauc.revolutionbuy.ui.sell.ReportItemActivity;
 import com.revauc.revolutionbuy.ui.sell.SellFragment;
 import com.revauc.revolutionbuy.ui.sell.SellerOwnOfferDetailActivity;
 import com.revauc.revolutionbuy.ui.settings.SettingsFragment;
 import com.revauc.revolutionbuy.util.Constants;
-import com.revauc.revolutionbuy.util.LogUtils;
 import com.revauc.revolutionbuy.util.PreferenceUtil;
 import com.revauc.revolutionbuy.util.Utils;
-import com.revauc.revolutionbuy.widget.BottomMemberAlert;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-
-import java.util.ArrayList;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -177,7 +142,9 @@ public class DashboardActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        getBadgeCount();
+        if (!TextUtils.isEmpty(PreferenceUtil.getAuthToken())) {
+            getBadgeCount();
+        }
     }
 
     @Override

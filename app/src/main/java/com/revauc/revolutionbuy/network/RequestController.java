@@ -1,11 +1,13 @@
 package com.revauc.revolutionbuy.network;
 
 
+import android.text.TextUtils;
+
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.revauc.revolutionbuy.BuildConfig;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.util.LogUtils;
 import com.revauc.revolutionbuy.util.PreferenceUtil;
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -34,11 +36,10 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
  */
 public final class RequestController {
 
-    private RequestController() {
-    }
-
     private static HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
 
+    private RequestController() {
+    }
 
     /**
      * The Retrofit class generates an implementation of the @AuthWebServices interface.
@@ -57,18 +58,20 @@ public final class RequestController {
         client.addInterceptor(interceptor);
         if (!isAuth) {
             LogUtils.LOGD("TOKEN", "TOKEN: " + PreferenceUtil.getAuthToken());
-            client.addInterceptor(new Interceptor() {
-                @Override
-                public Response intercept(Chain chain) throws IOException {
-                    Request request = chain.request();
-                    Request newReq =
-                            request
-                                    .newBuilder()
-                                    .addHeader("Token", PreferenceUtil.getAuthToken())
-                                    .build();
-                    return chain.proceed(newReq);
-                }
-            });
+            if (!TextUtils.isEmpty(PreferenceUtil.getAuthToken())) {
+                client.addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Request request = chain.request();
+                        Request newReq =
+                                request
+                                        .newBuilder()
+                                        .addHeader("Token", PreferenceUtil.getAuthToken())
+                                        .build();
+                        return chain.proceed(newReq);
+                    }
+                });
+            }
         }
         builder.client(client.build());
         return builder.build().create(AuthWebServices.class);
@@ -92,14 +95,12 @@ public final class RequestController {
                 Request request = chain.request();
                 Request newReq;
                 if (!isAuth) {
-                   newReq =
+                    newReq =
                             request
                                     .newBuilder()
                                     .addHeader("Token", PreferenceUtil.getAuthToken()).addHeader("Content-Type", "application/json")
                                     .build();
-                }
-                else
-                {
+                } else {
                     newReq =
                             request
                                     .newBuilder()

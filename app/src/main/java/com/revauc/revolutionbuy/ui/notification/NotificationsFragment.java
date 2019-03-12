@@ -1,11 +1,9 @@
-/*
- * Copyright © 2017 Thrive fantasy. All rights reserved.
- * Developed by Appster.
- */
+
 
 package com.revauc.revolutionbuy.ui.notification;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -20,6 +18,7 @@ import android.view.ViewGroup;
 import com.revauc.revolutionbuy.R;
 import com.revauc.revolutionbuy.databinding.FragmentNotificationsBinding;
 import com.revauc.revolutionbuy.databinding.FragmentWishlistBinding;
+import com.revauc.revolutionbuy.eventbusmodel.OnSignUpClicked;
 import com.revauc.revolutionbuy.listeners.OnNotificationClickListener;
 import com.revauc.revolutionbuy.listeners.OnSellerOfferClickListener;
 import com.revauc.revolutionbuy.network.BaseResponse;
@@ -38,6 +37,7 @@ import com.revauc.revolutionbuy.network.response.seller.SellerOffersResponse;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.BaseFragment;
+import com.revauc.revolutionbuy.ui.auth.SignUpActivity;
 import com.revauc.revolutionbuy.ui.buy.BuyerProductDetailActivity;
 import com.revauc.revolutionbuy.ui.buy.PurchasedItemDetailActivity;
 import com.revauc.revolutionbuy.ui.buy.SellerOfferDetailActivity;
@@ -49,6 +49,9 @@ import com.revauc.revolutionbuy.util.Constants;
 import com.revauc.revolutionbuy.util.PreferenceUtil;
 import com.revauc.revolutionbuy.widget.BottomMemberAlert;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,8 +62,8 @@ import io.reactivex.schedulers.Schedulers;
 public class NotificationsFragment extends BaseFragment implements OnNotificationClickListener, SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = "NotificationsFragment";
     private FragmentNotificationsBinding mBinder;
-    private int page=1;
-    private int limit=10;
+    private int page = 1;
+    private int limit = 10;
     private NotificationAdapter mAdapter;
     private List<NotificationDto> mNotifications = new ArrayList<>();
     private LinearLayoutManager mLayoutManager;
@@ -95,9 +98,9 @@ public class NotificationsFragment extends BaseFragment implements OnNotificatio
             if (!isFetching) {
                 if (total > 0)
                     if ((total - 1) == lastVisibleItemCount) {
-                        if (mTotalCount > page*limit) {
-                            page = page+1;
-                            fetchUserNotifications(page,limit,false);
+                        if (mTotalCount > page * limit) {
+                            page = page + 1;
+                            fetchUserNotifications(page, limit, false);
                             mBinder.progressbarLoading.setVisibility(View.VISIBLE);
                         }
 
@@ -131,15 +134,14 @@ public class NotificationsFragment extends BaseFragment implements OnNotificatio
 
         mBinder.toolbarNotifications.txvToolbarGeneralCenter.setText(R.string.notifications);
 
-        mAdapter = new NotificationAdapter(getActivity(), mNotifications,this);
+        mAdapter = new NotificationAdapter(getActivity(), mNotifications, this);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mBinder.recyclerView.setLayoutManager(mLayoutManager);
         mBinder.recyclerView.setLayoutManager(mLayoutManager);
         mBinder.recyclerView.setAdapter(mAdapter);
         mBinder.recyclerView.addOnScrollListener(mRecyclerListner);
         mBinder.swipeRefreshLayout.setOnRefreshListener(this);
-        if(!PreferenceUtil.isLoggedIn())
-        {
+        if (!PreferenceUtil.isLoggedIn()) {
             mBinder.swipeRefreshLayout.setEnabled(false);
         }
     }
@@ -147,14 +149,11 @@ public class NotificationsFragment extends BaseFragment implements OnNotificatio
     @Override
     public void onStart() {
         super.onStart();
-        if(PreferenceUtil.isLoggedIn())
-        {
+        if (PreferenceUtil.isLoggedIn()) {
             page = 1;
-            fetchUserNotifications(page,limit,true);
-        }
-        else
-        {
-            BottomMemberAlert.getInstance(getActivity(),getString(R.string.need_to_be_a_member),getString(R.string.sign_up),getString(R.string.cancel)).show();
+            fetchUserNotifications(page, limit, true);
+        } else {
+            BottomMemberAlert.getInstance(getActivity(), getString(R.string.need_to_be_a_member), getString(R.string.sign_up), getString(R.string.cancel)).show();
         }
 
     }
@@ -165,49 +164,50 @@ public class NotificationsFragment extends BaseFragment implements OnNotificatio
             return;
         }
 
-        if(showLoading)
-        {
+        if (showLoading) {
             mBinder.swipeRefreshLayout.setRefreshing(true);
         }
 
         isFetching = true;
         AuthWebServices apiService = RequestController.createRetrofitRequest(false);
 
-        apiService.getUserNotifications(page,limit).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<NotificationResponse>(getActivity()) {
+        apiService.getUserNotifications(page, limit).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<NotificationResponse>(getActivity()) {
 
             @Override
             public void onResponse(NotificationResponse response) {
                 hideProgressBar();
-                if (response != null && response.isSuccess()) {
-                    if(response.getResult()!=null && response.getResult().getNotification()!=null)
-                    {
-                        if(page==1)
-                        {
-                            mNotifications.clear();
-                            mTotalCount = response.getResult().getTotalCount();
+                if (isAdded()) {
+                    if (response != null && response.isSuccess()) {
+                        if (response.getResult() != null && response.getResult().getNotification() != null) {
+                            if (page == 1) {
+                                mNotifications.clear();
+                                mTotalCount = response.getResult().getTotalCount();
+                            }
+                            mNotifications.addAll(response.getResult().getNotification());
+                            mAdapter.notifyDataSetChanged();
+
+                            ((DashboardActivity) getActivity()).updateBadgeCount(response.getResult().getTotalUnreadCount());
+
                         }
-                        mNotifications.addAll(response.getResult().getNotification());
-                        mAdapter.notifyDataSetChanged();
-
-                        ((DashboardActivity)getActivity()).updateBadgeCount(response.getResult().getTotalUnreadCount());
-
-                    }
-                } else {
-                    showToast(response.getMessage());
+                    } else {
+                        showToast(response.getMessage());
 //                    showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
-                }
+                    }
                     doPostLoadingTask();
+                }
             }
 
             @Override
             public void onError(Throwable call, BaseResponse baseResponse) {
                 hideProgressBar();
-                if (baseResponse != null) {
-                    String errorMessage = baseResponse.getMessage();
-                    showToast(errorMessage);
+                if (isAdded()) {
+                    if (baseResponse != null) {
+                        String errorMessage = baseResponse.getMessage();
+                        showToast(errorMessage);
 //                    Utils.showSnackbar(errorMessage, mBinder.mainContainer, true);
+                    }
+                    doPostLoadingTask();
                 }
-                doPostLoadingTask();
             }
         });
     }
@@ -216,35 +216,31 @@ public class NotificationsFragment extends BaseFragment implements OnNotificatio
         mBinder.swipeRefreshLayout.setRefreshing(false);
         mBinder.progressbarLoading.setVisibility(View.GONE);
         isFetching = false;
-        if(mNotifications !=null && !mNotifications.isEmpty())
-        {
-         mBinder.textNoData.setVisibility(View.GONE);
+        if (mNotifications != null && !mNotifications.isEmpty()) {
+            mBinder.textNoData.setVisibility(View.GONE);
 
-        }
-        else
-        {
+        } else {
             mBinder.textNoData.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public void onRefresh() {
-        if(!isFetching) {
+        if (!isFetching) {
             page = 1;
             mBinder.swipeRefreshLayout.setRefreshing(false);
-            fetchUserNotifications(page,limit,true);
+            fetchUserNotifications(page, limit, true);
         }
     }
 
     @Override
-    public void onNotificationClicked(NotificationDto notificationDto,int position) {
+    public void onNotificationClicked(NotificationDto notificationDto, int position) {
         mNotifications.get(position).setIsRead(0);
         mAdapter.notifyDataSetChanged();
-        fetchNotificationDetail(notificationDto.getId(),notificationDto.getType());
+        fetchNotificationDetail(notificationDto.getId(), notificationDto.getType());
     }
 
-    private void fetchNotificationDetail(int notificationId, final int type)
-    {
+    private void fetchNotificationDetail(int notificationId, final int type) {
         if (isFetching) {
             return;
         }
@@ -255,8 +251,7 @@ public class NotificationsFragment extends BaseFragment implements OnNotificatio
         AuthWebServices apiService = RequestController.createRetrofitRequest(false);
 
 
-        if(type==Constants.TYPE_SELLER_MARKED_COMPLETE)
-        {
+        if (type == Constants.TYPE_SELLER_MARKED_COMPLETE) {
 
             apiService.getNotificationDetailForPurchase(new NotificationDetailRequest(notificationId)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<NotificationDetailPurchaseResponse>(getActivity()) {
 
@@ -265,16 +260,12 @@ public class NotificationsFragment extends BaseFragment implements OnNotificatio
                     isFetching = false;
                     hideProgressBar();
                     if (response != null && response.isSuccess()) {
-                        if(response.getResult()!=null)
-                        {
-                            if(response.getResult().getPurchasedProduct()!=null)
-                            {
-                                Intent intent = new Intent(getActivity(),PurchasedItemDetailActivity.class);
-                                intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,response.getResult().getPurchasedProduct());
+                        if (response.getResult() != null) {
+                            if (response.getResult().getPurchasedProduct() != null) {
+                                Intent intent = new Intent(getActivity(), PurchasedItemDetailActivity.class);
+                                intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL, response.getResult().getPurchasedProduct());
                                 startActivity(intent);
-                            }
-                            else
-                            {
+                            } else {
                                 showToast(response.getMessage());
                             }
                         }
@@ -295,9 +286,7 @@ public class NotificationsFragment extends BaseFragment implements OnNotificatio
                     }
                 }
             });
-        }
-        else if(type==Constants.TYPE_BUYER_UNLOCKED)
-        {
+        } else if (type == Constants.TYPE_BUYER_UNLOCKED) {
 
             apiService.getNotificationDetailForUnlock(new NotificationDetailRequest(notificationId)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<NotificationDetailUnlockResponse>(getActivity()) {
 
@@ -306,16 +295,12 @@ public class NotificationsFragment extends BaseFragment implements OnNotificatio
                     isFetching = false;
                     hideProgressBar();
                     if (response != null && response.isSuccess()) {
-                        if(response.getResult()!=null)
-                        {
-                            if(response.getResult().getBuyerProduct()!=null)
-                            {
-                                Intent intent = new Intent(getActivity(),BuyerProductDetailActivity.class);
-                                intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,response.getResult().getBuyerProduct());
+                        if (response.getResult() != null) {
+                            if (response.getResult().getBuyerProduct() != null) {
+                                Intent intent = new Intent(getActivity(), BuyerProductDetailActivity.class);
+                                intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL, response.getResult().getBuyerProduct());
                                 startActivity(intent);
-                            }
-                            else
-                            {
+                            } else {
                                 showToast(response.getMessage());
                             }
                         }
@@ -336,9 +321,7 @@ public class NotificationsFragment extends BaseFragment implements OnNotificatio
                     }
                 }
             });
-        }
-        else
-        {
+        } else {
             apiService.getNotificationDetail(new NotificationDetailRequest(notificationId)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<NotificationDetailResponse>(getActivity()) {
 
                 @Override
@@ -346,43 +329,32 @@ public class NotificationsFragment extends BaseFragment implements OnNotificatio
                     hideProgressBar();
                     isFetching = false;
                     if (response != null && response.isSuccess()) {
-                        if(response.getResult()!=null)
-                        {
-                            switch (type)
-                            {
+                        if (response.getResult() != null) {
+                            switch (type) {
                                 case Constants.TYPE_OFFER_SENT:
-                                    if(response.getResult().getSellerProduct()!=null)
-                                    {
-                                        Intent intent = new Intent(getActivity(),SellerOfferDetailActivity.class);
-                                        intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,response.getResult().getSellerProduct());
+                                    if (response.getResult().getSellerProduct() != null) {
+                                        Intent intent = new Intent(getActivity(), SellerOfferDetailActivity.class);
+                                        intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL, response.getResult().getSellerProduct());
                                         startActivity(intent);
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         showToast(response.getMessage());
                                     }
                                     break;
                                 case Constants.TYPE_BUYER_MARKED_COMPLETE:
-                                    if(response.getResult().getSellerProduct()!=null)
-                                    {
-                                        Intent intent = new Intent(getActivity(),SellerOwnOfferDetailActivity.class);
-                                        intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,response.getResult().getSellerProduct());
+                                    if (response.getResult().getSellerProduct() != null) {
+                                        Intent intent = new Intent(getActivity(), SellerOwnOfferDetailActivity.class);
+                                        intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL, response.getResult().getSellerProduct());
                                         startActivity(intent);
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         showToast(response.getMessage());
                                     }
                                     break;
                                 case Constants.TYPE_PRODUCT_SOLD_BY_ANOTHER:
-                                    if(response.getResult().getSellerProduct()!=null)
-                                    {
-                                        Intent intent = new Intent(getActivity(),SellerOwnOfferDetailActivity.class);
-                                        intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,response.getResult().getSellerProduct());
+                                    if (response.getResult().getSellerProduct() != null) {
+                                        Intent intent = new Intent(getActivity(), SellerOwnOfferDetailActivity.class);
+                                        intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL, response.getResult().getSellerProduct());
                                         startActivity(intent);
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         showToast(response.getMessage());
                                     }
                                     break;
@@ -407,6 +379,29 @@ public class NotificationsFragment extends BaseFragment implements OnNotificatio
                 }
             });
         }
+    }
+
+    // TODO: 27/06/18
+    @Subscribe
+    public void onSignUp(OnSignUpClicked onSignUpClicked)
+    {
+        getActivity().startActivity(new Intent(getActivity(), SignUpActivity.class));
+        getActivity().finish();
+
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        EventBus.getDefault().unregister(this);
+        super.onDetach();
     }
 
 }

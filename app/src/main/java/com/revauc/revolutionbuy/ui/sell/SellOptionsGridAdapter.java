@@ -12,9 +12,7 @@ import android.widget.TextView;
 
 import com.revauc.revolutionbuy.R;
 
-/**
- * Created by nishant on 13/09/17.
- */
+
 
 public class SellOptionsGridAdapter extends BaseAdapter {
 

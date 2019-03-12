@@ -15,8 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-
-
         <com.revauc.revolutionbuy.widget.typeface.CustomTextView
             android:id="@+id/textview_skip_walkthrough"
             android:layout_width="wrap_content"

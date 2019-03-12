@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
-import android.webkit.ConsoleMessage;
-import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 
@@ -23,34 +21,30 @@ import com.revauc.revolutionbuy.ui.BaseActivity;
  */
 public class StripeWebActivity extends BaseActivity implements View.OnClickListener {
     private ActivityTermsBinding mBinding;
-    String STRIPE_CONNECT_URL = BuildConfig.STRIPE_BASE_URL + BuildConfig.STRIPE_CLIENT_ID+ "&redirect_uri=" + BuildConfig.BASE_URL+"stripe-connect";
+    String STRIPE_CONNECT_URL = BuildConfig.STRIPE_BASE_URL + BuildConfig.STRIPE_CLIENT_ID + "&redirect_uri=" + BuildConfig.BASE_URL + "stripe-connect";
 
 
     public class WebViewClient extends android.webkit.WebViewClient {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
-
             // TODO Auto-generated method stub
             super.onPageStarted(view, url, favicon);
+            showProgressBar();
         }
 
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            view.loadUrl(request.getUrl().toString());
-            return super.shouldOverrideUrlLoading(view, request);
-
-        }
+//        @Override
+//        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+//            view.loadUrl(request.getUrl().toString());
+//            return super.shouldOverrideUrlLoading(view, request);
+//
+//        }
 
         @Override
         public void onPageFinished(WebView view, String url) {
-
             // TODO Auto-generated method stub
-
             super.onPageFinished(view, url);
             hideProgressBar();
-
         }
-
     }
 
     @Override
@@ -60,25 +54,25 @@ public class StripeWebActivity extends BaseActivity implements View.OnClickListe
         mBinding.toolbarTerms.txvToolbarGeneralCenter.setText(R.string.stripe_account);
         mBinding.toolbarTerms.ivToolBarLeft.setImageResource(R.drawable.ic_back_blue);
         mBinding.toolbarTerms.ivToolBarLeft.setOnClickListener(this);
-        mBinding.webviewTnc.post(new Runnable() {
-            @Override
-            public void run() {
-
-                mBinding.webviewTnc.setWebViewClient(new WebViewClient());
-                mBinding.webviewTnc.setWebChromeClient(new WebChromeClient() {
-                    @Override
-                    public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-                        Log.d("WebView", consoleMessage.message());
-                        return true;
-                    }
-
-                });
-                showProgressBar();
-                mBinding.webviewTnc.getSettings().setJavaScriptEnabled(true);
-
-                mBinding.webviewTnc.loadUrl(STRIPE_CONNECT_URL);
-            }
-        });
+        mBinding.webviewTnc.getSettings().setJavaScriptEnabled(true);
+        mBinding.webviewTnc.setWebViewClient(new WebViewClient());
+        Log.e("@@@", "loadurl:" + STRIPE_CONNECT_URL);
+        mBinding.webviewTnc.loadUrl(STRIPE_CONNECT_URL);
+//        mBinding.webviewTnc.post(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                mBinding.webviewTnc.setWebChromeClient(new WebChromeClient() {
+//                    @Override
+//                    public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+//                        Log.d("WebView", consoleMessage.message());
+//                        return true;
+//                    }
+//
+//                });
+//
+//            }
+//        });
     }
 
 

@@ -3,6 +3,7 @@ package com.revauc.revolutionbuy.ui.settings;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -84,6 +85,9 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         mBinder.textContactAdmin.setOnClickListener(this);
         mBinder.textStripeAccount.setOnClickListener(this);
         mBinder.textLogout.setOnClickListener(this);
+
+
+
     }
 
     @Override

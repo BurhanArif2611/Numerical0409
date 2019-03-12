@@ -10,30 +10,21 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 
 import com.revauc.revolutionbuy.R;
-import com.revauc.revolutionbuy.databinding.ActivityAddTitleBinding;
 import com.revauc.revolutionbuy.databinding.ActivityCategoriesProductsListingBinding;
 import com.revauc.revolutionbuy.listeners.OnWishlistClickListener;
 import com.revauc.revolutionbuy.network.BaseResponse;
 import com.revauc.revolutionbuy.network.RequestController;
 import com.revauc.revolutionbuy.network.request.auth.ProductSearchRequest;
 import com.revauc.revolutionbuy.network.response.buyer.BuyerProductDto;
-import com.revauc.revolutionbuy.network.response.buyer.WishlistResponse;
 import com.revauc.revolutionbuy.network.response.seller.SellerProductsResponse;
 import com.revauc.revolutionbuy.network.retrofit.AuthWebServices;
 import com.revauc.revolutionbuy.network.retrofit.DefaultApiObserver;
 import com.revauc.revolutionbuy.ui.BaseActivity;
-import com.revauc.revolutionbuy.ui.buy.AddDescriptionActivity;
-import com.revauc.revolutionbuy.ui.buy.BuyerProductDetailActivity;
-import com.revauc.revolutionbuy.ui.buy.adapter.ItemListedActivity;
 import com.revauc.revolutionbuy.ui.buy.adapter.WishListAdapter;
 import com.revauc.revolutionbuy.util.Constants;
-import com.revauc.revolutionbuy.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,23 +36,22 @@ import io.reactivex.schedulers.Schedulers;
 public class SellerProductLlistingActivity extends BaseActivity implements View.OnClickListener, OnWishlistClickListener, SwipeRefreshLayout.OnRefreshListener {
 
 
-    private ActivityCategoriesProductsListingBinding mBinding;
-    private String mCategory;
-    private String mCategoryName;
-    private int page=1;
-    private int limit=10;
-    private WishListAdapter mAdapter;
-    private List<BuyerProductDto> mSellerProducts = new ArrayList<>();
-    private LinearLayoutManager mLayoutManager;
-    private int mTotalCount;
-    private boolean isFetching = false;
     private final BroadcastReceiver mReciever = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             finish();
         }
     };
-
+    private ActivityCategoriesProductsListingBinding mBinding;
+    private String mCategory;
+    private String mCategoryName;
+    private int page = 1;
+    private int limit = 10;
+    private WishListAdapter mAdapter;
+    private List<BuyerProductDto> mSellerProducts = new ArrayList<>();
+    private LinearLayoutManager mLayoutManager;
+    private int mTotalCount;
+    private boolean isFetching = false;
     private RecyclerView.OnScrollListener mRecyclerListner = new RecyclerView.OnScrollListener() {
 
         @Override
@@ -81,9 +71,9 @@ public class SellerProductLlistingActivity extends BaseActivity implements View.
             if (!isFetching) {
                 if (total > 0)
                     if ((total - 1) == lastVisibleItemCount) {
-                        if (mTotalCount > page*limit) {
-                            page = page+1;
-                            fetchSellersProductListing(page,limit,false);
+                        if (mTotalCount > page * limit) {
+                            page = page + 1;
+                            fetchSellersProductListing(page, limit, false);
                             mBinding.progressbarLoading.setVisibility(View.VISIBLE);
                         }
                     } else
@@ -105,7 +95,7 @@ public class SellerProductLlistingActivity extends BaseActivity implements View.
         mBinding.toolbarSell.ivToolBarRight.setOnClickListener(this);
 
         //Setting recycler
-        mAdapter = new WishListAdapter(this,mSellerProducts,this);
+        mAdapter = new WishListAdapter(this, mSellerProducts, this);
         mLayoutManager = new LinearLayoutManager(this);
         mBinding.recyclerViewProducts.setLayoutManager(mLayoutManager);
         mBinding.recyclerViewProducts.setLayoutManager(mLayoutManager);
@@ -113,11 +103,10 @@ public class SellerProductLlistingActivity extends BaseActivity implements View.
         mBinding.recyclerViewProducts.addOnScrollListener(mRecyclerListner);
         mBinding.swipeRefreshLayout.setOnRefreshListener(this);
 
-        fetchSellersProductListing(page,limit,true);
+        fetchSellersProductListing(page, limit, true);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mReciever, new IntentFilter(OfferSentActivity.BROAD_OFFER_SENT_COMPLETE));
     }
-
 
 
     @Override
@@ -134,36 +123,33 @@ public class SellerProductLlistingActivity extends BaseActivity implements View.
 
                 break;
             case R.id.iv_tool_bar_right:
-                startActivity(new Intent(this,SellerOfferActivity.class));
+                startActivity(new Intent(this, SellerOfferActivity.class));
                 break;
         }
 
     }
 
-    private void fetchSellersProductListing(final int page, int limit,boolean showLoading) {
+    private void fetchSellersProductListing(final int page, int limit, boolean showLoading) {
 
         if (isFetching) {
             return;
         }
 
-        if(showLoading)
-        {
+        if (showLoading) {
             mBinding.swipeRefreshLayout.setRefreshing(true);
         }
 
         isFetching = true;
         AuthWebServices apiService = RequestController.createRetrofitRequest(false);
 
-        apiService.getSellerProductsListing(new ProductSearchRequest(page,limit,"",mCategory)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<SellerProductsResponse>(this) {
+        apiService.getSellerProductsListing(new ProductSearchRequest(page, limit, "", mCategory)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DefaultApiObserver<SellerProductsResponse>(this) {
 
             @Override
             public void onResponse(SellerProductsResponse response) {
                 hideProgressBar();
                 if (response != null && response.isSuccess()) {
-                    if(response.getResult()!=null && response.getResult().getProduct()!=null)
-                    {
-                        if(page==1)
-                        {
+                    if (response.getResult() != null && response.getResult().getProduct() != null) {
+                        if (page == 1) {
                             mSellerProducts.clear();
                             mTotalCount = response.getResult().getTotalCount();
                         }
@@ -194,30 +180,27 @@ public class SellerProductLlistingActivity extends BaseActivity implements View.
         mBinding.swipeRefreshLayout.setRefreshing(false);
         mBinding.progressbarLoading.setVisibility(View.GONE);
         isFetching = false;
-        if(mSellerProducts!=null && !mSellerProducts.isEmpty())
-        {
+        if (mSellerProducts != null && !mSellerProducts.isEmpty()) {
             mBinding.textNoData.setVisibility(View.GONE);
 
-        }
-        else
-        {
+        } else {
             mBinding.textNoData.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public void onRefresh() {
-        if(!isFetching) {
+        if (!isFetching) {
             page = 1;
             mBinding.swipeRefreshLayout.setRefreshing(false);
-            fetchSellersProductListing(page,limit,true);
+            fetchSellersProductListing(page, limit, true);
         }
     }
 
     @Override
     public void onWishlistItemClicked(BuyerProductDto buyerProduct) {
-        Intent intent = new Intent(this,SellerProductDetailActivity.class);
-        intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,buyerProduct);
+        Intent intent = new Intent(this, SellerProductDetailActivity.class);
+        intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL, buyerProduct);
         startActivity(intent);
     }
 

@@ -1,7 +1,4 @@
-/*
- * Copyright © 2017 Thrive fantasy. All rights reserved.
- * Developed by Appster.
- */
+
 
 package com.revauc.revolutionbuy.ui.buy;
 
@@ -43,8 +40,8 @@ public class WishListFragment extends BaseFragment implements OnWishlistClickLis
     private static final String TAG = "WishListFragment";
     private static final String PARAM_TITLE = "ParamTitle";
     private FragmentWishlistBinding mBinder;
-    private int offset=0;
-    private int limit=10;
+    private int offset = 0;
+    private int limit = 10;
     private WishListAdapter mAdapter;
     private List<BuyerProductDto> mBuyerProducts = new ArrayList<>();
     private LinearLayoutManager mLayoutManager;
@@ -80,8 +77,8 @@ public class WishListFragment extends BaseFragment implements OnWishlistClickLis
                 if (total > 0)
                     if ((total - 1) == lastVisibleItemCount) {
                         if (mTotalCount > offset) {
-                            offset = offset+10;
-                            fetchBuyerWishlist(offset,limit,false);
+                            offset = offset + 10;
+                            fetchBuyerWishlist(offset, limit, false);
                             mBinder.progressbarLoading.setVisibility(View.VISIBLE);
                         }
 
@@ -113,7 +110,7 @@ public class WishListFragment extends BaseFragment implements OnWishlistClickLis
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mAdapter = new WishListAdapter(getActivity(),mBuyerProducts,this);
+        mAdapter = new WishListAdapter(getActivity(), mBuyerProducts, this);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mBinder.recyclerViewWishlist.setLayoutManager(mLayoutManager);
         mBinder.recyclerViewWishlist.setLayoutManager(mLayoutManager);
@@ -121,8 +118,7 @@ public class WishListFragment extends BaseFragment implements OnWishlistClickLis
         mBinder.recyclerViewWishlist.addOnScrollListener(mRecyclerListner);
         mBinder.swipeRefreshLayout.setOnRefreshListener(this);
 
-        if(!PreferenceUtil.isLoggedIn())
-        {
+        if (!PreferenceUtil.isLoggedIn()) {
             mBinder.swipeRefreshLayout.setEnabled(false);
             mBinder.textNoData.setVisibility(View.VISIBLE);
         }
@@ -131,21 +127,19 @@ public class WishListFragment extends BaseFragment implements OnWishlistClickLis
     @Override
     public void onStart() {
         super.onStart();
-        if(PreferenceUtil.isLoggedIn())
-        {
-            offset=0;
-            fetchBuyerWishlist(offset,limit,true);
+        if (PreferenceUtil.isLoggedIn()) {
+            offset = 0;
+            fetchBuyerWishlist(offset, limit, true);
         }
     }
 
-    private void fetchBuyerWishlist(final int offset, int limit,boolean showLoading) {
+    private void fetchBuyerWishlist(final int offset, int limit, boolean showLoading) {
 
         if (isFetching) {
             return;
         }
 
-        if(showLoading)
-        {
+        if (showLoading) {
             mBinder.swipeRefreshLayout.setRefreshing(true);
         }
 
@@ -157,33 +151,37 @@ public class WishListFragment extends BaseFragment implements OnWishlistClickLis
             @Override
             public void onResponse(WishlistResponse response) {
                 hideProgressBar();
-                if (response != null && response.isSuccess()) {
-                    if(response.getResult()!=null && response.getResult().getBuyerProduct()!=null)
-                    {
-                        if(offset==0)
-                        {
-                            mBuyerProducts.clear();
-                            mTotalCount = response.getResult().getTotalCount();
+                if (isAdded()) {
+
+                    if (response != null && response.isSuccess()) {
+                        if (response.getResult() != null && response.getResult().getBuyerProduct() != null) {
+                            if (offset == 0) {
+                                mBuyerProducts.clear();
+                                mTotalCount = response.getResult().getTotalCount();
+                            }
+                            mBuyerProducts.addAll(response.getResult().getBuyerProduct());
+                            mAdapter.notifyDataSetChanged();
                         }
-                        mBuyerProducts.addAll(response.getResult().getBuyerProduct());
-                        mAdapter.notifyDataSetChanged();
-                    }
-                } else {
-                    showToast(response.getMessage());
+                    } else {
+                        showToast(response.getMessage());
 //                    showSnackBarFromBottom(response.getMessage(), mBinding.mainContainer, true);
-                }
+                    }
                     doPostLoadingTask();
+                }
+
             }
 
             @Override
             public void onError(Throwable call, BaseResponse baseResponse) {
                 hideProgressBar();
-                if (baseResponse != null) {
-                    String errorMessage = baseResponse.getMessage();
-                    showToast(errorMessage);
+                if (isAdded()) {
+                    if (baseResponse != null) {
+                        String errorMessage = baseResponse.getMessage();
+                        showToast(errorMessage);
 //                    Utils.showSnackbar(errorMessage, mBinder.mainContainer, true);
+                    }
+                    doPostLoadingTask();
                 }
-                doPostLoadingTask();
             }
         });
     }
@@ -192,13 +190,10 @@ public class WishListFragment extends BaseFragment implements OnWishlistClickLis
         mBinder.swipeRefreshLayout.setRefreshing(false);
         mBinder.progressbarLoading.setVisibility(View.GONE);
         isFetching = false;
-        if(mBuyerProducts!=null && !mBuyerProducts.isEmpty())
-        {
-         mBinder.textNoData.setVisibility(View.GONE);
+        if (mBuyerProducts != null && !mBuyerProducts.isEmpty()) {
+            mBinder.textNoData.setVisibility(View.GONE);
 
-        }
-        else
-        {
+        } else {
             mBinder.textNoData.setVisibility(View.VISIBLE);
         }
     }
@@ -206,17 +201,17 @@ public class WishListFragment extends BaseFragment implements OnWishlistClickLis
 
     @Override
     public void onWishlistItemClicked(BuyerProductDto buyerProduct) {
-        Intent intent = new Intent(getActivity(),BuyerProductDetailActivity.class);
-        intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL,buyerProduct);
+        Intent intent = new Intent(getActivity(), BuyerProductDetailActivity.class);
+        intent.putExtra(Constants.EXTRA_PRODUCT_DETAIL, buyerProduct);
         startActivity(intent);
     }
 
     @Override
     public void onRefresh() {
-        if(!isFetching) {
+        if (!isFetching) {
             offset = 0;
             mBinder.swipeRefreshLayout.setRefreshing(false);
-            fetchBuyerWishlist(offset,limit,true);
+            fetchBuyerWishlist(offset, limit, true);
         }
     }
 }

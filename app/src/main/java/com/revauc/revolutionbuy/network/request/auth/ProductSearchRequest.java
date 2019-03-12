@@ -1,9 +1,6 @@
 package com.revauc.revolutionbuy.network.request.auth;
 
-/*
-Copyright © 2017 Block Partee. All rights reserved.
-Developed by Appster.
-*/
+
 
 public class ProductSearchRequest {
 
