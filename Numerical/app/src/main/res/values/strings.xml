@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Numerical</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgotpassword">Forgot Password ?</string>
+    <string name="for_password">Forgot Password </string>
+    <string name="login">Login</string>
+    <string name="singup">Sign Up</string>
+    <string name="firstname">First Name</string>
+    <string name="lastname">Last Name</string>
+    <string name="confirmpassword">Confirm Password</string>
+    <string name="forgotcontent">Enter the email address your used while signing up in Numerical and we will send you a link to reset your password.</string>
+    <string name="submit">Submit</string>
+    <string name="newpassword">Enter New Password</string>
+    <string name="newpasswordcontent">Choose a strong password and don\'t reuse it for other accounts .</string>
+    <string name="title_activity_dash_board">DashBoardActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Welcome to</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="enable_permissions_manually">Please Enable a permission.</string>
+    <string name="title">NUMERONS</string>
+    <string name="facebook_app_id">2116782505279406</string>
+    <string name="CONSUMER_KEY">8wmAMt9lFHCwWdpd3sINjjOBC</string>
+    <string name="CONSUMER_SECRET">a3UfiMzt4SVZyzbNGLHp1MxhG5Q0fkmgLc0PzQVwooX8SBJZnY</string>
+    <string name="no_internet">No Internet Found</string>
+    <string name="source">Source   </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="save">Save</string>
+    <string name="currentpass">Current Password</string>
+    <string name="newpass">New Password</string>
+    <string name="next">Next</string>
+    <string name="customeoption"><u>+Add more custom action</u></string>
+
+</resources>

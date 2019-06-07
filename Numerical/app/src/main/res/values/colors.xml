@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#f57b20</color>
+    <color name="colorAccent">#f57b20</color>
+    <color name="colorwhite">#ffffff</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="facebook">#3b5998</color>
+    <color name="gmail">#c7493a</color>
+    <color name="twitter">#55acee</color>
+    <color name="gray">#ACACAC</color>
+    <color name="weblink">#f9a465</color>
+    <color name="white">#EEEEEE </color>
+    <color name="tag_background">#EAEAEA </color>
+
+
+    <color name="panel_angry">#ef473a</color>
+    <color name="panel_sad">#7F7F7F</color>
+    <color name="panel_formal">#576657</color>
+    <color name="panel_calm">#11c1f3</color>
+    <color name="panel_positive">#4F54DD</color>
+    <color name="panel_royal">#C441BB</color>
+    <color name="panel_happy">#3c763d</color>
+</resources>

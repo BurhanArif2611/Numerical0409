@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "217129206120",
+    "firebase_url": "https://numerical2110.firebaseio.com",
+    "project_id": "numerical2110",
+    "storage_bucket": "numerical2110.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217129206120:android:7b8b1550dd0640bf",
+        "android_client_info": {
+          "package_name": "com.numerical.numerical"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217129206120-o72arc2g03epcoka4uoktegf2k1o8v0o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfOs25D8ujNfnV6T9w6bjmxhx4ZISomQk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
