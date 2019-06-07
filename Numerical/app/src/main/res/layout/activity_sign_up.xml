@@ -38,7 +38,10 @@
                 android:padding="@dimen/_12sdp"
                 android:textColor="@color/primary_text"
                 android:textColorHint="@color/secondary_text"
-                android:textSize="@dimen/text_size_18" />
+                android:textSize="@dimen/text_size_18"
+                android:inputType="textCapSentences|text"
+                android:imeOptions="actionNext"
+                android:id="@+id/firstname_et"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -54,7 +57,10 @@
                 android:padding="@dimen/_12sdp"
                 android:textColor="@color/primary_text"
                 android:textColorHint="@color/secondary_text"
-                android:textSize="@dimen/text_size_18" />
+                android:textSize="@dimen/text_size_18"
+                android:inputType="textCapSentences|text"
+                android:imeOptions="actionNext"
+                android:id="@+id/lastname_et"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,7 +75,10 @@
                 android:padding="@dimen/_12sdp"
                 android:textColor="@color/primary_text"
                 android:textColorHint="@color/secondary_text"
-                android:textSize="@dimen/text_size_18" />
+                android:textSize="@dimen/text_size_18"
+                android:inputType="textEmailAddress"
+                android:imeOptions="actionNext"
+                android:id="@+id/email_et"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -84,7 +93,10 @@
                 android:padding="@dimen/_12sdp"
                 android:textColor="@color/primary_text"
                 android:textColorHint="@color/secondary_text"
-                android:textSize="@dimen/text_size_18" />
+                android:textSize="@dimen/text_size_18"
+                android:inputType="textPassword"
+                android:imeOptions="actionNext"
+                android:id="@+id/password_et"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -99,7 +111,10 @@
                 android:padding="@dimen/_12sdp"
                 android:textColor="@color/primary_text"
                 android:textColorHint="@color/secondary_text"
-                android:textSize="@dimen/text_size_18" />
+                android:textSize="@dimen/text_size_18"
+                android:inputType="textPassword"
+                android:imeOptions="actionDone"
+                android:id="@+id/confirm_pass_et"/>
 
             <TextView
                 android:layout_width="match_parent"

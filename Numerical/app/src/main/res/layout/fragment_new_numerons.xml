@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.shuhart.stepview.StepView
+        android:id="@+id/step_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/titilium"
+        android:padding="16dp"
+        app:sv_animationType="Line"
+        app:sv_doneCircleColor="@color/colorwhite"
+        app:sv_doneCircleRadius="12dp"
+        app:sv_doneStepLineColor="@color/colorPrimaryDark"
+        app:sv_doneStepMarkColor="@color/colorAccent"
+        app:sv_doneTextColor="@color/secondary_text"
+        app:sv_nextStepLineColor="@color/primary_text"
+        app:sv_nextTextColor="@color/primary_text"
+        app:sv_selectedCircleColor="@color/colorPrimaryDark"
+        app:sv_selectedCircleRadius="12dp"
+        app:sv_selectedStepNumberColor="@color/colorAccent"
+        app:sv_selectedTextColor="@color/primary_text"
+        app:sv_stepLineWidth="1dp"
+        app:sv_stepNumberTextSize="12sp"
+        app:sv_stepPadding="4dp"
+        app:sv_stepViewStyle="@style/StepView"
+        />
+    <FrameLayout
+        android:id="@+id/stepsfragmentsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/step_view" />
+</RelativeLayout>
