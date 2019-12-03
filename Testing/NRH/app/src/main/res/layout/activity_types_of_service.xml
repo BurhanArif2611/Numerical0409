@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+    <include layout="@layout/tool_bar" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tool_barLayout"
+        android:layout_margin="@dimen/_10sdp">
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_140sdp"
+            app:cardCornerRadius="@dimen/_10sdp"
+            android:id="@+id/card">
+
+            <ImageView
+                android:id="@+id/sliderImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
+                android:scaleType="fitXY" />
+        </androidx.cardview.widget.CardView>
+
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:id="@+id/relative_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="180dp"
+        android:layout_marginLeft="@dimen/_10sdp">
+        <ImageView
+            android:id="@+id/item_img"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:scaleType="fitXY"
+            app:layout_anchorGravity="bottom|left|end"
+            app:pressedTranslationZ="12dp"
+            android:src="@drawable/ic_launcher"/>
+    </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/types_of_service_rc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_below="@+id/relative_layout"/>
+
+
+
+
+</RelativeLayout>
+
+
+
+
+
+
+

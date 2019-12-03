@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "860749862075",
+    "firebase_url": "https://nrs-app-2a495.firebaseio.com",
+    "project_id": "nrs-app-2a495",
+    "storage_bucket": "nrs-app-2a495.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860749862075:android:10b68a39b4a74e6afd059e",
+        "android_client_info": {
+          "package_name": "com.pixelmarketo.nrh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "860749862075-1i6sb65kt9pmq36lkihsc7m93j4qj4d7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArsIxaKxjv7lik8RRByTx2eQzJAQO4W2Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "860749862075-1i6sb65kt9pmq36lkihsc7m93j4qj4d7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

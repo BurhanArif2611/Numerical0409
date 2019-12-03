@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".UpdateProfileActivity"
+    android:background="@drawable/background">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:layout_margin="@dimen/_10sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/_10sdp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp">
+
+                <FrameLayout
+                    android:id="@+id/frame"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/proffileImage"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_80sdp"
+                        android:src="@drawable/ic_defult_user"
+                        app:civ_border_color="@color/colorPrimary"
+                        app:civ_border_width="0.5dp"/>
+
+                    <ImageView
+                        android:id="@+id/takeimage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|bottom"
+                        android:src="@drawable/ic_camera" />
+
+                </FrameLayout>
+
+            </RelativeLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginTop="@dimen/_40sdp">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_8sdp"
+                    android:layout_weight="1"
+                    android:textColorHint="@color/white"
+                    >
+
+                    <EditText
+                        android:id="@+id/first_name_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:drawableLeft="@drawable/ic_first_name"
+                        android:drawablePadding="@dimen/_8sdp"
+                        android:hint="First Name"
+                        android:fontFamily="@font/raleway_regular"
+                        android:imeOptions="actionNext"
+                        android:inputType="text|textCapWords"
+                        android:paddingBottom="@dimen/_15sdp"
+                        android:textSize="@dimen/text_size_16"
+                        android:textColor="@color/white"
+                        android:backgroundTint="@color/white"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_8sdp"
+                    android:layout_weight="1"
+                    android:textColorHint="@color/white">
+
+                    <EditText
+                        android:id="@+id/last_name_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:drawableLeft="@drawable/ic_first_name"
+                        android:drawablePadding="@dimen/_8sdp"
+                        android:hint="Last Name"
+                        android:fontFamily="@font/raleway_regular"
+                        android:imeOptions="actionNext"
+                        android:inputType="text|textCapWords"
+                        android:paddingBottom="@dimen/_15sdp"
+                        android:textSize="@dimen/text_size_16"
+                        android:textColor="@color/white"
+                        android:backgroundTint="@color/white"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:textColorHint="@color/white">
+
+                <EditText
+                    android:id="@+id/email_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_email"
+                    android:drawablePadding="@dimen/_8sdp"
+                    android:hint="Email Address"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
+                    android:paddingBottom="@dimen/_15sdp"
+                    android:textSize="@dimen/text_size_16"
+                    android:fontFamily="@font/raleway_regular"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/white"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:textColorHint="@color/white">
+
+                <EditText
+                    android:id="@+id/phone_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_mobile"
+                    android:drawablePadding="@dimen/_8sdp"
+                    android:hint="Mobile Number"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:paddingBottom="@dimen/_15sdp"
+                    android:textSize="@dimen/text_size_16"
+                    android:ems="10"
+                    android:fontFamily="@font/raleway_regular"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/white"
+                    style="@style/InvisibleFocusHolder"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        </LinearLayout>
+    </ScrollView>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/ic_corner_colour"
+        android:text="Update Profile"
+        android:textColor="@color/white"
+        android:id="@+id/register_btn"
+        android:fontFamily="@font/raleway_regular"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

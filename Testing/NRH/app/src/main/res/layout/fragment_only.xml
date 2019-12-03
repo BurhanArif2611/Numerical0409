@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.OnlyServiceFragment">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:layout_above="@+id/submit_btn">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp">
+
+                    <EditText
+                        android:id="@+id/event_name_etv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/raleway_regular"
+                        android:hint="Event Name"
+                        android:inputType="text|textCapWords"
+                        android:imeOptions="actionNext"
+                        android:paddingBottom="@dimen/_20sdp"
+                        android:textColor="@color/primary_text" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:id="@+id/start_date_inputlayout">
+
+                    <EditText
+                        android:id="@+id/start_date_etv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/raleway_regular"
+                        android:hint="Event Date"
+                        android:inputType="text|textCapWords"
+                        android:imeOptions="actionNext"
+                        android:paddingBottom="@dimen/_20sdp"
+                        android:textColor="@color/primary_text"
+                        style="@style/InvisibleFocusHolder"/>
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:id="@+id/end_date_inputlayout">
+
+                    <EditText
+                        android:id="@+id/no_of_foods_etv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/raleway_regular"
+                        android:hint="No.of Food Items"
+                        android:inputType="phone"
+                        android:imeOptions="actionNext"
+                        android:paddingBottom="@dimen/_20sdp"
+                        android:textColor="@color/primary_text" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:id="@+id/no_baggis_inputlayout">
+
+                    <EditText
+                        android:id="@+id/no_of_guest_etv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/raleway_regular"
+                        android:hint="No. of Guest"
+                        android:inputType="number"
+                        android:imeOptions="actionNext"
+                        android:paddingBottom="@dimen/_20sdp"
+                        android:textColor="@color/primary_text" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:id="@+id/city_village_inputlayout">
+
+                    <EditText
+                        android:id="@+id/city_village_etv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/raleway_regular"
+                        android:hint="City/Village"
+                        android:inputType="text|textCapWords"
+                        android:imeOptions="actionNext"
+                        android:paddingBottom="@dimen/_20sdp"
+                        android:textColor="@color/primary_text" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:id="@+id/tehsil_inputlayout">
+
+                    <EditText
+                        android:id="@+id/tehsil_etv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/raleway_regular"
+                        android:hint="Tehsil"
+                        android:inputType="text|textCapWords"
+                        android:imeOptions="actionNext"
+                        android:paddingBottom="@dimen/_20sdp"
+                        android:textColor="@color/primary_text" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+        </ScrollView>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/submit_btn"/>
+
+
+
+
+</RelativeLayout>

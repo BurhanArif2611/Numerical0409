@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:background="@drawable/corner_colour"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="30dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:paddingTop="15dp"
+            android:text="Enter Mobile Number"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_20"
+            android:fontFamily="@font/raleway_regular"
+            android:id="@+id/title_tv"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/_20sdp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="15dp"
+            android:text="Please type verified Mobile Number"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_16"
+            android:fontFamily="@font/raleway_regular"
+            android:id="@+id/content_tv" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:textColorHint="@color/white"
+            android:id="@+id/mobile_textinput"
+            android:backgroundTint="@color/white">
+
+            <EditText
+                android:id="@+id/mobile_number_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_mobile"
+                android:drawablePadding="@dimen/_10sdp"
+                android:fontFamily="@font/raleway_regular"
+                android:hint="Mobile Number"
+                android:imeOptions="actionNext"
+                android:inputType="phone"
+                android:maxLength="10"
+                android:paddingBottom="@dimen/_20sdp"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/white"
+                android:textColorHint="@color/white"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <LinearLayout
+            android:id="@+id/layout_otp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/logo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/editTextone"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_margin="@dimen/_3sdp"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:inputType="numberPassword"
+                android:maxLength="1"
+                android:nextFocusRight="@+id/editTexttwo"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_margin_20"
+                >
+
+                <requestFocus />
+            </EditText>
+
+            <EditText
+                android:id="@+id/editTexttwo"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_margin="@dimen/_3sdp"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:inputType="numberPassword"
+                android:maxLength="1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_margin_20"
+                tools:text="1" />
+
+            <EditText
+                android:id="@+id/editTextthree"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_margin="@dimen/_3sdp"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:inputType="numberPassword"
+                android:maxLength="1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_margin_20"
+                tools:text="1" />
+
+            <EditText
+                android:id="@+id/editTextfour"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_margin="@dimen/_3sdp"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:inputType="numberPassword"
+                android:maxLength="1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_margin_20"
+                tools:text="1" />
+            <EditText
+                android:id="@+id/editTextfifth"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_margin="@dimen/_3sdp"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:inputType="numberPassword"
+                android:maxLength="1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_margin_20"
+                tools:text="1" />
+            <EditText
+                android:id="@+id/editTextsixth"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_margin="@dimen/_3sdp"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:inputType="numberPassword"
+                android:maxLength="1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_margin_20"
+                tools:text="1" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/cancel_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:background="@drawable/ic_corner_orange"
+                android:text="Cancel"
+                android:fontFamily="@font/raleway_regular"
+                android:textColor="@color/white"
+                />
+
+            <Button
+                android:id="@+id/submit_number_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:background="@drawable/ic_corner_yellow"
+                android:text="Ok"
+                android:fontFamily="@font/raleway_regular"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+               />
+            <Button
+                android:id="@+id/submit_otp_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:background="@drawable/ic_corner_yellow"
+                android:text="Confirm"
+                android:fontFamily="@font/raleway_regular"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:visibility="gone"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/user_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_enter_otp" />
+</RelativeLayout>

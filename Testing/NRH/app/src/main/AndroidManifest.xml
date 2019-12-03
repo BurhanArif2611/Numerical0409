@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.pixelmarketo.nrh">
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@drawable/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".activity.ContactUsActivity"></activity>
+        <activity android:name=".activity.HelpActivity" />
+        <activity android:name=".activity.user.CantensActivity" />
+        <activity android:name=".activity.Vender_HistoryActivity" />
+        <activity android:name=".activity.EventDetailActivity" />
+        <activity android:name=".activity.user.HistoryServiceActivity" />
+        <activity android:name=".activity.user.VenderlistActivity" />
+        <activity android:name=".activity.BidRequestActivity" />
+        <activity android:name=".ServiceForms.VideoGrapherActivity" />
+        <activity android:name=".VenderLoginActivity" />
+        <activity android:name=".VenderDashboardActivity" />
+        <activity android:name=".Vender_RegistrationActivity" />
+        <activity android:name=".ServiceTypeActivity" />
+        <activity android:name=".ServiceForms.Caters" />
+        <activity android:name=".ServiceForms.Baggi_HourseActivity" />
+        <activity android:name=".ServiceForms.TentActivity" />
+        <activity android:name=".TypesOfServiceActivity" />
+        <activity android:name=".UpdateProfileActivity" />
+        <activity android:name=".activity.FullScreenActivity" />
+        <activity
+            android:name=".UserDashboardActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_live_5ZwBGRlEuRMjE5" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <service android:name=".Firebase.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+    </application>
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+</manifest>

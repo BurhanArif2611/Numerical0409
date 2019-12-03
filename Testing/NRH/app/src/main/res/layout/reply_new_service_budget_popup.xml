@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/_10sdp">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo"
+        android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Appropriate Charges May Applicable For Distinct Service. "
+            android:layout_margin="@dimen/_2sdp"
+            android:textColor="@color/primary_text"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_background"
+            android:drawableLeft="@drawable/ic_rupee"
+            android:drawablePadding="@dimen/_10sdp"
+            android:padding="@dimen/_10sdp"
+            android:hint="Enter Your Amount"
+            android:textColor="@color/primary_text"
+            android:id="@+id/amount_etv"
+            android:inputType="phone"
+            android:imeOptions="actionNext"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Our Service featured. "
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textColor="@color/primary_text"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_80sdp"
+            android:background="@drawable/edittext_background">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Comment.."
+            android:layout_margin="@dimen/_2sdp"
+            android:textColor="@color/primary_text"
+            android:backgroundTint="@android:color/transparent"
+            android:id="@+id/comment_etv"
+            android:inputType="text"
+            android:imeOptions="actionDone"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <Button
+                android:id="@+id/skip_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:background="@drawable/ic_corner_orange"
+                android:text="Skip"
+                android:textColor="@color/white" />
+            <Button
+                android:id="@+id/submit_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:background="@drawable/ic_corner_colour"
+                android:text="Submit"
+                android:textColor="@color/white" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_cancel_colour"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/_10sdp"
+        android:id="@+id/cancel_img"/>
+</RelativeLayout>

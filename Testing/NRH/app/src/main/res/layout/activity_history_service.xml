@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.user.HistoryServiceActivity">
+    <include layout="@layout/tool_bar" />
+    <LinearLayout
+        android:id="@+id/select_services_tv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_below="@+id/tool_barLayout"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/background_white">
+
+        <Spinner
+            android:id="@+id/select_subservice_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vender_service_rc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/select_services_tv"
+        android:layout_margin="@dimen/_10sdp" />
+
+
+</RelativeLayout>

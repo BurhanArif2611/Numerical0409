@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ServiceForms.VideoGrapherActivity">
+    <include layout="@layout/tool_bar" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:layout_below="@+id/tool_barLayout"
+        android:layout_above="@+id/submit_btn"
+        android:layout_marginBottom="@dimen/_10sdp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/_10sdp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/event_name_etv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway_regular"
+                    android:hint="Event Name"
+                    android:inputType="text|textCapWords"
+                    android:imeOptions="actionNext"
+                    android:paddingBottom="@dimen/_20sdp"
+                    android:textColor="@color/primary_text"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/start_date_inputlayout">
+
+                <EditText
+                    android:id="@+id/start_date_etv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway_regular"
+                    android:hint="Date"
+                    android:inputType="text|textCapWords"
+                    android:imeOptions="actionNext"
+                    android:paddingBottom="@dimen/_20sdp"
+                    android:textColor="@color/primary_text"
+                    style="@style/InvisibleFocusHolder"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/city_village_inputlayout">
+
+                <EditText
+                    android:id="@+id/city_village_etv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway_regular"
+                    android:hint="City/Village"
+                    android:inputType="text|textCapWords"
+                    android:imeOptions="actionNext"
+                    android:paddingBottom="@dimen/_20sdp"
+                    android:textColor="@color/primary_text" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tehsil_inputlayout">
+
+                <EditText
+                    android:id="@+id/tehsil_etv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway_regular"
+                    android:hint="Tehsil"
+                    android:inputType="text|textCapWords"
+                    android:imeOptions="actionNext"
+                    android:paddingBottom="@dimen/_20sdp"
+                    android:textColor="@color/primary_text" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:visibility="visible">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Drone/Crean"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_size_18"
+                    />
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Drone"
+                    android:buttonTint="@color/colorPrimary"
+                    android:id="@+id/drone_checkbox"/>
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Crean"
+                    android:buttonTint="@color/colorPrimary"
+                    android:id="@+id/crean_checkbox"/>
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Non of these"
+                    android:buttonTint="@color/colorPrimary"
+                    android:id="@+id/non_of_these_checkbox"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:id="@+id/select_type_layout"
+                android:visibility="visible">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pre-Video Shutting"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_size_18"/>
+                <RadioGroup
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/prevideo_shutting_radioGroup"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Yes"
+                        android:id="@+id/radioButton"
+                        android:checked="false"
+                        android:textSize="@dimen/text_size_18"
+                        android:layout_weight="1"/>
+
+                    <RadioButton
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="No"
+                        android:id="@+id/radioButton2"
+                        android:checked="false"
+                        android:layout_weight="1"
+                        android:textSize="@dimen/text_size_18" />
+                </RadioGroup>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:visibility="visible">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="LED wall"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_size_18"/>
+                <RadioGroup
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/led_wall_radiogroup">
+
+                    <RadioButton
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Yes"
+                        android:checked="false"
+                        android:textSize="@dimen/text_size_18"
+                        android:layout_weight="1"/>
+
+                    <RadioButton
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="No"
+                        android:checked="false"
+                        android:layout_weight="1"
+                        android:textSize="@dimen/text_size_18" />
+                </RadioGroup>
+            </LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10sdp">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway_regular"
+                    android:hint="Video CD hours"
+                    android:inputType="number"
+                    android:imeOptions="actionNext"
+                    android:paddingBottom="@dimen/_20sdp"
+                    android:textColor="@color/primary_text"
+                    android:id="@+id/video_cd_hourse"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </ScrollView>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/submit_btn"/>
+</RelativeLayout>

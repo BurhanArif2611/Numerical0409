@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ContactUsActivity">
+<include layout="@layout/tool_bar"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:layout_below="@+id/tool_barLayout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/_12sdp"
+                android:src="@drawable/ic_customer_care" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Call Us For Any Query"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/text_size_18"
+                android:textStyle="bold" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dotted_border_rectangle"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_8sdp"
+                android:padding="@dimen/_8sdp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/_4sdp"
+                    android:text="NRS Help"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_size_16" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="+91 9770606839"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_size_20" />
+
+
+                <TextView
+                    android:id="@+id/firstContactBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/_8sdp"
+                    android:text="Call Now"
+                    android:drawableLeft="@drawable/ic_call_"
+                    android:drawablePadding="@dimen/_8sdp"
+                    android:textColor="@color/green"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_size_16" />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dotted_border_rectangle"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_8sdp"
+                android:padding="@dimen/_8sdp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/_4sdp"
+                    android:text="Mail Us At"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_size_16" />
+
+                <TextView
+                    android:id="@+id/vikasVyasContact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="shokinvishnulalpatidar4545\n@gmail.com"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_size_20" />
+
+
+
+
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bani teh Manasa dist Neemuch(M.P.)"
+                android:gravity="center"
+                android:padding="@dimen/_8sdp"
+                android:textSize="@dimen/text_size_16" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</RelativeLayout>

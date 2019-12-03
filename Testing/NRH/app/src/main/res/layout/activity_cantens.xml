@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.user.CantensActivity">
+<include layout="@layout/tool_bar"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:layout_below="@+id/tool_barLayout"
+        android:layout_above="@+id/submit_btn">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp">
+
+                <EditText
+                    android:id="@+id/event_name_etv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway_regular"
+                    android:hint="Event Name"
+                    android:inputType="text|textCapWords"
+                    android:imeOptions="actionNext"
+                    android:paddingBottom="@dimen/_20sdp"
+                    android:textColor="@color/primary_text"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:id="@+id/start_date_inputlayout">
+
+                <EditText
+                    android:id="@+id/start_date_etv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway_regular"
+                    android:inputType="text|textCapWords"
+                    android:imeOptions="actionNext"
+                    android:paddingBottom="@dimen/_20sdp"
+                    android:textColor="@color/primary_text"
+                    style="@style/InvisibleFocusHolder"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:id="@+id/end_date_inputlayout"
+                android:visibility="gone">
+
+                <EditText
+                    android:id="@+id/end_date_etv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway_regular"
+                    android:inputType="text|textCapWords"
+                    android:imeOptions="actionNext"
+                    android:paddingBottom="@dimen/_20sdp"
+                    android:textColor="@color/primary_text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:id="@+id/select_type_layout"
+                android:visibility="visible">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Types of Canten"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_size_18"/>
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal"
+                   android:layout_marginTop="@dimen/_5sdp">
+                   <CheckBox
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="Panipuri"
+                       android:id="@+id/panipuri_checkbox"/>
+                   <CheckBox
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="Cold Drink"
+                       android:id="@+id/cold_drink_checkbox"/>
+               </LinearLayout>
+                <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_5sdp">
+                   <CheckBox
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="Fruits"
+                       android:id="@+id/fruits_checkbox"/>
+                   <CheckBox
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="Kulfi"
+                       android:id="@+id/kulfi_checkbox"/>
+               </LinearLayout>
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:id="@+id/no_of_dhol_inputlayout"
+               >
+
+                <EditText
+                    android:id="@+id/no_of_members_etv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway_regular"
+                    android:inputType="phone"
+                    android:imeOptions="actionNext"
+                    android:paddingBottom="@dimen/_20sdp"
+                    android:textColor="@color/primary_text"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:id="@+id/city_village_inputlayout">
+
+                <EditText
+                    android:id="@+id/city_village_etv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway_regular"
+                    android:inputType="text|textCapWords"
+                    android:imeOptions="actionNext"
+                    android:paddingBottom="@dimen/_20sdp"
+                    android:textColor="@color/primary_text" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:id="@+id/tehsil_inputlayout">
+
+                <EditText
+                    android:id="@+id/tehsil_etv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway_regular"
+                    android:inputType="text|textCapWords"
+                    android:imeOptions="actionNext"
+                    android:paddingBottom="@dimen/_20sdp"
+                    android:textColor="@color/primary_text" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:id="@+id/vehicle_inputlayout"
+                android:visibility="gone">
+
+                <EditText
+                    android:id="@+id/vehicle_type_etv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway_regular"
+                    android:inputType="text|textCapWords"
+                    android:imeOptions="actionNext"
+                    android:paddingBottom="@dimen/_20sdp"
+                    android:textColor="@color/primary_text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+    </ScrollView>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/submit_btn"/>
+</RelativeLayout>
