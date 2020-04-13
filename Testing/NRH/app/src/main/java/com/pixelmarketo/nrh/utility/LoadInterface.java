@@ -208,6 +208,10 @@ public interface LoadInterface {
     @POST("register_vendor")
     Call<ResponseBody> register_vendor(@Query("fullname") String fullname, @Query("contact") String contact, @Query("state") String state, @Query("district") String district, @Query("tehsil") String tehsil, @Query("city") String city, @Query("address") String address, @Query("pincode") String pincode, @Query("password") String password, @Query("service_type[]") ArrayList<String> service_type, @Part MultipartBody.Part file1);
 
+    @POST("register_vendor")
+    @FormUrlEncoded
+    Call<ResponseBody> register_vendor_without_image(@Field(value = "fullname") String fullname, @Field(value = "contact") String contact, @Field(value = "state") String state, @Field(value = "district") String district, @Field(value = "tehsil") String tehsil, @Field(value = "city") String city, @Field(value = "address") String address, @Field(value = "pincode") String pincode, @Field(value = "password") String password, @Field(value = "service_type[]") ArrayList<String> service_type);
+
     //token,service_type,event_name,event_date,type,from_date,to_date,vehical_type,no_of_days,singer_dancer,pick_up_time,no_of_watercan,form_place,to_place,no_of_day,no_of_baggi_horse,no_of_member,no_of_item,vaters,decoretion_type,cantenscantens,no_of_dholno_of_dhol,service_imageservice_image
     @POST("service_request")
     @FormUrlEncoded

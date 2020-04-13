@@ -235,3 +235,5 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 
 # End of https://www.gitignore.io/api/linux,macos,gradle,android,windows,androidstudio
+temp_auto_push.bat
+temp_interactive_push.bat

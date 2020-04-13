@@ -222,6 +222,7 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
     }
 
     private void RegistrationOnServer() {
+        Log.e("server","done");
         if (NetworkUtil.isNetworkAvailable(RegisterActivity.this)) {
             final Dialog materialDialog = ErrorMessage.initProgressDialog(RegisterActivity.this);
             LoadInterface apiService = AppConfig.getClient().create(LoadInterface.class);

@@ -570,14 +570,17 @@ public class Vender_RegistrationActivity extends AppCompatActivity implements Te
             ErrorMessage.E("selectedImagePath Camera" + selectedImagePath);
             ErrorMessage.E("finalFile Camera" + finalFile);
 
+            uploadTv.setText(selectedImagePath);
+            uploadTv.setBackground(getResources().getDrawable(R.drawable.ic_corner_green));
 
         } else if (requestCode == SELECT_FROM_GALLERY && resultCode == Activity.RESULT_OK && null != data) {
             Uri galleryURI = data.getData();
             // proffileImage.setImageURI(galleryURI);
-
             selectedImagePath = getRealPathFromURIPath(galleryURI, Vender_RegistrationActivity.this);
-
             System.out.println("===========selectedImagePath on acti rest : " + selectedImagePath);
+
+            uploadTv.setText(selectedImagePath);
+            uploadTv.setBackground(getResources().getDrawable(R.drawable.ic_corner_green));
             /*finalFile = new File(selectedImagePath);*/
         }
     }
@@ -633,6 +636,7 @@ public class Vender_RegistrationActivity extends AppCompatActivity implements Te
 
             LoadInterface apiService = AppConfig.getClient().create(LoadInterface.class);
             Call<ResponseBody> call = apiService.register_vendor(userNameEt.getText().toString(), mobileNumberEt.getText().toString().trim(), Selected_State, Selected_district, tehsilEtv.getText().toString(), Select_City, addressEtv.getText().toString(), pincodeEtv.getText().toString(), passwordEtv.getText().toString(), service_idsList, body);
+
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -669,7 +673,7 @@ public class Vender_RegistrationActivity extends AppCompatActivity implements Te
                         } catch (JSONException e) {
                             materialDialog.dismiss();
                             e.printStackTrace();
-                            ErrorMessage.E("========json Ex  :" + e);
+                            ErrorMessage.E("========json Ex  :" + e.getMessage());
                             System.out.println("========json Ex  :" + e.toString());
                         } catch (Exception e) {
                             materialDialog.dismiss();
@@ -677,6 +681,7 @@ public class Vender_RegistrationActivity extends AppCompatActivity implements Te
                             ErrorMessage.E("========io Ex  :" + e);
                         }
                     } else {
+                        Log.e("response fail", "response fail");
                         materialDialog.dismiss();
                     }
                 }
@@ -694,7 +699,26 @@ public class Vender_RegistrationActivity extends AppCompatActivity implements Te
     }
 
     public void GET_ServiceId(String serviceId) {
-        service_idsList.add(serviceId);
+        boolean is_Exist=true;
+        if (service_idsList.size() > 0) {
+            for (int i = 0; i < service_idsList.size(); i++) {
+                if (service_idsList.get(i).equals(serviceId)){
+                    is_Exist=false;
+                }
+            }
+            if (is_Exist) {
+                service_idsList.add(serviceId);
+            }
+        } else {
+            service_idsList.add(serviceId);
+        }
+
+    }
+    public void remove_item(String service_id){
+        if (service_idsList.size() > 0) {
+            service_idsList.remove(service_id);
+        }
+
     }
 
     public void Confirmation_PopUP(String service_charge) {
@@ -708,10 +732,10 @@ public class Vender_RegistrationActivity extends AppCompatActivity implements Te
         submit_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 dialog.dismiss();
-                if (service_charge.contains("0") || service_charge.contains("00")) {
+                if (service_charge.equals("0") || service_charge.equals("00")) {
                     ConfirmPaymentOnServer(" No Amount");
                 } else {
-                    startPayment(Double.parseDouble(service_charge + "00"));
+                    startPayment(("" + (new DecimalFormat("#").format(Double.parseDouble(service_charge))) + "00"));
                 }
             }
         });
@@ -769,7 +793,7 @@ public class Vender_RegistrationActivity extends AppCompatActivity implements Te
         }
     }
 
-    public void startPayment(double Charge) {
+    public void startPayment(String Charge) {
         /*
           You need to pass current activity in order to let Razorpay create CheckoutActivity
          */
@@ -807,4 +831,74 @@ public class Vender_RegistrationActivity extends AppCompatActivity implements Te
     public void onPaymentError(int i, String s) {
 
     }
+
+    private void RegisterCallwithoutImage() {
+        if (NetworkUtil.isNetworkAvailable(Vender_RegistrationActivity.this)) {
+            final Dialog materialDialog = ErrorMessage.initProgressDialog(Vender_RegistrationActivity.this);
+            File file = new File(selectedImagePath);
+            final RequestBody requestfile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            MultipartBody.Part body = MultipartBody.Part.createFormData("id_proof", file.getName(), requestfile);
+            LoadInterface apiService = AppConfig.getClient().create(LoadInterface.class);
+            Call<ResponseBody> call = apiService.register_vendor_without_image(userNameEt.getText().toString(), mobileNumberEt.getText().toString().trim(), Selected_State, Selected_district, tehsilEtv.getText().toString(), Select_City, addressEtv.getText().toString(), pincodeEtv.getText().toString(), passwordEtv.getText().toString(), service_idsList);
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.isSuccessful()) {
+                        JSONObject object = null;
+                        try {
+                            object = new JSONObject(response.body().string());
+                            ErrorMessage.E("=======Register code:" + object.toString());
+                            if (object.getString("status").equals("200")) {
+                                String responseData = response.body().string();
+                                ErrorMessage.T(Vender_RegistrationActivity.this, object.getString("message"));
+                                JSONObject jsonObject1 = object.getJSONObject("result");
+                                UserProfileModel userProfileModel = new UserProfileModel();
+                                userProfileModel.setDisplayName(jsonObject1.getString("fullname"));
+                                userProfileModel.setUid(jsonObject1.getString("token"));
+                                userProfileModel.setProvider(jsonObject1.getString("district"));
+                                userProfileModel.setEmaiiId(jsonObject1.getString("state"));
+                                userProfileModel.setProfile_pic(jsonObject1.getString("city"));
+                                userProfileModel.setUserPhone(jsonObject1.getString("contact"));
+                                userProfileModel.setProfile_pic("");
+                                userProfileModel.setUserVenderCode(jsonObject1.getString("vendor_code"));
+                                userProfileModel.setUserType("Vender");
+                                SavedData.savePayment_Status(jsonObject1.getString("status"));
+                                SavedData.saveService_Charge(String.valueOf(Double.parseDouble(jsonObject1.getString("service_charge")) * service_idsList.size()));
+                                UserProfileHelper.getInstance().insertUserProfileModel(userProfileModel);
+                                Confirmation_PopUP(String.valueOf(Double.parseDouble(jsonObject1.getString("service_charge")) * service_idsList.size()));
+                                //ErrorMessage.I(Vender_RegistrationActivity.this, VerifyDocumentActivity.class, null);
+
+                                materialDialog.dismiss();
+                            } else {
+                                materialDialog.dismiss();
+                                ErrorMessage.T(Vender_RegistrationActivity.this, object.getString("message"));
+                            }
+                        } catch (JSONException e) {
+                            materialDialog.dismiss();
+                            e.printStackTrace();
+                            ErrorMessage.E("========json Ex  :" + e.getMessage());
+                            System.out.println("========json Ex  :" + e.toString());
+                        } catch (Exception e) {
+                            materialDialog.dismiss();
+                            e.printStackTrace();
+                            ErrorMessage.E("========io Ex  :" + e);
+                        }
+                    } else {
+                        Log.e("response fail", "response fail");
+                        materialDialog.dismiss();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    t.printStackTrace();
+                    ErrorMessage.E("error on failure" + t);
+                    materialDialog.dismiss();
+                }
+            });
+        } else {
+            ErrorMessage.T(Vender_RegistrationActivity.this, "No Internet");
+        }
+    }
+
 }

@@ -16,10 +16,8 @@ import com.google.gson.Gson;
 import com.pixelmarketo.nrh.BaseActivity;
 import com.pixelmarketo.nrh.R;
 import com.pixelmarketo.nrh.adapter.Vender_list_Adapter;
-import com.pixelmarketo.nrh.adapter.vender.NewService_adapter;
 import com.pixelmarketo.nrh.database.UserProfileHelper;
 import com.pixelmarketo.nrh.models.vender.service.Example;
-import com.pixelmarketo.nrh.models.vender.service.Result;
 import com.pixelmarketo.nrh.utility.AppConfig;
 import com.pixelmarketo.nrh.utility.ErrorMessage;
 import com.pixelmarketo.nrh.utility.LoadInterface;
@@ -29,7 +27,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,7 +45,9 @@ public class HistoryServiceActivity extends BaseActivity {
     @BindView(R.id.select_subservice_spinner)
     Spinner selectSubserviceSpinner;
     Example example;
-    public String Service="",Rejected_id="";
+    public String Service = "", Rejected_id = "";
+    @BindView(R.id.no_data_found_tv)
+    TextView noDataFoundTv;
 
     @Override
     protected int getContentResId() {
@@ -61,7 +60,6 @@ public class HistoryServiceActivity extends BaseActivity {
         setToolbarWithBackButton("History");
         ButterKnife.bind(this);
         getPendingBidList();
-
     }
 
     private void getPendingBidList() {
@@ -82,7 +80,7 @@ public class HistoryServiceActivity extends BaseActivity {
                             ErrorMessage.E("getAllOrders  response" + object.toString());
                             if (object.getString("status").equals("200")) {
                                 String Allresponse = object.toString();
-                                 example = gson.fromJson(Allresponse, Example.class);
+                                example = gson.fromJson(Allresponse, Example.class);
                                 if (example.getResult().size() > 0) {
                                     for (int i = 0; i < example.getResult().size(); i++) {
                                         stringArrayList.add(example.getResult().get(i).getService());
@@ -95,12 +93,12 @@ public class HistoryServiceActivity extends BaseActivity {
                                         @Override
                                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                             Service = example.getResult().get(position).getId();
+                                            ErrorMessage.E("Service_id" + Service);
                                             getVenderList(example.getResult().get(position).getId());
                                         }
 
                                         @Override
                                         public void onNothingSelected(AdapterView<?> parent) {
-
                                         }
                                     });
                                 }
@@ -130,16 +128,18 @@ public class HistoryServiceActivity extends BaseActivity {
             ErrorMessage.T(HistoryServiceActivity.this, "Internet Not Found! ");
         }
     }
-    public void Accepted_bid(String service_id,String rejected_id){
-        Rejected_id=rejected_id;
+
+    public void Accepted_bid(String service_id, String rejected_id) {
+        Rejected_id = rejected_id;
         getVenderList(service_id);
     }
+
     private void getVenderList(String service_id) {
         if (NetworkUtil.isNetworkAvailable(HistoryServiceActivity.this)) {
             final Dialog materialDialog = ErrorMessage.initProgressDialog(HistoryServiceActivity.this);
-            ErrorMessage.E("request_by_vendor_id>>" + UserProfileHelper.getInstance().getUserProfileModel().get(0).getUid()+">>"+service_id);
+            ErrorMessage.E("request_by_vendor_id>>" + UserProfileHelper.getInstance().getUserProfileModel().get(0).getUid() + ">>" + service_id);
             LoadInterface apiService = AppConfig.getClient().create(LoadInterface.class);
-            Call<ResponseBody> call = apiService.service_bid(UserProfileHelper.getInstance().getUserProfileModel().get(0).getUid(),service_id);
+            Call<ResponseBody> call = apiService.service_bid(UserProfileHelper.getInstance().getUserProfileModel().get(0).getUid(), service_id);
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -155,25 +155,31 @@ public class HistoryServiceActivity extends BaseActivity {
                                 com.pixelmarketo.nrh.models.VenderList_models.Example example = gson.fromJson(Allresponse, com.pixelmarketo.nrh.models.VenderList_models.Example.class);
                                 if (example.getResult().size() > 0) {
                                     venderServiceRc.setVisibility(View.VISIBLE);
+                                    noDataFoundTv.setVisibility(View.GONE);
                                     Collections.reverse(example.getResult());
-                                    Vender_list_Adapter myOrderAdapter = new Vender_list_Adapter(HistoryServiceActivity.this, example.getResult(),Rejected_id);
+                                    Vender_list_Adapter myOrderAdapter = new Vender_list_Adapter(HistoryServiceActivity.this, example.getResult(), Rejected_id);
                                     LinearLayoutManager mLayoutManager = new LinearLayoutManager(HistoryServiceActivity.this, RecyclerView.VERTICAL, false);
                                     venderServiceRc.setLayoutManager(mLayoutManager);
                                     venderServiceRc.setItemAnimator(new DefaultItemAnimator());
                                     venderServiceRc.setAdapter(myOrderAdapter);
                                     myOrderAdapter.notifyDataSetChanged();
-                                }else {
+                                } else {
                                     venderServiceRc.setVisibility(View.GONE);
+                                    noDataFoundTv.setVisibility(View.VISIBLE);
                                     ErrorMessage.T(HistoryServiceActivity.this, "No Data Found!");
                                 }
                             } else {
                                 ErrorMessage.T(HistoryServiceActivity.this, object.getString("message"));
+                                venderServiceRc.setVisibility(View.GONE);
+                                noDataFoundTv.setVisibility(View.VISIBLE);
                             }
                         } catch (Exception e) {
 
                             e.printStackTrace();
                             materialDialog.dismiss();
                             ErrorMessage.E("Exception" + e.toString());
+                            venderServiceRc.setVisibility(View.GONE);
+                            noDataFoundTv.setVisibility(View.VISIBLE);
                         }
                     }
 

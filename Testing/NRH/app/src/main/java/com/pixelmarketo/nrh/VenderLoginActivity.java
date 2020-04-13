@@ -24,6 +24,8 @@ import com.razorpay.PaymentResultListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -42,12 +44,13 @@ public class VenderLoginActivity extends AppCompatActivity implements PaymentRes
     Button logginBtn;
     @BindView(R.id.register_btn)
     Button registerBtn;
-String tokan="";
+    String tokan="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vender_login);
         ButterKnife.bind(this);
+        Checkout.preload(getApplicationContext());
     }
 
     @OnClick({R.id.loggin_btn, R.id.register_btn})
@@ -104,7 +107,7 @@ String tokan="";
                             } else if (object.getString("status").equals("300")){
                                 ErrorMessage.E("comes in else");
                                 ErrorMessage.T(VenderLoginActivity.this, object.getString("message"));
-                                Confirmation_PopUP(object.getString("service_charge"),object.getString("token"));
+                                Confirmation_PopUP(String.valueOf(Double.parseDouble(object.getString("service_charge"))*Double.parseDouble(object.getString("service_count"))),object.getString("token"));
                             }else {
                                 ErrorMessage.T(VenderLoginActivity.this, object.getString("message"));
                             }
@@ -143,15 +146,19 @@ String tokan="";
         tokan=token;
         submit_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (serviceCharge.contains("0") || serviceCharge.contains("00")) {
+                if (serviceCharge.equals("0") || serviceCharge.equals("00")) {
                     ConfirmPaymentOnServer(token," No Amount");
                 } else {
-                    startPayment(Double.parseDouble(serviceCharge + "00"));
+                    //startPayment(Double.parseDouble(serviceCharge + "00"));
+                    startPayment(("" + (new DecimalFormat("#").format(Double.parseDouble(serviceCharge))) + "00"));
+
                 }
             }
         });
         dialog.show();
     }
+
+
 
     private void ConfirmPaymentOnServer(String token,String transcaion_id) {
         if (NetworkUtil.isNetworkAvailable(VenderLoginActivity.this)) {
@@ -217,7 +224,7 @@ String tokan="";
             ErrorMessage.T(VenderLoginActivity.this, "No Internet");
         }
     }
-    public void startPayment(double Charge) {
+    public void startPayment(String Charge) {
         /*
           You need to pass current activity in order to let Razorpay create CheckoutActivity
          */
@@ -234,13 +241,14 @@ String tokan="";
             options.put("amount", Charge);
 
             JSONObject preFill = new JSONObject();
-            preFill.put("email", "test@razorpay.com");
-            preFill.put("contact", UserProfileHelper.getInstance().getUserProfileModel().get(0).getUserPhone());
+            preFill.put("email", "");
+            preFill.put("contact", "");
 
             options.put("prefill", preFill);
 
             co.open(activity, options);
         } catch (Exception e) {
+            ErrorMessage.E("Charge"+e.toString());
             Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }

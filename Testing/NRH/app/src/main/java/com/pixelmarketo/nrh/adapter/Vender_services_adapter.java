@@ -48,13 +48,13 @@ public class Vender_services_adapter extends RecyclerView.Adapter<Vender_service
         final Result userInfo = arrayList.get(position);
         if (Check.equals("VenderDashboard")) {
             holder.item_name.setTextColor(activity.getResources().getColor(R.color.primary_text));
-        }else {
+        } else {
             holder.item_name.setTextColor(activity.getResources().getColor(R.color.white));
         }
         holder.item_name.setText(userInfo.getServiceName());
 
         Glide.with(activity).load(arrayList.get(position).getServiceImage()).into(holder.item_img);
-
+        final boolean[] is_Exist = {true};
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,8 +62,16 @@ public class Vender_services_adapter extends RecyclerView.Adapter<Vender_service
                     holder.verified_img.setVisibility(View.VISIBLE);
                     ((VenderDashboardActivity) activity).GET_ServiceId(userInfo);
                 } else {
-                    holder.verified_img.setVisibility(View.VISIBLE);
-                    ((Vender_RegistrationActivity) activity).GET_ServiceId(userInfo.getServiceId());
+                    if (is_Exist[0]) {
+                        is_Exist[0] = false;
+                        holder.verified_img.setVisibility(View.VISIBLE);
+                        ((Vender_RegistrationActivity) activity).GET_ServiceId(userInfo.getServiceId());
+                    } else {
+                        is_Exist[0] = true;
+                        holder.verified_img.setVisibility(View.GONE);
+                        ((Vender_RegistrationActivity) activity).remove_item(userInfo.getServiceId());
+                    }
+
                 }
             }
         });
