@@ -3,10 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.numerical.numerical">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -18,21 +14,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.NotificationActivity"></activity>
+        <activity android:name=".activity.ExampleActivity"></activity>
+        <activity android:name=".activity.NotificationActivity" />
         <activity android:name=".activity.StandardViewActivity" />
         <activity android:name=".activity.PregerenceActivity" />
         <activity android:name=".activity.ChangePasswordActivity" />
         <activity android:name=".activity.MyProfileActivity" />
         <activity android:name=".activity.LatestFeedDetailActivity" />
 
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
-
         <activity
             android:name=".activity.DashBoardActivity"
             android:label="@string/title"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".activity.NewPasswordActivity" />
         <activity android:name=".activity.ForgotPasswordActivity" />
         <activity android:name=".activity.SignUpActivity" />
@@ -44,6 +38,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
         <service android:name=".Firebase.MyFirebaseMessagingService">
             <intent-filter>
@@ -56,5 +53,9 @@
             </intent-filter>
         </service>
     </application>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

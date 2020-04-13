@@ -18,7 +18,8 @@ public class SplashActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                ErrorMessage.I_clear(SplashActivity.this, DashBoardActivity.class, null);
+                //ErrorMessage.I_clear(SplashActivity.this, DashBoardActivity.class, null);
+                ErrorMessage.I_clear(SplashActivity.this, ExampleActivity.class, null);
                /* if (UserProfileHelper.getInstance().getUserProfileModel().size() > 0) {
                     ErrorMessage.I_clear(SplashActivity.this, DashBoardActivity.class, null);
                 } else {

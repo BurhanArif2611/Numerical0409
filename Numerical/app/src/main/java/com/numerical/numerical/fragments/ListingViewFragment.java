@@ -211,7 +211,15 @@ public class ListingViewFragment extends Fragment {
         commentTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((LatestFeedDetailActivity)getActivity()).CallCommentScreen(example.getNumerons().get(0).getId());
+
+                //((LatestFeedDetailActivity)getActivity()).CallCommentScreen(example.getNumerons().get(0).getId());
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    Uri data = Uri.parse("mailto:" + "" + "?subject=" + example.getTitle());
+                    intent.setData(data);
+                    startActivity(intent);
+                } catch (Exception e) {
+                }
             }
         });
         return view;
@@ -276,7 +284,8 @@ public class ListingViewFragment extends Fragment {
             } else {
                 ErrorMessage.T(getActivity(), getActivity().getString(R.string.no_internet));
             }
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {

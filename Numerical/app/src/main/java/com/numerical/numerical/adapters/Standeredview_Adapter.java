@@ -208,7 +208,14 @@ public class Standeredview_Adapter extends PagerAdapter {
         commentTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((LatestFeedDetailActivity) context).CallCommentScreen(numeronList.get(position).getId());
+                //((LatestFeedDetailActivity) context).CallCommentScreen(numeronList.get(position).getId());
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    Uri data = Uri.parse("mailto:" + "" + "?subject=" +  numeronList.get(position).getTitle());
+                    intent.setData(data);
+                    context.startActivity(intent);
+                } catch (Exception e) {
+                }
             }
         });
         return views;

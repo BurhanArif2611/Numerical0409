@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:drawableLeft="@drawable/ic_comment"
+                android:drawableLeft="@drawable/ic_email_address"
                 android:drawablePadding="@dimen/_5sdp"
                 android:gravity="center"
                 android:text="120"

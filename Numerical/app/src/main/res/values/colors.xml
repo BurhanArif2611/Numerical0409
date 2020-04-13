@@ -22,4 +22,18 @@
     <color name="panel_positive">#4F54DD</color>
     <color name="panel_royal">#C441BB</color>
     <color name="panel_happy">#3c763d</color>
+
+    <array name="array_dot_active">
+        <item>@color/panel_angry</item>
+        <item>@color/panel_angry</item>
+        <item>@color/panel_angry</item>
+        <item>@color/panel_angry</item>
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>@color/weblink</item>
+        <item>@color/weblink</item>
+        <item>@color/weblink</item>
+        <item>@color/weblink</item>
+    </array>
 </resources>
