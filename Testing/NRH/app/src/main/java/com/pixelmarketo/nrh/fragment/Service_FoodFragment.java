@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -32,7 +33,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.pixelmarketo.nrh.R;
-import com.pixelmarketo.nrh.ServiceForms.TentActivity;
+import com.pixelmarketo.nrh.activity.FullWindowActivity;
 import com.pixelmarketo.nrh.adapter.UploadImage_Adapter;
 import com.pixelmarketo.nrh.database.UserProfileHelper;
 import com.pixelmarketo.nrh.models.SelectImage;
@@ -89,6 +90,10 @@ public class Service_FoodFragment extends Fragment implements DatePickerDialog.O
     LinearLayout selectImageLayout;
     @BindView(R.id.submit_btn)
     Button submitBtn;
+    @BindView(R.id.example_img)
+    ImageView exampleImg;
+    @BindView(R.id.example_layout)
+    LinearLayout exampleLayout;
     private Calendar calendar;
     String DatePickerCall = "";
     private String selectedFilePath;
@@ -101,6 +106,7 @@ public class Service_FoodFragment extends Fragment implements DatePickerDialog.O
     ArrayList<SelectImage> stringArrayList = new ArrayList<>();
     Unbinder unbinder;
     private Result result;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -110,6 +116,16 @@ public class Service_FoodFragment extends Fragment implements DatePickerDialog.O
         if (bundle != null) {
             result = (Result) bundle.getSerializable("result");
         }
+        exampleLayout.setVisibility(View.VISIBLE);
+        exampleImg.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.caters));
+        exampleImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle1 = new Bundle();
+                bundle1.putString("Check", "Cater");
+                ErrorMessage.I(getActivity(), FullWindowActivity.class, bundle1);
+            }
+        });
         return view;
     }
 
@@ -305,11 +321,13 @@ public class Service_FoodFragment extends Fragment implements DatePickerDialog.O
         Log.e("setMinDate", " == " + calendar.toString());
         datePickerDialog.show(getActivity().getFragmentManager(), "Date Picker");
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }
+
     private void submitReportApi() {
         MultipartBody.Part[] surveyImagesParts = new MultipartBody.Part[stringArrayList.size()];
         ErrorMessage.E("Tokan" + UserProfileHelper.getInstance().getUserProfileModel().get(0).getUid());

@@ -1,6 +1,5 @@
 package com.pixelmarketo.nrh.ServiceForms;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -26,9 +25,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +42,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.pixelmarketo.nrh.BaseActivity;
 import com.pixelmarketo.nrh.R;
+import com.pixelmarketo.nrh.activity.FullWindowActivity;
 import com.pixelmarketo.nrh.adapter.UploadImage_Adapter;
 import com.pixelmarketo.nrh.database.UserProfileHelper;
 import com.pixelmarketo.nrh.models.SelectImage;
@@ -139,6 +138,10 @@ public class TentActivity extends BaseActivity implements DatePickerDialog.OnDat
     CheckBox carCheckbox;
     @BindView(R.id.decoration_type_layout)
     LinearLayout decorationTypeLayout;
+    @BindView(R.id.example_img)
+    ImageView exampleImg;
+    @BindView(R.id.example_layout)
+    LinearLayout exampleLayout;
     private Calendar calendar;
     String DatePickerCall = "";
     private String selectedFilePath;
@@ -183,6 +186,8 @@ public class TentActivity extends BaseActivity implements DatePickerDialog.OnDat
                 endDateInputlayout.setVisibility(View.GONE);
             } else if (result.getServiceName().toLowerCase().contains("tent")) {
                 startDateEtv.setHint("Starting Date");
+                exampleLayout.setVisibility(View.VISIBLE);
+                exampleImg.setImageDrawable(getResources().getDrawable(R.drawable.tent));
             } else if (result.getServiceName().toLowerCase().contains("decoration")) {
                 startDateEtv.setHint("Event Date");
                 imageLayout.setVisibility(View.GONE);
@@ -191,6 +196,8 @@ public class TentActivity extends BaseActivity implements DatePickerDialog.OnDat
                 decorationTypeLayout.setVisibility(View.VISIBLE);
             } else if (result.getServiceName().toLowerCase().contains("lights")) {
                 startDateEtv.setHint("Starting Date");
+                exampleLayout.setVisibility(View.VISIBLE);
+                exampleImg.setImageDrawable(getResources().getDrawable(R.drawable.light));
             } else if (result.getServiceName().toLowerCase().contains("dhol")) {
                 imageLayout.setVisibility(View.GONE);
                 endDateInputlayout.setVisibility(View.GONE);
@@ -230,6 +237,8 @@ public class TentActivity extends BaseActivity implements DatePickerDialog.OnDat
                 noOfFoodInputlayout.setVisibility(View.VISIBLE);
                 startDateEtv.setHint("Event Date");
                 noOfDholEtv.setHint("No.of Guest");
+                exampleLayout.setVisibility(View.VISIBLE);
+                exampleImg.setImageDrawable(getResources().getDrawable(R.drawable.halwai));
             }
         }
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -241,34 +250,35 @@ public class TentActivity extends BaseActivity implements DatePickerDialog.OnDat
         radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    if (select_singer_type.equals("")){
-                        select_singer_type="Singer";
-                    }else {
-                        select_singer_type=select_singer_type+"Singer";
+                if (isChecked) {
+                    if (select_singer_type.equals("")) {
+                        select_singer_type = "Singer";
+                    } else {
+                        select_singer_type = select_singer_type + "Singer";
                     }
-                }else {
-                    if (select_singer_type.equals("")){
-                        select_singer_type="";
-                    }else {
-                        select_singer_type="Dancer";
+                } else {
+                    if (select_singer_type.equals("")) {
+                        select_singer_type = "";
+                    } else {
+                        select_singer_type = "Dancer";
                     }
                 }
             }
-        });radioButton2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        });
+        radioButton2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    if (select_singer_type.equals("")){
-                        select_singer_type="Dancer";
-                    }else {
-                        select_singer_type=select_singer_type+"Dancer";
+                if (isChecked) {
+                    if (select_singer_type.equals("")) {
+                        select_singer_type = "Dancer";
+                    } else {
+                        select_singer_type = select_singer_type + "Dancer";
                     }
-                }else {
-                    if (select_singer_type.equals("")){
-                        select_singer_type="";
-                    }else {
-                        select_singer_type="Singer";
+                } else {
+                    if (select_singer_type.equals("")) {
+                        select_singer_type = "";
+                    } else {
+                        select_singer_type = "Singer";
                     }
                 }
             }
@@ -279,8 +289,8 @@ public class TentActivity extends BaseActivity implements DatePickerDialog.OnDat
                 if (isChecked) {
                     if (Decoration_type.equals("")) {
                         Decoration_type = "Flower";
-                    }else {
-                        Decoration_type=Decoration_type+"Flower";
+                    } else {
+                        Decoration_type = Decoration_type + "Flower";
                     }
                 }
             }
@@ -291,21 +301,30 @@ public class TentActivity extends BaseActivity implements DatePickerDialog.OnDat
                 if (isChecked) {
                     if (Decoration_type.equals("")) {
                         Decoration_type = "Statue";
-                    }else {
-                        Decoration_type=Decoration_type+"Statue";
+                    } else {
+                        Decoration_type = Decoration_type + "Statue";
                     }
                 }
             }
-        }); carCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        });
+        carCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     if (Decoration_type.equals("")) {
                         Decoration_type = "Car";
-                    }else {
-                        Decoration_type=Decoration_type+"Car";
+                    } else {
+                        Decoration_type = Decoration_type + "Car";
                     }
                 }
+            }
+        });
+        exampleImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle1 = new Bundle();
+                bundle1.putString("Check", result.getServiceName().toLowerCase());
+                ErrorMessage.I(TentActivity.this, FullWindowActivity.class, bundle1);
             }
         });
     }
@@ -546,7 +565,7 @@ public class TentActivity extends BaseActivity implements DatePickerDialog.OnDat
     private void submitReportApi_band() {
         if (NetworkUtil.isNetworkAvailable(TentActivity.this)) {
             final Dialog materialDialog = ErrorMessage.initProgressDialog(TentActivity.this);
-            Call<ResponseBody> call = AppConfig.getLoadInterface().service_request_WithoutImage(UserProfileHelper.getInstance().getUserProfileModel().get(0).getUid(), result.getServiceId(), subservice_id, eventNameEtv.getText().toString(), startDateEtv.getText().toString(), cityVillageEtv.getText().toString(), tehsilEtv.getText().toString(), no_of_dhol, no_of_water_cane, select_singer_type, no_of_guest, no_of_food_item,Decoration_type);
+            Call<ResponseBody> call = AppConfig.getLoadInterface().service_request_WithoutImage(UserProfileHelper.getInstance().getUserProfileModel().get(0).getUid(), result.getServiceId(), subservice_id, eventNameEtv.getText().toString(), startDateEtv.getText().toString(), cityVillageEtv.getText().toString(), tehsilEtv.getText().toString(), no_of_dhol, no_of_water_cane, select_singer_type, no_of_guest, no_of_food_item, Decoration_type);
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -1011,4 +1030,6 @@ public class TentActivity extends BaseActivity implements DatePickerDialog.OnDat
         return uriSting;
 
     }
+
+
 }

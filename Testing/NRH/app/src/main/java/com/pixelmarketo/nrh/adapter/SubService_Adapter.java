@@ -18,6 +18,7 @@ import com.pixelmarketo.nrh.ServiceForms.Caters;
 import com.pixelmarketo.nrh.ServiceForms.TentActivity;
 import com.pixelmarketo.nrh.ServiceForms.VideoGrapherActivity;
 import com.pixelmarketo.nrh.TypesOfServiceActivity;
+import com.pixelmarketo.nrh.activity.user.CantensActivity;
 import com.pixelmarketo.nrh.models.Service_Models.Result;
 import com.pixelmarketo.nrh.models.Service_Models.Subservice;
 import com.pixelmarketo.nrh.utility.ErrorMessage;
@@ -107,7 +108,13 @@ public class SubService_Adapter extends RecyclerView.Adapter<SubService_Adapter.
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("AllData", userInfo);
                     ErrorMessage.I(activity, VideoGrapherActivity.class, bundle);
-                } else {
+                }
+                else if (result.getServiceName().toLowerCase().contains("traveller")) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("AllData", result);
+                    ErrorMessage.I(activity, CantensActivity.class, bundle);
+                }
+                else {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("AllData", result);
                     bundle.putSerializable("SubService", userInfo);

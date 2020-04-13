@@ -100,12 +100,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="shokinvishnulalpatidar4545\n@gmail.com"
+                    android:text="nrseventhelper@gmail.com"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_size_20" />
-
-
-
 
 
             </LinearLayout>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/stock_cash_etv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/ic_tick_grey"
+        android:drawablePadding="@dimen/_5sdp"
+        android:hint="@string/stock_cash"
+        android:textSize="@dimen/text_size_18"
+        android:layout_margin="@dimen/_10sdp"
+        android:textColor="@color/gray"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="@dimen/_5sdp"
+        android:background="@color/gray" />
+</LinearLayout>

@@ -15,6 +15,12 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.widget.Toast;
 
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.model.UpdateAvailability;
+import com.google.android.play.core.tasks.OnSuccessListener;
+import com.google.android.play.core.tasks.Task;
 import com.pixelmarketo.nrh.database.UserProfileHelper;
 import com.pixelmarketo.nrh.utility.ErrorMessage;
 import com.pixelmarketo.nrh.utility.SavedData;
@@ -24,25 +30,59 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.google.android.play.core.install.model.AppUpdateType.IMMEDIATE;
+
 public class SplashActivity extends AppCompatActivity {
     final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
-
+    final int MY_REQUEST_CODE = 1000;
+    AppUpdateManager appUpdateManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (Build.VERSION.SDK_INT >= 23) {
-                    permissioncheck();
-                } else {
-                    LaunchApp();
+        appUpdateManager = AppUpdateManagerFactory.create(this);
 
+// Returns an intent object that you use to check for an update.
+        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
+
+// Checks that the platform will allow the specified type of update.
+        appUpdateInfoTask.addOnSuccessListener(new OnSuccessListener<AppUpdateInfo>() {
+            @Override
+            public void onSuccess(AppUpdateInfo appUpdateInfo) {
+                if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                        // For a flexible update, use AppUpdateType.FLEXIBLE
+                        && appUpdateInfo.isUpdateTypeAllowed(IMMEDIATE)) {
+                    // Request the update.
+                    try {
+                        appUpdateManager.startUpdateFlowForResult(
+                                // Pass the intent that is returned by 'getAppUpdateInfo()'.
+                                appUpdateInfo,
+                                // Or 'AppUpdateType.FLEXIBLE' for flexible updates.
+                                IMMEDIATE,
+                                // The current activity making the update request.
+                                SplashActivity.this,
+                                // Include a request code to later monitor this update request.
+                                MY_REQUEST_CODE);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (Build.VERSION.SDK_INT >= 23) {
+                                permissioncheck();
+                            } else {
+                                LaunchApp();
+
+                            }
+                        }
+                    }, 4000);
                 }
             }
-        }, 4000);
+        });
+
     }
 
     private void permissioncheck() {
@@ -211,5 +251,24 @@ public class SplashActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         LaunchApp();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        appUpdateManager.getAppUpdateInfo().addOnSuccessListener(new OnSuccessListener<AppUpdateInfo>() {
+            @Override
+            public void onSuccess(AppUpdateInfo appUpdateInfo) {
+
+                if (appUpdateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
+                    // If an in-app update is already running, resume the update.
+                    try {
+                        appUpdateManager.startUpdateFlowForResult(appUpdateInfo, IMMEDIATE, SplashActivity.this, MY_REQUEST_CODE);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 }

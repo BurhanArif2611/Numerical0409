@@ -49,7 +49,7 @@ public class ContactUsActivity extends BaseActivity {
                 try {
                     Intent intent = new Intent(Intent.ACTION_SEND);
                     intent.setType("text/html");
-                    intent.putExtra(Intent.EXTRA_EMAIL, "shokinvishnulalpatidar4545@gmail.com");
+                    intent.putExtra(Intent.EXTRA_EMAIL, "nrseventhelper@gmail.com");
                     intent.putExtra(Intent.EXTRA_SUBJECT, "NRS Support ");
                     startActivity(Intent.createChooser(intent, "Send Email"));
                 } catch (Exception e) {

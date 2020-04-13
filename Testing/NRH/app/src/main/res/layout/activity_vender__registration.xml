@@ -293,6 +293,7 @@
                 android:layout_gravity="start"
                 android:textSize="@dimen/text_size_18"
                 android:layout_marginTop="@dimen/_5sdp"
+                android:buttonTint="@color/white"
                 android:id="@+id/terms_condition_checkbox"/>
             <Button
                 android:id="@+id/register_btn"
